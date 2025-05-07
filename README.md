@@ -11,7 +11,7 @@ Para iniciar el proyecto en tu entorno local, sigue estos pasos:
 1. Clona el repositorio:
 
 ```sh
-git clone https://github.com/byronnDev/porfolio-dev.git
+git clone https://github.com/mikeldev0/porfolio-dev.git
 ```
 
 2. Instala las dependencias:
