@@ -260,7 +260,7 @@ async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
 let PROYECTS: Proyect[] = STATIC_PROYECTS;
 
 try {
-    const githubProyects = await fetchPinnedRepos('byronnDev');
+    const githubProyects = await fetchPinnedRepos('mikeldev0');
     if (githubProyects && githubProyects.length > 0) {
         PROYECTS = githubProyects;
     }
