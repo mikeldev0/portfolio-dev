@@ -37,39 +37,30 @@ import myPhoto from "/public/photo.webp";
 			<div
 				class="flex flex-col lg:flex-row gap-x-4 items-center sm:items-start"
 			>
-				<h1
-					class="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left lg:mt-9"
-				>
-					Hola! soy <TextAnimatedGradient fontSize="inherit"
-						>Mikel</TextAnimatedGradient
-					>
-				</h1>
+                                <h1
+                                        class="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left lg:mt-9"
+                                >
+                                        <span data-i18n="hero.hello">Hola! soy</span>
+                                        <TextAnimatedGradient fontSize="inherit"
+                                                >Mikel</TextAnimatedGradient
+                                        >
+                                </h1>
 				<a
 					href="https://www.linkedin.com/in/mikel-echeverria"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="lg:mt-11"
-				>
-					<Badge>Disponible para trabajar</Badge>
-				</a>
+                                        class="lg:mt-11"
+                                >
+                                        <Badge data-i18n="badge.available">Disponible para trabajar</Badge>
+                                </a>
 			</div>
 		</div>
 
-		<h2
-			class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left"
-		>
-			<span class="opacity-80"
-				>Desarrollador</span> Backend <span class="opacity-80">y</span> Full Stack <span class="opacity-80">en Pamplona, España 🇪🇸. Apasionado por la
-				tecnología,</span
-			> innovación
-			<span class="opacity-80">y el</span> diseño
-			<span class="opacity-80"
-				>. Comprometido en crear experiencias
-			</span>
-			excepcionales
-			<span class="opacity-80">y soluciones </span>
-			creativas.
-		</h2>
+                <h2
+                        class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left"
+                >
+                        <span data-i18n="hero.description">Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, innovación y el diseño. Comprometido en crear experiencias excepcionales y soluciones creativas.</span>
+                </h2>
 
 		<ul class="flex flex-wrap justify-center sm:justify-start gap-4 mt-8">
 			<li>
@@ -110,26 +101,26 @@ import myPhoto from "/public/photo.webp";
 	</SectionContainer>
 
 	<SectionContainer class="py-16 sm:py-32">
-		<h2 id="experiencia" class="text-2xl font-bold mb-6 flex gap-x-2">
-			<BriefcaseIcon class="size-7" />
-			Experiencia laboral
-		</h2>
+                <h2 id="experiencia" class="text-2xl font-bold mb-6 flex gap-x-2" data-i18n="section.experience">
+                        <BriefcaseIcon class="size-7" />
+                        Experiencia laboral
+                </h2>
 		<Experiences />
 	</SectionContainer>
 
 	<SectionContainer class="py-16 sm:py-32 lg:py-44">
-		<h2 id="proyectos" class="text-2xl font-bold mb-6 flex gap-x-2">
-			<Code class="size-7" />
-			Proyectos
-		</h2>
+                <h2 id="proyectos" class="text-2xl font-bold mb-6 flex gap-x-2" data-i18n="section.projects">
+                        <Code class="size-7" />
+                        Proyectos
+                </h2>
 		<Proyects />
 	</SectionContainer>
 
 	<SectionContainer>
-		<h2 id="sobre-mi" class="text-2xl font-bold mb-6 flex gap-x-2">
-			<ProfileCheck class="size-7" />
-			Sobre mí
-		</h2>
+                <h2 id="sobre-mi" class="text-2xl font-bold mb-6 flex gap-x-2" data-i18n="section.about">
+                        <ProfileCheck class="size-7" />
+                        Sobre mí
+                </h2>
 		<AboutMe />
 	</SectionContainer>
 

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "experience": "Expérience",
+    "projects": "Projets",
+    "about": "Sur moi",
+    "contact": "Contact"
+  },
+  "badge": {
+    "available": "Disponible pour travailler"
+  },
+  "hero": {
+    "hello": "Bonjour ! Je suis",
+    "description": "Backend et développeur complet à Pampelune, Espagne 🇪🇸. Passionné par la technologie, l'innovation et le design. Engagé à créer des expériences exceptionnelles et des solutions créatives."
+  },
+  "section": {
+    "experience": "Expérience de travail",
+    "projects": "Projets",
+    "about": "Sur moi"
+  },
+  "about": {
+    "content": "Je suis <strong> Mikel Echeverria </strong>, un <strong> développeur de pile complet </strong> et <strong> backend </strong> avec des compétences éminentes dans la résolution de problèmes <strong>, le travail d'équipe et la communication efficace </strong>. J'ai une profonde passion pour l'intelligence artificielle <strong> </strong> et les modèles génératifs <strong> </strong>, les domaines dans lesquels j'ai des connaissances approfondies et pour lesquelles j'ai développé des projets personnels. Mon expérience dans ces technologies me permet de fournir des solutions innovantes qui optimisent les processus et améliorent l'efficacité. De plus, je reste constamment en apprenant à être à jour avec les dernières tendances technologiques et contribue donc positivement à des projets difficiles tels que <strong> développeur frontend </strong> et <strong> backend </strong>."
+  },
+  "experience": {
+    "moreInfo": "Plus d'informations",
+    "codetec": {
+      "date": "Janvier 2025 - News",
+      "title": "Développeur de pile complet | Codetec Servicios Informecos sl",
+      "description": "En tant que développeur complet de la pile dans Codetec, travaillez dans le développement et la maintenance des solutions commerciales, spécialisés dans les systèmes de gestion, de comptabilité, de facturation et de logistique. J'utilise des technologies modernes telles que Vue.js, Ionic, Angular et Node.js pour créer des applications Web et mobiles efficaces qui améliorent les processus commerciaux de nos clients. Mon travail couvre à la fois le développement de la frontière et du backend, mettant en œuvre des solutions personnalisées avec des frameworks modernes et des bases de données SQL / NOSQL qui s'adaptent aux besoins spécifiques de chaque entreprise."
+    },
+    "tesicnor_backend": {
+      "date": "Août 2024 - octobre 2024",
+      "title": "Développeur backend | Tesicnor Sl, Noain, Navarra",
+      "description": "En tant que développeur backend, travaillez dans la conception et le développement d'applications Web utilisant Spring Boot pour le backend en plus d'utiliser des technologies telles que JSF, GIT, Maven, MySQL, entre autres. De plus, j'ai acquis une expérience dans le développement complet de la pile, en mettant l'accent sur les bases de données backend et relationnelles."
+    },
+    "camp": {
+      "date": "Été 2024",
+      "title": "Conseiller du camp | Camp Lonhororn Inks Lake, Texas",
+      "description": "J'ai eu l'occasion d'améliorer considérablement mon niveau anglais grâce à une immersion totale dans un environnement en anglais. J'ai guidé et supervisé des groupes d'enfants dans diverses activités, faisant la promotion d'une atmosphère sûre et positive. De plus, j'ai obtenu le degré de dispositif (sauveteur), ce qui m'a permis de garantir la sécurité dans les activités aquatiques."
+    },
+    "tesicnor_intern": {
+      "date": "Janvier 2024 - mai 2024",
+      "title": "Pratiques Développeur backend | Tesicnor Sl, Noain, Navarra",
+      "description": "En tant que développeur backend, j'ai travaillé sur la conception et le développement d'applications Web en utilisant Spring Boot pour le backend et Angular pour le frontend. De plus, j'ai acquis une expérience pratique dans le développement complet de la pile, en mettant l'accent sur les bases de données backend et relationnelles telles que MySQL."
+    },
+    "burlada": {
+      "date": "Mars 2022 - juin 2022",
+      "title": "Stage dans les pratiques | Conseil municipal de Burlada",
+      "description": "Au cours de mes entraînements dans la ville de Burlada en tant qu'ordinateur, j'ai acquis une expérience dans la résolution de problèmes et le travail d'équipe. J'ai contribué au développement de systèmes informatiques municipaux, à collaborer avec des professionnels et à renforcer ma passion pour l'informatique et le domaine technologique."
+    }
+  },
+  "projectsSection": {
+    "demo": "Démo",
+    "viewDemo": "Voir la démo",
+    "viewOnGitHub": "Voir dans github",
+    "moreProjects": "Voir plus de projets",
+    "githubDescription": "Un référentiel GitHub appelé {{repo}}"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "source": "Code source",
+    "about": "Sur moi",
+    "contact": "Contact"
+  }
+}

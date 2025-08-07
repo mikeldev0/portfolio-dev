@@ -5,21 +5,25 @@ import ThemeToggle from "./ThemeToggle.astro";
 const navItems = [
     {
         title: "Experiencia",
+        key: "nav.experience",
         label: "experiencia",
         url: "/#experiencia",
     },
     {
         title: "Proyectos",
+        key: "nav.projects",
         label: "proyectos",
         url: "/#proyectos",
     },
     {
         title: "Sobre mí",
+        key: "nav.about",
         label: "sobre-mi",
         url: "/#sobre-mi",
     },
     {
         title: "Contacto",
+        key: "nav.contact",
         label: "contacto",
         url: "mailto:mikel@mikeldev.com",
     },
@@ -42,6 +46,7 @@ const navItems = [
                         class="relative block px-2 py-2 transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
                         aria-label={link.label}
                         href={link.url}
+                        data-i18n={link.key}
                     >
                         {link.title}
                     </a>
@@ -50,6 +55,18 @@ const navItems = [
         </div>
         <div class="ml-2">
             <ThemeToggle />
+        </div>
+        <div class="ml-2">
+            <select
+                id="language-selector"
+                class="bg-transparent outline-none text-xs md:text-sm"
+            >
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+            </select>
         </div>
     </nav>
 

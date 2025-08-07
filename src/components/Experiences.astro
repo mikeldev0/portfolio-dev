@@ -2,54 +2,61 @@
 import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCES = [
-    {
-        date: "Enero 2025 - Actualidad",
-        title: "Desarrollador Full Stack | Codetec Servicios Informaticos SL",
-        description: `Como Desarrollador Full Stack en Codetec, trabajo en el desarrollo y mantenimiento de soluciones empresariales, especializándome en sistemas de gestión, contabilidad, facturación y logística. Utilizo tecnologías modernas como Vue.js, Ionic, Angular y Node.js para crear aplicaciones web y móviles eficientes que mejoran los procesos de negocio de nuestros clientes. Mi trabajo abarca tanto el desarrollo frontend como backend, implementando soluciones personalizadas con frameworks modernos y bases de datos SQL/NoSQL que se adaptan a las necesidades específicas de cada empresa.`,
-        link: "https://www.codetec.es/",
-        isFirst: true,
-    },
-    {
-        date: "Agosto 2024 - Octubre 2024",
-        title: "Desarrollador Backend | Tesicnor SL, Noain, Navarra",
-        description: `Como Desarrollador Backend, trabajo en el diseño y desarrollo de aplicaciones web utilizando Spring Boot para el backend además de utilizar tecnologías como JSF, Git, Maven, MySQL, entre otras. Además, he adquirido experiencia en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales.`,
-        link: "https://www.tesicnor.com/",
-    },
-    {
-        date: "Verano 2024",
-        title: "Camp Counselor | Camp Longhorn Inks Lake, Texas",
-        description: `Tuve la oportunidad de mejorar significativamente mi nivel de inglés a través de la
-inmersión total en un entorno de habla inglesa. Guié y supervisé a grupos de niños en
-diversas actividades, fomentando un ambiente seguro y positivo. Además, obtuve la
-titulación de socorrista (lifeguard), lo que me permitió garantizar la seguridad en
-actividades acuáticas.`,
-        link: "https://www.camplonghorn.com/",
-    },
-    {
-        date: "Enero 2024 - Mayo 2024",
-        title: "Desarrollador Backend en Prácticas | Tesicnor SL, Noain, Navarra",
-        description: `
-        Como Desarrollador Backend, trabajé en el diseño y desarrollo de aplicaciones web utilizando Spring Boot para el backend y Angular para el frontend. Además, adquirí experiencia práctica en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales como MySQL.`,
-        link: "https://www.tesicnor.com/",
-    },
-    {
-        date: "Marzo 2022 - Junio 2022",
-        title: "Informático en Prácticas | Ayuntamiento de Burlada",
-        description: `Durante mis prácticas en el Ayuntamiento de Burlada como informático, adquirí
-experiencia en resolución de problemas y trabajo en equipo. Contribuí al desarrollo de
-sistemas informáticos municipales, colaborando con profesionales y fortaleciendo mi
-pasión por la informática y el campo tecnológico.`,
-        link: "https://www.burlada.es/",
-    },
+  {
+    date: "Enero 2025 - Actualidad",
+    dateKey: "experience.codetec.date",
+    title: "Desarrollador Full Stack | Codetec Servicios Informaticos SL",
+    titleKey: "experience.codetec.title",
+    description: `Como Desarrollador Full Stack en Codetec, trabajo en el desarrollo y mantenimiento de soluciones empresariales, especializándome en sistemas de gestión, contabilidad, facturación y logística. Utilizo tecnologías modernas como Vue.js, Ionic, Angular y Node.js para crear aplicaciones web y móviles eficientes que mejoran los procesos de negocio de nuestros clientes. Mi trabajo abarca tanto el desarrollo frontend como backend, implementando soluciones personalizadas con frameworks modernos y bases de datos SQL/NoSQL que se adaptan a las necesidades específicas de cada empresa.`,
+    descriptionKey: "experience.codetec.description",
+    link: "https://www.codetec.es/",
+    isFirst: true,
+  },
+  {
+    date: "Agosto 2024 - Octubre 2024",
+    dateKey: "experience.tesicnor_backend.date",
+    title: "Desarrollador Backend | Tesicnor SL, Noain, Navarra",
+    titleKey: "experience.tesicnor_backend.title",
+    description: `Como Desarrollador Backend, trabajo en el diseño y desarrollo de aplicaciones web utilizando Spring Boot para el backend además de utilizar tecnologías como JSF, Git, Maven, MySQL, entre otras. Además, he adquirido experiencia en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales.`,
+    descriptionKey: "experience.tesicnor_backend.description",
+    link: "https://www.tesicnor.com/",
+  },
+  {
+    date: "Verano 2024",
+    dateKey: "experience.camp.date",
+    title: "Camp Counselor | Camp Longhorn Inks Lake, Texas",
+    titleKey: "experience.camp.title",
+    description: `Tuve la oportunidad de mejorar significativamente mi nivel de inglés a través de la inmersión total en un entorno de habla inglesa. Guié y supervisé a grupos de niños en diversas actividades, fomentando un ambiente seguro y positivo. Además, obtuve la titulación de socorrista (lifeguard), lo que me permitió garantizar la seguridad en actividades acuáticas.`,
+    descriptionKey: "experience.camp.description",
+    link: "https://www.camplonghorn.com/",
+  },
+  {
+    date: "Enero 2024 - Mayo 2024",
+    dateKey: "experience.tesicnor_intern.date",
+    title: "Desarrollador Backend en Prácticas | Tesicnor SL, Noain, Navarra",
+    titleKey: "experience.tesicnor_intern.title",
+    description: `Como Desarrollador Backend, trabajé en el diseño y desarrollo de aplicaciones web utilizando Spring Boot para el backend y Angular para el frontend. Además, adquirí experiencia práctica en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales como MySQL.`,
+    descriptionKey: "experience.tesicnor_intern.description",
+    link: "https://www.tesicnor.com/",
+  },
+  {
+    date: "Marzo 2022 - Junio 2022",
+    dateKey: "experience.burlada.date",
+    title: "Informático en Prácticas | Ayuntamiento de Burlada",
+    titleKey: "experience.burlada.title",
+    description: `Durante mis prácticas en el Ayuntamiento de Burlada como informático, adquirí experiencia en resolución de problemas y trabajo en equipo. Contribuí al desarrollo de sistemas informáticos municipales, colaborando con profesionales y fortaleciendo mi pasión por la informática y el campo tecnológico.`,
+    descriptionKey: "experience.burlada.description",
+    link: "https://www.burlada.es/",
+  },
 ];
 ---
 
 <ol class="relative border-s border-gray-300 dark:border-gray-700">
-    {
-        EXPERIENCES.map((experience) => (
-            <li class="mb-10 ms-4">
-                <ExperienceItem {...experience} />
-            </li>
-        ))
-    }
+  {
+    EXPERIENCES.map((experience) => (
+      <li class="mb-10 ms-4">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
 </ol>
