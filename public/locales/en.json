@@ -25,27 +25,27 @@
     "codetec": {
       "date": "January 2025 - News",
       "title": "Full Stack developer | CODETEC SERVICIOS INFORMICOS SL",
-      "description": "As a Full Stack developer in Codetec, work in the development and maintenance of business solutions, specializing in management, accounting, billing and logistics systems. I use modern technologies such as Vue.js, ionic, angular and node.js to create efficient web and mobile applications that improve our customers' business processes. My work covers both the Border and Backend development, implementing personalized solutions with modern frameworks and SQL/NOSQL databases that adapt to the specific needs of each company."
+      "description": "As a <strong>Full Stack developer</strong> in Codetec, I work in the development and maintenance of <strong>business solutions</strong>, specializing in <strong>management, accounting, billing and logistics systems</strong>. I use modern technologies such as <strong>Vue.js, Ionic, Angular and Node.js</strong> to create efficient web and mobile applications that improve our customers' business processes. My work covers both the frontend and backend development, implementing <strong>personalized solutions</strong> with modern frameworks and SQL/NOSQL databases that adapt to the specific needs of each company."
     },
     "tesicnor_backend": {
       "date": "August 2024 - October 2024",
       "title": "Backend developer | Tesicnor SL, Noain, Navarra",
-      "description": "As a backend developer, work in the design and development of web applications using Spring Boot for the Backend in addition to using technologies such as JSF, Git, Maven, MySQL, among others. In addition, I have acquired experience in Full Stack development, with emphasis on the backend and relational databases."
+      "description": "As a <strong>Backend developer</strong>, I work in the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend as well as technologies such as <strong>JSF, Git, Maven, MySQL</strong>, among others. In addition, I have acquired experience in Full Stack development, with emphasis on the backend and relational databases."
     },
     "camp": {
       "date": "Summer 2024",
       "title": "Camp Counselor | Camp Lonhororn Inks Lake, Texas",
-      "description": "I had the opportunity to significantly improve my English level through total immersion in an English -speaking environment. I guided and supervised groups of children in various activities, promoting a safe and positive atmosphere. In addition, I obtained the Device Degree (Lifeguard), which allowed me to guarantee security in aquatic activities."
+      "description": "I had the opportunity to <strong>significantly improve my English level</strong> through total immersion in an English-speaking environment. I guided and supervised groups of children in various activities, promoting a safe and positive atmosphere. In addition, I obtained the <strong>Lifeguard</strong> degree, which allowed me to guarantee security in aquatic activities."
     },
     "tesicnor_intern": {
       "date": "January 2024 - May 2024",
       "title": "Practices Backend developer | Tesicnor SL, Noain, Navarra",
-      "description": "As a backend developer, I worked on the design and development of web applications using Spring Boot for the Backend and Angular for the Frontend. In addition, I acquired practical experience in Full Stack development, with emphasis on the backend and relational databases such as MySQL."
+      "description": "As a <strong>Backend developer</strong>, I worked on the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend and <strong>Angular</strong> for the frontend. In addition, I acquired practical experience in Full Stack development, with emphasis on the backend and relational databases such as <strong>MySQL</strong>."
     },
     "burlada": {
       "date": "March 2022 - June 2022",
       "title": "Internship in practices | Burlada City Council",
-      "description": "During my practices in the City of Burlada as a computer, I acquired experience in problem solving and teamwork. I contributed to the development of municipal computer systems, collaborating with professionals and strengthening my passion for computer science and the technological field."
+      "description": "During my internship at the <strong>City of Burlada</strong> as a computer scientist, I acquired experience in <strong>problem solving</strong> and <strong>teamwork</strong>. I contributed to the development of municipal computer systems, collaborating with professionals and strengthening my passion for computer science and the technological field."
     }
   },
   "projectsSection": {

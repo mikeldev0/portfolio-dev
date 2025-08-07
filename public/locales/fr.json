@@ -25,27 +25,27 @@
     "codetec": {
       "date": "Janvier 2025 - News",
       "title": "Développeur de pile complet | Codetec Servicios Informecos sl",
-      "description": "En tant que développeur complet de la pile dans Codetec, travaillez dans le développement et la maintenance des solutions commerciales, spécialisés dans les systèmes de gestion, de comptabilité, de facturation et de logistique. J'utilise des technologies modernes telles que Vue.js, Ionic, Angular et Node.js pour créer des applications Web et mobiles efficaces qui améliorent les processus commerciaux de nos clients. Mon travail couvre à la fois le développement de la frontière et du backend, mettant en œuvre des solutions personnalisées avec des frameworks modernes et des bases de données SQL / NOSQL qui s'adaptent aux besoins spécifiques de chaque entreprise."
+      "description": "En tant que <strong>développeur Full Stack</strong> chez Codetec, je travaille au développement et à la maintenance de <strong>solutions d'entreprise</strong>, en me spécialisant dans <strong>la gestion, la comptabilité, la facturation et la logistique</strong>. J'utilise des technologies modernes telles que <strong>Vue.js, Ionic, Angular et Node.js</strong> pour créer des applications web et mobiles efficaces qui améliorent les processus métier de nos clients. Mon travail couvre à la fois le développement frontend et backend, en mettant en œuvre des <strong>solutions personnalisées</strong> avec des frameworks modernes et des bases de données SQL/NoSQL qui s'adaptent aux besoins spécifiques de chaque entreprise."
     },
     "tesicnor_backend": {
       "date": "Août 2024 - octobre 2024",
       "title": "Développeur backend | Tesicnor Sl, Noain, Navarra",
-      "description": "En tant que développeur backend, travaillez dans la conception et le développement d'applications Web utilisant Spring Boot pour le backend en plus d'utiliser des technologies telles que JSF, GIT, Maven, MySQL, entre autres. De plus, j'ai acquis une expérience dans le développement complet de la pile, en mettant l'accent sur les bases de données backend et relationnelles."
+      "description": "En tant que <strong>développeur Backend</strong>, je travaille à la conception et au développement d'<strong>applications web</strong> utilisant <strong>Spring Boot</strong> pour le backend ainsi que des technologies telles que <strong>JSF, Git, Maven, MySQL</strong>, entre autres. De plus, j'ai acquis de l'expérience dans le développement Full Stack, avec un accent sur le backend et les bases de données relationnelles."
     },
     "camp": {
       "date": "Été 2024",
       "title": "Conseiller du camp | Camp Lonhororn Inks Lake, Texas",
-      "description": "J'ai eu l'occasion d'améliorer considérablement mon niveau anglais grâce à une immersion totale dans un environnement en anglais. J'ai guidé et supervisé des groupes d'enfants dans diverses activités, faisant la promotion d'une atmosphère sûre et positive. De plus, j'ai obtenu le degré de dispositif (sauveteur), ce qui m'a permis de garantir la sécurité dans les activités aquatiques."
+      "description": "J'ai eu l'opportunité d'<strong>améliorer considérablement mon niveau d'anglais</strong> grâce à une immersion totale dans un environnement anglophone. J'ai guidé et supervisé des groupes d'enfants dans diverses activités, favorisant une atmosphère sûre et positive. De plus, j'ai obtenu le diplôme de <strong>sauveteur</strong>, ce qui m'a permis de garantir la sécurité lors des activités aquatiques."
     },
     "tesicnor_intern": {
       "date": "Janvier 2024 - mai 2024",
       "title": "Pratiques Développeur backend | Tesicnor Sl, Noain, Navarra",
-      "description": "En tant que développeur backend, j'ai travaillé sur la conception et le développement d'applications Web en utilisant Spring Boot pour le backend et Angular pour le frontend. De plus, j'ai acquis une expérience pratique dans le développement complet de la pile, en mettant l'accent sur les bases de données backend et relationnelles telles que MySQL."
+      "description": "En tant que <strong>développeur Backend</strong>, j'ai travaillé sur la conception et le développement d'<strong>applications web</strong> utilisant <strong>Spring Boot</strong> pour le backend et <strong>Angular</strong> pour le frontend. De plus, j'ai acquis une expérience pratique dans le développement Full Stack, avec un accent sur le backend et les bases de données relationnelles telles que <strong>MySQL</strong>."
     },
     "burlada": {
       "date": "Mars 2022 - juin 2022",
       "title": "Stage dans les pratiques | Conseil municipal de Burlada",
-      "description": "Au cours de mes entraînements dans la ville de Burlada en tant qu'ordinateur, j'ai acquis une expérience dans la résolution de problèmes et le travail d'équipe. J'ai contribué au développement de systèmes informatiques municipaux, à collaborer avec des professionnels et à renforcer ma passion pour l'informatique et le domaine technologique."
+      "description": "Au cours de mon stage à la <strong>mairie de Burlada</strong> en tant qu'informaticien, j'ai acquis de l'expérience en <strong>résolution de problèmes</strong> et en <strong>travail d'équipe</strong>. J'ai contribué au développement de systèmes informatiques municipaux, collaboré avec des professionnels et renforcé ma passion pour l'informatique et le domaine technologique."
     }
   },
   "projectsSection": {

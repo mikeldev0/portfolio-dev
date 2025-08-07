@@ -21,6 +21,7 @@ const { title, description, date, link, isFirst, titleKey, descriptionKey, dateK
 </div>
 <span
     class={`${isFirst ? "text-xl font-bold text-zinc-800 dark:text-zinc-200" : ""} mb-1 text-sm font-normal leading-none text-zinc-700 dark:text-zinc-400`}
+    data-i18n={dateKey}
 >
     {date}
 </span>
@@ -28,7 +29,7 @@ const { title, description, date, link, isFirst, titleKey, descriptionKey, dateK
     {title}
 </h3>
 <p
-    class="mb-4 text-base font-normal text-zinc-700 dark:text-zinc-400 text-pretty"
+    class="mb-4 text-base font-normal text-zinc-700 dark:text-zinc-300 text-pretty"
     data-i18n={descriptionKey}
 >
     {description}
