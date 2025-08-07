@@ -60,5 +60,12 @@
     "source": "Codice sorgente",
     "about": "Su di me",
     "contact": "Contatto"
+  },
+  "languageNames": {
+    "en": "Inglese",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco",
+    "it": "Italiano"
   }
 }

@@ -1,6 +1,7 @@
 ---
 import HomeIcon from "../icons/HomeIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageSelector from "./LanguageSelector.astro";
 
 const navItems = [
     {
@@ -56,32 +57,7 @@ const navItems = [
         <div class="ml-2">
             <ThemeToggle />
         </div>
-        <div class="ml-2 relative">
-            <select
-                id="language-selector"
-                class="appearance-none bg-transparent text-gray-800 dark:text-gray-200 text-xs md:text-sm px-2 py-2 pr-6 rounded-md hover:text-purple-500 dark:hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-            >
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="it">Italiano</option>
-            </select>
-            <svg
-                class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-500 dark:text-gray-300"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-            >
-                <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 8l4 4 4-4"
-                />
-            </svg>
-        </div>
+        <LanguageSelector />
     </nav>
 
     <script>

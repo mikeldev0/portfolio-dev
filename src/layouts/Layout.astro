@@ -12,7 +12,7 @@ const { description, title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -131,6 +131,18 @@ const { description, title } = Astro.props;
 		flex-direction: column;
 		min-height: 100vh;
 		overscroll-behavior: none;
+		position: relative;
+		z-index: 0;
+	}
+	body::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		background: #E5E5E5;
+		z-index: -3;
+	}
+	.dark body::before {
+		background: #0a0a0a;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

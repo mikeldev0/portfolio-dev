@@ -60,5 +60,12 @@
     "source": "Código fuente",
     "about": "Sobre mí",
     "contact": "Contacto"
+  },
+  "languageNames": {
+    "en": "Inglés",
+    "es": "Español",
+    "fr": "Francés",
+    "de": "Alemán",
+    "it": "Italiano"
   }
 }

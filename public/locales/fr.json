@@ -60,5 +60,12 @@
     "source": "Code source",
     "about": "Sur moi",
     "contact": "Contact"
+  },
+  "languageNames": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français",
+    "de": "Allemand",
+    "it": "Italien"
   }
 }

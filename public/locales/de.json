@@ -60,5 +60,12 @@
     "source": "Quellcode",
     "about": "Über mich",
     "contact": "Kontakt"
+  },
+  "languageNames": {
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "it": "Italienisch"
   }
 }
