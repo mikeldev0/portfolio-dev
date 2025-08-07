@@ -24,13 +24,13 @@ import myPhoto from "/public/photo.webp";
 	title="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
 	description="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
 />
-<main class="max-w-[screen-sm] px-4 md:px-8 lg:px-16">
+<main class="max-w-[screen-sm] px-4 md:px-8 lg:px-16  text-gray-900  transition-colors duration-300">
 	<SectionContainer class="py-16 sm:py-32 lg:py-44">
 		<div
 			class="flex flex-col items-center sm:items-start sm:flex-row sm:gap-x-4"
 		>
 			<Image
-				class="rounded-full size-24 sm:size-32 object-cover object-center mb-4 sm:mb-0 lg:mb-4"
+				class="rounded-full size-24 sm:size-32 object-cover object-center mb-4 sm:mb-0 lg:mb-4 border-4 border-gray-200 dark:border-gray-800"
 				src={myPhoto}
 				alt="Mikel Echeverria, Desarrollador Full Stack y Backend"
 			/>
@@ -38,7 +38,7 @@ import myPhoto from "/public/photo.webp";
 				class="flex flex-col lg:flex-row gap-x-4 items-center sm:items-start"
 			>
 				<h1
-					class="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left lg:mt-9"
+					class="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left lg:mt-9 text-gray-900 dark:text-gray-100"
 				>
 					Hola! soy <TextAnimatedGradient fontSize="inherit"
 						>Mikel</TextAnimatedGradient
@@ -56,18 +56,18 @@ import myPhoto from "/public/photo.webp";
 		</div>
 
 		<h2
-			class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left"
+			class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left text-gray-700 dark:text-gray-300"
 		>
-			<span class="opacity-80"
-				>Desarrollador</span> Backend <span class="opacity-80">y</span> Full Stack <span class="opacity-80">en Pamplona, España 🇪🇸. Apasionado por la
-				tecnología,</span
+			<span class="opacity-80 text-gray-700 dark:text-gray-300"
+				>Desarrollador</span> Backend <span class="opacity-80 text-gray-700 dark:text-gray-300">y</span> Full Stack <span class="opacity-80 text-gray-700 dark:text-gray-300">en Pamplona, España 🇪🇸. Apasionado por la
+			tecnología,</span
 			> innovación
-			<span class="opacity-80">y el</span> diseño
-			<span class="opacity-80"
+			<span class="opacity-80 text-gray-700 dark:text-gray-300">y el</span> diseño
+			<span class="opacity-80 text-gray-700 dark:text-gray-300"
 				>. Comprometido en crear experiencias
 			</span>
 			excepcionales
-			<span class="opacity-80">y soluciones </span>
+			<span class="opacity-80 text-gray-700 dark:text-gray-300">y soluciones </span>
 			creativas.
 		</h2>
 
@@ -103,14 +103,14 @@ import myPhoto from "/public/photo.webp";
 					title="Enviar correo a Mikel Echeverria"
 				>
 					<MailIcon class="size-5 sm:size-6" />
-					mikel@mikeldev.com
+					<span class="text-gray-800 dark:text-gray-200">mikel@mikeldev.com</span>
 				</SocialPill>
 			</li>
 		</ul>
 	</SectionContainer>
 
 	<SectionContainer class="py-16 sm:py-32">
-		<h2 id="experiencia" class="text-2xl font-bold mb-6 flex gap-x-2">
+		<h2 id="experiencia" class="text-2xl font-bold mb-6 flex gap-x-2 text-gray-900 dark:text-gray-100">
 			<BriefcaseIcon class="size-7" />
 			Experiencia laboral
 		</h2>
@@ -118,7 +118,7 @@ import myPhoto from "/public/photo.webp";
 	</SectionContainer>
 
 	<SectionContainer class="py-16 sm:py-32 lg:py-44">
-		<h2 id="proyectos" class="text-2xl font-bold mb-6 flex gap-x-2">
+		<h2 id="proyectos" class="text-2xl font-bold mb-6 flex gap-x-2 text-gray-900 dark:text-gray-100">
 			<Code class="size-7" />
 			Proyectos
 		</h2>
@@ -126,7 +126,7 @@ import myPhoto from "/public/photo.webp";
 	</SectionContainer>
 
 	<SectionContainer>
-		<h2 id="sobre-mi" class="text-2xl font-bold mb-6 flex gap-x-2">
+		<h2 id="sobre-mi" class="text-2xl font-bold mb-6 flex gap-x-2 text-gray-900 dark:text-gray-100">
 			<ProfileCheck class="size-7" />
 			Sobre mí
 		</h2>
