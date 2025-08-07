@@ -107,14 +107,18 @@ const navItems = [
 
     <style>
         nav {
-            animation: nav-shadown 1s linear both;
+            animation: nav-shadow 1s linear both;
             animation-timeline: scroll();
             animation-range: 0 100px;
         }
 
-        @keyframes nav-shadown {
+        @keyframes nav-shadow {
             to {
-                @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/70 ring-white/10;
+                box-shadow: 0 10px 32px 0 rgba(31, 41, 55, 0.15);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 9999px;
             }
         }
     </style>
