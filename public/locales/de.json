@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "experience": "Erfahrung",
+    "projects": "Projekte",
+    "about": "Über mich",
+    "contact": "Kontakt"
+  },
+  "badge": {
+    "available": "Verfügbar für die Arbeit"
+  },
+  "hero": {
+    "hello": "Hallo! Ich bin",
+    "description": "Backend und Full Stack Developer in Pamplona, Spanien 🇪🇸. Leidenschaft für Technologie, Innovation und Design. Verpflichtet, außergewöhnliche Erfahrungen und kreative Lösungen zu schaffen."
+  },
+  "section": {
+    "experience": "Berufserfahrung",
+    "projects": "Projekte",
+    "about": "Über mich"
+  },
+  "about": {
+    "content": "Ich bin <strong> mikel echeverria </strong>, ein <strong> voller Stapelentwickler </strong> und <strong> Backend </strong> mit herausragenden Fähigkeiten bei der Lösung von Problemen, der Teamarbeit und der effektiven Kommunikation </strong>. Ich habe eine tiefe Leidenschaft für die <strong> künstliche Intelligenz </strong> und die <strong> generativen Modelle </strong> Bereiche, in denen ich umfangreiches Wissen habe und für die ich persönliche Projekte entwickelt habe. Meine Erfahrung in diesen Technologien ermöglicht es mir, innovative Lösungen bereitzustellen, die Prozesse optimieren und die Effizienz verbessern. Darüber hinaus bleibe ich in ständigem Lernen, um mit den neuesten technologischen Trends auf dem neuesten Stand zu sein und daher positiv zu herausfordernden Projekten wie <strong> Developer Frontend </strong> und <strong> Backend </strong> beizutragen."
+  },
+  "experience": {
+    "moreInfo": "Weitere Informationen",
+    "codetec": {
+      "date": "Januar 2025 - Nachrichten",
+      "title": "Voller Stapelentwickler | Codetec servicios informicos sl",
+      "description": "Als <strong>vollständiger Stapelentwickler</strong> in Codetec arbeite ich an der Entwicklung und Wartung von <strong>Geschäftslösungen</strong>, die sich auf <strong>Management-, Buchhaltungs-, Abrechnungs- und Logistiksysteme</strong> spezialisieren. Ich verwende moderne Technologien wie <strong>Vue.js, Ionic, Angular und Node.js</strong>, um effiziente Web- und mobile Anwendungen zu erstellen, die die Geschäftsprozesse unserer Kunden verbessern. Meine Arbeit deckt sowohl die Frontend- als auch die Backend-Entwicklung ab und implementiert <strong>personalisierte Lösungen</strong> mit modernen Frameworks und SQL/NOSQL-Datenbanken, die sich an die spezifischen Anforderungen jedes Unternehmens anpassen."
+    },
+    "tesicnor_backend": {
+      "date": "August 2024 - Oktober 2024",
+      "title": "Backend -Entwickler | Tesicnor SL, Noain, Navarra",
+      "description": "Als <strong>Backend-Entwickler</strong> arbeite ich in der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> mit <strong>Spring Boot</strong> für das Backend und verwende unter anderem Technologien wie <strong>JSF, Git, Maven, MySQL</strong>. Darüber hinaus habe ich Erfahrungen in der vollständigen Stapelentwicklung gesammelt, wobei ich mich auf das Backend und relationale Datenbanken konzentriert habe."
+    },
+    "camp": {
+      "date": "Sommer 2024",
+      "title": "Camp Counselor | Camp Lonhororn Inks Lake, Texas",
+      "description": "Ich hatte die Möglichkeit, mein <strong>Englisch-Niveau erheblich zu verbessern</strong> durch totales Eintauchen in eine englischsprachige Umgebung. Ich leitete und beaufsichtigte Gruppen von Kindern in verschiedenen Aktivitäten und förderte eine sichere und positive Atmosphäre. Darüber hinaus erhielt ich den Abschluss als <strong>Rettungsschwimmer</strong>, der es mir ermöglichte, die Sicherheit bei aquatischen Aktivitäten zu gewährleisten."
+    },
+    "tesicnor_intern": {
+      "date": "Januar 2024 - Mai 2024",
+      "title": "Praktiziert Backend Developer | Tesicnor SL, Noain, Navarra",
+      "description": "Als <strong>Backend-Entwickler</strong> habe ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> gearbeitet, indem ich <strong>Spring Boot</strong> für das Backend und <strong>Angular</strong> für das Frontend eingesetzt habe. Darüber hinaus habe ich praktische Erfahrungen in der vollständigen Stapelentwicklung gesammelt, wobei der Schwerpunkt auf dem Backend und relationalen Datenbanken wie <strong>MySQL</strong> lag."
+    },
+    "burlada": {
+      "date": "März 2022 - Juni 2022",
+      "title": "Praktikum in Praktiken | Stadtrat von Burlada",
+      "description": "Während meiner Praxis im <strong>Stadtrat von Burlada</strong> als Informatiker sammelte ich Erfahrung in der <strong>Problemlösung</strong> und <strong>Teamarbeit</strong>. Ich trug zur Entwicklung von kommunalen Computersystemen bei, arbeitete mit Fachleuten zusammen und stärkte meine Leidenschaft für Informatik und das technologische Bereich."
+    }
+  },
+  "projectsSection": {
+    "demo": "Demo",
+    "viewDemo": "Siehe Demo",
+    "viewOnGitHub": "Siehe in Github",
+    "moreProjects": "Weitere Projekte sehen",
+    "githubDescription": "Ein Github -Repository namens {{repo}}"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten",
+    "source": "Quellcode",
+    "about": "Über mich",
+    "contact": "Kontakt"
+  },
+  "languageNames": {
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "it": "Italienisch"
+  }
+}

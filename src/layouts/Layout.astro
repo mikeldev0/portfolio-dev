@@ -12,7 +12,7 @@ const { description, title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth">
+<html lang="en" class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -95,11 +95,12 @@ const { description, title } = Astro.props;
 		</script>
 		<title>{title}</title>
 	</head>
-	<body>
-		<Background />
-		<Header />
-		<slot />
-	</body>
+        <body>
+                <Background />
+                <Header />
+                <slot />
+                <script src="/i18n.js" is:inline></script>
+        </body>
 </html>
 <style is:global>
 	:root {

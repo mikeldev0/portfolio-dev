@@ -1,25 +1,30 @@
 ---
 import HomeIcon from "../icons/HomeIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageSelector from "./LanguageSelector.astro";
 
 const navItems = [
     {
         title: "Experiencia",
+        key: "nav.experience",
         label: "experiencia",
         url: "/#experiencia",
     },
     {
         title: "Proyectos",
+        key: "nav.projects",
         label: "proyectos",
         url: "/#proyectos",
     },
     {
         title: "Sobre mí",
+        key: "nav.about",
         label: "sobre-mi",
         url: "/#sobre-mi",
     },
     {
         title: "Contacto",
+        key: "nav.contact",
         label: "contacto",
         url: "mailto:mikel@mikeldev.com",
     },
@@ -30,7 +35,7 @@ const navItems = [
     class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
     <nav
-        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
+        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center"
     >
         <div class="mr-2 hover:scale-125 transition">
             <HomeIcon />
@@ -42,6 +47,7 @@ const navItems = [
                         class="relative block px-2 py-2 transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
                         aria-label={link.label}
                         href={link.url}
+                        data-i18n={link.key}
                     >
                         {link.title}
                     </a>
@@ -51,6 +57,7 @@ const navItems = [
         <div class="ml-2">
             <ThemeToggle />
         </div>
+        <LanguageSelector />
     </nav>
 
     <script>
@@ -100,14 +107,18 @@ const navItems = [
 
     <style>
         nav {
-            animation: nav-shadown 1s linear both;
+            animation: nav-shadow 1s linear both;
             animation-timeline: scroll();
             animation-range: 0 100px;
         }
 
-        @keyframes nav-shadown {
+        @keyframes nav-shadow {
             to {
-                @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/10 ring-white/10;
+                box-shadow: 0 10px 32px 0 rgba(31, 41, 55, 0.15);
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 9999px;
             }
         }
     </style>

@@ -7,9 +7,12 @@ export interface ExperienceItemProps {
     date: string;
     link: string;
     isFirst?: boolean;
+    titleKey?: string;
+    descriptionKey?: string;
+    dateKey?: string;
 }
 
-const { title, description, date, link, isFirst } =
+const { title, description, date, link, isFirst, titleKey, descriptionKey, dateKey } =
     Astro.props as ExperienceItemProps;
 ---
 <div
@@ -18,14 +21,16 @@ const { title, description, date, link, isFirst } =
 </div>
 <span
     class={`${isFirst ? "text-xl font-bold text-zinc-800 dark:text-zinc-200" : ""} mb-1 text-sm font-normal leading-none text-zinc-700 dark:text-zinc-400`}
+    data-i18n={dateKey}
 >
     {date}
 </span>
-<h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+<h3 class="text-lg font-semibold text-zinc-900 dark:text-white" data-i18n={titleKey}>
     {title}
 </h3>
 <p
-    class="mb-4 text-base font-normal text-zinc-700 dark:text-zinc-400 text-pretty"
+    class="mb-4 text-base font-normal text-zinc-700 dark:text-zinc-300 text-pretty"
+    data-i18n={descriptionKey}
 >
     {description}
 </p>
@@ -37,7 +42,7 @@ const { title, description, date, link, isFirst } =
             rel="noopener noreferrer"
             class="inline-flex items-center px-4 py-2 text-sm font-medium text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-100  focus:z-10 focus:ring-4 focus:outline-none focus:ring-zinc-100 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700 dark:focus:ring-zinc-700"
         >
-            Más información
+            <span data-i18n="experience.moreInfo">Más información</span>
             <ArrowIcon />
         </a>
     )
