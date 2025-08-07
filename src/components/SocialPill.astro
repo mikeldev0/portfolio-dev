@@ -7,6 +7,8 @@ import ButtonRotatingBackgroundGradient from "./ButtonRotatingBackgroundGradient
     target="_blank"
     rel="noopener noreferrer"
     title={`Perfil de ${Astro.props.title} en redes sociales`}
+    aria-label={Astro.props.title}
+    class="inline-block rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50"
 >
     <ButtonRotatingBackgroundGradient>
         <slot />
