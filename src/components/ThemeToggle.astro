@@ -10,6 +10,8 @@ const THEMES = ["Light", "Dark", "System"];
     <button
         id="theme-toggle-btn"
         class="appearance-none border-none flex hover:scale-125 transition"
+        aria-haspopup="true"
+        aria-expanded="false"
     >
         <span class="sr-only">Elige el tema</span>
         <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
@@ -29,8 +31,13 @@ const THEMES = ["Light", "Dark", "System"];
         <ul>
             {
                 THEMES.map((theme) => (
-                    <li class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm">
-                        {theme}
+                    <li>
+                        <button
+                            type="button"
+                            class="themes-menu-option px-2 py-1.5 w-full text-left hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm"
+                        >
+                            {theme}
+                        </button>
                     </li>
                 ))
             }
@@ -102,17 +109,19 @@ const THEMES = ["Light", "Dark", "System"];
 
     updateTheme();
 
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
     document.addEventListener("click", () => {
         themesMenu?.classList.remove("open");
+        themeToggleBtn?.setAttribute("aria-expanded", "false");
     });
 
-    document
-        .getElementById("theme-toggle-btn")
-        ?.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const isClosed = !themesMenu?.classList.contains("open");
-            themesMenu?.classList[isClosed ? "add" : "remove"]("open");
-        });
+    themeToggleBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isClosed = !themesMenu?.classList.contains("open");
+        themesMenu?.classList[isClosed ? "add" : "remove"]("open");
+        themeToggleBtn.setAttribute("aria-expanded", String(isClosed));
+    });
 
     document
         .querySelectorAll<HTMLElement>(".themes-menu-option")
