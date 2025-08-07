@@ -34,7 +34,7 @@ const navItems = [
     class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
     <nav
-        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
+        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center"
     >
         <div class="mr-2 hover:scale-125 transition">
             <HomeIcon />
@@ -56,10 +56,10 @@ const navItems = [
         <div class="ml-2">
             <ThemeToggle />
         </div>
-        <div class="ml-2">
+        <div class="ml-2 relative">
             <select
                 id="language-selector"
-                class="bg-transparent outline-none text-xs md:text-sm"
+                class="appearance-none bg-transparent text-gray-800 dark:text-gray-200 text-xs md:text-sm px-2 py-2 pr-6 rounded-md hover:text-purple-500 dark:hover:text-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             >
                 <option value="en">English</option>
                 <option value="es">Español</option>
@@ -67,6 +67,20 @@ const navItems = [
                 <option value="de">Deutsch</option>
                 <option value="it">Italiano</option>
             </select>
+            <svg
+                class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-500 dark:text-gray-300"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+            >
+                <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 8l4 4 4-4"
+                />
+            </svg>
         </div>
     </nav>
 
@@ -124,7 +138,7 @@ const navItems = [
 
         @keyframes nav-shadown {
             to {
-                @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/10 ring-white/10;
+                @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/70 ring-white/10;
             }
         }
     </style>
