@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "experience": "Expérience",
+    "projects": "Projets",
+    "about": "Sur moi",
+    "contact": "Contact"
+  },
+  "badge": {
+    "available": "Disponible pour travailler"
+  },
+  "hero": {
+    "hello": "Bonjour ! Je suis",
+    "description": "Backend et développeur complet à Pampelune, Espagne 🇪🇸. Passionné par la technologie, l'innovation et le design. Engagé à créer des expériences exceptionnelles et des solutions créatives."
+  },
+  "section": {
+    "experience": "Expérience de travail",
+    "projects": "Projets",
+    "about": "Sur moi"
+  },
+  "about": {
+    "content": "Je suis <strong> Mikel Echeverria </strong>, un <strong> développeur de pile complet </strong> et <strong> backend </strong> avec des compétences éminentes dans la résolution de problèmes <strong>, le travail d'équipe et la communication efficace </strong>. J'ai une profonde passion pour l'intelligence artificielle <strong> </strong> et les modèles génératifs <strong> </strong>, les domaines dans lesquels j'ai des connaissances approfondies et pour lesquelles j'ai développé des projets personnels. Mon expérience dans ces technologies me permet de fournir des solutions innovantes qui optimisent les processus et améliorent l'efficacité. De plus, je reste constamment en apprenant à être à jour avec les dernières tendances technologiques et contribue donc positivement à des projets difficiles tels que <strong> développeur frontend </strong> et <strong> backend </strong>."
+  },
+  "experience": {
+    "moreInfo": "Plus d'informations",
+    "codetec": {
+      "date": "Janvier 2025 - News",
+      "title": "Développeur de pile complet | Codetec Servicios Informecos sl",
+      "description": "En tant que <strong>développeur Full Stack</strong> chez Codetec, je travaille au développement et à la maintenance de <strong>solutions d'entreprise</strong>, en me spécialisant dans <strong>la gestion, la comptabilité, la facturation et la logistique</strong>. J'utilise des technologies modernes telles que <strong>Vue.js, Ionic, Angular et Node.js</strong> pour créer des applications web et mobiles efficaces qui améliorent les processus métier de nos clients. Mon travail couvre à la fois le développement frontend et backend, en mettant en œuvre des <strong>solutions personnalisées</strong> avec des frameworks modernes et des bases de données SQL/NoSQL qui s'adaptent aux besoins spécifiques de chaque entreprise."
+    },
+    "tesicnor_backend": {
+      "date": "Août 2024 - octobre 2024",
+      "title": "Développeur backend | Tesicnor Sl, Noain, Navarra",
+      "description": "En tant que <strong>développeur Backend</strong>, je travaille à la conception et au développement d'<strong>applications web</strong> utilisant <strong>Spring Boot</strong> pour le backend ainsi que des technologies telles que <strong>JSF, Git, Maven, MySQL</strong>, entre autres. De plus, j'ai acquis de l'expérience dans le développement Full Stack, avec un accent sur le backend et les bases de données relationnelles."
+    },
+    "camp": {
+      "date": "Été 2024",
+      "title": "Conseiller du camp | Camp Lonhororn Inks Lake, Texas",
+      "description": "J'ai eu l'opportunité d'<strong>améliorer considérablement mon niveau d'anglais</strong> grâce à une immersion totale dans un environnement anglophone. J'ai guidé et supervisé des groupes d'enfants dans diverses activités, favorisant une atmosphère sûre et positive. De plus, j'ai obtenu le diplôme de <strong>sauveteur</strong>, ce qui m'a permis de garantir la sécurité lors des activités aquatiques."
+    },
+    "tesicnor_intern": {
+      "date": "Janvier 2024 - mai 2024",
+      "title": "Pratiques Développeur backend | Tesicnor Sl, Noain, Navarra",
+      "description": "En tant que <strong>développeur Backend</strong>, j'ai travaillé sur la conception et le développement d'<strong>applications web</strong> utilisant <strong>Spring Boot</strong> pour le backend et <strong>Angular</strong> pour le frontend. De plus, j'ai acquis une expérience pratique dans le développement Full Stack, avec un accent sur le backend et les bases de données relationnelles telles que <strong>MySQL</strong>."
+    },
+    "burlada": {
+      "date": "Mars 2022 - juin 2022",
+      "title": "Stage dans les pratiques | Conseil municipal de Burlada",
+      "description": "Au cours de mon stage à la <strong>mairie de Burlada</strong> en tant qu'informaticien, j'ai acquis de l'expérience en <strong>résolution de problèmes</strong> et en <strong>travail d'équipe</strong>. J'ai contribué au développement de systèmes informatiques municipaux, collaboré avec des professionnels et renforcé ma passion pour l'informatique et le domaine technologique."
+    }
+  },
+  "projectsSection": {
+    "demo": "Démo",
+    "viewDemo": "Voir la démo",
+    "viewOnGitHub": "Voir dans github",
+    "moreProjects": "Voir plus de projets",
+    "githubDescription": "Un référentiel GitHub appelé {{repo}}"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "source": "Code source",
+    "about": "Sur moi",
+    "contact": "Contact"
+  },
+  "languageNames": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français",
+    "de": "Allemand",
+    "it": "Italien"
+  }
+}

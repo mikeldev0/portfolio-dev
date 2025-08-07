@@ -284,7 +284,7 @@ try {
                                     <a href={link?.length ? link : github} target="_blank" rel="noopener noreferrer">
                                         {link && (
                                             <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300 hover:bg-black/50">
-                                                <p class="text-white text-2xl font-bold">
+                                                <p class="text-white text-2xl font-bold" data-i18n="projectsSection.demo">
                                                     DEMO
                                                 </p>
                                             </div>
@@ -314,7 +314,7 @@ try {
                                             class="opacity-80 hover:opacity-100 transition hover:text-purple-500 dark:hover:text-purple-400 flex items-center gap-x-1"
                                         >
                                             <DesktopIcon class="size-6" />
-                                            Ver demo
+        <span data-i18n="projectsSection.viewDemo">Ver demo</span>
                                         </a>
                                     )}
                                     {github && (
@@ -325,7 +325,7 @@ try {
                                             class="dark:text-white transition hover:text-purple-500 dark:hover:text-purple-400 flex items-center gap-x-1 opacity-80 hover:opacity-100"
                                         >
                                             <GitHubIcon class="size-6" />
-                                            Ver en GitHub
+        <span data-i18n="projectsSection.viewOnGitHub">Ver en GitHub</span>
                                         </a>
                                     )}
                                 </div>
@@ -336,8 +336,8 @@ try {
             )}
             {PROYECTS.length > 6 && (
                 <div class="flex justify-center col-span-1 sm:col-span-2 px-4">
-                    <SocialPill href="?tab=repositories">
-                        Ver más proyectos
+                    <SocialPill href="?tab=repositories" >
+                        <span data-i18n="projectsSection.moreProjects">Ver más proyectos</span>
                     </SocialPill>
                 </div>
             )}

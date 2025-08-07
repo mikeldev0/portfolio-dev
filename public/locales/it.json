@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "experience": "Esperienza",
+    "projects": "Progetti",
+    "about": "Su di me",
+    "contact": "Contatto"
+  },
+  "badge": {
+    "available": "Disponibile per il lavoro"
+  },
+  "hero": {
+    "hello": "Ciao! Sono",
+    "description": "Sviluppatore di back -end e full stack a Pamplona, Spagna 🇪🇸. Appassionato di tecnologia, innovazione e design. Impegnato a creare esperienze eccezionali e soluzioni creative."
+  },
+  "section": {
+    "experience": "Esperienza di lavoro",
+    "projects": "Progetti",
+    "about": "Su di me"
+  },
+  "about": {
+    "content": "Sono <strong> mikel echeverria </strong>, uno sviluppatore di stack completo </strong> e <strong> backend </strong> con abilità importanti in <strong> risoluzione di problemi, lavoro di squadra e comunicazione efficace </strong>. Ho una profonda passione per l'intelligenza artificiale </strong> e i modelli generativi <strong> </strong>, aree in cui ho ampie conoscenze e per le quali ho sviluppato progetti personali. La mia esperienza in queste tecnologie mi consente di fornire soluzioni innovative che ottimizzano i processi e migliorano l'efficienza. Inoltre, rimango in costante apprendimento per essere aggiornato con le ultime tendenze tecnologiche e quindi contribuisco positivamente a progetti impegnativi come <strong> sviluppatore frontend </strong> e <strong> backend </strong>."
+  },
+  "experience": {
+    "moreInfo": "Maggiori informazioni",
+    "codetec": {
+      "date": "Gennaio 2025 - Notizie",
+      "title": "Sviluppatore di stack completo | COdetec Servicios Informicos SL",
+      "description": "Come <strong>Sviluppatore Full Stack</strong> in Codetec, lavoro nello sviluppo e nella manutenzione di <strong>soluzioni aziendali</strong>, specializzandomi in <strong>gestione, contabilità, fatturazione e logistica</strong>. Utilizzo tecnologie moderne come <strong>Vue.js, Ionic, Angular e Node.js</strong> per creare applicazioni web e mobili efficienti che migliorano i processi aziendali dei nostri clienti. Il mio lavoro copre sia lo sviluppo frontend che backend, implementando <strong>soluzioni personalizzate</strong> con framework moderni e database SQL/NoSQL che si adattano alle esigenze specifiche di ogni azienda."
+    },
+    "tesicnor_backend": {
+      "date": "Agosto 2024 - ottobre 2024",
+      "title": "Sviluppatore di backend | Tesicnor SL, Noain, Navarra",
+      "description": "Come <strong>Sviluppatore Backend</strong>, lavoro nella progettazione e nello sviluppo di <strong>applicazioni web</strong> utilizzando <strong>Spring Boot</strong> per il backend oltre a tecnologie come <strong>JSF, Git, Maven, MySQL</strong>, tra le altre. Inoltre, ho acquisito esperienza nello sviluppo full stack, con enfasi sul backend e sui database relazionali."
+    },
+    "camp": {
+      "date": "Estate 2024",
+      "title": "Consigliere del campo | Camp Lonhororn Inks Lake, Texas",
+      "description": "Ho avuto l'opportunità di <strong>migliorare significativamente il mio livello di inglese</strong> attraverso l'immersione totale in un ambiente di lingua inglese. Ho guidato e supervisionato gruppi di bambini in varie attività, promuovendo un ambiente sicuro e positivo. Inoltre, ho ottenuto la qualifica di <strong>bagnino</strong>, che mi ha permesso di garantire la sicurezza nelle attività acquatiche."
+    },
+    "tesicnor_intern": {
+      "date": "Gennaio 2024 - maggio 2024",
+      "title": "Pratiche Sviluppatore di backend | Tesicnor SL, Noain, Navarra",
+      "description": "Come <strong>Sviluppatore Backend</strong>, ho lavorato alla progettazione e allo sviluppo di <strong>applicazioni web</strong> utilizzando <strong>Spring Boot</strong> per il backend e <strong>Angular</strong> per il frontend. Inoltre, ho acquisito esperienza pratica nello sviluppo full stack, con enfasi sul backend e sui database relazionali come <strong>MySQL</strong>."
+    },
+    "burlada": {
+      "date": "Marzo 2022 - giugno 2022",
+      "title": "Stage in pratiche | Consiglio comunale di Burlada",
+      "description": "Durante il mio tirocinio presso il <strong>Comune di Burlada</strong> come informatico, ho acquisito esperienza nella <strong>risoluzione dei problemi</strong> e nel <strong>lavoro di squadra</strong>. Ho contribuito allo sviluppo di sistemi informatici comunali, collaborando con professionisti e rafforzando la mia passione per l'informatica e il campo tecnologico."
+    }
+  },
+  "projectsSection": {
+    "demo": "Demo",
+    "viewDemo": "Vedi demo",
+    "viewOnGitHub": "Vedi in GitHub",
+    "moreProjects": "Vedi altri progetti",
+    "githubDescription": "Un repository GitHub chiamato {{Repo}}"
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati",
+    "source": "Codice sorgente",
+    "about": "Su di me",
+    "contact": "Contatto"
+  },
+  "languageNames": {
+    "en": "Inglese",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco",
+    "it": "Italiano"
+  }
+}
