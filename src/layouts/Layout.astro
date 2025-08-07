@@ -18,37 +18,37 @@ const { description, title } = Astro.props;
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg">
 		<meta name="generator" content={Astro.generator} />
 		<!-- This line is important for SEO -->
-		<meta name="robots" content="noindex" />
+		<meta name="robots" content="index, follow" />
 		<!-- Meta Tags SEO -->
 		<meta
 			name="title"
-			content="Mikel Echeverria - Desarrollador Backend en Pamplona | mikeldev.com"
+			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
 		/>
 		<meta
 			name="description"
-			content="Portafolio de Mikel Echeverria, desarrollador Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
+			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
 		/>
 		<meta
 			name="keywords"
-			content="Mikel Echeverria, mikeldev, desarrollador Backend, Pamplona, aplicaciones multiplataforma, diseño web, soluciones tecnológicas, programación"
+			content="Mikel Echeverria, desarrollador Full Stack, desarrollador Backend, desarrollador Frontend, Pamplona, aplicaciones multiplataforma, diseño web, soluciones tecnológicas, programación"
 		/>
-		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href="https://www.mikeldev.com" />
 
 		<!-- Open Graph Tags -->
 		<meta
 			property="og:title"
-			content="Mikel Echeverria - Desarrollador Backend en Pamplona"
+			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
 		/>
 		<meta
 			property="og:description"
-			content="Portafolio de Mikel Echeverria, desarrollador Backend de Pamplona, especializado en aplicaciones multiplataforma, diseño web y soluciones innovadoras."
+			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, especializado en aplicaciones multiplataforma, diseño web y soluciones innovadoras."
 		/>
 		<meta
 			property="og:image"
-			content="https://raw.githubusercontent.com/byronnDev/portfolio-dev/main/public/web_screenshot.webp"
+			content="https://raw.githubusercontent.com/mikeldev0/portfolio-dev/main/public/web_screenshot.webp"
 		/>
 		<meta property="og:url" content="https://www.mikeldev.com" />
 		<meta property="og:type" content="website" />
@@ -57,24 +57,42 @@ const { description, title } = Astro.props;
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta
 			name="twitter:title"
-			content="Mikel Echeverria - Desarrollador Backend en Pamplona"
+			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
 		/>
 		<meta
 			name="twitter:description"
-			content="Portafolio de Mikel Echeverria, desarrollador Backend especializado en aplicaciones multiplataforma y diseño web innovador."
+			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend especializado en aplicaciones multiplataforma y diseño web innovador."
 		/>
 		<meta
 			name="twitter:image"
-			content="https://www.mikeldev.com/img/mikel-echeverria.jpg"
+			content="https://www.mikeldev.com/photo.webp"
 		/>
 
 		<!-- Title Tag -->
 		<title>
-			Mikel Echeverria - Desarrollador Backend en Pamplona | mikeldev.com
+			Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com
 		</title>
 
-		<!-- CSS Stylesheets -->
-		<link rel="stylesheet" href="styles.css" />
+			<!-- Datos Estructurados SEO -->
+		<script type="application/ld+json">
+			{JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Person",
+				name: "Mikel Echeverria",
+				alternateName: "mikedev",
+				jobTitle: "Desarrollador Full Stack y Backend",
+				url: "https://www.mikeldev.com",
+				image: "https://www.mikeldev.com/img/mikel-echeverria.jpg",
+				sameAs: [
+					"https://github.com/mikeldev0",
+					"https://www.linkedin.com/in/mikel-echeverria",
+					"https://x.com/MikelEcheve",
+					"mailto:mikel@mikeldev.com"
+				],
+				description: "Desarrollador Full Stack y Backend en Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web y soluciones tecnológicas innovadoras.",
+				alumniOf: "Nombre de Tu Universidad",
+			})}
+		</script>
 		<title>{title}</title>
 	</head>
 	<body>

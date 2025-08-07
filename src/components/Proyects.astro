@@ -2,7 +2,8 @@
 import DesktopIcon from "../icons/DesktopIcon.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import SocialPill from "./SocialPill.astro";
-
+const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+const GITHUB_URL = import.meta.env.GITHUB_URL;
 interface Proyect {
     title: string;
     description: string;
@@ -120,20 +121,29 @@ const TAG = {
     },
 };
 
-const PROYECTS: Proyect[] = [
+// Lista de proyectos estáticos como respaldo
+const STATIC_PROYECTS: Proyect[] = [
+    {
+        link: "https://proyectosjs.mikeldev.com",
+        title: "Proyectos desarrollados 100% con JavaScript",
+        description:
+            "Aquí encontrarás una selección de proyectos desarrollados con JavaScript, HTML y CSS. Desde aplicaciones web hasta juegos, pasando por chatbots y aplicaciones móviles. ¡Descúbrelos!",
+        tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS, TAG.GITHUB, TAG.ASTRO],
+        image: "/proyectosJS.webp",
+    },
     {
         title: "Woof & Work Marketing | Agencia de Marketing para Mascotas",
         description:
             "Agencia de marketing digital especializada en negocios del sector de mascotas. Impulsa tu negocio veterinario o tienda de mascotas con estrategias personalizadas.",
         tags: [TAG.REACT, TAG.TYPESCRIPT, TAG.CSS, TAG.GITHUB],
         image: "/Woof&WorkMarketing.webp",
-        link: "https://www.marketinganimales.com",
+        link: "https://woofandwork.netlify.app",
     },
     {
         title: "WebLLM-local",
         description:
             "Este proyecto es un chatbot impulsado por inteligencia artificial, diseñado para proporcionar respuestas rápidas y precisas a las preguntas de los usuarios. Utiliza tecnologías avanzadas como WebGPU para acelerar las operaciones de cómputo, asegurando una experiencia de usuario fluida y eficiente.",
-        github: "https://github.com/byronnDev/WebLLM-local",
+        github: "/WebLLM-local",
         tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS, TAG.GITHUB],
         image: "/WebLLM-local.webp",
         link: "https://chat.mikeldev.com",
@@ -142,7 +152,7 @@ const PROYECTS: Proyect[] = [
         title: "Hundir la flota",
         description:
             '"Hundir la Flota" es un juego de tablero clásico para dos jugadores: un usuario y el ordenador. Cada jugador tiene un tablero de 10x10 posiciones (A-J, 0-9) donde se colocan los barcos en orientación horizontal o vertical. El objetivo es hundir los barcos del oponente adivinando sus coordenadas.',
-        github: "https://github.com/byronnDev/HundirLaFlota",
+        github: "/HundirLaFlota",
         tags: [TAG.JAVA, TAG.GITHUB],
         image: "/HundirLaFlota.webp",
     },
@@ -150,24 +160,113 @@ const PROYECTS: Proyect[] = [
         title: "HugChat Project in Command Line",
         description:
             "HugChat is a project that I made in the subject of Programming in Python, Batch, and SHELL. It connects with the LLM chatbot API using the HuggingFace API. This project is a chatbot that can communicate with you in the command line.",
-        github: "https://github.com/byronnDev/HuggingChatCLI",
+        github: "/HuggingChatCLI",
         tags: [TAG.PYTHON, TAG.BASH, TAG.BATCH, TAG.GITHUB],
     },
     {
         title: "Cuatrovientos BlaBlarCar App",
         description:
             "Welcome to the Cuatrovientos High School carpooling app – BlaBlarCar! Developed by a group of dedicated students, including Mikel Echeverria, Juan Hidalgo, and Aitor Gorostizu, this app aims to reduce emissions and promote cost-saving by facilitating shared transportation among institute students.",
-        github: "https://github.com/byronnDev/BlaBlaCarCuatrovientos",
+        github: "/BlaBlaCarCuatrovientos",
         tags: [TAG.JAVA, TAG.ANDROID, TAG.GITHUB],
     },
     {
         title: "App Mail",
         description:
             "App Mail is a project that I made in the subject of Programming in Java. It is a simple email application interface, you can't send emails, but you can see the emails that you have received.",
-        github: "https://github.com/byronnDev/AppMail",
+        github: "/AppMail",
         tags: [TAG.JAVA, TAG.ANDROID, TAG.GITHUB],
     },
 ];
+
+// Función para obtener los repositorios anclados de GitHub desde el servidor
+async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
+    try {
+        if (!GITHUB_TOKEN) {
+            console.warn('No se encontró el token de GitHub en las variables de entorno');
+            return [];
+        }
+
+        const response = await fetch(GITHUB_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `bearer ${GITHUB_TOKEN}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: `{
+                    user(login: "${username}") {
+                        pinnedItems(first: 6, types: REPOSITORY) {
+                            nodes {
+                                ... on Repository {
+                                    name
+                                    description
+                                    url
+                                    homepageUrl
+                                    languages(first: 3) {
+                                        nodes {
+                                            name
+                                        }
+                                    }
+                                    openGraphImageUrl
+                                }
+                            }
+                        }
+                    }
+                }`
+            }),
+        });
+
+        const data = await response.json();
+
+        if (data.errors) {
+            console.error('Error en la API de GitHub:', data.errors);
+            return [];
+        }
+
+        // Mapear los datos de GitHub a nuestra interfaz Proyect
+        return data.data.user.pinnedItems.nodes.map((repo: any) => {
+            // Mapear los lenguajes a nuestro sistema de etiquetas
+            const repoTags = repo.languages.nodes
+                .map((lang: any) => lang.name)
+                .map((langName: string) => {
+                    // Buscar coincidencia con nuestras etiquetas predefinidas
+                    const tagKey = Object.keys(TAG).find(key =>
+                        TAG[key as keyof typeof TAG].name.toLowerCase() === langName.toLowerCase()
+                    );
+                    return tagKey ? TAG[tagKey as keyof typeof TAG] : null;
+                })
+                .filter((tag: Tag | null) => tag !== null);
+
+            // Siempre añadir la etiqueta GitHub
+            repoTags.push(TAG.GITHUB);
+
+            return {
+                title: repo.name,
+                description: repo.description || `Un repositorio de GitHub llamado ${repo.name}`,
+                github: repo.url,
+                link: repo.homepageUrl,
+                image: repo.openGraphImageUrl,
+                tags: repoTags,
+            };
+        });
+    } catch (error) {
+        console.error('Error al obtener repositorios anclados:', error);
+        return [];
+    }
+}
+
+// Intentar obtener proyectos dinámicos, usar los estáticos como respaldo
+let PROYECTS: Proyect[] = STATIC_PROYECTS;
+
+try {
+    const githubProyects = await fetchPinnedRepos('mikeldev0');
+    if (githubProyects && githubProyects.length > 0) {
+        PROYECTS = githubProyects;
+    }
+} catch (error) {
+    console.error('Error al cargar los repositorios anclados, usando proyectos estáticos:', error);
+}
 ---
 
 {
@@ -237,7 +336,7 @@ const PROYECTS: Proyect[] = [
             )}
             {PROYECTS.length > 6 && (
                 <div class="flex justify-center col-span-1 sm:col-span-2 px-4">
-                    <SocialPill href="https://github.com/byronnDev?tab=repositories">
+                    <SocialPill href="?tab=repositories">
                         Ver más proyectos
                     </SocialPill>
                 </div>

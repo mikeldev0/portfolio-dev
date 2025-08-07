@@ -1,81 +1,52 @@
 ---
-import GitHubIcon from "../icons/GitHubIcon.astro";
+import GitHubIcon from "../icons/GitHubIcon.astro"
 
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear()
 ---
 
-<footer class="text-gray-600 dark:text-gray-200 rounded-xl mt-10">
+<footer class="text-gray-600 dark:text-gray-200 rounded-xl mt-10" itemscope itemtype="https://schema.org/WPFooter">
   <div
-    class="rounded-lg w-full max-w-screen-xl mx-auto md:flex sm:items-center md:justify-between py-4 text-center"
+    class="rounded-lg w-full max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between py-4 text-center md:text-left px-4"
   >
-    <span class="text-sm px-4 text-zinc-800/90 dark:text-zinc-200/90">
+    <span class="text-sm text-zinc-800/90 dark:text-zinc-200/90 mb-4 md:mb-0" itemprop="copyrightHolder">
       © {currentYear}
       <a
         href="https://mikeldev.com/"
         class="transition hover:text-purple-500 dark:hover:text-purple-400 dark:text-white"
+        itemprop="publisher"
         >Mikel Echeverria</a
       >. Todos los derechos reservados
     </span>
-    <ul
-      class="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0 gap-x-4 mx-8"
-    >
-      <li class="mb-2 md:mb-0">
-        <a
-          href="https://github.com/byronnDev/portfolio-dev"
-          class="transition hover:text-purple-500 dark:hover:text-purple-400 flex gap-x-1 items-center"
-        >
-          <GitHubIcon class="size-4" /> Código fuente
-        </a>
-      </li>
-      <li class="mb-2 md:mb-0">
-        <a
-          href="/#sobre-mi"
-          class="transition hover:text-purple-500 dark:hover:text-purple-400 me-4 md:me-0"
-          >Sobre mí</a
-        >
-      </li>
-      <li class="mb-2 md:mb-0">
-        <a
-          id="contacto"
-          href="mailto:mikel@mikeldev.com"
-          class="transition hover:text-purple-500 dark:hover:text-purple-400"
-          >Contacto</a
-        >
-      </li>
-    </ul>
+    <nav aria-label="Footer Navigation" class="w-full md:w-auto">
+      <ul
+        class="flex flex-col md:flex-row items-center justify-center gap-4 text-sm font-medium dark:text-white/90"
+      >
+        <li>
+          <a
+            href="https://github.mikeldev.com//portfolio-dev"
+            class="transition hover:text-purple-500 dark:hover:text-purple-400 flex items-center gap-x-1"
+            itemprop="sameAs"
+            > <GitHubIcon class="size-4" /> Código fuente
+          </a>
+        </li>
+        <li>
+          <a
+            href="/#sobre-mi"
+            class="transition hover:text-purple-500 dark:hover:text-purple-400"
+            itemprop="about"
+            >Sobre mí</a
+          >
+        </li>
+        <li>
+          <a
+            id="contacto"
+            href="mailto:mikel@mikeldev.com"
+            class="transition hover:text-purple-500 dark:hover:text-purple-400"
+            itemprop="email"
+            >Contacto</a
+          >
+        </li>
+      </ul>
+    </nav>
   </div>
 </footer>
-
-<style>
-  @media (max-width: 640px) {
-    .md:flex {
-      flex-direction: column;
-      align-items: center;
-    }
-    .md:justify-between {
-      justify-content: center;
-    }
-    .md:items-center {
-      text-align: center;
-    }
-    .md:mt-0 {
-      margin-top: 1rem;
-    }
-    .md:me-6 {
-      margin-right: 0;
-    }
-    .mb-2 {
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  footer {
-    animation: nav-shadow 0.5s ease-in-out forwards;
-  }
-
-  @keyframes nav-shadow {
-    to {
-      @apply shadow-lg ring-1 backdrop-blur dark:bg-gray-800/90 bg-white/5 ring-white/5;
-    }
-  }
-</style>
