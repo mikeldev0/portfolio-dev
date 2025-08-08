@@ -2,6 +2,7 @@
 import HomeIcon from "../icons/HomeIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
+import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
 
 const navItems = [
     {
@@ -35,12 +36,13 @@ const navItems = [
     class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
     <nav
-        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center"
+        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center w-full"
     >
         <div class="mr-2 hover:scale-125 transition">
             <HomeIcon />
         </div>
-        <div class="flex items-center">
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center">
             {
                 navItems.map((link) => (
                     <a
@@ -54,11 +56,72 @@ const navItems = [
                 ))
             }
         </div>
-        <div class="ml-2">
+        <div class="flex items-center ml-auto md:ml-2 md:mr-0 absolute right-12 top-1/2 -translate-y-1/2 md:static md:translate-y-0">
             <ThemeToggle />
+            <LanguageSelector />
         </div>
-        <LanguageSelector />
+        <!-- Mobile burger -->
+        <div class="md:hidden ml-auto">
+            <button id="burger-btn" aria-label="Abrir menú" class="p-2 focus:outline-none">
+                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="8" x2="23" y2="8" />
+                    <line x1="5" y1="14" x2="23" y2="14" />
+                    <line x1="5" y1="20" x2="23" y2="20" />
+                </svg>
+            </button>
+        </div>
     </nav>
+    <!-- Mobile full screen nav -->
+    <div id="mobile-nav"
+        class="fixed inset-0 bg-white/30 dark:bg-gray-900/30 bg-opacity-95 flex flex-col items-center justify-center z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
+        style="backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);"
+    >
+        <button id="close-mobile-nav" aria-label="Cerrar menú" class="absolute top-6 right-6 p-2">
+            <CloseMenuIcon />
+        </button>
+        <div class="flex flex-col gap-8 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+            {
+                navItems.map((link) => (
+                    <a
+                        class="transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
+                        aria-label={link.label}
+                        href={link.url}
+                        data-i18n={link.key}
+                        onclick="document.getElementById('mobile-nav').classList.remove('opacity-100','pointer-events-auto');document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none');"
+                    >
+                        {link.title}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+    <script>
+        const burgerBtn = document.getElementById('burger-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        const closeBtn = document.getElementById('close-mobile-nav');
+        if (burgerBtn && mobileNav) {
+            burgerBtn.onclick = () => {
+                mobileNav.classList.remove('opacity-0','pointer-events-none');
+                mobileNav.classList.add('opacity-100','pointer-events-auto');
+            };
+        }
+        if (closeBtn && mobileNav) {
+            closeBtn.onclick = () => {
+                mobileNav.classList.remove('opacity-100','pointer-events-auto');
+                mobileNav.classList.add('opacity-0','pointer-events-none');
+            };
+        }
+    </script>
+    <style>
+        #mobile-nav.opacity-0 {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #mobile-nav.opacity-100 {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
 
     <script>
         document.addEventListener("astro:page-load", () => {

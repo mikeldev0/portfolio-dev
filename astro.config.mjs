@@ -7,5 +7,8 @@ export default defineConfig({
   integrations: [
     tailwind(),
     react() // Añade React a la lista de integraciones
-  ]
+  ],
+  image: {
+    domains: ["opengraph.githubassets.com"],
+  }
 });
