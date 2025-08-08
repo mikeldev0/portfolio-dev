@@ -6,11 +6,11 @@
     "contact": "Contact"
   },
   "badge": {
-    "available": "Available to work"
+    "available": "Available for work"
   },
   "hero": {
     "hello": "Hi! I'm",
-    "description": "Backend and Full Stack developer in Pamplona, Spain 🇪🇸. Passionate about technology, innovation and design. Committed to creating exceptional experiences and creative solutions."
+    "description": "Backend and full-stack developer based in Pamplona, Spain 🇪🇸. Passionate about technology, innovation and design, committed to creating outstanding experiences and creative solutions."
   },
   "section": {
     "experience": "Work experience",
@@ -18,46 +18,46 @@
     "about": "About me"
   },
   "about": {
-    "content": "I am <strong> Mikel Echeverria </strong>, a <strong> Full Stack developer </strong> and <strong> backend </strong> with prominent skills in <strong> problem solving, teamwork and effective communication </strong>. I have a deep passion for the <strong> artificial intelligence </strong> and the <strong> generative models </strong>, areas in which I have extensive knowledge and for which I have developed personal projects. My experience in these technologies allows me to provide innovative solutions that optimize processes and improve efficiency. In addition, I remain in constant learning to be up to date with the latest technological trends and thus contribute positively to challenging projects such as <strong> developer Frontend </strong> and <strong> backend </strong>."
+    "content": "I’m <strong>Mikel Echeverria</strong>, a <strong>Full-Stack</strong> and <strong>Backend developer</strong> with strong skills in <strong>problem solving, teamwork and effective communication</strong>. I have a deep passion for <strong>artificial intelligence</strong> and <strong>generative models</strong>, areas where I have extensive knowledge and have developed personal projects. My experience with these technologies allows me to deliver innovative solutions that optimize processes and improve efficiency. I constantly seek to stay up to date with the latest technological trends so I can contribute positively to demanding projects as a <strong>Frontend</strong> and <strong>Backend developer</strong>."
   },
   "experience": {
     "moreInfo": "More information",
     "codetec": {
-      "date": "January 2025 - News",
-      "title": "Full Stack developer | CODETEC SERVICIOS INFORMICOS SL",
-      "description": "As a <strong>Full Stack developer</strong> in Codetec, I work in the development and maintenance of <strong>business solutions</strong>, specializing in <strong>management, accounting, billing and logistics systems</strong>. I use modern technologies such as <strong>Vue.js, Ionic, Angular and Node.js</strong> to create efficient web and mobile applications that improve our customers' business processes. My work covers both the frontend and backend development, implementing <strong>personalized solutions</strong> with modern frameworks and SQL/NOSQL databases that adapt to the specific needs of each company."
+      "date": "January 2025 - Present",
+      "title": "Full-Stack Developer | CODETEC Servicios Informáticos SL",
+      "description": "As a <strong>Full-Stack Developer</strong> at Codetec I develop and maintain <strong>business solutions</strong>, specialising in <strong>management, accounting, invoicing and logistics systems</strong>. I use modern technologies such as <strong>Vue.js, Ionic, Angular and Node.js</strong> to build efficient web and mobile applications that improve our clients’ business processes. My work covers both the frontend and the backend, implementing <strong>custom solutions</strong> with modern frameworks and SQL/NoSQL databases tailored to each company’s needs."
     },
     "tesicnor_backend": {
       "date": "August 2024 - October 2024",
-      "title": "Backend developer | Tesicnor SL, Noain, Navarra",
-      "description": "As a <strong>Backend developer</strong>, I work in the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend as well as technologies such as <strong>JSF, Git, Maven, MySQL</strong>, among others. In addition, I have acquired experience in Full Stack development, with emphasis on the backend and relational databases."
+      "title": "Backend Developer | Tesicnor SL, Noáin, Navarra",
+      "description": "As a <strong>Backend Developer</strong> I worked on the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend along with technologies such as <strong>JSF, Git, Maven and MySQL</strong>, among others. I also gained experience in full-stack development, with emphasis on the backend and relational databases."
     },
     "camp": {
       "date": "Summer 2024",
-      "title": "Camp Counselor | Camp Lonhororn Inks Lake, Texas",
-      "description": "I had the opportunity to <strong>significantly improve my English level</strong> through total immersion in an English-speaking environment. I guided and supervised groups of children in various activities, promoting a safe and positive atmosphere. In addition, I obtained the <strong>Lifeguard</strong> degree, which allowed me to guarantee security in aquatic activities."
+      "title": "Camp Counselor | Camp Longhorn Inks Lake, Texas",
+      "description": "I had the opportunity to <strong>significantly improve my English</strong> through total immersion in an English-speaking environment. I led and supervised groups of children in various activities, fostering a safe and positive atmosphere. I also earned a <strong>Lifeguard</strong> certification, which enabled me to ensure safety in aquatic activities."
     },
     "tesicnor_intern": {
       "date": "January 2024 - May 2024",
-      "title": "Practices Backend developer | Tesicnor SL, Noain, Navarra",
-      "description": "As a <strong>Backend developer</strong>, I worked on the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend and <strong>Angular</strong> for the frontend. In addition, I acquired practical experience in Full Stack development, with emphasis on the backend and relational databases such as <strong>MySQL</strong>."
+      "title": "Backend Developer Intern | Tesicnor SL, Noáin, Navarra",
+      "description": "As a <strong>Backend Developer</strong> I worked on the design and development of <strong>web applications</strong> using <strong>Spring Boot</strong> for the backend and <strong>Angular</strong> for the frontend. I gained hands-on experience in full-stack development, focusing on the backend and relational databases such as <strong>MySQL</strong>."
     },
     "burlada": {
       "date": "March 2022 - June 2022",
-      "title": "Internship in practices | Burlada City Council",
-      "description": "During my internship at the <strong>City of Burlada</strong> as a computer scientist, I acquired experience in <strong>problem solving</strong> and <strong>teamwork</strong>. I contributed to the development of municipal computer systems, collaborating with professionals and strengthening my passion for computer science and the technological field."
+      "title": "IT Intern | Burlada City Council",
+      "description": "During my internship at the <strong>Burlada City Council</strong> as an IT specialist, I gained experience in <strong>problem solving</strong> and <strong>teamwork</strong>. I contributed to the development of municipal computer systems, working alongside professionals and strengthening my passion for computing and technology."
     }
   },
   "projectsSection": {
     "demo": "Demo",
-    "viewDemo": "See demo",
-    "viewOnGitHub": "See in Github",
+    "viewDemo": "View demo",
+    "viewOnGitHub": "View on GitHub",
     "moreProjects": "See more projects",
-    "githubDescription": "A github repository called {{repo}}"
+    "githubDescription": "A GitHub repository named {{repo}}"
   },
   "footer": {
     "rights": "All rights reserved",
-    "source": "Source Code",
+    "source": "Source code",
     "about": "About me",
     "contact": "Contact"
   },

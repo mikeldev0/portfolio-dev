@@ -9,8 +9,8 @@
     "available": "Disponible para trabajar"
   },
   "hero": {
-    "hello": "Hola! soy",
-    "description": "Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, innovación y el diseño. Comprometido en crear experiencias excepcionales y soluciones creativas."
+    "hello": "¡Hola! Soy",
+    "description": "Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, la innovación y el diseño. Comprometido con la creación de experiencias excepcionales y soluciones creativas."
   },
   "section": {
     "experience": "Experiencia laboral",
@@ -24,7 +24,7 @@
     "moreInfo": "Más información",
     "codetec": {
       "date": "Enero 2025 - Actualidad",
-      "title": "Desarrollador Full Stack | Codetec Servicios Informaticos SL",
+      "title": "Desarrollador Full Stack | CODETEC Servicios Informáticos SL",
       "description": "Como <strong>Desarrollador Full Stack</strong> en Codetec, trabajo en el desarrollo y mantenimiento de <strong>soluciones empresariales</strong>, especializándome en <strong>gestión, contabilidad, facturación y logística</strong>. Utilizo tecnologías modernas como <strong>Vue.js, Ionic, Angular y Node.js</strong> para crear aplicaciones web y móviles eficientes que mejoran los procesos de negocio de nuestros clientes. Mi trabajo abarca tanto el desarrollo frontend como backend, implementando <strong>soluciones personalizadas</strong> con frameworks modernos y bases de datos SQL/NoSQL que se adaptan a las necesidades específicas de cada empresa."
     },
     "tesicnor_backend": {
@@ -35,7 +35,7 @@
     "camp": {
       "date": "Verano 2024",
       "title": "Camp Counselor | Camp Longhorn Inks Lake, Texas",
-      "description": "Tuve la oportunidad de <strong>mejorar significativamente mi nivel de inglés</strong> a través de la inmersión total en un entorno de habla inglesa. Guié y supervisé a grupos de niños en diversas actividades, fomentando un ambiente seguro y positivo. Además, obtuve la titulación de <strong>socorrista (lifeguard)</strong>, lo que me permitió garantizar la seguridad en actividades acuáticas."
+      "description": "Tuve la oportunidad de <strong>mejorar significativamente mi nivel de inglés</strong> a través de la inmersión total en un entorno de habla inglesa. Guié y supervisé a grupos de niños en diversas actividades, fomentando un ambiente seguro y positivo. Además, obtuve la titulación de <strong>socorrista</strong>, lo que me permitió garantizar la seguridad en actividades acuáticas."
     },
     "tesicnor_intern": {
       "date": "Enero 2024 - Mayo 2024",
