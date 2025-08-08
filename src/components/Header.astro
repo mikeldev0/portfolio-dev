@@ -1,5 +1,7 @@
 ---
 import HomeIcon from "../icons/HomeIcon.astro";
+import MenuIcon from "../icons/MenuIcon.astro";
+import XIcon from "../icons/XIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 
@@ -35,12 +37,13 @@ const navItems = [
     class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
     <nav
-        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center"
+        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 items-center justify-between"
     >
         <div class="mr-2 hover:scale-125 transition">
             <HomeIcon />
         </div>
-        <div class="flex items-center">
+
+        <div class="hidden md:flex items-center">
             {
                 navItems.map((link) => (
                     <a
@@ -53,17 +56,70 @@ const navItems = [
                     </a>
                 ))
             }
+            <div class="ml-2">
+                <ThemeToggle />
+            </div>
+            <LanguageSelector />
         </div>
-        <div class="ml-2">
+
+        <button
+            id="menu-toggle"
+            class="ml-2 md:hidden hover:scale-110 transition"
+            aria-label="Menu"
+            type="button"
+        >
+            <MenuIcon id="menu-open-icon" class="size-5" />
+            <XIcon id="menu-close-icon" class="hidden size-5" />
+        </button>
+    </nav>
+
+    <div
+        id="mobile-menu"
+        class="hidden md:hidden flex-col items-center px-6 py-4 mt-2 space-y-2 text-sm font-medium rounded-xl text-gray-800 dark:text-gray-200 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
+    >
+        {
+            navItems.map((link) => (
+                <a
+                    class="relative block px-2 py-2 transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
+                    aria-label={link.label}
+                    href={link.url}
+                    data-i18n={link.key}
+                >
+                    {link.title}
+                </a>
+            ))
+        }
+        <div class="pt-2">
             <ThemeToggle />
         </div>
         <LanguageSelector />
-    </nav>
+    </div>
 
     <script>
         document.addEventListener("astro:page-load", () => {
             const sections = document.querySelectorAll("section");
-            const navItems = document.querySelectorAll("header nav a");
+            const navItems = document.querySelectorAll(
+                "header a[aria-label]:not([href='#'])"
+            );
+
+            const mobileMenu = document.getElementById("mobile-menu");
+            const menuToggle = document.getElementById("menu-toggle");
+            const openIcon = document.getElementById("menu-open-icon");
+            const closeIcon = document.getElementById("menu-close-icon");
+
+            menuToggle?.addEventListener("click", () => {
+                mobileMenu?.classList.toggle("hidden");
+                openIcon?.classList.toggle("hidden");
+                closeIcon?.classList.toggle("hidden");
+            });
+
+            mobileMenu?.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    mobileMenu.classList.add("hidden");
+                    openIcon?.classList.remove("hidden");
+                    closeIcon?.classList.add("hidden");
+                });
+            });
 
             const callback = (entries: any[]) => {
                 entries.forEach((entry) => {
