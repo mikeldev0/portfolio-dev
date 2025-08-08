@@ -11,51 +11,5 @@ import LanguageArrowIcon from "../icons/LanguageArrowIcon.astro";
     <LanguageArrowIcon />
 </div>
 
-<script is:inline>
-    const LANGUAGES = [
-        { code: "en" },
-        { code: "es" },
-        { code: "fr" },
-        { code: "de" },
-        { code: "it" },
-    ];
-    const languageSelector = document.getElementById("language-selector");
-
-    function getLanguagePreference() {
-        if (typeof localStorage !== "undefined") {
-            return localStorage.getItem("language") ?? "en";
-        }
-        return "en";
-    }
-    function setLanguagePreference(code) {
-        localStorage.setItem("language", code);
-    }
-    async function loadLanguageNames(lang) {
-        try {
-            const res = await fetch(`/locales/${lang}.json`);
-            const data = await res.json();
-            return data.languageNames;
-        } catch (e) {
-            return {
-                en: "English",
-                es: "Español",
-                fr: "Français",
-                de: "Deutsch",
-                it: "Italiano"
-            };
-        }
-    }
-    async function populateOptions() {
-        const code = getLanguagePreference();
-        const languageNames = await loadLanguageNames(code);
-        languageSelector.innerHTML = LANGUAGES.map(lang => `<option value="${lang.code}">${languageNames[lang.code] || lang.code}</option>`).join("");
-        languageSelector.value = code;
-    }
-    populateOptions();
-
-    languageSelector.addEventListener("change", (e) => {
-        const code = e.target.value;
-        setLanguagePreference(code);
-        window.location.reload(); // recargar para aplicar el idioma
-    });
-</script>
+<!-- Inicializa el selector de idioma en el cliente -->
+<script is:inline src="/scripts/languageSelector.js"></script>
