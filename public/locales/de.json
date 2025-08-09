@@ -6,11 +6,11 @@
     "contact": "Kontakt"
   },
   "badge": {
-    "available": "Verfügbar für die Arbeit"
+    "available": "Verfügbar für neue Projekte"
   },
   "hero": {
     "hello": "Hallo! Ich bin",
-    "description": "Backend und Full Stack Developer in Pamplona, Spanien 🇪🇸. Leidenschaft für Technologie, Innovation und Design. Verpflichtet, außergewöhnliche Erfahrungen und kreative Lösungen zu schaffen."
+    "description": "Backend- und Full-Stack-Entwickler mit Sitz in Pamplona, Spanien 🇪🇸. Begeistert von Technologie, Innovation und Design und engagiert, außergewöhnliche Erlebnisse und kreative Lösungen zu schaffen."
   },
   "section": {
     "experience": "Berufserfahrung",
@@ -18,42 +18,42 @@
     "about": "Über mich"
   },
   "about": {
-    "content": "Ich bin <strong> mikel echeverria </strong>, ein <strong> voller Stapelentwickler </strong> und <strong> Backend </strong> mit herausragenden Fähigkeiten bei der Lösung von Problemen, der Teamarbeit und der effektiven Kommunikation </strong>. Ich habe eine tiefe Leidenschaft für die <strong> künstliche Intelligenz </strong> und die <strong> generativen Modelle </strong> Bereiche, in denen ich umfangreiches Wissen habe und für die ich persönliche Projekte entwickelt habe. Meine Erfahrung in diesen Technologien ermöglicht es mir, innovative Lösungen bereitzustellen, die Prozesse optimieren und die Effizienz verbessern. Darüber hinaus bleibe ich in ständigem Lernen, um mit den neuesten technologischen Trends auf dem neuesten Stand zu sein und daher positiv zu herausfordernden Projekten wie <strong> Developer Frontend </strong> und <strong> Backend </strong> beizutragen."
+    "content": "Ich bin <strong>Mikel Echeverria</strong>, <strong>Full-Stack-</strong> und <strong>Backend-Entwickler</strong> mit ausgeprägten Fähigkeiten in <strong>Problemlösung, Teamarbeit und effektiver Kommunikation</strong>. Ich habe eine große Leidenschaft für <strong>künstliche Intelligenz</strong> und <strong>generative Modelle</strong>, Bereiche, in denen ich über umfangreiches Wissen verfüge und persönliche Projekte realisiert habe. Meine Erfahrung mit diesen Technologien ermöglicht es mir, innovative Lösungen zu liefern, die Prozesse optimieren und Effizienz verbessern. Außerdem bilde ich mich ständig weiter, um mit den neuesten technologischen Trends Schritt zu halten und so anspruchsvolle Projekte als <strong>Frontend-</strong> und <strong>Backend-Entwickler</strong> positiv zu unterstützen."
   },
   "experience": {
-    "moreInfo": "Weitere Informationen",
+    "moreInfo": "Mehr Informationen",
     "codetec": {
-      "date": "Januar 2025 - Nachrichten",
-      "title": "Voller Stapelentwickler | Codetec servicios informicos sl",
-      "description": "Als <strong>vollständiger Stapelentwickler</strong> in Codetec arbeite ich an der Entwicklung und Wartung von <strong>Geschäftslösungen</strong>, die sich auf <strong>Management-, Buchhaltungs-, Abrechnungs- und Logistiksysteme</strong> spezialisieren. Ich verwende moderne Technologien wie <strong>Vue.js, Ionic, Angular und Node.js</strong>, um effiziente Web- und mobile Anwendungen zu erstellen, die die Geschäftsprozesse unserer Kunden verbessern. Meine Arbeit deckt sowohl die Frontend- als auch die Backend-Entwicklung ab und implementiert <strong>personalisierte Lösungen</strong> mit modernen Frameworks und SQL/NOSQL-Datenbanken, die sich an die spezifischen Anforderungen jedes Unternehmens anpassen."
+      "date": "Januar 2025 - Heute",
+      "title": "Full-Stack-Entwickler | CODETEC Servicios Informáticos SL",
+      "description": "Als <strong>Full-Stack-Entwickler</strong> bei Codetec entwickle und pflege ich <strong>Geschäftslösungen</strong> und spezialisiere mich auf <strong>Management-, Buchhaltungs-, Abrechnungs- und Logistiksysteme</strong>. Mit modernen Technologien wie <strong>Vue.js, Ionic, Angular und Node.js</strong> erstelle ich effiziente Web- und Mobilanwendungen, die die Geschäftsprozesse unserer Kunden verbessern. Meine Arbeit umfasst sowohl Frontend- als auch Backend-Entwicklung und implementiert <strong>maßgeschneiderte Lösungen</strong> mit modernen Frameworks und SQL/NoSQL-Datenbanken, die auf die spezifischen Anforderungen jedes Unternehmens zugeschnitten sind."
     },
     "tesicnor_backend": {
       "date": "August 2024 - Oktober 2024",
-      "title": "Backend -Entwickler | Tesicnor SL, Noain, Navarra",
-      "description": "Als <strong>Backend-Entwickler</strong> arbeite ich in der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> mit <strong>Spring Boot</strong> für das Backend und verwende unter anderem Technologien wie <strong>JSF, Git, Maven, MySQL</strong>. Darüber hinaus habe ich Erfahrungen in der vollständigen Stapelentwicklung gesammelt, wobei ich mich auf das Backend und relationale Datenbanken konzentriert habe."
+      "title": "Backend-Entwickler | Tesicnor SL, Noáin, Navarra",
+      "description": "Als <strong>Backend-Entwickler</strong> arbeitete ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> mit <strong>Spring Boot</strong> im Backend sowie Technologien wie <strong>JSF, Git, Maven und MySQL</strong>. Außerdem sammelte ich Erfahrung in der Full-Stack-Entwicklung mit Schwerpunkt auf Backend und relationalen Datenbanken."
     },
     "camp": {
       "date": "Sommer 2024",
-      "title": "Camp Counselor | Camp Lonhororn Inks Lake, Texas",
-      "description": "Ich hatte die Möglichkeit, mein <strong>Englisch-Niveau erheblich zu verbessern</strong> durch totales Eintauchen in eine englischsprachige Umgebung. Ich leitete und beaufsichtigte Gruppen von Kindern in verschiedenen Aktivitäten und förderte eine sichere und positive Atmosphäre. Darüber hinaus erhielt ich den Abschluss als <strong>Rettungsschwimmer</strong>, der es mir ermöglichte, die Sicherheit bei aquatischen Aktivitäten zu gewährleisten."
+      "title": "Camp Counselor | Camp Longhorn Inks Lake, Texas",
+      "description": "Ich hatte die Gelegenheit, mein <strong>Englisch deutlich zu verbessern</strong>, indem ich vollständig in ein englischsprachiges Umfeld eingetaucht war. Ich leitete und betreute Gruppen von Kindern bei verschiedenen Aktivitäten und förderte eine sichere und positive Atmosphäre. Zusätzlich erwarb ich die <strong>Rettungsschwimmer</strong>-Zertifizierung, wodurch ich die Sicherheit bei Wasseraktivitäten gewährleisten konnte."
     },
     "tesicnor_intern": {
       "date": "Januar 2024 - Mai 2024",
-      "title": "Praktiziert Backend Developer | Tesicnor SL, Noain, Navarra",
-      "description": "Als <strong>Backend-Entwickler</strong> habe ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> gearbeitet, indem ich <strong>Spring Boot</strong> für das Backend und <strong>Angular</strong> für das Frontend eingesetzt habe. Darüber hinaus habe ich praktische Erfahrungen in der vollständigen Stapelentwicklung gesammelt, wobei der Schwerpunkt auf dem Backend und relationalen Datenbanken wie <strong>MySQL</strong> lag."
+      "title": "Backend-Entwickler Praktikant | Tesicnor SL, Noáin, Navarra",
+      "description": "Als <strong>Backend-Entwickler</strong> war ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> beteiligt, wobei ich <strong>Spring Boot</strong> für das Backend und <strong>Angular</strong> für das Frontend verwendete. Ich sammelte praktische Erfahrung in der Full-Stack-Entwicklung mit Schwerpunkt auf Backend und relationalen Datenbanken wie <strong>MySQL</strong>."
     },
     "burlada": {
       "date": "März 2022 - Juni 2022",
-      "title": "Praktikum in Praktiken | Stadtrat von Burlada",
-      "description": "Während meiner Praxis im <strong>Stadtrat von Burlada</strong> als Informatiker sammelte ich Erfahrung in der <strong>Problemlösung</strong> und <strong>Teamarbeit</strong>. Ich trug zur Entwicklung von kommunalen Computersystemen bei, arbeitete mit Fachleuten zusammen und stärkte meine Leidenschaft für Informatik und das technologische Bereich."
+      "title": "IT-Praktikant | Rathaus von Burlada",
+      "description": "Während meines Praktikums im <strong>Rathaus von Burlada</strong> sammelte ich Erfahrung in <strong>Problemlösung</strong> und <strong>Teamarbeit</strong>. Ich trug zur Entwicklung kommunaler IT-Systeme bei, arbeitete mit Fachleuten zusammen und vertiefte meine Leidenschaft für Informatik und Technologie."
     }
   },
   "projectsSection": {
     "demo": "Demo",
-    "viewDemo": "Siehe Demo",
-    "viewOnGitHub": "Siehe in Github",
-    "moreProjects": "Weitere Projekte sehen",
-    "githubDescription": "Ein Github -Repository namens {{repo}}"
+    "viewDemo": "Demo ansehen",
+    "viewOnGitHub": "Auf GitHub ansehen",
+    "moreProjects": "Weitere Projekte anzeigen",
+    "githubDescription": "Ein GitHub-Repository namens {{repo}}"
   },
   "footer": {
     "rights": "Alle Rechte vorbehalten",
