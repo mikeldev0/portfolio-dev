@@ -100,6 +100,8 @@ const { description, title } = Astro.props;
                 <Header />
                 <slot />
                 <script src="/i18n.js" is:inline></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+                <script src="/scripts/cv.js" is:inline></script>
         </body>
 </html>
 <style is:global>

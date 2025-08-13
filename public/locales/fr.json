@@ -8,6 +8,9 @@
   "badge": {
     "available": "Disponible pour travailler"
   },
+  "cv": {
+    "download": "Télécharger le CV"
+  },
   "hero": {
     "hello": "Bonjour ! Je suis",
     "description": "Développeur backend et full-stack basé à Pampelune, Espagne 🇪🇸. Passionné de technologie, d'innovation et de design, engagé à créer des expériences exceptionnelles et des solutions créatives."

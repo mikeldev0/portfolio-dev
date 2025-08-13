@@ -8,6 +8,9 @@
   "badge": {
     "available": "Disponible para trabajar"
   },
+  "cv": {
+    "download": "Descargar currículum"
+  },
   "hero": {
     "hello": "¡Hola! Soy",
     "description": "Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, la innovación y el diseño. Comprometido con la creación de experiencias excepcionales y soluciones creativas."

@@ -8,6 +8,9 @@
   "badge": {
     "available": "Verfügbar für neue Projekte"
   },
+  "cv": {
+    "download": "Lebenslauf herunterladen"
+  },
   "hero": {
     "hello": "Hallo! Ich bin",
     "description": "Backend- und Full-Stack-Entwickler mit Sitz in Pamplona, Spanien 🇪🇸. Begeistert von Technologie, Innovation und Design und engagiert, außergewöhnliche Erlebnisse und kreative Lösungen zu schaffen."

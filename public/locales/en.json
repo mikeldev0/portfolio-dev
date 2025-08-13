@@ -8,6 +8,9 @@
   "badge": {
     "available": "Available for work"
   },
+  "cv": {
+    "download": "Download CV"
+  },
   "hero": {
     "hello": "Hi! I'm",
     "description": "Backend and full-stack developer based in Pamplona, Spain 🇪🇸. Passionate about technology, innovation and design, committed to creating outstanding experiences and creative solutions."
