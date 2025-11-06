@@ -22,6 +22,11 @@
   },
   "experience": {
     "moreInfo": "More information",
+    "biodatup": {
+      "date": "October 2024 - Present",
+      "title": "Software Developer | Biodatup",
+      "description": "As a <strong>Software Developer/Engineer</strong> at Biodatup, I help build its <strong>clinical trial platform</strong> by delivering backend services with <strong>Django</strong> and crafting modern <strong>React</strong> interfaces. I also design <strong>relational data models</strong> and SQL workflows that provide reliable insights for clinical and product teams."
+    },
     "codetec": {
       "date": "January 2025 - September",
       "title": "Full-Stack Developer | CODETEC Servicios Informáticos SL",
