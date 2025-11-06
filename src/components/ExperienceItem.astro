@@ -31,9 +31,8 @@ const { title, description, date, link, isFirst, titleKey, descriptionKey, dateK
 <p
     class="mb-4 text-base font-normal text-zinc-700 dark:text-zinc-300 text-pretty"
     data-i18n={descriptionKey}
->
-    {description}
-</p>
+    set:html={description}
+></p>
 {
     link && (
         <a
