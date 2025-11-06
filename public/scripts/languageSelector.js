@@ -7,23 +7,34 @@
       { code: "de" },
       { code: "it" },
     ],
-    n = () => {
-      var e;
+    n = e.map(({ code: e }) => e),
+    o = () => {
+      let o;
       try {
-        return null !==
-          (e =
-            "undefined" != typeof localStorage
-              ? localStorage.getItem("language")
-              : null) && void 0 !== e
-          ? e
-          : "en";
+        if ("undefined" != typeof localStorage) {
+          const e =
+            localStorage.getItem("lang") ?? localStorage.getItem("language");
+          o =
+            "string" == typeof e ? e.slice(0, 2).toLowerCase() : void 0;
+        }
       } catch {
-        return "en";
+        o = void 0;
       }
+      if (!o) {
+        try {
+          o =
+            "undefined" != typeof navigator && navigator.language
+              ? navigator.language.slice(0, 2).toLowerCase()
+              : void 0;
+        } catch {
+          o = void 0;
+        }
+      }
+      return n.includes(o ?? "") ? o : "en";
     };
-  async function o(o) {
-    const t = n(),
-      a = await (async function (e) {
+  async function t(t) {
+    const a = o(),
+      r = await (async function (e) {
         try {
           const n = await fetch(`/locales/${e}.json`),
             o = await n.json();
@@ -37,32 +48,31 @@
             it: "Italiano",
           };
         }
-      })(t);
-    (o.innerHTML = e
-      .map(({ code: n }) => `<option value="${n}">${a[n] ?? n}</option>`)
+      })(a);
+    (t.innerHTML = e
+      .map(({ code: e }) => `<option value="${e}">${r[e] ?? e}</option>`)
       .join("")),
-      (o.value = t);
+      (t.value = a);
   }
-  async function t() {
-    const t = document.getElementById("language-selector");
-    t &&
-      (await o(t),
-      t.addEventListener("change", (e) => {
-        const o = e.currentTarget;
-        if (!o) return;
-        const t = o.value;
+  async function a() {
+    const n = document.getElementById("language-selector");
+    n &&
+      (await t(n),
+      n.addEventListener("change", (e) => {
+        const n = e.currentTarget;
+        if (!n) return;
+        const o = n.value;
         !(function (e) {
           try {
-            localStorage.setItem("language", e);
+            localStorage.setItem("lang", e), localStorage.removeItem("language");
           } catch {}
-        })(t),
-          window.location.reload();
+        })(o);
       }));
   }
   "undefined" != typeof document &&
     ("loading" === document.readyState
       ? document.addEventListener("DOMContentLoaded", () => {
-          t();
+          a();
         })
-      : t());
+      : a());
 })();
