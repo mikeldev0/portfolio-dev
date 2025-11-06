@@ -22,8 +22,13 @@
   },
   "experience": {
     "moreInfo": "Ulteriori informazioni",
+    "biodatup": {
+      "date": "Ottobre 2025 - Presente",
+      "title": "Software Developer | Biodatup",
+      "description": "Come <strong>Software Developer/Engineer</strong> in Biodatup contribuisco alla costruzione della sua <strong>piattaforma per gli studi clinici</strong>, sviluppando servizi backend con <strong>Django</strong> e interfacce moderne in <strong>React</strong>. Progetto inoltre <strong>modelli di dati relazionali</strong> e flussi SQL che offrono insight affidabili ai team clinici e di prodotto."
+    },
     "codetec": {
-      "date": "Gennaio 2025 - Settembre",
+      "date": "Gennaio 2025 - Settembre 2025",
       "title": "Sviluppatore Full-Stack | CODETEC Servicios Informáticos SL",
       "description": "Come <strong>sviluppatore full-stack</strong> in Codetec mi sono occupato dello sviluppo e della manutenzione di <strong>soluzioni aziendali</strong>, specializzandomi in <strong>sistemi di gestione, contabilità, fatturazione e logistica</strong>. Ho utilizzato tecnologie moderne come <strong>Vue.js, Ionic, Angular e Node.js</strong> per creare applicazioni web e mobile efficienti che miglioravano i processi aziendali dei nostri clienti. Il mio lavoro comprendeva sia il frontend sia il backend, implementando <strong>soluzioni personalizzate</strong> con framework moderni e database SQL/NoSQL che si adattavano alle esigenze di ogni azienda."
     },
