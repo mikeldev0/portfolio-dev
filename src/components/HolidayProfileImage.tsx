@@ -20,7 +20,7 @@ export default function HolidayProfileImage({ className }: Props) {
                         {showHolidayHat && (
                                 <img
                                         aria-hidden="true"
-                                        className="absolute -top-10 left-1/2 -translate-x-1/2 sm:-top-12 sm:-translate-x-1/2 lg:-top-11 rotate-[-15deg] w-20 sm:w-24 drop-shadow-md"
+                                        className="absolute -top-6 left-4 sm:-top-8 sm:left-6 lg:-top-7 lg:left-8 rotate-[-15deg] w-20 sm:w-24 drop-shadow-md"
                                         src="/TheresaKnott_Santa_Hat.svg"
                                         alt=""
                                 />
