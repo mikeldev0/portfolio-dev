@@ -2,13 +2,16 @@
 import "@fontsource-variable/onest";
 import Background from "../components/Background.astro";
 import Header from "../components/Header.astro";
+import Snowfall from "../components/Snowfall";
+import { env } from "../lib/env";
 
 interface Props {
-	title: string;
-	description: string;
+        title: string;
+        description: string;
 }
 
 const { description, title } = Astro.props;
+const { enableHolidayEffects } = env;
 ---
 
 <!doctype html>
@@ -97,6 +100,7 @@ const { description, title } = Astro.props;
 	</head>
         <body>
                 <Background />
+                {enableHolidayEffects && <Snowfall client:load />}
                 <Header />
                 <slot />
                 <script src="/i18n.js" is:inline></script>

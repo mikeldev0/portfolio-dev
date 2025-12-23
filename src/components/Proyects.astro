@@ -2,8 +2,8 @@
 import DesktopIcon from "../icons/DesktopIcon.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import SocialPill from "./SocialPill.astro";
-const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
-const GITHUB_URL = import.meta.env.GITHUB_URL;
+import { env } from "../lib/env";
+const { githubToken: GITHUB_TOKEN, githubUrl: GITHUB_URL } = env;
 interface Proyect {
     title: string;
     description: string;
