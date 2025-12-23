@@ -1,8 +1,8 @@
 ---
-import { Image } from "astro:assets";
 import AboutMe from "../components/AboutMe.astro";
 import Badge from "../components/Badge.astro";
 import Experiences from "../components/Experiences.astro";
+import HolidayProfileImage from "../components/HolidayProfileImage";
 import Footer from "../components/Footer.astro";
 import ProfileCheck from "../components/ProfileCheck.astro";
 import Proyects from "../components/Proyects.astro";
@@ -17,7 +17,6 @@ import LinkedInIcon from "../icons/LinkedInIcon.astro";
 import MailIcon from "../icons/MailIcon.astro";
 import XIcon from "../icons/XIcon.astro";
 import Layout from "../layouts/Layout.astro";
-import myPhoto from "/public/photo.webp";
 ---
 
 <Layout
@@ -29,13 +28,7 @@ import myPhoto from "/public/photo.webp";
 		<div
 			class="flex flex-col items-center sm:items-start sm:flex-row sm:gap-x-4"
 		>
-                        <Image
-                                class="rounded-full size-24 sm:size-32 object-cover object-center mb-4 sm:mb-0 lg:mb-4 border-4 border-gray-200 dark:border-gray-800"
-                                src={myPhoto}
-                                alt="Mikel Echeverria, Desarrollador Full Stack y Backend"
-                                width={128}
-                                height={128}
-                        />
+                        <HolidayProfileImage className="mb-4 sm:mb-0 lg:mb-4" client:load />
 			<div
 				class="flex flex-col lg:flex-row gap-x-4 items-center sm:items-start"
 			>
