@@ -28,6 +28,12 @@ bun run dev
 
 4. Visita http://localhost:4321 en tu navegador para ver el proyecto.
 
+### Variables de entorno
+
+- `VITE_ENABLE_HOLIDAY_EFFECTS`: controla los efectos navideños (copos de nieve). Por defecto están activos, pero puedes desactivarlos estableciendo `false` en tu archivo `.env`.
+
+> Nota: los efectos navideños solo se muestran durante la temporada (1 de diciembre al 7 de enero) y respetan la preferencia de movimiento reducido del usuario.
+
 🛠️ **Construido con**
 - **Astro** - El framework utilizado
 - **Tailwind CSS** - Para estilos rápidos y responsivos
