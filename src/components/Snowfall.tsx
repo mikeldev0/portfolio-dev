@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { env } from "../lib/env";
+import { useEffect, useRef } from "react";
+import { useHolidayEffectsActive } from "../lib/holiday";
 
 interface Snowflake {
         x: number;
@@ -10,35 +10,10 @@ interface Snowflake {
 }
 
 const SNOWFLAKE_COUNT = 120;
-const HOLIDAY_END_DAY = 7;
-
-const isWithinHolidaySeason = (date: Date) => {
-        const month = date.getMonth();
-        const day = date.getDate();
-
-        return month === 11 || (month === 0 && day <= HOLIDAY_END_DAY);
-};
-
 export default function Snowfall() {
         const canvasRef = useRef<HTMLCanvasElement>(null);
         const animationRef = useRef<number>();
-        const [isActive, setIsActive] = useState(false);
-        const { enableHolidayEffects } = env;
-
-        useEffect(() => {
-                const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-                const updateSeasonalState = () => {
-                        const holidayActive = isWithinHolidaySeason(new Date());
-                        setIsActive(enableHolidayEffects && holidayActive && !prefersReducedMotion.matches);
-                };
-
-                updateSeasonalState();
-                prefersReducedMotion.addEventListener("change", updateSeasonalState);
-
-                return () => {
-                        prefersReducedMotion.removeEventListener("change", updateSeasonalState);
-                };
-        }, [enableHolidayEffects]);
+        const isActive = useHolidayEffectsActive();
 
         useEffect(() => {
                 if (!isActive) return;
@@ -111,7 +86,7 @@ export default function Snowfall() {
                 };
         }, [isActive]);
 
-        if (!enableHolidayEffects || !isActive) {
+        if (!isActive) {
                 return null;
         }
 
