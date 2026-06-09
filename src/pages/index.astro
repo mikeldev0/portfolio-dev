@@ -17,7 +17,7 @@ import Layout from "../layouts/Layout.astro";
     description="Portafolio profesional de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables e IA."
 />
 <main
-    class="max-w-4xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
+    class="max-w-3xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
 >
     <SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
         <div class="flex flex-col items-start gap-y-12">
@@ -32,9 +32,22 @@ import Layout from "../layouts/Layout.astro";
                     >
                         <span data-i18n="hero.hello">Mikel Echeverria</span>
                     </h1>
-                    <div class="inline-flex items-center gap-x-2 rounded-full border border-zinc-200/60 bg-zinc-50/50 px-3 py-1 text-sm font-medium text-zinc-700 dark:border-zinc-800/60 dark:bg-zinc-900/50 dark:text-zinc-300 shadow-sm mt-1">
-                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        <span data-i18n="badge.available">Disponible para trabajar</span>
+                    <div
+                        class="flex items-center gap-x-2.5 text-[13px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400/90"
+                    >
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                            ></span>
+                            <span
+                                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                            ></span>
+                        </span>
+                        <span
+                            data-i18n="badge.available"
+                            class="uppercase tracking-widest"
+                            >Disponible para trabajar</span
+                        >
                     </div>
                 </div>
             </div>
@@ -48,11 +61,9 @@ import Layout from "../layouts/Layout.astro";
                     de APIs robustas, sistemas escalables y automatización
                     inteligente.
                 </p>
-
-                
             </div>
 
-            <nav class="flex flex-wrap gap-x-8 gap-y-4 mt-4">
+            <nav class="flex flex-wrap gap-x-8 gap-y-4">
                 <a
                     href="https://github.mikeldev.com"
                     target="_blank"
@@ -88,33 +99,30 @@ import Layout from "../layouts/Layout.astro";
         </div>
     </SectionContainer>
 
-    <SectionContainer class="py-24 sm:py-40">
+    <SectionContainer id="experiencia" class="py-24 sm:py-40">
         <h2
-            id="experiencia"
-            class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-12"
-            data-i18n="section.experience"
+            class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+            data-i18n="nav.experience"
         >
-            Experiencia laboral
+            Experiencia
         </h2>
         <Experiences />
     </SectionContainer>
 
-    <SectionContainer class="py-24 sm:py-40 lg:py-48">
+    <SectionContainer id="proyectos" class="py-24 sm:py-40 lg:py-48">
         <h2
-            id="proyectos"
-            class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-12"
-            data-i18n="section.projects"
+            class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+            data-i18n="nav.projects"
         >
-            Proyectos seleccionados
+            Proyectos
         </h2>
         <Projects />
     </SectionContainer>
 
-    <SectionContainer class="py-24 sm:py-40 lg:py-48">
+    <SectionContainer id="sobre-mi" class="py-24 sm:py-40 lg:py-48">
         <h2
-            id="sobre-mi"
-            class="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-12"
-            data-i18n="section.about"
+            class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+            data-i18n="nav.about"
         >
             Sobre mí
         </h2>

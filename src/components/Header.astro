@@ -41,7 +41,7 @@ const navItems = [
     >
         <nav class="flex items-center gap-x-12">
             <a
-                href="/"
+                href="/#"
                 class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100"
                 aria-label="Home"
             >
@@ -90,96 +90,124 @@ const navItems = [
             </button>
         </div>
     </div>
-
-    <!-- Mobile nav -->
-    <div
-        id="mobile-nav"
-        class="fixed inset-0 bg-white dark:bg-zinc-950 z-[60] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
-    >
-        <button
-            id="close-mobile-nav"
-            aria-label="Cerrar menú"
-            class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-        >
-            <CloseMenuIcon class="size-8" />
-        </button>
-
-        <div class="flex flex-col gap-y-12 items-center">
-            {
-                navItems.map((link) => (
-                    <a
-                        class="text-4xl font-black tracking-tighter text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-                        aria-label={link.label}
-                        href={link.url}
-                        data-i18n={link.key}
-                        onclick="document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none','translate-y-8');"
-                    >
-                        {link.title}
-                    </a>
-                ))
-            }
-        </div>
-    </div>
 </header>
 
-<script>
-    const burgerBtn = document.getElementById("burger-btn");
-    const mobileNav = document.getElementById("mobile-nav");
-    const closeBtn = document.getElementById("close-mobile-nav");
-    const header = document.getElementById("main-header");
+<!-- Mobile nav -->
+<div
+    id="mobile-nav"
+    class="fixed inset-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
+>
+    <button
+        id="close-mobile-nav"
+        aria-label="Cerrar menú"
+        class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+    >
+        <CloseMenuIcon class="size-8" />
+    </button>
 
-    if (burgerBtn && mobileNav) {
-        burgerBtn.onclick = () => {
-            mobileNav.classList.remove(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-8",
-            );
-            mobileNav.classList.add(
-                "opacity-100",
-                "pointer-events-auto",
-                "translate-y-0",
-            );
-        };
-    }
-    if (closeBtn && mobileNav) {
-        closeBtn.onclick = () => {
-            mobileNav.classList.remove(
-                "opacity-100",
-                "pointer-events-auto",
-                "translate-y-0",
-            );
-            mobileNav.classList.add(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-8",
-            );
-        };
-    }
-
-    // Scroll effect
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 20) {
-            header?.classList.add(
-                "bg-white/50",
-                "dark:bg-zinc-950/50",
-                "backdrop-blur-xl",
-                "!h-16",
-            );
-        } else {
-            header?.classList.remove(
-                "bg-white/50",
-                "dark:bg-zinc-950/50",
-                "backdrop-blur-xl",
-                "!h-16",
-            );
+    <div class="flex flex-col gap-y-12 items-center">
+        {
+            navItems.map((link) => (
+                <a
+                    class="mobile-nav-link text-4xl font-black tracking-tighter text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
+                    aria-label={link.label}
+                    href={link.url}
+                    data-i18n={link.key}
+                >
+                    {link.title}
+                </a>
+            ))
         }
-    });
+    </div>
+</div>
 
-    // Active state
+<script>
+    function initMobileMenu() {
+        const burgerBtn = document.getElementById("burger-btn");
+        const closeBtn = document.getElementById("close-mobile-nav");
+        const mobileNav = document.getElementById("mobile-nav");
+        const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+        const header = document.getElementById("main-header");
+
+        if (!burgerBtn || !mobileNav || !closeBtn) return;
+
+        // Clean up to prevent double listeners
+        burgerBtn.replaceWith(burgerBtn.cloneNode(true));
+        closeBtn.replaceWith(closeBtn.cloneNode(true));
+
+        const newBurgerBtn = document.getElementById("burger-btn");
+        const newCloseBtn = document.getElementById("close-mobile-nav");
+
+        const openMenu = () => {
+            mobileNav.classList.remove(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-8",
+            );
+            mobileNav.classList.add(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+            );
+        };
+
+        const closeMenu = () => {
+            mobileNav.classList.remove(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+            );
+            mobileNav.classList.add(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-8",
+            );
+        };
+
+        newBurgerBtn?.addEventListener("click", openMenu);
+        newCloseBtn?.addEventListener("click", closeMenu);
+        mobileNavLinks.forEach((link) => {
+            link.replaceWith(link.cloneNode(true));
+        });
+
+        // Re-select after cloning
+        const newMobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+        newMobileNavLinks.forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        const handleScroll = () => {
+            if (window.scrollY > 20) {
+                header?.classList.add(
+                    "bg-white/50",
+                    "dark:bg-zinc-950/50",
+                    "backdrop-blur-xl",
+                    "!h-16",
+                );
+            } else {
+                header?.classList.remove(
+                    "bg-white/50",
+                    "dark:bg-zinc-950/50",
+                    "backdrop-blur-xl",
+                    "!h-16",
+                );
+            }
+        };
+
+        window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll);
+    }
+
+    // Initialize on first load and on astro:page-load (if transitions are used)
+    document.addEventListener("astro:page-load", initMobileMenu);
+    initMobileMenu();
+
+    // Active state logic
     document.addEventListener("astro:page-load", () => {
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll("#main-header nav div a");
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(
+            "#main-header a[aria-label]",
+        );
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -190,13 +218,23 @@ const navItems = [
                                 link.getAttribute("aria-label") ===
                                 entry.target.id
                             ) {
-                                link.classList.remove("text-zinc-400");
+                                link.classList.remove(
+                                    "text-zinc-400",
+                                    "text-zinc-500",
+                                );
                                 link.classList.add(
                                     "text-zinc-900",
                                     "dark:text-zinc-100",
                                 );
                             } else {
-                                link.classList.add("text-zinc-400");
+                                // For desktop links use zinc-400, for mobile use zinc-500 (resting states)
+                                const isMobile =
+                                    link.classList.contains("mobile-nav-link");
+                                link.classList.add(
+                                    isMobile
+                                        ? "text-zinc-500"
+                                        : "text-zinc-400",
+                                );
                                 link.classList.remove(
                                     "text-zinc-900",
                                     "dark:text-zinc-100",
@@ -206,7 +244,7 @@ const navItems = [
                     }
                 });
             },
-            { threshold: 0.5 },
+            { threshold: 0.3 },
         );
 
         sections.forEach((s) => observer.observe(s));
