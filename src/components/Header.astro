@@ -3,6 +3,7 @@ import HomeIcon from "../icons/HomeIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
+import LiquidHeader from "./LiquidHeader.tsx";
 
 const navItems = [
     {
@@ -32,10 +33,7 @@ const navItems = [
 ];
 ---
 
-<header
-    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
-    id="main-header"
->
+<LiquidHeader client:load>
     <div
         class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between"
     >
@@ -120,13 +118,12 @@ const navItems = [
             }
         </div>
     </div>
-</header>
+</LiquidHeader>
 
 <script>
     const burgerBtn = document.getElementById("burger-btn");
     const mobileNav = document.getElementById("mobile-nav");
     const closeBtn = document.getElementById("close-mobile-nav");
-    const header = document.getElementById("main-header");
 
     if (burgerBtn && mobileNav) {
         burgerBtn.onclick = () => {
@@ -156,25 +153,6 @@ const navItems = [
             );
         };
     }
-
-    // Scroll effect
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 20) {
-            header?.classList.add(
-                "bg-white/50",
-                "dark:bg-zinc-950/50",
-                "backdrop-blur-xl",
-                "!h-16",
-            );
-        } else {
-            header?.classList.remove(
-                "bg-white/50",
-                "dark:bg-zinc-950/50",
-                "backdrop-blur-xl",
-                "!h-16",
-            );
-        }
-    });
 
     // Active state
     document.addEventListener("astro:page-load", () => {
