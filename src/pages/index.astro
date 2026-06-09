@@ -13,52 +13,68 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
-	title="Mikel Echeverria - Backend & Full Stack Engineer"
-	description="Portafolio profesional de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables e IA."
+    title="Mikel Echeverria - Backend & Full Stack Engineer"
+    description="Portafolio profesional de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables e IA."
 />
-<main class="max-w-4xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100">
-	<SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
-		<div class="flex flex-col items-start gap-y-12">
+<main
+    class="max-w-3xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
+>
+    <SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
+        <div class="flex flex-col items-start gap-y-12">
             <div class="flex items-center gap-x-8">
-                <HolidayProfileImage className="w-24 h-24 sm:w-28 sm:h-28 shadow-2xl dark:shadow-zinc-900/50 rounded-full transition-transform duration-500 hover:scale-105" client:load />
+                <HolidayProfileImage
+                    className="w-24 h-24 sm:w-28 sm:h-28 shadow-2xl dark:shadow-zinc-900/50 rounded-full transition-transform duration-500 hover:scale-105"
+                    client:load
+                />
                 <div class="space-y-2">
-                    <h1 class="text-4xl sm:text-6xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100">
+                    <h1
+                        class="text-4xl sm:text-6xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"
+                    >
                         <span data-i18n="hero.hello">Mikel Echeverria</span>
                     </h1>
-                    <div class="flex items-center gap-x-2.5 text-[13px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400/90">
+                    <div
+                        class="flex items-center gap-x-2.5 text-[13px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400/90"
+                    >
                         <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+                            ></span>
+                            <span
+                                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+                            ></span>
                         </span>
-                        <span data-i18n="badge.available" class="uppercase tracking-widest">Disponible para trabajar</span>
+                        <span
+                            data-i18n="badge.available"
+                            class="uppercase tracking-widest"
+                            >Disponible para trabajar</span
+                        >
                     </div>
                 </div>
             </div>
-            
-            <div class="max-w-3xl space-y-8">
-                <p class="text-2xl sm:text-3xl font-medium leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty" data-i18n="hero.description">
-                    Backend & Full Stack Engineer. Especializado en arquitectura de APIs robustas, sistemas escalables y automatización inteligente.
+
+            <div class="max-w-2xl space-y-8">
+                <p
+                    class="text-xl sm:text-2xl font-medium leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty"
+                    data-i18n="hero.description"
+                >
+                    Backend & Full Stack Engineer. Especializado en arquitectura
+                    de APIs robustas, sistemas escalables y automatización
+                    inteligente.
                 </p>
 
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500">
-                    <span data-i18n="hero.signalBackend">Backend Architecture</span>
-                    <span class="text-zinc-200 dark:text-zinc-800">/</span>
-                    <span data-i18n="hero.signalFullStack">Full Stack Delivery</span>
-                    <span class="text-zinc-200 dark:text-zinc-800">/</span>
-                    <span data-i18n="hero.signalAi">AI & Automation</span>
-                    <span class="text-zinc-200 dark:text-zinc-800">/</span>
-                    <span data-i18n="hero.signalData">Data Engineering</span>
-                </div>
+                
             </div>
 
-            <nav class="flex flex-wrap gap-x-8 gap-y-4 mt-6">
+            <nav class="flex flex-wrap gap-x-8 gap-y-4 mt-4">
                 <a
                     href="https://github.mikeldev.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="flex items-center gap-x-2 text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors group"
                 >
-                    <GitHubIcon class="size-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                    <GitHubIcon
+                        class="size-4 opacity-70 group-hover:opacity-100 transition-opacity"
+                    />
                     <span>GitHub</span>
                 </a>
                 <a
@@ -67,41 +83,39 @@ import Layout from "../layouts/Layout.astro";
                     rel="noopener noreferrer"
                     class="flex items-center gap-x-2 text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors group"
                 >
-                    <LinkedInIcon class="size-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                    <LinkedInIcon
+                        class="size-4 opacity-70 group-hover:opacity-100 transition-opacity"
+                    />
                     <span>LinkedIn</span>
                 </a>
                 <a
                     href="mailto:mikel@mikeldev.com"
                     class="flex items-center gap-x-2 text-sm font-semibold text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors group"
                 >
-                    <MailIcon class="size-5 opacity-70 group-hover:opacity-100 transition-opacity" />
+                    <MailIcon
+                        class="size-4 opacity-70 group-hover:opacity-100 transition-opacity"
+                    />
                     <span>Email</span>
                 </a>
             </nav>
-		</div>
-	</SectionContainer>
+        </div>
+    </SectionContainer>
 
-	<SectionContainer class="py-24 sm:py-40">
-        <h2 id="experiencia" class="text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 mb-16" data-i18n="section.experience">
-            Experiencia laboral
-        </h2>
-		<Experiences />
-	</SectionContainer>
+    <SectionContainer class="py-24 sm:py-40">
+        
+        <Experiences />
+    </SectionContainer>
 
-	<SectionContainer class="py-24 sm:py-40 lg:py-48">
-        <h2 id="proyectos" class="text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 mb-16" data-i18n="section.projects">
-            Proyectos seleccionados
-        </h2>
-		<Projects />
-	</SectionContainer>
+    <SectionContainer class="py-24 sm:py-40 lg:py-48">
+        
+        <Projects />
+    </SectionContainer>
 
-	<SectionContainer class="py-24 sm:py-40 lg:py-48">
-        <h2 id="sobre-mi" class="text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-500 mb-16" data-i18n="section.about">
-            Sobre mí
-        </h2>
-		<AboutMe />
-	</SectionContainer>
+    <SectionContainer class="py-24 sm:py-40 lg:py-48">
+        
+        <AboutMe />
+    </SectionContainer>
 
-	<ScrollTopButton />
-	<Footer />
+    <ScrollTopButton />
+    <Footer />
 </main>

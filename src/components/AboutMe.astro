@@ -8,26 +8,20 @@ const personalImageAlt = "Mikel Echeverria, Backend & Full Stack Engineer";
   class="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-12 items-start"
 >
   <div class="text-pretty order-2 md:order-1">
-    <div class="space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed text-[15px]">
+    <div class="space-y-6 text-zinc-700 dark:text-zinc-300 leading-relaxed text-lg sm:text-xl [&>p>strong]:font-semibold [&>p>strong]:text-zinc-950 dark:[&>p>strong]:text-white">
         <p data-i18n="about.content">
-          Soy <strong>Mikel Echeverria</strong>, un <strong>Backend & Full Stack Engineer</strong> con foco en la resolución de problemas complejos y la construcción de sistemas escalables. Mi enfoque combina rigor técnico con una comunicación efectiva para liderar y colaborar en equipos de ingeniería.
-        </p>
-        <p>
-            Tengo una profunda pasión por la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong>, áreas en las que desarrollo proyectos personales para explorar nuevas fronteras de automatización y eficiencia. Mi objetivo es siempre aportar soluciones robustas que optimicen procesos y aporten valor real al producto.
+          Soy <strong>Mikel Echeverria</strong>, un <strong>Backend & Full Stack Engineer</strong>. Mi enfoque combina rigor técnico con comunicación efectiva para construir sistemas escalables end-to-end. Además, exploro continuamente la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong> para desarrollar soluciones robustas que optimicen procesos y aporten valor real.
         </p>
     </div>
   </div>
 
   <div class="order-1 md:order-2 flex justify-center md:justify-end">
-    <div class="relative group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-zinc-200 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-        <Image
-          width="200"
-          height="200"
-          src={myPhoto}
-          alt={personalImageAlt}
-          class="relative w-48 h-48 rounded-2xl object-cover transition-all duration-700 ring-1 ring-zinc-200 dark:ring-zinc-800"
-        />
-    </div>
+    <Image
+      width="200"
+      height="200"
+      src={myPhoto}
+      alt={personalImageAlt}
+      class="w-48 h-48 rounded-2xl object-cover shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 transition-transform duration-500 hover:scale-[1.03]"
+    />
   </div>
 </article>
