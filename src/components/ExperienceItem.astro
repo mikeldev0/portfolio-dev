@@ -15,38 +15,40 @@ export interface ExperienceItemProps {
 const { title, description, date, link, isFirst, titleKey, descriptionKey, dateKey } =
     Astro.props as ExperienceItemProps;
 ---
-<div
-    class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-zinc-300 dark:border-zinc-900 dark:bg-zinc-700"
->
-</div>
-<div class="flex flex-col gap-1">
+
+<article class="group relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-y-4 md:gap-x-12 pb-12 last:pb-0">
     <time
-        class={`text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-500`}
+        class="text-sm font-medium tabular-nums text-zinc-400 dark:text-zinc-500 mt-1"
         data-i18n={dateKey}
     >
         {date}
     </time>
-    <h3 class={`text-lg font-bold text-zinc-900 dark:text-zinc-100 ${isFirst ? "text-indigo-600 dark:text-indigo-400" : ""}`} data-i18n={titleKey}>
-        {title}
-    </h3>
-    <div
-        class="mt-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty"
-        data-i18n={descriptionKey}
-        set:html={description}
-    ></div>
-    {
-        link && (
-            <div class="mt-4">
-                <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                >
-                    <span data-i18n="experience.moreInfo">Más información</span>
-                    <ArrowIcon class="size-4" />
-                </a>
-            </div>
-        )
-    }
-</div>
+    
+    <div class="flex flex-col">
+        <h3 class={`text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 ${isFirst ? "text-indigo-600 dark:text-indigo-400" : ""}`} data-i18n={titleKey}>
+            {title}
+        </h3>
+        
+        <div
+            class="mt-3 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty"
+            data-i18n={descriptionKey}
+            set:html={description}
+        ></div>
+        
+        {
+            link && (
+                <div class="mt-4">
+                    <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400"
+                    >
+                        <span data-i18n="experience.moreInfo">Detalles</span>
+                        <ArrowIcon class="size-3.5" />
+                    </a>
+                </div>
+            )
+        }
+    </div>
+</article>

@@ -1,7 +1,6 @@
 ---
 import DesktopIcon from "../icons/DesktopIcon.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
-import SocialPill from "./SocialPill.astro";
 import { env } from "../lib/env";
 
 const { githubToken: GITHUB_TOKEN, githubUrl: GITHUB_URL } = env;
@@ -17,7 +16,6 @@ interface Project {
 
 interface Tag {
     name: string;
-    color: string;
 }
 
 interface GitHubRepository {
@@ -32,76 +30,55 @@ interface GitHubRepository {
 }
 
 const TAG = {
-    JAVA: { name: "Java", color: "bg-red-600/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
-    PYTHON: { name: "Python", color: "bg-blue-400/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    JAVASCRIPT: { name: "JavaScript", color: "bg-yellow-600/10 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-900/50" },
-    BASH: { name: "Bash", color: "bg-zinc-800/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
-    BATCH: { name: "Batch", color: "bg-zinc-600/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
-    HTML: { name: "HTML", color: "bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-900/50" },
-    CSS: { name: "CSS", color: "bg-blue-600/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    SASS: { name: "SASS", color: "bg-pink-600/10 text-pink-700 dark:text-pink-400 border-pink-200 dark:border-pink-900/50" },
-    TYPESCRIPT: { name: "TypeScript", color: "bg-blue-800/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    REACT: { name: "React", color: "bg-cyan-400/10 text-cyan-700 dark:text-cyan-400 border-cyan-200 dark:border-cyan-900/50" },
-    ANGULAR: { name: "Angular", color: "bg-red-700/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
-    SPRING_BOOT: { name: "Spring Boot", color: "bg-green-600/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
-    NODE_JS: { name: "Node.js", color: "bg-green-500/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
-    EXPRESS: { name: "Express", color: "bg-zinc-500/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
-    MYSQL: { name: "MySQL", color: "bg-blue-300/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    DOCKER: { name: "Docker", color: "bg-blue-700/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    GITHUB: { name: "GitHub", color: "bg-zinc-800/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
-    GITLAB: { name: "GitLab", color: "bg-orange-600/10 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-900/50" },
-    JIRA: { name: "Jira", color: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
-    BDD: { name: "BDD", color: "bg-red-500/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
-    ASTRO: { name: "Astro", color: "bg-purple-600/10 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-900/50" },
-    PHP: { name: "PHP", color: "bg-indigo-700/10 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-900/50" },
-    VB_NET: { name: "VB.NET", color: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-900/50" },
-    ANDROID: { name: "Android", color: "bg-green-700/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
-    IOS: { name: "iOS", color: "bg-zinc-400/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+    JAVA: { name: "Java" },
+    PYTHON: { name: "Python" },
+    JAVASCRIPT: { name: "JavaScript" },
+    BASH: { name: "Bash" },
+    BATCH: { name: "Batch" },
+    HTML: { name: "HTML" },
+    CSS: { name: "CSS" },
+    SASS: { name: "SASS" },
+    TYPESCRIPT: { name: "TypeScript" },
+    REACT: { name: "React" },
+    ANGULAR: { name: "Angular" },
+    SPRING_BOOT: { name: "Spring Boot" },
+    NODE_JS: { name: "Node.js" },
+    EXPRESS: { name: "Express" },
+    MYSQL: { name: "MySQL" },
+    DOCKER: { name: "Docker" },
+    GITHUB: { name: "GitHub" },
+    GITLAB: { name: "GitLab" },
+    JIRA: { name: "Jira" },
+    BDD: { name: "BDD" },
+    ASTRO: { name: "Astro" },
+    PHP: { name: "PHP" },
+    VB_NET: { name: "VB.NET" },
+    ANDROID: { name: "Android" },
+    IOS: { name: "iOS" },
 };
 
 const STATIC_PROJECTS: Project[] = [
     {
         link: "https://proyectosjs.mikeldev.com",
-        title: "Proyectos desarrollados 100% con JavaScript",
+        title: "JS Utilities & Experiments",
         description:
-            "Una selección de herramientas y experimentos prácticos construidos con Vanilla JS. Incluye desde lógica de negocio hasta interfaces reactivas y juegos.",
-        tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS, TAG.ASTRO],
+            "Una selección de herramientas y experimentos prácticos construidos con Vanilla JS. Incluye desde lógica de negocio hasta interfaces reactivas y motores de juegos ligeros.",
+        tags: [TAG.JAVASCRIPT, TAG.ASTRO],
     },
     {
-        title: "Woof & Work Marketing",
+        title: "Woof & Work Platform",
         description:
-            "Plataforma para agencia de marketing digital especializada en el sector mascotas. Implementación de landing page con enfoque en performance y conversión.",
-        tags: [TAG.REACT, TAG.TYPESCRIPT, TAG.CSS],
+            "Infraestructura digital para agencia de marketing especializada. Enfoque en performance, SEO técnico y conversión mediante arquitectura de componentes modulares.",
+        tags: [TAG.REACT, TAG.TYPESCRIPT],
         link: "https://woofandwork.netlify.app",
     },
     {
-        title: "WebLLM-local Chatbot",
+        title: "WebLLM-local AI",
         description:
-            "Chatbot impulsado por IA que utiliza WebGPU para ejecutar modelos de lenguaje localmente en el navegador. Enfoque en privacidad y cómputo distribuido.",
+            "Implementación de chatbot con modelos de lenguaje ejecutados en el cliente vía WebGPU. Investigación sobre privacidad en IA y computación distribuida en el navegador.",
         github: "/WebLLM-local",
-        tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS],
+        tags: [TAG.JAVASCRIPT, TAG.TYPESCRIPT],
         link: "https://chat.mikeldev.com",
-    },
-    {
-        title: "Hundir la flota - Game Engine",
-        description:
-            "Motor de juego para el clásico Hundir la Flota desarrollado en Java. Implementación de lógica de colisiones, IA básica y estados de juego.",
-        github: "/HundirLaFlota",
-        tags: [TAG.JAVA],
-    },
-    {
-        title: "HugChat CLI",
-        description:
-            "Interfaz de línea de comandos para interactuar con modelos de lenguaje de HuggingFace. Automatización de prompts y gestión de sesiones vía terminal.",
-        github: "/HuggingChatCLI",
-        tags: [TAG.PYTHON, TAG.BASH, TAG.BATCH],
-    },
-    {
-        title: "Carpooling App Cuatrovientos",
-        description:
-            "Aplicación móvil de coche compartido para reducir la huella de carbono escolar. Gestión de rutas, usuarios y ahorros de CO2.",
-        github: "/BlaBlaCarCuatrovientos",
-        tags: [TAG.JAVA, TAG.ANDROID],
     },
 ];
 
@@ -176,7 +153,7 @@ try {
         PROJECTS = githubProjects;
     }
 } catch {
-    // Silently fallback to static projects
+    // Silently fallback
 }
 
 const getRepositoryUrl = (github?: string) => {
@@ -185,52 +162,55 @@ const getRepositoryUrl = (github?: string) => {
 };
 ---
 
-<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+<div class="flex flex-col gap-y-20">
     {PROJECTS.slice(0, 6).map(
         ({ title, description, link, github, image, tags }) => {
             const repositoryUrl = getRepositoryUrl(github);
 
             return (
-            <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
-                {image && (
-                    <div class="aspect-video w-full overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+            <article class="group grid grid-cols-1 md:grid-cols-[240px_1fr] gap-y-6 md:gap-x-12 items-start">
+                {image ? (
+                    <div class="aspect-[16/10] w-full overflow-hidden rounded bg-zinc-100 dark:bg-zinc-800 ring-1 ring-zinc-200 dark:ring-zinc-700">
                         <img
                             src={image}
                             alt={title}
                             loading="lazy"
-                            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            class="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                     </div>
+                ) : (
+                    <div class="aspect-[16/10] w-full rounded bg-zinc-50 dark:bg-zinc-900/50 ring-1 ring-inset ring-zinc-200 dark:ring-zinc-800 flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                        No Preview
+                    </div>
                 )}
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="flex-1">
+                
+                <div class="flex flex-col h-full">
+                    <div>
                         <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
                             {title}
                         </h3>
-                        <div class="mt-3 flex flex-wrap gap-1.5">
+                        <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
                             {tags.map((tag) => (
-                                <span
-                                    class={`rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${tag.color}`}
-                                >
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                                     {tag.name}
                                 </span>
                             ))}
                         </div>
-                        <p class="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                        <p class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty">
                             {description}
                         </p>
                     </div>
 
-                    <div class="mt-8 flex items-center gap-4">
+                    <div class="mt-6 flex items-center gap-x-6">
                         {link && (
                             <a
                                 href={link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400"
                             >
                                 <DesktopIcon class="size-4" />
-                                <span data-i18n="projectsSection.viewDemo">Ver demo</span>
+                                <span data-i18n="projectsSection.viewDemo">Ver proyecto</span>
                             </a>
                         )}
                         {repositoryUrl && (
@@ -238,10 +218,10 @@ const getRepositoryUrl = (github?: string) => {
                                 href={repositoryUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-700 transition hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
                             >
                                 <GitHubIcon class="size-4" />
-                                <span data-i18n="projectsSection.viewOnGitHub">GitHub</span>
+                                <span>Source</span>
                             </a>
                         )}
                     </div>
@@ -252,9 +232,12 @@ const getRepositoryUrl = (github?: string) => {
 </div>
 
 {PROJECTS.length > 6 && (
-    <div class="mt-12 flex justify-center">
-        <SocialPill href="https://github.com/mikeldev0?tab=repositories">
+    <div class="mt-16 flex justify-center border-t border-zinc-100 dark:border-zinc-800 pt-16">
+        <a 
+            href="https://github.com/mikeldev0?tab=repositories"
+            class="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+        >
             <span data-i18n="projectsSection.moreProjects">Ver más proyectos</span>
-        </SocialPill>
+        </a>
     </div>
 )}

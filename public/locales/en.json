@@ -9,12 +9,12 @@
     "available": "Available for work"
   },
   "hero": {
-    "hello": "Hi! I'm",
-    "description": "Backend & Full Stack Developer. Specializing in robust APIs, scalable interfaces, and intelligent automation. Focused on clean architecture and data engineering.",
-    "signalBackend": "Backend & API Architecture",
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Specializing in robust API architecture, scalable systems, and intelligent automation.",
+    "signalBackend": "Backend Architecture",
     "signalFullStack": "Full Stack Delivery",
     "signalAi": "AI & Automation",
-    "signalData": "Data Modeling & SQL"
+    "signalData": "Data Engineering"
   },
   "section": {
     "experience": "Work experience",

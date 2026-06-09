@@ -33,61 +33,62 @@ const navItems = [
 ---
 
 <header
-    class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-300"
+    id="main-header"
 >
-    <nav
-        class="flex px-3 text-xs md:text-sm font-medium rounded-full text-gray-800 dark:text-gray-200 justify-center items-center w-full md:w-auto"
-    >
-        <div class="mr-2 hover:scale-125 transition">
-            <HomeIcon />
-        </div>
-        <!-- Desktop nav -->
-        <div class="hidden md:flex items-center">
-            {
-                navItems.map((link) => (
-                    <a
-                        class="relative block px-2 py-2 transition hover:text-indigo-600 dark:hover:text-indigo-400 text-center"
-                        aria-label={link.label}
-                        href={link.url}
-                        data-i18n={link.key}
-                    >
-                        {link.title}
-                    </a>
-                ))
-            }
-        </div>
-        <div class="flex items-center ml-auto md:ml-2 md:mr-0 absolute right-12 top-1/2 -translate-y-1/2 md:static md:translate-y-0">
+    <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+        <nav class="flex items-center gap-x-8">
+            <a href="/" class="hover:scale-110 transition-transform" aria-label="Home">
+                <HomeIcon class="size-5" />
+            </a>
+            
+            <div class="hidden md:flex items-center gap-x-6">
+                {
+                    navItems.map((link) => (
+                        <a
+                            class="text-[13px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                            aria-label={link.label}
+                            href={link.url}
+                            data-i18n={link.key}
+                        >
+                            {link.title}
+                        </a>
+                    ))
+                }
+            </div>
+        </nav>
+
+        <div class="flex items-center gap-x-4">
             <ThemeToggle />
             <LanguageSelector />
-        </div>
-        <!-- Mobile burger -->
-        <div class="md:hidden ml-auto">
-            <button id="burger-btn" aria-label="Abrir menú" class="p-2 focus:outline-none">
-                <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="5" y1="8" x2="23" y2="8" />
-                    <line x1="5" y1="14" x2="23" y2="14" />
-                    <line x1="5" y1="20" x2="23" y2="20" />
+            
+            <button id="burger-btn" aria-label="Abrir menú" class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="4" y1="7" x2="20" y2="7" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="17" x2="20" y2="17" />
                 </svg>
             </button>
         </div>
-    </nav>
-    <!-- Mobile full screen nav -->
+    </div>
+
+    <!-- Mobile nav -->
     <div id="mobile-nav"
-        class="fixed inset-0 bg-white/30 dark:bg-gray-900/30 bg-opacity-95 flex flex-col items-center justify-center z-50 transition-opacity duration-300 opacity-0 pointer-events-none"
-        style="backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);"
+        class="fixed inset-0 bg-white dark:bg-zinc-950 z-[60] flex flex-col items-center justify-center transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
     >
-        <button id="close-mobile-nav" aria-label="Cerrar menú" class="absolute top-6 right-6 p-2">
-            <CloseMenuIcon />
+        <button id="close-mobile-nav" aria-label="Cerrar menú" class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+            <CloseMenuIcon class="size-8" />
         </button>
-        <div class="flex flex-col gap-8 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        
+        <div class="flex flex-col gap-y-8 items-center">
             {
                 navItems.map((link) => (
                     <a
-                        class="transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
+                        class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                         aria-label={link.label}
                         href={link.url}
                         data-i18n={link.key}
-                        onclick="document.getElementById('mobile-nav').classList.remove('opacity-100','pointer-events-auto');document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none');"
+                        onclick="document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none','translate-y-4');"
                     >
                         {link.title}
                     </a>
@@ -95,96 +96,59 @@ const navItems = [
             }
         </div>
     </div>
-    <script>
-        const burgerBtn = document.getElementById('burger-btn');
-        const mobileNav = document.getElementById('mobile-nav');
-        const closeBtn = document.getElementById('close-mobile-nav');
-        if (burgerBtn && mobileNav) {
-            burgerBtn.onclick = () => {
-                mobileNav.classList.remove('opacity-0','pointer-events-none');
-                mobileNav.classList.add('opacity-100','pointer-events-auto');
-            };
+</header>
+
+<script>
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const closeBtn = document.getElementById('close-mobile-nav');
+    const header = document.getElementById('main-header');
+
+    if (burgerBtn && mobileNav) {
+        burgerBtn.onclick = () => {
+            mobileNav.classList.remove('opacity-0','pointer-events-none','translate-y-4');
+            mobileNav.classList.add('opacity-100','pointer-events-auto','translate-y-0');
+        };
+    }
+    if (closeBtn && mobileNav) {
+        closeBtn.onclick = () => {
+            mobileNav.classList.remove('opacity-100','pointer-events-auto','translate-y-0');
+            mobileNav.classList.add('opacity-0','pointer-events-none','translate-y-4');
+        };
+    }
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            header?.classList.add('bg-white/80', 'dark:bg-zinc-950/80', 'backdrop-blur-md', 'border-zinc-200', 'dark:border-zinc-800');
+            header?.classList.remove('border-transparent');
+        } else {
+            header?.classList.remove('bg-white/80', 'dark:bg-zinc-950/80', 'backdrop-blur-md', 'border-zinc-200', 'dark:border-zinc-800');
+            header?.classList.add('border-transparent');
         }
-        if (closeBtn && mobileNav) {
-            closeBtn.onclick = () => {
-                mobileNav.classList.remove('opacity-100','pointer-events-auto');
-                mobileNav.classList.add('opacity-0','pointer-events-none');
-            };
-        }
-    </script>
-    <style>
-        #mobile-nav.opacity-0 {
-            opacity: 0;
-            pointer-events: none;
-        }
-        #mobile-nav.opacity-100 {
-            opacity: 1;
-            pointer-events: auto;
-        }
-    </style>
+    });
 
-    <script>
-        document.addEventListener("astro:page-load", () => {
-            const sections = document.querySelectorAll("section");
-            const navItems = document.querySelectorAll("header nav a");
+    // Active state
+    document.addEventListener("astro:page-load", () => {
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("#main-header nav div a");
 
-            const callback = (entries: any[]) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        navItems.forEach((item) => {
-                            if (
-                                item.getAttribute("aria-label") ==
-                                entry.target.id
-                            ) {
-                                item.classList.add("text-indigo-600");
-                                item.classList.add("dark:text-indigo-400");
-                            } else {
-                                item.classList.remove("text-indigo-600");
-                                item.classList.remove("dark:text-indigo-400");
-                            }
-                        });
-                    }
-                });
-            };
-
-            const observer = new IntersectionObserver(callback, {
-                root: null,
-                rootMargin: "0px",
-                threshold: 0.3,
-            });
-
-            sections.forEach((section) => {
-                observer.observe(section);
-            });
-
-            // Cleanup function
-            document.onvisibilitychange = () => {
-                if (document.visibilityState === "hidden") {
-                    observer.disconnect();
-                } else {
-                    sections.forEach((section) => {
-                        observer.observe(section);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach((link) => {
+                        if (link.getAttribute("aria-label") === entry.target.id) {
+                            link.classList.remove('text-zinc-500');
+                            link.classList.add('text-zinc-900', 'dark:text-zinc-100');
+                        } else {
+                            link.classList.add('text-zinc-500');
+                            link.classList.remove('text-zinc-900', 'dark:text-zinc-100');
+                        }
                     });
                 }
-            };
-        });
-    </script>
+            });
+        }, { threshold: 0.5 });
 
-    <style>
-        nav {
-            animation: nav-shadow 1s linear both;
-            animation-timeline: scroll();
-            animation-range: 0 100px;
-        }
-
-        @keyframes nav-shadow {
-            to {
-                box-shadow: 0 10px 32px 0 rgba(31, 41, 55, 0.15);
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 9999px;
-            }
-        }
-    </style>
-</header>
+        sections.forEach((s) => observer.observe(s));
+    });
+</script>

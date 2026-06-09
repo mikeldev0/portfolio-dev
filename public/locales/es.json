@@ -9,12 +9,12 @@
     "available": "Disponible para trabajar"
   },
   "hero": {
-    "hello": "¡Hola! Soy",
-    "description": "Backend & Full Stack Developer. Especializado en APIs robustas, interfaces escalables y automatización inteligente. Foco en arquitectura limpia e ingeniería de datos.",
-    "signalBackend": "Arquitectura Backend & API",
-    "signalFullStack": "Desarrollo Full Stack",
-    "signalAi": "IA y Automatización",
-    "signalData": "Modelado de Datos y SQL"
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Especializado en arquitectura de APIs robustas, sistemas escalables y automatización inteligente.",
+    "signalBackend": "Backend Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Engineering"
   },
   "section": {
     "experience": "Experiencia laboral",
