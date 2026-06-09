@@ -127,29 +127,3 @@ import Layout from "../layouts/Layout.astro";
   <ScrollTopButton />
   <Footer />
 </main>
-
-<style>
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-social-link {
-      transition:
-        color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .hero-social-link:hover,
-    .hero-social-link:focus-visible {
-      transform: translateY(-1px);
-    }
-
-    .hero-social-link :global(svg) {
-      transition:
-        opacity 180ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .hero-social-link:hover :global(svg),
-    .hero-social-link:focus-visible :global(svg) {
-      transform: translateY(-1px);
-    }
-  }
-</style>
