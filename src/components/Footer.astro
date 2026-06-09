@@ -1,44 +1,48 @@
 ---
-import GitHubIcon from "../icons/GitHubIcon.astro"
+import GitHubIcon from "../icons/GitHubIcon.astro";
 
-const currentYear = new Date().getFullYear()
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-20 border-t border-zinc-100 dark:border-zinc-800" itemscope itemtype="https://schema.org/WPFooter">
+<footer
+  class="mt-20 border-t border-zinc-100 dark:border-zinc-800"
+  itemscope
+  itemtype="https://schema.org/WPFooter"
+>
   <div class="max-w-3xl mx-auto px-6 py-12">
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex flex-col items-center md:items-start gap-2">
-            <span class="text-sm font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-                Mikel Echeverria
-            </span>
-            <span class="text-xs text-zinc-500 dark:text-zinc-500" itemprop="copyrightHolder">
-                © {currentYear} · <span data-i18n="footer.rights">Todos los derechos reservados</span>
-            </span>
-        </div>
+      <div class="flex flex-col items-center md:items-start gap-2">
+        <span class="text-sm font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          Mikel Echeverria
+        </span>
+        <span class="text-xs text-zinc-500 dark:text-zinc-500" itemprop="copyrightHolder">
+          © {currentYear} · <span data-i18n="footer.rights">Todos los derechos reservados</span>
+        </span>
+      </div>
 
-        <nav aria-label="Footer Navigation">
-            <ul class="flex items-center gap-x-6 text-[13px] font-medium text-zinc-500">
-                <li>
-                    <a
-                        href="https://github.mikeldev.com/portfolio-dev"
-                        class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors flex items-center gap-x-2"
-                        itemprop="sameAs"
-                    > 
-                        <GitHubIcon class="size-4" /> 
-                        <span data-i18n="footer.source">Source</span>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="/#sobre-mi"
-                        class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                        itemprop="about"
-                    >
-                        <span data-i18n="footer.about">Sobre mí</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+      <nav aria-label="Footer Navigation">
+        <ul class="flex items-center gap-x-6 text-[13px] font-medium text-zinc-500">
+          <li>
+            <a
+              href="https://github.mikeldev.com/portfolio-dev"
+              class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors flex items-center gap-x-2"
+              itemprop="sameAs"
+            >
+              <GitHubIcon class="size-4" />
+              <span data-i18n="footer.source">Source</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/#sobre-mi"
+              class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              itemprop="about"
+            >
+              <span data-i18n="footer.about">Sobre mí</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </footer>

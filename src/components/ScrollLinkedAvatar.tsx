@@ -1,9 +1,4 @@
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-} from "framer-motion";
+import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useHolidayEffectsActive } from "../lib/holiday";
 
@@ -168,18 +163,7 @@ export default function ScrollLinkedAvatar() {
     return () => {
       controls.forEach((control) => control.stop());
     };
-  }, [
-    borderRadius,
-    end,
-    imageScale,
-    isDocked,
-    isReady,
-    left,
-    opacity,
-    size,
-    start,
-    top,
-  ]);
+  }, [borderRadius, end, imageScale, isDocked, isReady, left, opacity, size, start, top]);
 
   if (prefersReducedMotion) return null;
 

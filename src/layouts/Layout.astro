@@ -7,226 +7,224 @@ import Snowfall from "../components/Snowfall";
 import { env } from "../lib/env";
 
 interface Props {
-        title: string;
-        description: string;
+  title: string;
+  description: string;
 }
 
 const { description, title } = Astro.props;
 const { enableHolidayEffects } = env;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Mikel Echeverria",
+  alternateName: "mikedev",
+  jobTitle: "Desarrollador Full Stack y Backend",
+  url: "https://www.mikeldev.com",
+  image: "https://www.mikeldev.com/img/mikel-echeverria.jpg",
+  sameAs: [
+    "https://github.com/mikeldev0",
+    "https://www.linkedin.com/in/mikel-echeverria",
+    "https://x.com/MikelEcheve",
+    "mailto:mikel@mikeldev.com",
+  ],
+  description:
+    "Desarrollador Full Stack y Backend en Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web y soluciones tecnológicas innovadoras.",
+  alumniOf: "Nombre de Tu Universidad",
+};
 ---
 
 <!doctype html>
-<html lang="en" class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="apple-touch-icon" href="/favicon.svg">
-		<meta name="generator" content={Astro.generator} />
-		<!-- This line is important for SEO -->
-		<meta name="robots" content="index, follow" />
-		<!-- Meta Tags SEO -->
-		<meta
-			name="title"
-			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
-		/>
-		<meta
-			name="description"
-			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
-		/>
-		<meta
-			name="keywords"
-			content="Mikel Echeverria, desarrollador Full Stack, desarrollador Backend, desarrollador Frontend, Pamplona, aplicaciones multiplataforma, diseño web, soluciones tecnológicas, programación"
-		/>
-		<link rel="canonical" href="https://www.mikeldev.com" />
+<html
+  lang="en"
+  class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- This line is important for SEO -->
+    <meta name="robots" content="index, follow" />
+    <!-- Meta Tags SEO -->
+    <meta
+      name="title"
+      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
+    />
+    <meta
+      name="description"
+      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
+    />
+    <meta
+      name="keywords"
+      content="Mikel Echeverria, desarrollador Full Stack, desarrollador Backend, desarrollador Frontend, Pamplona, aplicaciones multiplataforma, diseño web, soluciones tecnológicas, programación"
+    />
+    <link rel="canonical" href="https://www.mikeldev.com" />
 
-		<!-- Open Graph Tags -->
-		<meta
-			property="og:title"
-			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
-		/>
-		<meta
-			property="og:description"
-			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, especializado en aplicaciones multiplataforma, diseño web y soluciones innovadoras."
-		/>
-		<meta
-			property="og:image"
-			content="https://raw.githubusercontent.com/mikeldev0/portfolio-dev/main/public/web_screenshot.webp"
-		/>
-		<meta property="og:url" content="https://www.mikeldev.com" />
-		<meta property="og:type" content="website" />
+    <!-- Open Graph Tags -->
+    <meta
+      property="og:title"
+      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
+    />
+    <meta
+      property="og:description"
+      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, especializado en aplicaciones multiplataforma, diseño web y soluciones innovadoras."
+    />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/mikeldev0/portfolio-dev/main/public/web_screenshot.webp"
+    />
+    <meta property="og:url" content="https://www.mikeldev.com" />
+    <meta property="og:type" content="website" />
 
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta
-			name="twitter:title"
-			content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
-		/>
-		<meta
-			name="twitter:description"
-			content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend especializado en aplicaciones multiplataforma y diseño web innovador."
-		/>
-		<meta
-			name="twitter:image"
-			content="https://www.mikeldev.com/photo.webp"
-		/>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
+    />
+    <meta
+      name="twitter:description"
+      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend especializado en aplicaciones multiplataforma y diseño web innovador."
+    />
+    <meta name="twitter:image" content="https://www.mikeldev.com/photo.webp" />
 
-		<!-- Title Tag -->
-		<title>
-			Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com
-		</title>
+    <!-- Title Tag -->
+    <title>Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com</title>
 
-			<!-- Datos Estructurados SEO -->
-		<script is:inline type="application/ld+json">
-			{JSON.stringify({
-				"@context": "https://schema.org",
-				"@type": "Person",
-				name: "Mikel Echeverria",
-				alternateName: "mikedev",
-				jobTitle: "Desarrollador Full Stack y Backend",
-				url: "https://www.mikeldev.com",
-				image: "https://www.mikeldev.com/img/mikel-echeverria.jpg",
-				sameAs: [
-					"https://github.com/mikeldev0",
-					"https://www.linkedin.com/in/mikel-echeverria",
-					"https://x.com/MikelEcheve",
-					"mailto:mikel@mikeldev.com"
-				],
-				description: "Desarrollador Full Stack y Backend en Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web y soluciones tecnológicas innovadoras.",
-				alumniOf: "Nombre de Tu Universidad",
-			})}
-		</script>
-		<title>{title}</title>
-	</head>
-        <body>
-                <Background />
-                {enableHolidayEffects && <Snowfall client:load />}
-                <Header />
-                <ScrollLinkedAvatar client:load />
-                <slot />
-                <script src="/i18n.js" is:inline></script>
-        </body>
+    <!-- Datos Estructurados SEO -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Background />
+    {enableHolidayEffects && <Snowfall client:load />}
+    <Header />
+    <ScrollLinkedAvatar client:load />
+    <slot />
+    <script src="/i18n.js" is:inline></script>
+  </body>
 </html>
 <style is:global>
-	:root {
-		color-scheme: light dark;
-	}
-	html {
-		font-family: "Onest Variable", system-ui, sans-serif;
-		scroll-behavior: smooth;
-		height: 100%;
-		margin: 0;
-	}
+  :root {
+    color-scheme: light dark;
+  }
+  html {
+    font-family: "Onest Variable", system-ui, sans-serif;
+    scroll-behavior: smooth;
+    height: 100%;
+    margin: 0;
+  }
 
-	@media (prefers-color-scheme: dark) {
-		html {
-			background-color: #09090b;
-		}
-	}
+  @media (prefers-color-scheme: dark) {
+    html {
+      background-color: #09090b;
+    }
+  }
 
-	@media (prefers-color-scheme: light) {
-		html {
-			background-color: #ffffff;
-		}
-	}
+  @media (prefers-color-scheme: light) {
+    html {
+      background-color: #ffffff;
+    }
+  }
 
-	body {
-		color: rgba(9, 9, 11, 0.9);
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		overflow-x: hidden;
-		overscroll-behavior: none;
-		position: relative;
-		z-index: 0;
-	}
-	body::before {
-		content: "";
-		position: fixed;
-		inset: 0;
-		background: #ffffff;
-		z-index: -3;
-	}
-	.dark body::before {
-		background: #09090b;
-	}
+  body {
+    color: rgba(9, 9, 11, 0.9);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    position: relative;
+    z-index: 0;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    z-index: -3;
+  }
+  .dark body::before {
+    background: #09090b;
+  }
 
-	#hero-avatar-fallback {
-		transition:
-			opacity 180ms ease,
-			visibility 180ms ease;
-	}
+  #hero-avatar-fallback {
+    transition:
+      opacity 180ms ease,
+      visibility 180ms ease;
+  }
 
-	.scroll-avatar-ready #hero-avatar-fallback {
-		opacity: 0;
-		visibility: hidden;
-	}
+  .scroll-avatar-ready #hero-avatar-fallback {
+    opacity: 0;
+    visibility: hidden;
+  }
 
-	.scroll-avatar-ready #header-avatar-fallback {
-		opacity: 0;
-		visibility: hidden;
-	}
+  .scroll-avatar-ready #header-avatar-fallback {
+    opacity: 0;
+    visibility: hidden;
+  }
 
-	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
 
-		#hero-avatar-fallback {
-			transition: none;
-		}
-	}
+    #hero-avatar-fallback {
+      transition: none;
+    }
+  }
 
-	@media (prefers-color-scheme: dark) {
-		body {
-			color: rgba(255, 255, 255, 0.9);
-		}
-	}
+  @media (prefers-color-scheme: dark) {
+    body {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
 
-	#header-nav {
-		animation: blur linear both 0.5s;
-		animation-timeline: scroll();
-		animation-range: 0 500px;
-	}
+  #header-nav {
+    animation: blur linear both 0.5s;
+    animation-timeline: scroll();
+    animation-range: 0 500px;
+  }
 
-	@keyframes blur {
-		to {
-			backdrop-filter: blur(20px);
-			border-width: 1px;
-			border-color: rgba(0, 0, 0);
-			padding: 0.25rem 0.75rem;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			background-color: rgb(229, 229, 229);
-			border-radius: 9999px;
-		}
-	}
+  @keyframes blur {
+    to {
+      backdrop-filter: blur(20px);
+      border-width: 1px;
+      border-color: rgba(0, 0, 0);
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: rgb(229, 229, 229);
+      border-radius: 9999px;
+    }
+  }
 
-	@media (prefers-color-scheme: dark) {
-		@keyframes blur {
-			from {
-				border: 0px;
-			}
-			to {
-				box-shadow:
-					0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-					0px 0px 0 1px rgba(0, 0, 0, 0.3);
-				background: rgba(0, 0, 0, 0.3);
-				backdrop-filter: blur(20px);
-				border-width: 1px;
-				border-color: rgba(0, 0, 0);
-				padding-left: 0.75rem;
-				padding-right: 0.75rem;
-				padding-top: 0.25rem;
-				padding-bottom: 0.25rem;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				background-color: rgba(0, 0, 0, 0.3);
-				border-radius: 9999px;
-			}
-		}
-	}
+  @media (prefers-color-scheme: dark) {
+    @keyframes blur {
+      from {
+        border: 0px;
+      }
+      to {
+        box-shadow:
+          0px 5px 50px -5px rgba(0, 0, 0, 0.1),
+          0px 0px 0 1px rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(20px);
+        border-width: 1px;
+        border-color: rgba(0, 0, 0);
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 9999px;
+      }
+    }
+  }
 </style>

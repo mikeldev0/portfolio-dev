@@ -2,63 +2,67 @@
 import ArrowIcon from "../icons/ArrowIcon.astro";
 
 export interface ExperienceItemProps {
-    title: string;
-    description: string;
-    date: string;
-    link: string;
-    isFirst?: boolean;
-    titleKey?: string;
-    descriptionKey?: string;
-    dateKey?: string;
+  title: string;
+  description: string;
+  date: string;
+  link: string;
+  isFirst?: boolean;
+  titleKey?: string;
+  descriptionKey?: string;
+  dateKey?: string;
 }
 
 const { title, description, date, link, isFirst, titleKey, descriptionKey, dateKey } =
-    Astro.props as ExperienceItemProps;
+  Astro.props as ExperienceItemProps;
 
 // Split title to separate role and company if possible
-const [role, company] = title.includes('|') ? title.split('|').map(s => s.trim()) : [title, ''];
+const [role, company] = title.includes("|") ? title.split("|").map((s) => s.trim()) : [title, ""];
 ---
 
-<article class="group relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-y-4 md:gap-x-12 pb-16 last:pb-0">
-    <time
-        class="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-500 mt-1.5"
-        data-i18n={dateKey}
-    >
-        {date}
-    </time>
-    
-    <div class="flex flex-col">
-        <div class="flex flex-col gap-y-1">
-            <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-                {role}
-            </h3>
-            {company && (
-                <span class="text-sm font-semibold text-zinc-600 dark:text-zinc-500 italic">
-                    {company}
-                </span>
-            )}
-        </div>
-        
-        <div
-            class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal"
-            data-i18n={descriptionKey}
-            set:html={description}
-        ></div>
-        
-        {
-            link && (
-                <div class="mt-6">
-                    <a
-                        href={link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors group/link"
-                    >
-                        <span data-i18n="experience.moreInfo">Detalles</span>
-                        <ArrowIcon class="size-3.5 transition-transform group-hover/link:translate-x-1" />
-                    </a>
-                </div>
-            )
-        }
+<article
+  class="group relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-y-4 md:gap-x-12 pb-16 last:pb-0"
+>
+  <time
+    class="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-500 mt-1.5"
+    data-i18n={dateKey}
+  >
+    {date}
+  </time>
+
+  <div class="flex flex-col">
+    <div class="flex flex-col gap-y-1">
+      <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+        {role}
+      </h3>
+      {
+        company && (
+          <span class="text-sm font-semibold text-zinc-600 dark:text-zinc-500 italic">
+            {company}
+          </span>
+        )
+      }
     </div>
+
+    <div
+      class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal"
+      data-i18n={descriptionKey}
+      set:html={description}
+    />
+
+    {
+      link && (
+        <div class="mt-6">
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors group/link"
+          >
+            <span data-i18n="experience.moreInfo">Detalles</span>
+            <ArrowIcon class="size-3.5 transition-transform group-hover/link:translate-x-1" />
+          </a>
+        </div>
+      )
+    }
+  </div>
 </article>

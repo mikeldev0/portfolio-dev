@@ -15,16 +15,16 @@ git clone https://github.com/mikeldev0/porfolio-dev.git
 ```
 
 2. Instala las dependencias:
-    
+
 ```sh
 bun install
 ```
 
 3. Inicia el servidor de desarrollo:
-    
+
 ```sh
 bun run dev
-```    
+```
 
 4. Visita http://localhost:4321 en tu navegador para ver el proyecto.
 
@@ -35,22 +35,26 @@ bun run dev
 > Nota: los efectos navideños solo se muestran durante la temporada (1 de diciembre al 7 de enero) y respetan la preferencia de movimiento reducido del usuario.
 
 🛠️ **Construido con**
+
 - **Astro** - El framework utilizado
 - **Tailwind CSS** - Para estilos rápidos y responsivos
 - **React** - Usado para algunos componentes interactivos
 
 ✍️ **Autores**
+
 - **Mikel Echeverria** - Desarrollador multiplataforma y creador del porfolio
 
 📄 **Licencia**
 Este proyecto está bajo la Licencia (Apache 2.0) - mira el archivo [LICENSE](LICENSE) para más detalles.
 
 🎉 **Agradecimientos**
+
 - A la comunidad de Astro por hacer posible este increíble framework
 - A ti, por visitar mi porfolio
 - A todos los que me han apoyado en mi carrera profesional
 
 ## TODO
+
 - [ ] Añadir proyectos via API
 - [ ] Añadir DEMO de proyectos
 - [ ] Añadir modo oscuro funcional

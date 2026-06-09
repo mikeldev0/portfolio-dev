@@ -1,8 +1,4 @@
-const {
-  VITE_ENABLE_HOLIDAY_EFFECTS,
-  GITHUB_TOKEN,
-  GITHUB_URL,
-} = import.meta.env;
+const { VITE_ENABLE_HOLIDAY_EFFECTS, GITHUB_TOKEN, GITHUB_URL } = import.meta.env;
 
 export const env = {
   enableHolidayEffects: VITE_ENABLE_HOLIDAY_EFFECTS !== "false",

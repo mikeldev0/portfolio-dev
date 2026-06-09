@@ -6,21 +6,22 @@ p1_count: 2
 timestamp: 2026-06-09T19-26-58Z
 slug: src-pages-index-astro
 ---
+
 #### Design Health Score
 
-| # | Heuristic | Score | Key Issue |
-|---|-----------|-------|-----------|
-| 1 | Visibility of System Status | 3 | Availability is visible, but project loading/fallback state is not explained. |
-| 2 | Match System / Real World | 3 | The portfolio reads as a developer profile, but project proof is diluted by generic card styling. |
-| 3 | User Control and Freedom | 3 | Navigation and contact paths exist, but project actions are visually inconsistent. |
-| 4 | Consistency and Standards | 2 | Rotating gradient pills, conic project borders, neutral timelines, and fixed card actions create mixed interaction language. |
-| 5 | Error Prevention | 2 | Dynamic GitHub project loading falls back silently and logs errors in production. |
-| 6 | Recognition Rather Than Recall | 3 | Sections are clear, but technical strengths are not scannable enough in the first viewport. |
-| 7 | Flexibility and Efficiency | 3 | Social/contact links are accessible, but recruiters need faster evidence of backend/full stack fit. |
-| 8 | Aesthetic and Minimalist Design | 2 | Decorative gradients and animated borders compete with the credibility-first brand direction. |
-| 9 | Error Recovery | 2 | External project data failures are hidden from the page and noisy in logs. |
-| 10 | Help and Documentation | 3 | Contact and project links provide enough next steps, but project context could be clearer. |
-| **Total** | | **25/40** | **Usable, but not yet credibility-focused enough.** |
+| #         | Heuristic                       | Score     | Key Issue                                                                                                                    |
+| --------- | ------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1         | Visibility of System Status     | 3         | Availability is visible, but project loading/fallback state is not explained.                                                |
+| 2         | Match System / Real World       | 3         | The portfolio reads as a developer profile, but project proof is diluted by generic card styling.                            |
+| 3         | User Control and Freedom        | 3         | Navigation and contact paths exist, but project actions are visually inconsistent.                                           |
+| 4         | Consistency and Standards       | 2         | Rotating gradient pills, conic project borders, neutral timelines, and fixed card actions create mixed interaction language. |
+| 5         | Error Prevention                | 2         | Dynamic GitHub project loading falls back silently and logs errors in production.                                            |
+| 6         | Recognition Rather Than Recall  | 3         | Sections are clear, but technical strengths are not scannable enough in the first viewport.                                  |
+| 7         | Flexibility and Efficiency      | 3         | Social/contact links are accessible, but recruiters need faster evidence of backend/full stack fit.                          |
+| 8         | Aesthetic and Minimalist Design | 2         | Decorative gradients and animated borders compete with the credibility-first brand direction.                                |
+| 9         | Error Recovery                  | 2         | External project data failures are hidden from the page and noisy in logs.                                                   |
+| 10        | Help and Documentation          | 3         | Contact and project links provide enough next steps, but project context could be clearer.                                   |
+| **Total** |                                 | **25/40** | **Usable, but not yet credibility-focused enough.**                                                                          |
 
 #### Anti-Patterns Verdict
 
