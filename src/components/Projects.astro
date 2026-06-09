@@ -18,17 +18,6 @@ interface Tag {
     name: string;
 }
 
-interface GitHubRepository {
-    name: string;
-    description?: string;
-    url: string;
-    homepageUrl?: string;
-    openGraphImageUrl?: string;
-    languages: {
-        nodes: Array<{ name: string }>;
-    };
-}
-
 const TAG = {
     JAVA: { name: "Java" },
     PYTHON: { name: "Python" },
@@ -121,9 +110,9 @@ async function fetchPinnedRepos(username: string): Promise<Project[]> {
         const data = await response.json();
         if (data.errors) return [];
 
-        return data.data.user.pinnedItems.nodes.map((repo: GitHubRepository) => {
+        return data.data.user.pinnedItems.nodes.map((repo: any) => {
             const repoTags = repo.languages.nodes
-                .map((lang) => {
+                .map((lang: any) => {
                     const tagKey = Object.keys(TAG).find(key =>
                         TAG[key as keyof typeof TAG].name.toLowerCase() === lang.name.toLowerCase()
                     );
@@ -162,52 +151,54 @@ const getRepositoryUrl = (github?: string) => {
 };
 ---
 
-<div class="flex flex-col gap-y-20">
+<div class="flex flex-col gap-y-24">
     {PROJECTS.slice(0, 6).map(
         ({ title, description, link, github, image, tags }) => {
             const repositoryUrl = getRepositoryUrl(github);
 
             return (
-            <article class="group grid grid-cols-1 md:grid-cols-[240px_1fr] gap-y-6 md:gap-x-12 items-start">
-                {image ? (
-                    <div class="aspect-[16/10] w-full overflow-hidden rounded bg-zinc-100 dark:bg-zinc-800 ring-1 ring-zinc-200 dark:ring-zinc-700">
+            <article class="group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-y-8 md:gap-x-16 items-start">
+                <div class="aspect-[16/10] w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 ring-1 ring-zinc-200 dark:ring-zinc-800 transition-all duration-500 group-hover:ring-zinc-300 dark:group-hover:ring-zinc-700">
+                    {image ? (
                         <img
                             src={image}
                             alt={title}
                             loading="lazy"
-                            class="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                            class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
                         />
-                    </div>
-                ) : (
-                    <div class="aspect-[16/10] w-full rounded bg-zinc-50 dark:bg-zinc-900/50 ring-1 ring-inset ring-zinc-200 dark:ring-zinc-800 flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-                        No Preview
-                    </div>
-                )}
+                    ) : (
+                        <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-300 dark:text-zinc-700">
+                                {title.substring(0, 2)}
+                            </span>
+                        </div>
+                    )}
+                </div>
                 
-                <div class="flex flex-col h-full">
+                <div class="flex flex-col h-full py-1">
                     <div>
-                        <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                        <h3 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
                             {title}
                         </h3>
-                        <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                        <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2">
                             {tags.map((tag) => (
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+                                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
                                     {tag.name}
                                 </span>
                             ))}
                         </div>
-                        <p class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty">
+                        <p class="mt-5 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal">
                             {description}
                         </p>
                     </div>
 
-                    <div class="mt-6 flex items-center gap-x-6">
+                    <div class="mt-8 flex items-center gap-x-8">
                         {link && (
                             <a
                                 href={link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400"
+                                class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400 group/link"
                             >
                                 <DesktopIcon class="size-4" />
                                 <span data-i18n="projectsSection.viewDemo">Ver proyecto</span>
@@ -218,9 +209,9 @@ const getRepositoryUrl = (github?: string) => {
                                 href={repositoryUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+                                class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
                             >
-                                <GitHubIcon class="size-4" />
+                                <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                                 <span>Source</span>
                             </a>
                         )}
@@ -232,12 +223,12 @@ const getRepositoryUrl = (github?: string) => {
 </div>
 
 {PROJECTS.length > 6 && (
-    <div class="mt-16 flex justify-center border-t border-zinc-100 dark:border-zinc-800 pt-16">
+    <div class="mt-20 flex justify-center border-t border-zinc-100 dark:border-zinc-800 pt-20">
         <a 
             href="https://github.com/mikeldev0?tab=repositories"
-            class="text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            class="text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
         >
-            <span data-i18n="projectsSection.moreProjects">Ver más proyectos</span>
+            <span data-i18n="projectsSection.moreProjects">Explorar archivo</span>
         </a>
     </div>
 )}

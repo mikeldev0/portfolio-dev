@@ -33,10 +33,10 @@ const navItems = [
 ---
 
 <header
-    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500"
+    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
     id="main-header"
 >
-    <div class="max-w-3xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between">
         <nav class="flex items-center gap-x-12">
             <a href="/" class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100" aria-label="Home">
                 <HomeIcon class="size-5" />
@@ -123,11 +123,11 @@ const navItems = [
     // Scroll effect
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
-            header?.classList.add('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', 'h-16');
-            header?.classList.remove('border-transparent', 'h-20');
+            header?.classList.add('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', '!h-16');
+            header?.classList.remove('border-transparent');
         } else {
-            header?.classList.remove('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', 'h-16');
-            header?.classList.add('border-transparent', 'h-20');
+            header?.classList.remove('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', '!h-16');
+            header?.classList.add('border-transparent');
         }
     });
 
