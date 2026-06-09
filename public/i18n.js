@@ -15,6 +15,13 @@ async function loadLang(lang) {
       el.innerHTML = text;
     }
   });
+  document.querySelectorAll("[data-i18n-href]").forEach((el) => {
+    const key = el.dataset.i18nHref;
+    const href = getNested(data, key);
+    if (href) {
+      el.href = href;
+    }
+  });
   document.documentElement.lang = lang;
 }
 

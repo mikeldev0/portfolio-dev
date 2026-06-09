@@ -57,6 +57,11 @@
       "description": "Problemlösung und Wartung von kommunalen IT-Systemen. Zusammenarbeit mit technischen Teams zur Prozessverbesserung."
     }
   },
+  "cta": {
+    "contact": "Kontakt",
+    "viewCv": "CV ansehen",
+    "cvPath": "/cv-de.pdf"
+  },
   "projectsSection": {
     "demo": "Projekt ansehen",
     "viewDemo": "Projekt ansehen",

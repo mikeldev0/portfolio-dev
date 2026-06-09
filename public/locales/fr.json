@@ -57,6 +57,11 @@
       "description": "Résolution de problèmes et maintenance des systèmes informatiques municipaux. Collaboration avec des équipes techniques."
     }
   },
+  "cta": {
+    "contact": "Contact",
+    "viewCv": "Voir CV",
+    "cvPath": "/cv-en.pdf"
+  },
   "projectsSection": {
     "demo": "Voir projet",
     "viewDemo": "Voir projet",

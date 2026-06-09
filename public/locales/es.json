@@ -59,7 +59,8 @@
   },
   "cta": {
     "contact": "Contactar",
-    "viewCv": "Ver CV"
+    "viewCv": "Ver CV",
+    "cvPath": "/cv-es.pdf"
   },
   "projectsSection": {
     "demo": "DEMO",

@@ -57,6 +57,11 @@
       "description": "Risoluzione dei problemi e manutenzione dei sistemi informatici comunali. Collaborazione con team tecnici."
     }
   },
+  "cta": {
+    "contact": "Contatto",
+    "viewCv": "Vedi CV",
+    "cvPath": "/cv-en.pdf"
+  },
   "projectsSection": {
     "demo": "Vedi progetto",
     "viewDemo": "Vedi progetto",
