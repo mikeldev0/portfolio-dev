@@ -4,256 +4,225 @@ import LanguageSelector from "./LanguageSelector.astro";
 import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
 
 const navItems = [
-    {
-        title: "Experiencia",
-        key: "nav.experience",
-        label: "experiencia",
-        url: "/#experiencia",
-    },
-    {
-        title: "Proyectos",
-        key: "nav.projects",
-        label: "proyectos",
-        url: "/#proyectos",
-    },
-    {
-        title: "Sobre mí",
-        key: "nav.about",
-        label: "sobre-mi",
-        url: "/#sobre-mi",
-    },
-    {
-        title: "Contacto",
-        key: "nav.contact",
-        label: "contacto",
-        url: "mailto:mikel@mikeldev.com",
-    },
+  {
+    title: "Experiencia",
+    key: "nav.experience",
+    label: "experiencia",
+    url: "/#experiencia",
+  },
+  {
+    title: "Proyectos",
+    key: "nav.projects",
+    label: "proyectos",
+    url: "/#proyectos",
+  },
+  {
+    title: "Sobre mí",
+    key: "nav.about",
+    label: "sobre-mi",
+    url: "/#sobre-mi",
+  },
+  {
+    title: "Contacto",
+    key: "nav.contact",
+    label: "contacto",
+    url: "mailto:mikel@mikeldev.com",
+  },
 ];
 ---
 
 <header
-    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
-    id="main-header"
+  class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
+  id="main-header"
 >
-    <div
-        class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between"
-    >
-        <nav class="flex items-center gap-x-12">
+  <div class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between">
+    <nav class="flex items-center gap-x-12">
+      <a
+        href="/#"
+        id="header-avatar-anchor"
+        class="relative size-11 shrink-0 rounded-full sm:size-12"
+        aria-label="Home"
+      >
+        <img
+          id="header-avatar-fallback"
+          class="size-full rounded-full object-cover object-center shadow-md shadow-zinc-900/10 transition-opacity duration-200 dark:shadow-black/30"
+          src="/photo.webp"
+          alt=""
+          width="96"
+          height="96"
+          loading="eager"
+        />
+      </a>
+
+      <div class="hidden md:flex items-center gap-x-8">
+        {
+          navItems.map((link) => (
             <a
-                href="/#"
-                id="header-avatar-anchor"
-                class="relative size-11 shrink-0 rounded-full sm:size-12"
-                aria-label="Home"
+              class="nav-link text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-400 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+              aria-label={link.label}
+              href={link.url}
+              data-i18n={link.key}
+              data-nav-link
             >
-                <img
-                    id="header-avatar-fallback"
-                    class="size-full rounded-full object-cover object-center shadow-md shadow-zinc-900/10 transition-opacity duration-200 dark:shadow-black/30"
-                    src="/photo.webp"
-                    alt=""
-                    width="96"
-                    height="96"
-                    loading="eager"
-                />
+              {link.title}
             </a>
+          ))
+        }
+      </div>
+    </nav>
 
-            <div class="hidden md:flex items-center gap-x-8">
-                {
-                    navItems.map((link) => (
-                        <a
-                            class="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                            aria-label={link.label}
-                            href={link.url}
-                            data-i18n={link.key}
-                        >
-                            {link.title}
-                        </a>
-                    ))
-                }
-            </div>
-        </nav>
-
-        <div class="flex items-center gap-x-6">
-            <div class="flex items-center gap-x-4">
-                <ThemeToggle />
-                <div class="w-px h-4 bg-zinc-200 dark:bg-zinc-800"></div>
-                <LanguageSelector />
-            </div>
-            <button
-                id="burger-btn"
-                aria-label="Abrir menú"
-                class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-            >
-                <svg
-                    width="24"
-                    height="24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                >
-                    <line x1="4" y1="7" x2="20" y2="7"></line>
-                    <line x1="4" y1="12" x2="20" y2="12"></line>
-                    <line x1="4" y1="17" x2="20" y2="17"></line>
-                </svg>
-            </button>
-        </div>
+    <div class="flex items-center gap-x-6">
+      <div class="flex items-center gap-x-4">
+        <ThemeToggle />
+        <div class="w-px h-4 bg-zinc-200 dark:bg-zinc-800"></div>
+        <LanguageSelector />
+      </div>
+      <button
+        id="burger-btn"
+        aria-label="Abrir menú"
+        class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+      >
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+      </button>
     </div>
+  </div>
 </header>
 
 <!-- Mobile nav -->
 <div
-    id="mobile-nav"
-    class="fixed inset-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
+  id="mobile-nav"
+  class="fixed inset-0 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
 >
-    <button
-        id="close-mobile-nav"
-        aria-label="Cerrar menú"
-        class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-    >
-        <CloseMenuIcon class="size-8" />
-    </button>
+  <button
+    id="close-mobile-nav"
+    aria-label="Cerrar menú"
+    class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+  >
+    <CloseMenuIcon class="size-8" />
+  </button>
 
-    <div class="flex flex-col gap-y-12 items-center">
-        {
-            navItems.map((link) => (
-                <a
-                    class="mobile-nav-link text-4xl font-black tracking-tighter text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-                    aria-label={link.label}
-                    href={link.url}
-                    data-i18n={link.key}
-                >
-                    {link.title}
-                </a>
-            ))
-        }
-    </div>
+  <div class="flex flex-col gap-y-12 items-center">
+    {
+      navItems.map((link) => (
+        <a
+          class="mobile-nav-link text-4xl font-black tracking-tighter text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
+          aria-label={link.label}
+          href={link.url}
+          data-i18n={link.key}
+        >
+          {link.title}
+        </a>
+      ))
+    }
+  </div>
 </div>
 
-<script>
-    function initMobileMenu() {
-        const burgerBtn = document.getElementById("burger-btn");
-        const closeBtn = document.getElementById("close-mobile-nav");
-        const mobileNav = document.getElementById("mobile-nav");
-        const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
-        const header = document.getElementById("main-header");
+<style>
+  .nav-link {
+    transition:
+      color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
-        if (!burgerBtn || !mobileNav || !closeBtn) return;
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    text-shadow:
+      -0.018em 0 0 currentColor,
+      0.018em 0 0 currentColor;
+  }
 
-        // Clean up to prevent double listeners
-        burgerBtn.replaceWith(burgerBtn.cloneNode(true));
-        closeBtn.replaceWith(closeBtn.cloneNode(true));
-
-        const newBurgerBtn = document.getElementById("burger-btn");
-        const newCloseBtn = document.getElementById("close-mobile-nav");
-
-        const openMenu = () => {
-            mobileNav.classList.remove(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-8",
-            );
-            mobileNav.classList.add(
-                "opacity-100",
-                "pointer-events-auto",
-                "translate-y-0",
-            );
-        };
-
-        const closeMenu = () => {
-            mobileNav.classList.remove(
-                "opacity-100",
-                "pointer-events-auto",
-                "translate-y-0",
-            );
-            mobileNav.classList.add(
-                "opacity-0",
-                "pointer-events-none",
-                "translate-y-8",
-            );
-        };
-
-        newBurgerBtn?.addEventListener("click", openMenu);
-        newCloseBtn?.addEventListener("click", closeMenu);
-        mobileNavLinks.forEach((link) => {
-            link.replaceWith(link.cloneNode(true));
-        });
-
-        // Re-select after cloning
-        const newMobileNavLinks = document.querySelectorAll(".mobile-nav-link");
-        newMobileNavLinks.forEach((link) => {
-            link.addEventListener("click", closeMenu);
-        });
-
-        const handleScroll = () => {
-            if (window.scrollY > 20) {
-                header?.classList.add(
-                    "bg-white/50",
-                    "dark:bg-zinc-950/50",
-                    "backdrop-blur-xl",
-                    "!h-16",
-                );
-            } else {
-                header?.classList.remove(
-                    "bg-white/50",
-                    "dark:bg-zinc-950/50",
-                    "backdrop-blur-xl",
-                    "!h-16",
-                );
-            }
-        };
-
-        window.removeEventListener("scroll", handleScroll);
-        window.addEventListener("scroll", handleScroll);
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link {
+      transition: none;
     }
+  }
+</style>
 
-    // Initialize on first load and on astro:page-load (if transitions are used)
-    document.addEventListener("astro:page-load", initMobileMenu);
-    initMobileMenu();
+<script>
+  function initMobileMenu() {
+    const burgerBtn = document.getElementById("burger-btn");
+    const closeBtn = document.getElementById("close-mobile-nav");
+    const mobileNav = document.getElementById("mobile-nav");
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+    const header = document.getElementById("main-header");
 
-    // Active state logic
-    document.addEventListener("astro:page-load", () => {
-        const sections = document.querySelectorAll("section[id]");
-        const navLinks = document.querySelectorAll(
-            "#main-header a[aria-label]",
-        );
+    if (!burgerBtn || !mobileNav || !closeBtn) return;
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach((link) => {
-                            if (
-                                link.getAttribute("aria-label") ===
-                                entry.target.id
-                            ) {
-                                link.classList.remove(
-                                    "text-zinc-400",
-                                    "text-zinc-500",
-                                );
-                                link.classList.add(
-                                    "text-zinc-900",
-                                    "dark:text-zinc-100",
-                                );
-                            } else {
-                                // For desktop links use zinc-400, for mobile use zinc-500 (resting states)
-                                const isMobile =
-                                    link.classList.contains("mobile-nav-link");
-                                link.classList.add(
-                                    isMobile
-                                        ? "text-zinc-500"
-                                        : "text-zinc-400",
-                                );
-                                link.classList.remove(
-                                    "text-zinc-900",
-                                    "dark:text-zinc-100",
-                                );
-                            }
-                        });
-                    }
-                });
-            },
-            { threshold: 0.3 },
-        );
+    // Clean up to prevent double listeners
+    burgerBtn.replaceWith(burgerBtn.cloneNode(true));
+    closeBtn.replaceWith(closeBtn.cloneNode(true));
 
-        sections.forEach((s) => observer.observe(s));
+    const newBurgerBtn = document.getElementById("burger-btn");
+    const newCloseBtn = document.getElementById("close-mobile-nav");
+
+    const openMenu = () => {
+      mobileNav.classList.remove("opacity-0", "pointer-events-none", "translate-y-8");
+      mobileNav.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
+    };
+
+    const closeMenu = () => {
+      mobileNav.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
+      mobileNav.classList.add("opacity-0", "pointer-events-none", "translate-y-8");
+    };
+
+    newBurgerBtn?.addEventListener("click", openMenu);
+    newCloseBtn?.addEventListener("click", closeMenu);
+    mobileNavLinks.forEach((link) => {
+      link.replaceWith(link.cloneNode(true));
     });
+
+    // Re-select after cloning
+    const newMobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+    newMobileNavLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        header?.classList.add("bg-white/50", "dark:bg-zinc-950/50", "backdrop-blur-xl", "!h-16");
+      } else {
+        header?.classList.remove("bg-white/50", "dark:bg-zinc-950/50", "backdrop-blur-xl", "!h-16");
+      }
+    };
+
+    window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+  }
+
+  // Initialize on first load and on astro:page-load (if transitions are used)
+  document.addEventListener("astro:page-load", initMobileMenu);
+  initMobileMenu();
+
+  // Active state logic
+  document.addEventListener("astro:page-load", () => {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("#main-header a[data-nav-link]");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              if (link.getAttribute("aria-label") === entry.target.id) {
+                link.classList.remove("text-zinc-400", "text-zinc-500");
+                link.classList.add("text-zinc-900", "dark:text-zinc-100");
+              } else {
+                // For desktop links use zinc-400, for mobile use zinc-500 (resting states)
+                const isMobile = link.classList.contains("mobile-nav-link");
+                link.classList.add(isMobile ? "text-zinc-500" : "text-zinc-400");
+                link.classList.remove("text-zinc-900", "dark:text-zinc-100");
+              }
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+  });
 </script>
