@@ -29,7 +29,7 @@ const [role, company] = title.includes('|') ? title.split('|').map(s => s.trim()
     
     <div class="flex flex-col">
         <div class="flex flex-col gap-y-1">
-            <h3 class={`text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 ${isFirst ? "text-indigo-600 dark:text-indigo-500" : ""}`}>
+            <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
                 {role}
             </h3>
             {company && (
@@ -52,7 +52,7 @@ const [role, company] = title.includes('|') ? title.split('|').map(s => s.trim()
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400 group/link"
+                        class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors group/link"
                     >
                         <span data-i18n="experience.moreInfo">Detalles</span>
                         <ArrowIcon class="size-3.5 transition-transform group-hover/link:translate-x-1" />

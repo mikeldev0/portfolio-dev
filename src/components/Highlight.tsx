@@ -5,7 +5,7 @@ interface HighlightProps {
 const Highlight = ({ children }: HighlightProps) => {
     return (
         <span
-            className="font-bold text-indigo-600 dark:text-indigo-400"
+            className="font-bold text-zinc-900 dark:text-zinc-100"
         >
             {children}
         </span>
