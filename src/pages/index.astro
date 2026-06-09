@@ -1,7 +1,6 @@
 ---
 import AboutMe from "../components/AboutMe.astro";
 import Experiences from "../components/Experiences.astro";
-import HolidayProfileImage from "../components/HolidayProfileImage";
 import Footer from "../components/Footer.astro";
 import Projects from "../components/Projects.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
@@ -22,10 +21,20 @@ import Layout from "../layouts/Layout.astro";
     <SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
         <div class="flex flex-col items-start gap-y-12">
             <div class="flex items-center gap-x-8">
-                <HolidayProfileImage
-                    className="w-24 h-24 sm:w-28 sm:h-28 shadow-2xl dark:shadow-zinc-900/50 rounded-full transition-transform duration-500 hover:scale-105"
-                    client:load
-                />
+                <div
+                    id="hero-avatar-anchor"
+                    class="relative size-28 shrink-0 rounded-[28px] sm:size-36"
+                >
+                    <img
+                        id="hero-avatar-fallback"
+                        class="size-full rounded-[28px] object-cover object-center shadow-2xl shadow-zinc-900/20 dark:shadow-black/40"
+                        src="/photo.webp"
+                        alt="Mikel Echeverria, Desarrollador Full Stack y Backend"
+                        width="288"
+                        height="288"
+                        loading="eager"
+                    />
+                </div>
                 <div class="space-y-2">
                     <h1
                         class="text-4xl sm:text-6xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"

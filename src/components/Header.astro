@@ -1,5 +1,4 @@
 ---
-import HomeIcon from "../icons/HomeIcon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
@@ -42,10 +41,19 @@ const navItems = [
         <nav class="flex items-center gap-x-12">
             <a
                 href="/#"
-                class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100"
+                id="header-avatar-anchor"
+                class="relative size-11 shrink-0 rounded-full sm:size-12"
                 aria-label="Home"
             >
-                <HomeIcon class="size-5" />
+                <img
+                    id="header-avatar-fallback"
+                    class="size-full rounded-full object-cover object-center shadow-md shadow-zinc-900/10 transition-opacity duration-200 dark:shadow-black/30"
+                    src="/photo.webp"
+                    alt=""
+                    width="96"
+                    height="96"
+                    loading="eager"
+                />
             </a>
 
             <div class="hidden md:flex items-center gap-x-8">
@@ -70,7 +78,6 @@ const navItems = [
                 <div class="w-px h-4 bg-zinc-200 dark:bg-zinc-800"></div>
                 <LanguageSelector />
             </div>
-
             <button
                 id="burger-btn"
                 aria-label="Abrir menú"
