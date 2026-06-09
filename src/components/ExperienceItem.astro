@@ -10,9 +10,10 @@ export interface ExperienceItemProps {
   titleKey?: string;
   descriptionKey?: string;
   dateKey?: string;
+  tags?: string[];
 }
 
-const { title, description, date, link, descriptionKey, dateKey } =
+const { title, description, date, link, descriptionKey, dateKey, tags } =
   Astro.props as ExperienceItemProps;
 
 // Split title to separate role and company if possible
@@ -42,6 +43,18 @@ const [role, company] = title.includes("|") ? title.split("|").map((s) => s.trim
         )
       }
     </div>
+
+    {
+      tags && tags.length > 0 && (
+        <div class="mt-3 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800/50 rounded ring-1 ring-zinc-200 dark:ring-zinc-700/50">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )
+    }
 
     <div
       class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal"

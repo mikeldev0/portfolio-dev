@@ -57,6 +57,10 @@
       "description": "During my internship at the <strong>Burlada City Council</strong> as an IT specialist, I gained experience in <strong>problem solving</strong> and <strong>teamwork</strong>. I contributed to the development of municipal computer systems, working alongside professionals and strengthening my passion for computing and technology."
     }
   },
+  "cta": {
+    "contact": "Contact me",
+    "viewCv": "View CV"
+  },
   "projectsSection": {
     "demo": "Demo",
     "viewDemo": "View demo",

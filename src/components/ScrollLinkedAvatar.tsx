@@ -66,28 +66,53 @@ export default function ScrollLinkedAvatar() {
   const opacity = useMotionValue(0);
 
   useEffect(() => {
-    const measureAnchors = () => {
-      const heroAnchor = document.querySelector(HERO_ANCHOR_SELECTOR);
-      const headerAnchor = document.querySelector(HEADER_ANCHOR_SELECTOR);
+    const heroAnchor = document.querySelector(HERO_ANCHOR_SELECTOR);
+    const headerAnchor = document.querySelector(HEADER_ANCHOR_SELECTOR);
 
-      if (!heroAnchor || !headerAnchor) return;
+    if (!heroAnchor || !headerAnchor) return;
 
-      setHeroBox(getAnchorBox(heroAnchor));
-      setHeaderBox(getCompactHeaderBox(headerAnchor));
+    const measure = () => {
+      const hBox = getAnchorBox(heroAnchor);
+      const headBox = getCompactHeaderBox(headerAnchor);
+
+      setHeroBox(hBox);
+      setHeaderBox(headBox);
+
+      // If we haven't placed the avatar yet, do it immediately to avoid jumps
+      if (!hasPlacedAvatar.current) {
+        const isDocked = window.scrollY >= DOCK_SCROLL_THRESHOLD;
+        const target = isDocked ? headBox : hBox;
+
+        isDockedRef.current = isDocked;
+        left.set(target.left);
+        top.set(target.top);
+        size.set(target.size);
+        borderRadius.set(isDocked ? 999 : 28);
+        imageScale.set(isDocked ? 0.98 : 1);
+        opacity.set(isDocked ? 0.96 : 1);
+        hasPlacedAvatar.current = true;
+      }
     };
 
-    measureAnchors();
+    measure();
 
-    window.addEventListener("resize", measureAnchors);
-    window.addEventListener("load", measureAnchors);
+    const observer = new ResizeObserver(measure);
+    observer.observe(heroAnchor);
+    observer.observe(headerAnchor);
+    // Also observe body to catch layout shifts from translations
+    observer.observe(document.body);
+
+    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", measure, { passive: true });
 
     return () => {
-      window.removeEventListener("resize", measureAnchors);
-      window.removeEventListener("load", measureAnchors);
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", measure);
     };
-  }, []);
+  }, [borderRadius, imageScale, left, opacity, size, top]);
 
-  const isReady = Boolean(heroBox && headerBox && !prefersReducedMotion);
+  const isReady = Boolean(heroBox && headerBox && !prefersReducedMotion && hasPlacedAvatar.current);
 
   useEffect(() => {
     document.documentElement.classList.toggle("scroll-avatar-ready", isReady);
@@ -96,23 +121,6 @@ export default function ScrollLinkedAvatar() {
       document.documentElement.classList.remove("scroll-avatar-ready");
     };
   }, [isReady]);
-
-  useEffect(() => {
-    if (!isReady || !heroBox || !headerBox) return;
-    if (hasPlacedAvatar.current) return;
-
-    const isDocked = window.scrollY >= DOCK_SCROLL_THRESHOLD;
-    const target = isDocked ? headerBox : heroBox;
-
-    isDockedRef.current = isDocked;
-    left.set(target.left);
-    top.set(target.top);
-    size.set(target.size);
-    borderRadius.set(isDocked ? 999 : 28);
-    imageScale.set(isDocked ? 0.98 : 1);
-    opacity.set(isDocked ? 0.96 : 1);
-    hasPlacedAvatar.current = true;
-  }, [borderRadius, headerBox, heroBox, imageScale, isReady, left, opacity, size, top]);
 
   useEffect(() => {
     if (!isReady || !heroBox || !headerBox) return;
@@ -140,22 +148,24 @@ export default function ScrollLinkedAvatar() {
         (!current && window.scrollY >= DOCK_SCROLL_THRESHOLD) ||
         (current && window.scrollY > UNDOCK_SCROLL_THRESHOLD);
 
-      if (nextDocked === current) return;
+      if (nextDocked === current) {
+        // Even if docked state didn't change, we might need to update position if layout changed
+        const target = nextDocked ? headerBox : heroBox;
+        left.set(target.left);
+        top.set(target.top);
+        size.set(target.size);
+        return;
+      }
 
       isDockedRef.current = nextDocked;
       animateTo(nextDocked ? headerBox : heroBox, nextDocked);
     };
-
-    if (hasPlacedAvatar.current) {
-      animateTo(isDockedRef.current ? headerBox : heroBox, isDockedRef.current);
-    }
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       controls.forEach((control) => control.stop());
-      controls = [];
     };
   }, [borderRadius, headerBox, heroBox, imageScale, isReady, left, opacity, size, top]);
 

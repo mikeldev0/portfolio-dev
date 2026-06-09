@@ -8,6 +8,7 @@ import SectionContainer from "../components/SectionContainer.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import LinkedInIcon from "../icons/LinkedInIcon.astro";
 import MailIcon from "../icons/MailIcon.astro";
+import XIcon from "../icons/XIcon.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -62,6 +63,24 @@ import Layout from "../layouts/Layout.astro";
           Backend & Full Stack Engineer. Especializado en arquitectura de APIs robustas, sistemas
           escalables y automatización inteligente.
         </p>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a
+            href="mailto:mikel@mikeldev.com"
+            class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold uppercase tracking-widest text-white bg-zinc-900 dark:bg-white dark:text-zinc-900 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            data-i18n="cta.contact"
+          >
+            Contactar
+          </a>
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 rounded-full transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900"
+            data-i18n="cta.viewCv"
+          >
+            Ver CV
+          </a>
+        </div>
       </div>
 
       <nav class="flex flex-wrap gap-x-8 gap-y-4">
@@ -82,6 +101,15 @@ import Layout from "../layouts/Layout.astro";
         >
           <LinkedInIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>LinkedIn</span>
+        </a>
+        <a
+          href="https://x.mikeldev.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+        >
+          <XIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span>X</span>
         </a>
         <a
           href="mailto:mikel@mikeldev.com"

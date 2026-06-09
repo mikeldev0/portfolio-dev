@@ -39,7 +39,7 @@
     "tesicnor_backend": {
       "date": "Agosto 2024 - Octubre 2024",
       "title": "Desarrollador Backend | Tesicnor SL, Noain, Navarra",
-      "description": "Como <strong>Desarrollador Backend</strong>, trabajo en el diseño y desarrollo de <strong>aplicaciones web</strong> utilizando <strong>Spring Boot</strong> para el backend además de utilizar tecnologías como <strong>JSF, Git, Maven, MySQL</strong>, entre otras. Además, he adquirido experiencia en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales."
+      "description": "Como <strong>Desarrollador Backend</strong>, trabajé en el diseño y desarrollo de <strong>aplicaciones web</strong> utilizando <strong>Spring Boot</strong> para el backend además de utilizar tecnologías como <strong>JSF, Git, Maven, MySQL</strong>, entre otras. Además, he adquirido experiencia en el desarrollo full stack, con énfasis en el backend y bases de datos relacionales."
     },
     "camp": {
       "date": "Verano 2024",
@@ -56,6 +56,10 @@
       "title": "Informático en Prácticas | Ayuntamiento de Burlada",
       "description": "Durante mis prácticas en el <strong>Ayuntamiento de Burlada</strong> como informático, adquirí experiencia en <strong>resolución de problemas</strong> y <strong>trabajo en equipo</strong>. Contribuí al desarrollo de sistemas informáticos municipales, colaborando con profesionales y fortaleciendo mi pasión por la informática y el campo tecnológico."
     }
+  },
+  "cta": {
+    "contact": "Contactar",
+    "viewCv": "Ver CV"
   },
   "projectsSection": {
     "demo": "DEMO",
