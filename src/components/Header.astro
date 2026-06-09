@@ -33,20 +33,20 @@ const navItems = [
 ---
 
 <header
-    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-300"
+    class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500"
     id="main-header"
 >
-    <div class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-        <nav class="flex items-center gap-x-8">
-            <a href="/" class="hover:scale-110 transition-transform" aria-label="Home">
+    <div class="max-w-3xl mx-auto px-6 h-20 flex items-center justify-between">
+        <nav class="flex items-center gap-x-12">
+            <a href="/" class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100" aria-label="Home">
                 <HomeIcon class="size-5" />
             </a>
             
-            <div class="hidden md:flex items-center gap-x-6">
+            <div class="hidden md:flex items-center gap-x-8">
                 {
                     navItems.map((link) => (
                         <a
-                            class="text-[13px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                            class="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                             aria-label={link.label}
                             href={link.url}
                             data-i18n={link.key}
@@ -58,9 +58,12 @@ const navItems = [
             </div>
         </nav>
 
-        <div class="flex items-center gap-x-4">
-            <ThemeToggle />
-            <LanguageSelector />
+        <div class="flex items-center gap-x-6">
+            <div class="flex items-center gap-x-4">
+                <ThemeToggle />
+                <div class="w-px h-4 bg-zinc-200 dark:bg-zinc-800"></div>
+                <LanguageSelector />
+            </div>
             
             <button id="burger-btn" aria-label="Abrir menú" class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
@@ -74,21 +77,21 @@ const navItems = [
 
     <!-- Mobile nav -->
     <div id="mobile-nav"
-        class="fixed inset-0 bg-white dark:bg-zinc-950 z-[60] flex flex-col items-center justify-center transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
+        class="fixed inset-0 bg-white dark:bg-zinc-950 z-[60] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
     >
         <button id="close-mobile-nav" aria-label="Cerrar menú" class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
             <CloseMenuIcon class="size-8" />
         </button>
         
-        <div class="flex flex-col gap-y-8 items-center">
+        <div class="flex flex-col gap-y-12 items-center">
             {
                 navItems.map((link) => (
                     <a
-                        class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        class="text-4xl font-black tracking-tighter text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                         aria-label={link.label}
                         href={link.url}
                         data-i18n={link.key}
-                        onclick="document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none','translate-y-4');"
+                        onclick="document.getElementById('mobile-nav').classList.add('opacity-0','pointer-events-none','translate-y-8');"
                     >
                         {link.title}
                     </a>
@@ -106,25 +109,25 @@ const navItems = [
 
     if (burgerBtn && mobileNav) {
         burgerBtn.onclick = () => {
-            mobileNav.classList.remove('opacity-0','pointer-events-none','translate-y-4');
+            mobileNav.classList.remove('opacity-0','pointer-events-none','translate-y-8');
             mobileNav.classList.add('opacity-100','pointer-events-auto','translate-y-0');
         };
     }
     if (closeBtn && mobileNav) {
         closeBtn.onclick = () => {
             mobileNav.classList.remove('opacity-100','pointer-events-auto','translate-y-0');
-            mobileNav.classList.add('opacity-0','pointer-events-none','translate-y-4');
+            mobileNav.classList.add('opacity-0','pointer-events-none','translate-y-8');
         };
     }
 
     // Scroll effect
     window.addEventListener('scroll', () => {
         if (window.scrollY > 20) {
-            header?.classList.add('bg-white/80', 'dark:bg-zinc-950/80', 'backdrop-blur-md', 'border-zinc-200', 'dark:border-zinc-800');
-            header?.classList.remove('border-transparent');
+            header?.classList.add('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', 'h-16');
+            header?.classList.remove('border-transparent', 'h-20');
         } else {
-            header?.classList.remove('bg-white/80', 'dark:bg-zinc-950/80', 'backdrop-blur-md', 'border-zinc-200', 'dark:border-zinc-800');
-            header?.classList.add('border-transparent');
+            header?.classList.remove('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', 'h-16');
+            header?.classList.add('border-transparent', 'h-20');
         }
     });
 
@@ -138,10 +141,10 @@ const navItems = [
                 if (entry.isIntersecting) {
                     navLinks.forEach((link) => {
                         if (link.getAttribute("aria-label") === entry.target.id) {
-                            link.classList.remove('text-zinc-500');
+                            link.classList.remove('text-zinc-400');
                             link.classList.add('text-zinc-900', 'dark:text-zinc-100');
                         } else {
-                            link.classList.add('text-zinc-500');
+                            link.classList.add('text-zinc-400');
                             link.classList.remove('text-zinc-900', 'dark:text-zinc-100');
                         }
                     });

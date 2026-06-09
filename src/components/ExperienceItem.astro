@@ -14,38 +14,48 @@ export interface ExperienceItemProps {
 
 const { title, description, date, link, isFirst, titleKey, descriptionKey, dateKey } =
     Astro.props as ExperienceItemProps;
+
+// Split title to separate role and company if possible
+const [role, company] = title.includes('|') ? title.split('|').map(s => s.trim()) : [title, ''];
 ---
 
-<article class="group relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-y-4 md:gap-x-12 pb-12 last:pb-0">
+<article class="group relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-y-4 md:gap-x-12 pb-16 last:pb-0">
     <time
-        class="text-sm font-medium tabular-nums text-zinc-400 dark:text-zinc-500 mt-1"
+        class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mt-1.5"
         data-i18n={dateKey}
     >
         {date}
     </time>
     
     <div class="flex flex-col">
-        <h3 class={`text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 ${isFirst ? "text-indigo-600 dark:text-indigo-400" : ""}`} data-i18n={titleKey}>
-            {title}
-        </h3>
+        <div class="flex flex-col gap-y-1">
+            <h3 class={`text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 ${isFirst ? "text-indigo-600 dark:text-indigo-400" : ""}`}>
+                {role}
+            </h3>
+            {company && (
+                <span class="text-sm font-semibold text-zinc-500 dark:text-zinc-500 italic">
+                    {company}
+                </span>
+            )}
+        </div>
         
         <div
-            class="mt-3 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty"
+            class="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal"
             data-i18n={descriptionKey}
             set:html={description}
         ></div>
         
         {
             link && (
-                <div class="mt-4">
+                <div class="mt-6">
                     <a
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400"
+                        class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-zinc-900 dark:text-zinc-100 transition hover:text-indigo-600 dark:hover:text-indigo-400 group/link"
                     >
                         <span data-i18n="experience.moreInfo">Detalles</span>
-                        <ArrowIcon class="size-3.5" />
+                        <ArrowIcon class="size-3.5 transition-transform group-hover/link:translate-x-1" />
                     </a>
                 </div>
             )
