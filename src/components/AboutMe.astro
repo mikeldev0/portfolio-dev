@@ -7,7 +7,7 @@ const personalImageAlt = "Mikel Echeverria, Backend & Full Stack Engineer";
 <article class="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-12 items-start">
   <div class="text-pretty order-2 md:order-1">
     <div
-      class="space-y-6 text-zinc-700 dark:text-zinc-300 leading-relaxed text-lg sm:text-xl [&>p>strong]:font-semibold [&>p>strong]:text-zinc-950 dark:[&>p>strong]:text-white"
+      class="space-y-6 text-[var(--ink)] opacity-90 leading-relaxed text-lg sm:text-xl [&>p>strong]:font-semibold [&>p>strong]:text-[var(--primary)]"
     >
       <p data-i18n="about.content">
         Soy <strong>Mikel Echeverria</strong>, un <strong>Backend & Full Stack Engineer</strong>. Mi
@@ -25,7 +25,7 @@ const personalImageAlt = "Mikel Echeverria, Backend & Full Stack Engineer";
       height="200"
       src={myPhoto}
       alt={personalImageAlt}
-      class="w-48 h-48 rounded-2xl object-cover shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 transition-transform duration-500 hover:scale-[1.03]"
+      class="w-48 h-48 rounded-2xl object-cover shadow-xl shadow-[var(--primary-muted)] ring-1 ring-[var(--border)] transition-transform duration-500 hover:scale-[1.03]"
     />
   </div>
 </article>
