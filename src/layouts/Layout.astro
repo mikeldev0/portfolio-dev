@@ -94,22 +94,22 @@ const structuredData = {
   :root {
     --bg: oklch(1 0.003 60); /* Parchment White */
     --surface: oklch(0.97 0.01 60);
-    --ink: oklch(0.18 0.015 60); /* Warm Ink */
-    --ink-muted: oklch(0.45 0.015 60);
-    --primary: oklch(0.2 0.01 60); /* Deep Slate Warm */
-    --primary-muted: oklch(0.2 0.01 60 / 0.05);
-    --accent: oklch(0.65 0.08 60); /* Gold / Bronze */
+    --ink: oklch(0.18 0.01 240);
+    --ink-muted: oklch(0.45 0.01 240);
+    --primary: oklch(0.2 0 0); /* Pure Dark Slate */
+    --primary-muted: oklch(0.2 0 0 / 0.05);
+    --accent: oklch(0.65 0.08 60); /* Gold / Bronze accent for light mode */
     --border: oklch(0.9 0.015 60);
 
     color-scheme: light dark;
   }
 
   .dark {
-    --bg: oklch(0.1 0 0); /* Pure Neutral Dark */
+    --bg: oklch(0.1 0 0); /* Pure Neutral Dark (main branch style) */
     --surface: oklch(0.14 0 0);
     --ink: oklch(0.92 0 0);
     --ink-muted: oklch(0.6 0 0);
-    --primary: oklch(0.98 0 0);
+    --primary: oklch(0.98 0 0); /* Pure White */
     --primary-muted: oklch(0.98 0 0 / 0.1);
     --accent: oklch(0.4 0 0); /* Neutral Grey Accent */
     --border: oklch(0.2 0 0);

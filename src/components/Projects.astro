@@ -170,7 +170,7 @@ const getRepositoryUrl = (github?: string) => {
                 class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
               />
             ) : (
-              <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-[var(--bg)] to-[var(--surface)]">
+              <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-[oklch(0.98_0.002_60)] to-[oklch(0.94_0.005_60)] dark:from-[oklch(0.18_0_0)] dark:to-[oklch(0.14_0_0)]">
                 <span class="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--ink-muted)] opacity-20">
                   {title.substring(0, 2)}
                 </span>
@@ -183,7 +183,7 @@ const getRepositoryUrl = (github?: string) => {
               <h3 class="text-3xl font-bold tracking-tight text-[var(--ink)]">{title}</h3>
               <div class="mt-4 flex flex-wrap gap-x-4 gap-y-2">
                 {tags.map((tag) => (
-                  <span class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] group-hover:text-[var(--primary)] transition-colors">
+                  <span class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] group-hover:text-[var(--ink)] transition-colors">
                     {tag.name}
                   </span>
                 ))}
@@ -199,7 +199,7 @@ const getRepositoryUrl = (github?: string) => {
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="project-link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--primary)] group/link"
+                  class="project-link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)] group/link"
                 >
                   <DesktopIcon class="size-4" />
                   <span data-i18n="projectsSection.viewDemo">Ver proyecto</span>
@@ -210,7 +210,7 @@ const getRepositoryUrl = (github?: string) => {
                   href={repositoryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="project-link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--primary)]"
+                  class="project-link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
                 >
                   <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <span>Source</span>
@@ -229,7 +229,7 @@ const getRepositoryUrl = (github?: string) => {
     <div class="mt-20 flex justify-center border-t border-[var(--border)] pt-20">
       <a
         href="https://github.com/mikeldev0?tab=repositories"
-        class="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] hover:text-[var(--primary)] transition-colors underline decoration-[var(--border)] hover:decoration-[var(--primary)] underline-offset-8"
+        class="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors underline decoration-[var(--border)] hover:decoration-[var(--ink)] underline-offset-8"
       >
         <span data-i18n="projectsSection.moreProjects">Explorar archivo</span>
       </a>
@@ -264,6 +264,11 @@ const getRepositoryUrl = (github?: string) => {
 
     .group:hover .project-media {
       transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px oklch(0 0 0 / 0.1);
+    }
+
+    .dark .group:hover .project-media {
+      box-shadow: 0 20px 40px -15px oklch(0 0 0 / 0.3);
     }
 
     .project-link :global(svg) {
@@ -278,7 +283,7 @@ const getRepositoryUrl = (github?: string) => {
     }
 
     .group:hover .project-tag {
-      color: var(--primary);
+      color: var(--ink);
     }
   }
 </style>
