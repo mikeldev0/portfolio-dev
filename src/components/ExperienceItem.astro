@@ -44,11 +44,16 @@ const [role, company] = title.includes("|") ? title.split("|").map((s) => s.trim
 
     {
       tags && tags.length > 0 && (
-        <div class="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span class="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[var(--primary)] bg-[var(--primary-muted)] rounded-md border border-[var(--primary-muted)]">
-              {tag}
-            </span>
+        <div class="mt-4 flex flex-wrap gap-x-3 gap-y-2 items-center">
+          {tags.map((tag, index) => (
+            <>
+              <span class="text-[10px] font-black uppercase tracking-[0.15em] text-[var(--primary)] hover:text-[var(--ink)] transition-colors cursor-default">
+                {tag}
+              </span>
+              {index < tags.length - 1 && (
+                <span class="size-1 rounded-full bg-[var(--border)]" aria-hidden="true" />
+              )}
+            </>
           ))}
         </div>
       )
