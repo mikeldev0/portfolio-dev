@@ -20,7 +20,9 @@ import Layout from "../layouts/Layout.astro";
   class="max-w-3xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
 >
   <SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
-    <div class="flex flex-col items-start gap-y-12">
+    <div
+      class="flex flex-col items-start gap-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000"
+    >
       <div class="flex items-center gap-x-8">
         <div id="hero-avatar-anchor" class="relative size-28 shrink-0 rounded-[28px] sm:size-36">
           <img
@@ -35,12 +37,12 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <div class="space-y-2">
           <h1
-            class="text-4xl sm:text-6xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"
+            class="text-5xl sm:text-7xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"
           >
             <span data-i18n="hero.hello">Mikel Echeverria</span>
           </h1>
           <div
-            class="flex items-center gap-x-2.5 text-[13px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400/90"
+            class="flex items-center gap-x-2.5 text-[11px] font-bold tracking-widest text-emerald-600 dark:text-emerald-400/90 uppercase"
           >
             <span class="relative flex h-2 w-2">
               <span
@@ -48,9 +50,7 @@ import Layout from "../layouts/Layout.astro";
               ></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span data-i18n="badge.available" class="uppercase tracking-widest"
-              >Disponible para trabajar</span
-            >
+            <span data-i18n="badge.available">Disponible para trabajar</span>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ import Layout from "../layouts/Layout.astro";
         <div class="flex flex-wrap gap-4 pt-2">
           <a
             href="mailto:mikel@mikeldev.com"
-            class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold uppercase tracking-widest text-white bg-zinc-900 dark:bg-white dark:text-zinc-900 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            class="inline-flex items-center justify-center px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white bg-[var(--primary)] rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] shadow-lg shadow-[var(--primary-muted)]"
             data-i18n="cta.contact"
           >
             Contactar
@@ -75,7 +75,7 @@ import Layout from "../layouts/Layout.astro";
           <a
             href="/cv.pdf"
             target="_blank"
-            class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 rounded-full transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900"
+            class="inline-flex items-center justify-center px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-zinc-600 dark:text-zinc-400 border border-[var(--border)] rounded-full transition-all hover:bg-[var(--surface)]"
             data-i18n="cta.viewCv"
           >
             Ver CV
@@ -83,12 +83,12 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </div>
 
-      <nav class="flex flex-wrap gap-x-8 gap-y-4">
+      <nav class="flex flex-wrap gap-x-10 gap-y-4">
         <a
           href="https://github.mikeldev.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
         >
           <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>GitHub</span>
@@ -97,7 +97,7 @@ import Layout from "../layouts/Layout.astro";
           href="https://www.linkedin.com/in/mikel-echeverria"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
         >
           <LinkedInIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>LinkedIn</span>
@@ -106,14 +106,14 @@ import Layout from "../layouts/Layout.astro";
           href="https://x.mikeldev.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
         >
           <XIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>X</span>
         </a>
         <a
           href="mailto:mikel@mikeldev.com"
-          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
         >
           <MailIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>Email</span>

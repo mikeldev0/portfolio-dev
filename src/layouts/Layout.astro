@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/onest";
+import "@fontsource/fraunces/700.css";
 import Background from "../components/Background.astro";
 import Header from "../components/Header.astro";
 import ScrollLinkedAvatar from "../components/ScrollLinkedAvatar";
@@ -34,10 +35,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class="min-h-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans scroll-smooth"
->
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -45,20 +43,10 @@ const structuredData = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <!-- This line is important for SEO -->
     <meta name="robots" content="index, follow" />
-    <!-- Meta Tags SEO -->
     <meta
       name="title"
       content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
-    />
-    <meta
-      name="description"
-      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
-    />
-    <meta
-      name="keywords"
-      content="Mikel Echeverria, desarrollador Full Stack, desarrollador Backend, desarrollador Frontend, Pamplona, aplicaciones multiplataforma, diseño web, soluciones tecnológicas, programación"
     />
     <link rel="canonical" href="https://www.mikeldev.com" />
 
@@ -90,12 +78,8 @@ const structuredData = {
     />
     <meta name="twitter:image" content="https://www.mikeldev.com/photo.webp" />
 
-    <!-- Title Tag -->
-    <title>Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com</title>
-
-    <!-- Datos Estructurados SEO -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <title>{title}</title>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <Background />
@@ -106,48 +90,61 @@ const structuredData = {
     <script src="/i18n.js" is:inline></script>
   </body>
 </html>
+
 <style is:global>
   :root {
+    --bg: oklch(1 0 0);
+    --surface: oklch(0.98 0 0);
+    --ink: oklch(0.18 0.01 240);
+    --ink-muted: oklch(0.45 0.01 240);
+    --primary: oklch(0.65 0.18 36); /* Warm Coral from Seed */
+    --primary-muted: oklch(0.65 0.18 36 / 0.1);
+    --accent: oklch(0.55 0.12 240); /* Deep Blue */
+    --border: oklch(0.92 0 0);
+
     color-scheme: light dark;
   }
+
+  .dark {
+    --bg: oklch(0.12 0 0);
+    --surface: oklch(0.15 0 0);
+    --ink: oklch(0.94 0 0);
+    --ink-muted: oklch(0.65 0 0);
+    --primary: oklch(0.75 0.15 36);
+    --primary-muted: oklch(0.75 0.15 36 / 0.15);
+    --accent: oklch(0.7 0.1 240);
+    --border: oklch(0.2 0 0);
+  }
+
   html {
     font-family: "Onest Variable", system-ui, sans-serif;
-    scroll-behavior: smooth;
-    height: 100%;
-    margin: 0;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    html {
-      background-color: #09090b;
-    }
-  }
-
-  @media (prefers-color-scheme: light) {
-    html {
-      background-color: #ffffff;
-    }
+    background-color: var(--bg);
+    color: var(--ink);
   }
 
   body {
-    color: rgba(9, 9, 11, 0.9);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
-    overscroll-behavior: none;
-    position: relative;
-    z-index: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: #ffffff;
-    z-index: -3;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    line-height: 1.1;
+    text-wrap: balance;
+    letter-spacing: -0.03em;
   }
-  .dark body::before {
-    background: #09090b;
+
+  p {
+    max-width: 70ch;
+    text-wrap: pretty;
   }
 
   #hero-avatar-fallback {
@@ -178,11 +175,9 @@ const structuredData = {
     html {
       scroll-behavior: auto;
     }
-
     #hero-avatar-fallback {
       transition: none;
     }
-
     #header-avatar-fallback {
       opacity: 1;
       visibility: visible;
@@ -190,55 +185,17 @@ const structuredData = {
     }
   }
 
-  @media (prefers-color-scheme: dark) {
-    body {
-      color: rgba(255, 255, 255, 0.9);
+  @keyframes blur {
+    to {
+      backdrop-filter: blur(20px);
+      border-color: var(--border);
+      background-color: var(--surface);
     }
   }
 
   #header-nav {
-    animation: blur linear both 0.5s;
+    animation: blur linear both;
     animation-timeline: scroll();
-    animation-range: 0 500px;
-  }
-
-  @keyframes blur {
-    to {
-      backdrop-filter: blur(20px);
-      border-width: 1px;
-      border-color: rgba(0, 0, 0);
-      padding: 0.25rem 0.75rem;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      background-color: rgb(229, 229, 229);
-      border-radius: 9999px;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    @keyframes blur {
-      from {
-        border: 0px;
-      }
-      to {
-        box-shadow:
-          0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-          0px 0px 0 1px rgba(0, 0, 0, 0.3);
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(20px);
-        border-width: 1px;
-        border-color: rgba(0, 0, 0);
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 9999px;
-      }
-    }
+    animation-range: 0 100px;
   }
 </style>

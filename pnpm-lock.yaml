@@ -17,6 +17,9 @@ importers:
       '@fontsource-variable/onest':
         specifier: ^5.0.4
         version: 5.2.11
+      '@fontsource/fraunces':
+        specifier: ^5.2.9
+        version: 5.2.9
       astro:
         specifier: ^5.5.4
         version: 5.18.2(@types/node@25.9.2)(jiti@1.21.7)(rollup@4.61.1)(typescript@5.9.3)(yaml@2.9.0)
@@ -38,6 +41,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.6
         version: 3.4.19(yaml@2.9.0)
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.19(yaml@2.9.0))
     devDependencies:
       '@astrojs/check':
         specifier: ^0.8.3
@@ -777,6 +783,9 @@ packages:
 
   '@fontsource-variable/onest@5.2.11':
     resolution: {integrity: sha512-knJww1KxK4g66+qu90q3CPBvl4zhL5oDRi3/JMkYMmlhW3OgyRgT4MMfgd6jg2lvho7bLPAXfsYPh59h0yzwUA==}
+
+  '@fontsource/fraunces@5.2.9':
+    resolution: {integrity: sha512-XDzuddBtoC7BZgZdBn6b7hsFZY2+V1hgN7yca5fBTKuHjb/lOd45a0Ji8dTUgFhPoL7RdGupo+bC2BFSt6UH8Q==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2900,6 +2909,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  tailwindcss-animate@1.0.7:
+    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+
   tailwindcss@3.4.19:
     resolution: {integrity: sha512-3ofp+LL8E+pK/JuPLPggVAIaEuhvIz4qNcf3nA1Xn2o/7fb7s/TYpHhwGDv1ZU3PkBluUVaF8PyCHcm48cKLWQ==}
     engines: {node: '>=14.0.0'}
@@ -3999,6 +4013,8 @@ snapshots:
     optional: true
 
   '@fontsource-variable/onest@5.2.11': {}
+
+  '@fontsource/fraunces@5.2.9': {}
 
   '@img/colour@1.1.0':
     optional: true
@@ -6433,6 +6449,10 @@ snapshots:
       csso: 5.0.5
       picocolors: 1.1.1
       sax: 1.6.0
+
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.19(yaml@2.9.0)):
+    dependencies:
+      tailwindcss: 3.4.19(yaml@2.9.0)
 
   tailwindcss@3.4.19(yaml@2.9.0):
     dependencies:
