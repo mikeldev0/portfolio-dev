@@ -1,0 +1,260 @@
+---
+import DesktopIcon from "../icons/DesktopIcon.astro";
+import GitHubIcon from "../icons/GitHubIcon.astro";
+import SocialPill from "./SocialPill.astro";
+import { env } from "../lib/env";
+
+const { githubToken: GITHUB_TOKEN, githubUrl: GITHUB_URL } = env;
+
+interface Project {
+    title: string;
+    description: string;
+    link?: string;
+    github?: string;
+    image?: string;
+    tags: Tag[];
+}
+
+interface Tag {
+    name: string;
+    color: string;
+}
+
+interface GitHubRepository {
+    name: string;
+    description?: string;
+    url: string;
+    homepageUrl?: string;
+    openGraphImageUrl?: string;
+    languages: {
+        nodes: Array<{ name: string }>;
+    };
+}
+
+const TAG = {
+    JAVA: { name: "Java", color: "bg-red-600/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
+    PYTHON: { name: "Python", color: "bg-blue-400/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    JAVASCRIPT: { name: "JavaScript", color: "bg-yellow-600/10 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-900/50" },
+    BASH: { name: "Bash", color: "bg-zinc-800/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+    BATCH: { name: "Batch", color: "bg-zinc-600/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+    HTML: { name: "HTML", color: "bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-900/50" },
+    CSS: { name: "CSS", color: "bg-blue-600/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    SASS: { name: "SASS", color: "bg-pink-600/10 text-pink-700 dark:text-pink-400 border-pink-200 dark:border-pink-900/50" },
+    TYPESCRIPT: { name: "TypeScript", color: "bg-blue-800/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    REACT: { name: "React", color: "bg-cyan-400/10 text-cyan-700 dark:text-cyan-400 border-cyan-200 dark:border-cyan-900/50" },
+    ANGULAR: { name: "Angular", color: "bg-red-700/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
+    SPRING_BOOT: { name: "Spring Boot", color: "bg-green-600/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
+    NODE_JS: { name: "Node.js", color: "bg-green-500/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
+    EXPRESS: { name: "Express", color: "bg-zinc-500/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+    MYSQL: { name: "MySQL", color: "bg-blue-300/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    DOCKER: { name: "Docker", color: "bg-blue-700/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    GITHUB: { name: "GitHub", color: "bg-zinc-800/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+    GITLAB: { name: "GitLab", color: "bg-orange-600/10 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-900/50" },
+    JIRA: { name: "Jira", color: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50" },
+    BDD: { name: "BDD", color: "bg-red-500/10 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50" },
+    ASTRO: { name: "Astro", color: "bg-purple-600/10 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-900/50" },
+    PHP: { name: "PHP", color: "bg-indigo-700/10 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-900/50" },
+    VB_NET: { name: "VB.NET", color: "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-900/50" },
+    ANDROID: { name: "Android", color: "bg-green-700/10 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50" },
+    IOS: { name: "iOS", color: "bg-zinc-400/10 text-zinc-700 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700/50" },
+};
+
+const STATIC_PROJECTS: Project[] = [
+    {
+        link: "https://proyectosjs.mikeldev.com",
+        title: "Proyectos desarrollados 100% con JavaScript",
+        description:
+            "Una selección de herramientas y experimentos prácticos construidos con Vanilla JS. Incluye desde lógica de negocio hasta interfaces reactivas y juegos.",
+        tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS, TAG.ASTRO],
+    },
+    {
+        title: "Woof & Work Marketing",
+        description:
+            "Plataforma para agencia de marketing digital especializada en el sector mascotas. Implementación de landing page con enfoque en performance y conversión.",
+        tags: [TAG.REACT, TAG.TYPESCRIPT, TAG.CSS],
+        link: "https://woofandwork.netlify.app",
+    },
+    {
+        title: "WebLLM-local Chatbot",
+        description:
+            "Chatbot impulsado por IA que utiliza WebGPU para ejecutar modelos de lenguaje localmente en el navegador. Enfoque en privacidad y cómputo distribuido.",
+        github: "/WebLLM-local",
+        tags: [TAG.JAVASCRIPT, TAG.HTML, TAG.CSS],
+        link: "https://chat.mikeldev.com",
+    },
+    {
+        title: "Hundir la flota - Game Engine",
+        description:
+            "Motor de juego para el clásico Hundir la Flota desarrollado en Java. Implementación de lógica de colisiones, IA básica y estados de juego.",
+        github: "/HundirLaFlota",
+        tags: [TAG.JAVA],
+    },
+    {
+        title: "HugChat CLI",
+        description:
+            "Interfaz de línea de comandos para interactuar con modelos de lenguaje de HuggingFace. Automatización de prompts y gestión de sesiones vía terminal.",
+        github: "/HuggingChatCLI",
+        tags: [TAG.PYTHON, TAG.BASH, TAG.BATCH],
+    },
+    {
+        title: "Carpooling App Cuatrovientos",
+        description:
+            "Aplicación móvil de coche compartido para reducir la huella de carbono escolar. Gestión de rutas, usuarios y ahorros de CO2.",
+        github: "/BlaBlaCarCuatrovientos",
+        tags: [TAG.JAVA, TAG.ANDROID],
+    },
+];
+
+async function fetchPinnedRepos(username: string): Promise<Project[]> {
+    if (!GITHUB_TOKEN) return [];
+
+    try {
+        const response = await fetch(GITHUB_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `bearer ${GITHUB_TOKEN}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query: `{
+                    user(login: "${username}") {
+                        pinnedItems(first: 6, types: REPOSITORY) {
+                            nodes {
+                                ... on Repository {
+                                    name
+                                    description
+                                    url
+                                    homepageUrl
+                                    languages(first: 3) {
+                                        nodes {
+                                            name
+                                        }
+                                    }
+                                    openGraphImageUrl
+                                }
+                            }
+                        }
+                    }
+                }`
+            }),
+        });
+
+        if (!response.ok) return [];
+
+        const data = await response.json();
+        if (data.errors) return [];
+
+        return data.data.user.pinnedItems.nodes.map((repo: GitHubRepository) => {
+            const repoTags = repo.languages.nodes
+                .map((lang) => {
+                    const tagKey = Object.keys(TAG).find(key =>
+                        TAG[key as keyof typeof TAG].name.toLowerCase() === lang.name.toLowerCase()
+                    );
+                    return tagKey ? TAG[tagKey as keyof typeof TAG] : null;
+                })
+                .filter(Boolean);
+
+            return {
+                title: repo.name,
+                description: repo.description || "",
+                github: repo.url,
+                link: repo.homepageUrl,
+                image: repo.openGraphImageUrl,
+                tags: repoTags,
+            };
+        });
+    } catch {
+        return [];
+    }
+}
+
+let PROJECTS: Project[] = STATIC_PROJECTS;
+
+try {
+    const githubProjects = await fetchPinnedRepos('mikeldev0');
+    if (githubProjects && githubProjects.length > 0) {
+        PROJECTS = githubProjects;
+    }
+} catch {
+    // Silently fallback to static projects
+}
+
+const getRepositoryUrl = (github?: string) => {
+    if (!github) return undefined;
+    return github.startsWith("http") ? github : `https://github.com/mikeldev0${github}`;
+};
+---
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    {PROJECTS.slice(0, 6).map(
+        ({ title, description, link, github, image, tags }) => {
+            const repositoryUrl = getRepositoryUrl(github);
+
+            return (
+            <article class="group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+                {image && (
+                    <div class="aspect-video w-full overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+                        <img
+                            src={image}
+                            alt={title}
+                            loading="lazy"
+                            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+                    </div>
+                )}
+                <div class="flex flex-1 flex-col p-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                            {title}
+                        </h3>
+                        <div class="mt-3 flex flex-wrap gap-1.5">
+                            {tags.map((tag) => (
+                                <span
+                                    class={`rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${tag.color}`}
+                                >
+                                    {tag.name}
+                                </span>
+                            ))}
+                        </div>
+                        <p class="mt-4 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                            {description}
+                        </p>
+                    </div>
+
+                    <div class="mt-8 flex items-center gap-4">
+                        {link && (
+                            <a
+                                href={link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                            >
+                                <DesktopIcon class="size-4" />
+                                <span data-i18n="projectsSection.viewDemo">Ver demo</span>
+                            </a>
+                        )}
+                        {repositoryUrl && (
+                            <a
+                                href={repositoryUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-700 transition hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white"
+                            >
+                                <GitHubIcon class="size-4" />
+                                <span data-i18n="projectsSection.viewOnGitHub">GitHub</span>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </article>
+        )},
+    )}
+</div>
+
+{PROJECTS.length > 6 && (
+    <div class="mt-12 flex justify-center">
+        <SocialPill href="https://github.com/mikeldev0?tab=repositories">
+            <span data-i18n="projectsSection.moreProjects">Ver más proyectos</span>
+        </SocialPill>
+    </div>
+)}

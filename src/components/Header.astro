@@ -46,7 +46,7 @@ const navItems = [
             {
                 navItems.map((link) => (
                     <a
-                        class="relative block px-2 py-2 transition hover:text-purple-500 dark:hover:text-purple-400 text-center"
+                        class="relative block px-2 py-2 transition hover:text-indigo-600 dark:hover:text-indigo-400 text-center"
                         aria-label={link.label}
                         href={link.url}
                         data-i18n={link.key}
@@ -136,9 +136,11 @@ const navItems = [
                                 item.getAttribute("aria-label") ==
                                 entry.target.id
                             ) {
-                                item.classList.add("text-yellow-500");
+                                item.classList.add("text-indigo-600");
+                                item.classList.add("dark:text-indigo-400");
                             } else {
-                                item.classList.remove("text-yellow-500");
+                                item.classList.remove("text-indigo-600");
+                                item.classList.remove("dark:text-indigo-400");
                             }
                         });
                     }

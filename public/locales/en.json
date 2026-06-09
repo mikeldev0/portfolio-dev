@@ -10,11 +10,11 @@
   },
   "hero": {
     "hello": "Hi! I'm",
-    "description": "Backend and full-stack developer based in Pamplona, Spain. I build APIs, web interfaces and automations with a focus on clean architecture, reliable data and applied AI.",
-    "signalBackend": "Backend and APIs",
-    "signalFullStack": "Full-stack web",
-    "signalAi": "AI and automation",
-    "signalData": "SQL and data models"
+    "description": "Backend & Full Stack Developer. Specializing in robust APIs, scalable interfaces, and intelligent automation. Focused on clean architecture and data engineering.",
+    "signalBackend": "Backend & API Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Modeling & SQL"
   },
   "section": {
     "experience": "Work experience",

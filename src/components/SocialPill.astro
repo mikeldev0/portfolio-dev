@@ -1,5 +1,5 @@
 ---
-import ButtonRotatingBackgroundGradient from "./ButtonRotatingBackgroundGradient.tsx";
+import PillButton from "./PillButton";
 ---
 
 <a
@@ -8,9 +8,9 @@ import ButtonRotatingBackgroundGradient from "./ButtonRotatingBackgroundGradient
     rel="noopener noreferrer"
     title={Astro.props.title}
     aria-label={Astro.props.title}
-    class="inline-block rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950"
+    class="inline-block rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 dark:focus:ring-offset-zinc-950"
 >
-    <ButtonRotatingBackgroundGradient>
+    <PillButton>
         <slot />
-    </ButtonRotatingBackgroundGradient>
+    </PillButton>
 </a>
