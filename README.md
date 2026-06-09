@@ -1,60 +1,139 @@
-# Porfolio de Mikel Echeverria
+<p align="center">
+  <img src="./public/favicon.svg" width="96" height="96" alt="MikelDev logo" />
+</p>
 
-**Bienvenido a mi porfolio desarrollado con [Astro](https://astro.build/), una herramienta increíble para construir sitios web modernos y rápidos.** Este porfolio es una representación de mi trabajo, habilidades y proyectos en los que he trabajado.
+# Mikel Echeverria Portfolio
 
-![Captura de pantalla de mi porfolio](/public/web_screenshot.webp)
+[![Astro](https://img.shields.io/badge/Astro-5.18-ff5d01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=111)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![pnpm](https://img.shields.io/badge/pnpm-required-f69220?style=flat-square&logo=pnpm&logoColor=white)](https://pnpm.io)
 
-## 🚀 Empezando
+Personal portfolio for **Mikel Echeverria**, a Backend & Full Stack Engineer focused on API architecture, scalable systems, intelligent automation, and practical product delivery.
 
-Para iniciar el proyecto en tu entorno local, sigue estos pasos:
+[Live site](https://www.mikeldev.com) • [GitHub](https://github.com/mikeldev0) • [LinkedIn](https://www.linkedin.com/in/mikel-echeverria) • [Email](mailto:mikel@mikeldev.com)
 
-1. Clona el repositorio:
+![Portfolio preview](./public/photo.webp)
 
-```sh
-git clone https://github.com/mikeldev0/porfolio-dev.git
+## Overview
+
+This repository contains a fast, static Astro portfolio designed to communicate professional experience, selected projects, availability, and contact paths without unnecessary marketing noise.
+
+The site is built as a personal credibility asset: recruiters, technical leads, teams, and freelance clients should be able to scan what Mikel does, what he has built, and how to contact him quickly.
+
+## Features
+
+- **Astro static site** with React islands only where interactivity is needed.
+- **Responsive portfolio sections** for hero, experience, projects, about, and footer content.
+- **Internationalization** through local JSON dictionaries for English, Spanish, French, German, and Italian.
+- **Theme controls** with light/dark mode support.
+- **Scroll-linked profile avatar** with reduced-motion fallback.
+- **Optional GitHub pinned projects** fetched from the GitHub GraphQL API when credentials are provided.
+- **Seasonal holiday effects** that respect reduced-motion preferences.
+- **Prettier, Astro check, Husky, lint-staged, and Commitlint** for consistent local workflow.
+
+> [!NOTE]
+> The site works without GitHub API credentials. If no token is configured, it falls back to the curated static project list in `src/components/Projects.astro`.
+
+## Tech Stack
+
+| Area            | Tools                                                 |
+| --------------- | ----------------------------------------------------- |
+| Framework       | Astro 5                                               |
+| UI              | Astro components, React islands, Tailwind CSS         |
+| Motion          | Framer Motion, CSS transitions                        |
+| Language        | TypeScript                                            |
+| Package manager | pnpm                                                  |
+| Quality         | Astro check, Prettier, Husky, lint-staged, Commitlint |
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) 20 or later
+- [pnpm](https://pnpm.io/installation)
+- Git
+
+### Local Setup
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/mikeldev0/portfolio-dev.git
+cd portfolio-dev
+pnpm install
 ```
 
-2. Instala las dependencias:
+Start the development server:
 
-```sh
-bun install
+```bash
+pnpm dev
 ```
 
-3. Inicia el servidor de desarrollo:
+Open `http://localhost:4321` in your browser.
 
-```sh
-bun run dev
+> [!TIP]
+> If Vite reports an outdated optimized dependency during development, restart the server with `pnpm dev --force` to rebuild the local dependency cache.
+
+## Environment Variables
+
+Create a `.env` file in the project root when you need optional runtime configuration:
+
+```bash
+VITE_ENABLE_HOLIDAY_EFFECTS=true
+GITHUB_TOKEN=github_pat_or_token
+GITHUB_URL=https://api.github.com/graphql
 ```
 
-4. Visita http://localhost:4321 en tu navegador para ver el proyecto.
+| Variable                      | Required | Description                                                                          |
+| ----------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `VITE_ENABLE_HOLIDAY_EFFECTS` | No       | Set to `false` to disable seasonal snow and holiday avatar effects.                  |
+| `GITHUB_TOKEN`                | No       | Enables fetching pinned GitHub repositories for the projects section.                |
+| `GITHUB_URL`                  | No       | GraphQL endpoint used with `GITHUB_TOKEN`. Usually `https://api.github.com/graphql`. |
 
-### Variables de entorno
+Holiday effects are only displayed from December 1 to January 7 and are disabled automatically when the visitor prefers reduced motion.
 
-- `VITE_ENABLE_HOLIDAY_EFFECTS`: controla los efectos navideños (copos de nieve). Por defecto están activos, pero puedes desactivarlos estableciendo `false` en tu archivo `.env`.
+## Project Structure
 
-> Nota: los efectos navideños solo se muestran durante la temporada (1 de diciembre al 7 de enero) y respetan la preferencia de movimiento reducido del usuario.
+```text
+.
+├── public/                 Static assets, locale files, favicon, profile image
+├── src/
+│   ├── components/         Astro and React UI components
+│   ├── icons/              Local Astro icon components
+│   ├── layouts/            Shared document layout and SEO metadata
+│   ├── lib/                Environment and holiday helpers
+│   └── pages/              Astro routes
+├── PRODUCT.md              Product and design context for the portfolio
+├── astro.config.mjs        Astro, React, Tailwind, and Vite configuration
+└── package.json            Scripts, dependencies, and local hooks
+```
 
-🛠️ **Construido con**
+## Scripts
 
-- **Astro** - El framework utilizado
-- **Tailwind CSS** - Para estilos rápidos y responsivos
-- **React** - Usado para algunos componentes interactivos
+| Command             | Description                                  |
+| ------------------- | -------------------------------------------- |
+| `pnpm dev`          | Start the Astro development server.          |
+| `pnpm build`        | Run `astro check` and build the static site. |
+| `pnpm preview`      | Preview the production build locally.        |
+| `pnpm format`       | Format the codebase with Prettier.           |
+| `pnpm format:check` | Check formatting without writing changes.    |
+| `pnpm check`        | Run Astro diagnostics.                       |
 
-✍️ **Autores**
+## Quality Workflow
 
-- **Mikel Echeverria** - Desarrollador multiplataforma y creador del porfolio
+Local hooks are configured through Husky:
 
-📄 **Licencia**
-Este proyecto está bajo la Licencia (Apache 2.0) - mira el archivo [LICENSE](LICENSE) para más detalles.
+- `pre-commit` runs `pnpm lint-staged` and formats staged files.
+- `commit-msg` enforces Conventional Commits.
+- `pre-push` runs `pnpm build`.
 
-🎉 **Agradecimientos**
+Before pushing manually, this is the expected verification path:
 
-- A la comunidad de Astro por hacer posible este increíble framework
-- A ti, por visitar mi porfolio
-- A todos los que me han apoyado en mi carrera profesional
+```bash
+pnpm format:check
+pnpm build
+```
 
-## TODO
-
-- [ ] Añadir proyectos via API
-- [ ] Añadir DEMO de proyectos
-- [ ] Añadir modo oscuro funcional
+> [!IMPORTANT]
+> Use `pnpm` for package management and scripts in this repository. Mixing package managers can create lockfile and dependency resolution drift.

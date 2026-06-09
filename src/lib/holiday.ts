@@ -3,7 +3,7 @@ import { env } from "./env";
 
 const HOLIDAY_END_DAY = 7;
 
-export const isWithinHolidaySeason = (date: Date) => {
+const isWithinHolidaySeason = (date: Date) => {
   const month = date.getMonth();
   const day = date.getDate();
 

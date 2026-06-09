@@ -12,7 +12,7 @@ export interface ExperienceItemProps {
   dateKey?: string;
 }
 
-const { title, description, date, link, isFirst, titleKey, descriptionKey, dateKey } =
+const { title, description, date, link, descriptionKey, dateKey } =
   Astro.props as ExperienceItemProps;
 
 // Split title to separate role and company if possible

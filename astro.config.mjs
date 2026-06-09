@@ -8,6 +8,14 @@ export default defineConfig({
     tailwind(),
     react(), // Añade React a la lista de integraciones
   ],
+  vite: {
+    resolve: {
+      dedupe: ["react", "react-dom"],
+    },
+    optimizeDeps: {
+      include: ["react", "react-dom", "framer-motion"],
+    },
+  },
   image: {
     domains: ["opengraph.githubassets.com"],
   },

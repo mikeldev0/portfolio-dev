@@ -12,7 +12,6 @@ interface Snowflake {
 const SNOWFLAKE_COUNT = 120;
 export default function Snowfall() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
   const isActive = useHolidayEffectsActive();
 
   useEffect(() => {
@@ -25,6 +24,7 @@ export default function Snowfall() {
     if (!context) return;
 
     const snowflakes: Snowflake[] = [];
+    let animationFrame = 0;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -66,7 +66,7 @@ export default function Snowfall() {
         if (flake.x < 0) flake.x = canvas.width;
       }
 
-      animationRef.current = requestAnimationFrame(draw);
+      animationFrame = requestAnimationFrame(draw);
     };
 
     const handleResize = () => {
@@ -81,7 +81,7 @@ export default function Snowfall() {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", handleResize);
     };
   }, [isActive]);
@@ -94,6 +94,7 @@ export default function Snowfall() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
+      tabIndex={-1}
       className="pointer-events-none fixed inset-0 z-[-1] mix-blend-screen opacity-80"
     />
   );

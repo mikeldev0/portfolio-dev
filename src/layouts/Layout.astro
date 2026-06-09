@@ -156,6 +156,14 @@ const structuredData = {
       visibility 180ms ease;
   }
 
+  #header-avatar-fallback {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 180ms ease,
+      visibility 180ms ease;
+  }
+
   .scroll-avatar-ready #hero-avatar-fallback {
     opacity: 0;
     visibility: hidden;
@@ -172,6 +180,12 @@ const structuredData = {
     }
 
     #hero-avatar-fallback {
+      transition: none;
+    }
+
+    #header-avatar-fallback {
+      opacity: 1;
+      visibility: visible;
       transition: none;
     }
   }
