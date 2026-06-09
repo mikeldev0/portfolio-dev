@@ -17,9 +17,6 @@ importers:
       '@fontsource-variable/onest':
         specifier: ^5.0.4
         version: 5.2.11
-      '@fontsource/fraunces':
-        specifier: ^5.2.9
-        version: 5.2.9
       astro:
         specifier: ^5.5.4
         version: 5.18.2(@types/node@25.9.2)(jiti@1.21.7)(rollup@4.61.1)(typescript@5.9.3)(yaml@2.9.0)
@@ -783,9 +780,6 @@ packages:
 
   '@fontsource-variable/onest@5.2.11':
     resolution: {integrity: sha512-knJww1KxK4g66+qu90q3CPBvl4zhL5oDRi3/JMkYMmlhW3OgyRgT4MMfgd6jg2lvho7bLPAXfsYPh59h0yzwUA==}
-
-  '@fontsource/fraunces@5.2.9':
-    resolution: {integrity: sha512-XDzuddBtoC7BZgZdBn6b7hsFZY2+V1hgN7yca5fBTKuHjb/lOd45a0Ji8dTUgFhPoL7RdGupo+bC2BFSt6UH8Q==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -4013,8 +4007,6 @@ snapshots:
     optional: true
 
   '@fontsource-variable/onest@5.2.11': {}
-
-  '@fontsource/fraunces@5.2.9': {}
 
   '@img/colour@1.1.0':
     optional: true

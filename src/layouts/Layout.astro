@@ -1,6 +1,5 @@
 ---
 import "@fontsource-variable/onest";
-import "@fontsource/fraunces/700.css";
 import Background from "../components/Background.astro";
 import Header from "../components/Header.astro";
 import ScrollLinkedAvatar from "../components/ScrollLinkedAvatar";
@@ -135,11 +134,11 @@ const structuredData = {
   h2,
   h3,
   h4 {
-    font-family: "Fraunces", serif;
-    font-weight: 700;
+    font-family: inherit;
+    font-weight: 800;
     line-height: 1.1;
     text-wrap: balance;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
   }
 
   p {
@@ -193,7 +192,7 @@ const structuredData = {
     }
   }
 
-  #header-nav {
+  #main-header {
     animation: blur linear both;
     animation-timeline: scroll();
     animation-range: 0 100px;

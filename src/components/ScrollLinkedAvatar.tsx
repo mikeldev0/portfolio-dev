@@ -13,7 +13,6 @@ const HERO_ANCHOR_SELECTOR = "#hero-avatar-anchor";
 const HEADER_ANCHOR_SELECTOR = "#header-avatar-anchor";
 const HEADER_COMPACT_HEIGHT = 64;
 const DOCK_SCROLL_THRESHOLD = 36;
-const UNDOCK_SCROLL_THRESHOLD = 8;
 
 type AvatarBox = {
   left: number;
@@ -78,7 +77,6 @@ export default function ScrollLinkedAvatar() {
       setHeroBox(hBox);
       setHeaderBox(headBox);
 
-      // If we haven't placed the avatar yet, do it immediately to avoid jumps
       if (!hasPlacedAvatar.current) {
         const isDocked = window.scrollY >= DOCK_SCROLL_THRESHOLD;
         const target = isDocked ? headBox : hBox;
@@ -99,18 +97,15 @@ export default function ScrollLinkedAvatar() {
     const observer = new ResizeObserver(measure);
     observer.observe(heroAnchor);
     observer.observe(headerAnchor);
-    // Also observe body to catch layout shifts from translations
     observer.observe(document.body);
 
     window.addEventListener("resize", measure);
-    window.addEventListener("scroll", measure, { passive: true });
 
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", measure);
     };
-  }, [borderRadius, imageScale, left, opacity, size, top]);
+  }, []);
 
   const isReady = Boolean(heroBox && headerBox && !prefersReducedMotion && hasPlacedAvatar.current);
 
@@ -131,7 +126,7 @@ export default function ScrollLinkedAvatar() {
       controls.forEach((control) => control.stop());
       controls = [
         animate(left, target.left, spring),
-        animate(top, target.top, spring),
+        animate(top, docked ? target.top : target.top - window.scrollY, spring),
         animate(size, target.size, spring),
         animate(borderRadius, docked ? 999 : 28, spring),
         animate(imageScale, docked ? 0.98 : 1, spring),
@@ -144,15 +139,13 @@ export default function ScrollLinkedAvatar() {
 
     const handleScroll = () => {
       const current = isDockedRef.current;
-      const nextDocked =
-        (!current && window.scrollY >= DOCK_SCROLL_THRESHOLD) ||
-        (current && window.scrollY > UNDOCK_SCROLL_THRESHOLD);
+      const nextDocked = window.scrollY >= DOCK_SCROLL_THRESHOLD;
 
       if (nextDocked === current) {
-        // Even if docked state didn't change, we might need to update position if layout changed
+        // Update position if layout changed or scrolling while undocked
         const target = nextDocked ? headerBox : heroBox;
         left.set(target.left);
-        top.set(target.top);
+        top.set(nextDocked ? target.top : target.top - window.scrollY);
         size.set(target.size);
         return;
       }
@@ -161,13 +154,22 @@ export default function ScrollLinkedAvatar() {
       animateTo(nextDocked ? headerBox : heroBox, nextDocked);
     };
 
+    // Immediate check to synchronize state
+    if (window.scrollY >= DOCK_SCROLL_THRESHOLD) {
+      isDockedRef.current = true;
+      animateTo(headerBox, true);
+    } else {
+      isDockedRef.current = false;
+      top.set(heroBox.top - window.scrollY);
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       controls.forEach((control) => control.stop());
     };
-  }, [borderRadius, headerBox, heroBox, imageScale, isReady, left, opacity, size, top]);
+  }, [headerBox, heroBox, isReady, left, top, size, borderRadius, imageScale, opacity]);
 
   if (prefersReducedMotion) return null;
 

@@ -19,7 +19,6 @@
     "@astrojs/react": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/onest": "^5.0.4",
-    "@fontsource/fraunces": "^5.2.9",
     "astro": "^5.5.4",
     "framer-motion": "12.40.0",
     "react": "^18.3.1",
