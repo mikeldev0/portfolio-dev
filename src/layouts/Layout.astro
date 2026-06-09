@@ -187,8 +187,7 @@ const structuredData = {
   @keyframes blur {
     to {
       backdrop-filter: blur(20px);
-      border-color: var(--border);
-      background-color: var(--surface);
+      background-color: oklch(from var(--bg) l 0 h / 0.7);
     }
   }
 

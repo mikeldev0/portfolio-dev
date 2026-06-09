@@ -32,7 +32,7 @@ const navItems = [
 ---
 
 <header
-  class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
+  class="fixed top-0 z-50 w-full transition-all duration-500 h-20 flex items-center"
   id="main-header"
 >
   <div class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between">
@@ -183,9 +183,9 @@ const navItems = [
 
     const handleScroll = () => {
       if (window.scrollY > 20) {
-        header?.classList.add("bg-white/50", "dark:bg-zinc-950/50", "backdrop-blur-xl", "!h-16");
+        header?.classList.add("backdrop-blur-xl", "!h-16");
       } else {
-        header?.classList.remove("bg-white/50", "dark:bg-zinc-950/50", "backdrop-blur-xl", "!h-16");
+        header?.classList.remove("backdrop-blur-xl", "!h-16");
       }
     };
 
