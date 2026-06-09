@@ -36,12 +36,18 @@ const navItems = [
     class="fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 h-20 flex items-center"
     id="main-header"
 >
-    <div class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between">
+    <div
+        class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between"
+    >
         <nav class="flex items-center gap-x-12">
-            <a href="/" class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100" aria-label="Home">
+            <a
+                href="/"
+                class="hover:scale-110 transition-transform text-zinc-900 dark:text-zinc-100"
+                aria-label="Home"
+            >
                 <HomeIcon class="size-5" />
             </a>
-            
+
             <div class="hidden md:flex items-center gap-x-8">
                 {
                     navItems.map((link) => (
@@ -64,25 +70,40 @@ const navItems = [
                 <div class="w-px h-4 bg-zinc-200 dark:bg-zinc-800"></div>
                 <LanguageSelector />
             </div>
-            
-            <button id="burger-btn" aria-label="Abrir menú" class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="4" y1="7" x2="20" y2="7" />
-                    <line x1="4" y1="12" x2="20" y2="12" />
-                    <line x1="4" y1="17" x2="20" y2="17" />
+
+            <button
+                id="burger-btn"
+                aria-label="Abrir menú"
+                class="md:hidden p-2 -mr-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            >
+                <svg
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="17" x2="20" y2="17"></line>
                 </svg>
             </button>
         </div>
     </div>
 
     <!-- Mobile nav -->
-    <div id="mobile-nav"
+    <div
+        id="mobile-nav"
         class="fixed inset-0 bg-white dark:bg-zinc-950 z-[60] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
     >
-        <button id="close-mobile-nav" aria-label="Cerrar menú" class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+        <button
+            id="close-mobile-nav"
+            aria-label="Cerrar menú"
+            class="absolute top-6 right-6 p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+        >
             <CloseMenuIcon class="size-8" />
         </button>
-        
+
         <div class="flex flex-col gap-y-12 items-center">
             {
                 navItems.map((link) => (
@@ -102,32 +123,56 @@ const navItems = [
 </header>
 
 <script>
-    const burgerBtn = document.getElementById('burger-btn');
-    const mobileNav = document.getElementById('mobile-nav');
-    const closeBtn = document.getElementById('close-mobile-nav');
-    const header = document.getElementById('main-header');
+    const burgerBtn = document.getElementById("burger-btn");
+    const mobileNav = document.getElementById("mobile-nav");
+    const closeBtn = document.getElementById("close-mobile-nav");
+    const header = document.getElementById("main-header");
 
     if (burgerBtn && mobileNav) {
         burgerBtn.onclick = () => {
-            mobileNav.classList.remove('opacity-0','pointer-events-none','translate-y-8');
-            mobileNav.classList.add('opacity-100','pointer-events-auto','translate-y-0');
+            mobileNav.classList.remove(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-8",
+            );
+            mobileNav.classList.add(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+            );
         };
     }
     if (closeBtn && mobileNav) {
         closeBtn.onclick = () => {
-            mobileNav.classList.remove('opacity-100','pointer-events-auto','translate-y-0');
-            mobileNav.classList.add('opacity-0','pointer-events-none','translate-y-8');
+            mobileNav.classList.remove(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+            );
+            mobileNav.classList.add(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-8",
+            );
         };
     }
 
     // Scroll effect
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
         if (window.scrollY > 20) {
-            header?.classList.add('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', '!h-16');
-            header?.classList.remove('border-transparent');
+            header?.classList.add(
+                "bg-white/50",
+                "dark:bg-zinc-950/50",
+                "backdrop-blur-xl",
+                "!h-16",
+            );
         } else {
-            header?.classList.remove('bg-white/90', 'dark:bg-zinc-950/90', 'backdrop-blur-xl', 'border-zinc-200', 'dark:border-zinc-800', '!h-16');
-            header?.classList.add('border-transparent');
+            header?.classList.remove(
+                "bg-white/50",
+                "dark:bg-zinc-950/50",
+                "backdrop-blur-xl",
+                "!h-16",
+            );
         }
     });
 
@@ -136,21 +181,33 @@ const navItems = [
         const sections = document.querySelectorAll("section");
         const navLinks = document.querySelectorAll("#main-header nav div a");
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach((link) => {
-                        if (link.getAttribute("aria-label") === entry.target.id) {
-                            link.classList.remove('text-zinc-400');
-                            link.classList.add('text-zinc-900', 'dark:text-zinc-100');
-                        } else {
-                            link.classList.add('text-zinc-400');
-                            link.classList.remove('text-zinc-900', 'dark:text-zinc-100');
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach((link) => {
+                            if (
+                                link.getAttribute("aria-label") ===
+                                entry.target.id
+                            ) {
+                                link.classList.remove("text-zinc-400");
+                                link.classList.add(
+                                    "text-zinc-900",
+                                    "dark:text-zinc-100",
+                                );
+                            } else {
+                                link.classList.add("text-zinc-400");
+                                link.classList.remove(
+                                    "text-zinc-900",
+                                    "dark:text-zinc-100",
+                                );
+                            }
+                        });
+                    }
+                });
+            },
+            { threshold: 0.5 },
+        );
 
         sections.forEach((s) => observer.observe(s));
     });
