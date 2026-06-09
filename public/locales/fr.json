@@ -10,7 +10,11 @@
   },
   "hero": {
     "hello": "Bonjour ! Je suis",
-    "description": "Développeur backend et full-stack basé à Pampelune, Espagne 🇪🇸. Passionné de technologie, d'innovation et de design, engagé à créer des expériences exceptionnelles et des solutions créatives."
+    "description": "Développeur backend et full-stack basé à Pampelune, Espagne. Je conçois des APIs, des interfaces web et des automatisations avec un focus sur l'architecture propre, les données fiables et l'IA appliquée.",
+    "signalBackend": "Backend et APIs",
+    "signalFullStack": "Web full-stack",
+    "signalAi": "IA et automatisation",
+    "signalData": "SQL et modèles de données"
   },
   "section": {
     "experience": "Expérience professionnelle",

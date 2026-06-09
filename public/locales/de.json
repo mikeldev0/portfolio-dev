@@ -10,7 +10,11 @@
   },
   "hero": {
     "hello": "Hallo! Ich bin",
-    "description": "Backend- und Full-Stack-Entwickler mit Sitz in Pamplona, Spanien 🇪🇸. Begeistert von Technologie, Innovation und Design und engagiert, außergewöhnliche Erlebnisse und kreative Lösungen zu schaffen."
+    "description": "Backend- und Full-Stack-Entwickler mit Sitz in Pamplona, Spanien. Ich entwickle APIs, Weboberflächen und Automatisierungen mit Fokus auf saubere Architektur, verlässliche Daten und angewandte KI.",
+    "signalBackend": "Backend und APIs",
+    "signalFullStack": "Full-Stack-Web",
+    "signalAi": "KI und Automatisierung",
+    "signalData": "SQL und Datenmodelle"
   },
   "section": {
     "experience": "Berufserfahrung",

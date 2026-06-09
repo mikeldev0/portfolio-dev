@@ -10,7 +10,11 @@
   },
   "hero": {
     "hello": "¡Hola! Soy",
-    "description": "Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, la innovación y el diseño. Comprometido con la creación de experiencias excepcionales y soluciones creativas."
+    "description": "Desarrollador Backend y Full Stack en Pamplona, España. Construyo APIs, interfaces web y automatizaciones con foco en arquitectura limpia, datos fiables e inteligencia artificial aplicada.",
+    "signalBackend": "Backend y APIs",
+    "signalFullStack": "Full stack web",
+    "signalAi": "IA y automatización",
+    "signalData": "SQL y modelos de datos"
   },
   "section": {
     "experience": "Experiencia laboral",

@@ -18,6 +18,17 @@ interface Tag {
     color: string;
 }
 
+interface GitHubRepository {
+    name: string;
+    description?: string;
+    url: string;
+    homepageUrl?: string;
+    openGraphImageUrl?: string;
+    languages: {
+        nodes: Array<{ name: string }>;
+    };
+}
+
 const TAG = {
     JAVA: {
         name: "Java",
@@ -179,7 +190,6 @@ const STATIC_PROYECTS: Proyect[] = [
 async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
     try {
         if (!GITHUB_TOKEN) {
-            console.warn('No se encontró el token de GitHub en las variables de entorno');
             return [];
         }
 
@@ -216,17 +226,16 @@ async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
         const data = await response.json();
 
         if (data.errors) {
-            console.error('Error en la API de GitHub:', data.errors);
+            if (import.meta.env.DEV) {
+                console.error('Error en la API de GitHub:', data.errors);
+            }
             return [];
         }
 
-        // Mapear los datos de GitHub a nuestra interfaz Proyect
-        return data.data.user.pinnedItems.nodes.map((repo: any) => {
-            // Mapear los lenguajes a nuestro sistema de etiquetas
+        return data.data.user.pinnedItems.nodes.map((repo: GitHubRepository) => {
             const repoTags = repo.languages.nodes
-                .map((lang: any) => lang.name)
+                .map((lang) => lang.name)
                 .map((langName: string) => {
-                    // Buscar coincidencia con nuestras etiquetas predefinidas
                     const tagKey = Object.keys(TAG).find(key =>
                         TAG[key as keyof typeof TAG].name.toLowerCase() === langName.toLowerCase()
                     );
@@ -234,7 +243,6 @@ async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
                 })
                 .filter((tag: Tag | null) => tag !== null);
 
-            // Siempre añadir la etiqueta GitHub
             repoTags.push(TAG.GITHUB);
 
             return {
@@ -247,7 +255,9 @@ async function fetchPinnedRepos(username: string): Promise<Proyect[]> {
             };
         });
     } catch (error) {
-        console.error('Error al obtener repositorios anclados:', error);
+        if (import.meta.env.DEV) {
+            console.error('Error al obtener repositorios anclados:', error);
+        }
         return [];
     }
 }
@@ -261,77 +271,91 @@ try {
         PROYECTS = githubProyects;
     }
 } catch (error) {
-    console.error('Error al cargar los repositorios anclados, usando proyectos estáticos:', error);
+    if (import.meta.env.DEV) {
+        console.error('Error al cargar los repositorios anclados, usando proyectos estáticos:', error);
+    }
 }
+
+const getRepositoryUrl = (github?: string) => {
+    if (!github) return undefined;
+    return github.startsWith("http") ? github : `https://github.com/mikeldev0${github}`;
+};
 ---
 
 {
     (
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {PROYECTS.slice(0, 6).map(
-                ({ title, description, link, github, image, tags }) => (
-                    <div class="relative overflow-hidden rounded-xl p-[1px] backdrop-blur-3xl">
-                        <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] dark:bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                        <div class="inline-flex h-full w-full items-center justify-center rounded-xl bg-neutral-100 dark:bg-slate-950 px-3 py-1 text-sm font-medium dark:text-white backdrop-blur-3xl">
-                            <div class="flex flex-col p-4 pb-10">
-                                <h2 class="text-xl font-bold mb-2">{title}</h2>
-                                <p class="dark:text-gray-300 mb-4">{description}</p>
+                ({ title, description, link, github, image, tags }) => {
+                    const repositoryUrl = getRepositoryUrl(github);
+                    const primaryHref = link?.length ? link : repositoryUrl;
+
+                    return (
+                    <article class="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white text-zinc-900 transition-colors duration-200 hover:border-indigo-300 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:hover:border-indigo-500/60">
+                        <div class="flex h-full flex-col p-5">
+                            <div class="flex flex-1 flex-col gap-4">
+                                <div>
+                                    <h3 class="text-lg font-semibold leading-tight text-zinc-950 dark:text-white">
+                                        {title}
+                                    </h3>
+                                    <p class="mt-2 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+                                        {description}
+                                    </p>
+                                </div>
                                 {image && (
-                                    <a href={link?.length ? link : github} target="_blank" rel="noopener noreferrer">
-                                        {link && (
-                                            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300 hover:bg-black/50">
-                                                <p class="text-white text-2xl font-bold" data-i18n="projectsSection.demo">
-                                                    DEMO
-                                                </p>
-                                            </div>
-                                        )}
+                                    <a
+                                        href={primaryHref}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="group block overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white dark:border-zinc-800 dark:bg-zinc-900 dark:focus:ring-offset-zinc-950"
+                                    >
                                         <img
                                             src={image}
                                             alt={title}
                                             width={384}
                                             height={192}
                                             loading="lazy"
-                                            class="mb-4 rounded-lg w-full h-48 object-cover"
+                                            class="h-44 w-full object-cover transition duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                                         />
                                     </a>
                                 )}
-                                <div class="flex space-x-2">
+                                <div class="flex flex-wrap gap-2">
                                     {tags.map((tag) => (
                                         <span
-                                            class={`rounded-md px-2 py-1 text-xs text-neutral-100 font-medium ${tag.color}`}
+                                            class={`rounded-md px-2 py-1 text-xs font-medium text-white ${tag.color}`}
                                         >
                                             {tag.name}
                                         </span>
                                     ))}
                                 </div>
-                                <div class="flex justify-between gap-x-2 mt-4 fixed bottom-0 right-0 m-2">
+                            </div>
+                            <div class="mt-5 flex flex-wrap gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-800">
                                     {link && (
                                         <a
                                             href={link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            class="opacity-80 hover:opacity-100 transition hover:text-purple-500 dark:hover:text-purple-400 flex items-center gap-x-1"
+                                            class="inline-flex min-h-11 items-center gap-x-2 rounded-lg border border-zinc-300 px-3 py-2 text-sm font-medium text-zinc-800 transition hover:border-indigo-400 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-indigo-400 dark:hover:text-indigo-300 dark:focus:ring-offset-zinc-950"
                                         >
                                             <DesktopIcon class="size-6" />
-        <span data-i18n="projectsSection.viewDemo">Ver demo</span>
+                                            <span data-i18n="projectsSection.viewDemo">Ver demo</span>
                                         </a>
                                     )}
-                                    {github && (
+                                    {repositoryUrl && (
                                         <a
-                                            href={github}
+                                            href={repositoryUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            class="dark:text-white transition hover:text-purple-500 dark:hover:text-purple-400 flex items-center gap-x-1 opacity-80 hover:opacity-100"
+                                            class="inline-flex min-h-11 items-center gap-x-2 rounded-lg border border-zinc-300 px-3 py-2 text-sm font-medium text-zinc-800 transition hover:border-indigo-400 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-indigo-400 dark:hover:text-indigo-300 dark:focus:ring-offset-zinc-950"
                                         >
                                             <GitHubIcon class="size-6" />
-        <span data-i18n="projectsSection.viewOnGitHub">Ver en GitHub</span>
+                                            <span data-i18n="projectsSection.viewOnGitHub">Ver en GitHub</span>
                                         </a>
                                     )}
-                                </div>
                             </div>
                         </div>
-                    </div>
-                ),
+                    </article>
+                )},
             )}
             {PROYECTS.length > 6 && (
                 <div class="flex justify-center col-span-1 sm:col-span-2 px-4">

@@ -24,7 +24,7 @@ import Layout from "../layouts/Layout.astro";
 	description="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
 />
 <main class="max-w-[screen-sm] px-4 md:px-8 lg:px-16  text-gray-900  transition-colors duration-300">
-	<SectionContainer class="py-16 sm:py-32 lg:py-44">
+	<SectionContainer class="pt-16 pb-12 sm:pt-32 sm:pb-20 lg:pt-44 lg:pb-24">
 		<div
 			class="flex flex-col items-center sm:items-start sm:flex-row sm:gap-x-4"
 		>
@@ -58,8 +58,23 @@ import Layout from "../layouts/Layout.astro";
                 <h2
                         class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left"
                 >
-                        <span data-i18n="hero.description" class="text-gray-900 dark:text-gray-100 opacity-80">Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, innovación y el diseño. Comprometido en crear experiencias excepcionales y soluciones creativas.</span>
+                        <span data-i18n="hero.description" class="text-gray-900 dark:text-gray-100 opacity-80">Desarrollador Backend y Full Stack en Pamplona, España. Construyo APIs, interfaces web y automatizaciones con foco en arquitectura limpia, datos fiables e inteligencia artificial aplicada.</span>
                 </h2>
+
+                <ul class="mt-6 flex max-w-3xl flex-wrap justify-center gap-2 sm:justify-start">
+                        <li class="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm font-medium text-zinc-800 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" data-i18n="hero.signalBackend">
+                                Backend y APIs
+                        </li>
+                        <li class="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm font-medium text-zinc-800 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" data-i18n="hero.signalFullStack">
+                                Full stack web
+                        </li>
+                        <li class="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm font-medium text-zinc-800 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" data-i18n="hero.signalAi">
+                                IA y automatización
+                        </li>
+                        <li class="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm font-medium text-zinc-800 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100" data-i18n="hero.signalData">
+                                SQL y modelos de datos
+                        </li>
+                </ul>
 
 		<ul class="flex flex-wrap justify-center sm:justify-start gap-4 mt-8">
 			<li>
