@@ -1,0 +1,324 @@
+---
+import DesktopIcon from "../icons/DesktopIcon.astro";
+import GitHubIcon from "../icons/GitHubIcon.astro";
+import { env } from "../lib/env";
+
+const { githubToken: GITHUB_TOKEN, githubUrl: GITHUB_URL } = env;
+
+interface Project {
+  title: string;
+  description: string;
+  link?: string;
+  github?: string;
+  image?: string;
+  tags: Tag[];
+}
+
+interface Tag {
+  name: string;
+}
+
+const TAG = {
+  JAVA: { name: "Java" },
+  PYTHON: { name: "Python" },
+  JAVASCRIPT: { name: "JavaScript" },
+  BASH: { name: "Bash" },
+  BATCH: { name: "Batch" },
+  HTML: { name: "HTML" },
+  CSS: { name: "CSS" },
+  SASS: { name: "SASS" },
+  TYPESCRIPT: { name: "TypeScript" },
+  REACT: { name: "React" },
+  ANGULAR: { name: "Angular" },
+  SPRING_BOOT: { name: "Spring Boot" },
+  NODE_JS: { name: "Node.js" },
+  EXPRESS: { name: "Express" },
+  MYSQL: { name: "MySQL" },
+  DOCKER: { name: "Docker" },
+  GITHUB: { name: "GitHub" },
+  GITLAB: { name: "GitLab" },
+  JIRA: { name: "Jira" },
+  BDD: { name: "BDD" },
+  ASTRO: { name: "Astro" },
+  PHP: { name: "PHP" },
+  VB_NET: { name: "VB.NET" },
+  ANDROID: { name: "Android" },
+  IOS: { name: "iOS" },
+};
+
+const STATIC_PROJECTS: Project[] = [
+  {
+    link: "https://proyectosjs.mikeldev.com",
+    title: "JS Utilities & Experiments",
+    description:
+      "Una selección de herramientas y experimentos prácticos construidos con Vanilla JS. Incluye desde lógica de negocio hasta interfaces reactivas y motores de juegos ligeros.",
+    tags: [TAG.JAVASCRIPT, TAG.ASTRO],
+  },
+  {
+    title: "Woof & Work Platform",
+    description:
+      "Infraestructura digital para agencia de marketing especializada. Enfoque en performance, SEO técnico y conversión mediante arquitectura de componentes modulares.",
+    tags: [TAG.REACT, TAG.TYPESCRIPT],
+    link: "https://woofandwork.netlify.app",
+  },
+  {
+    title: "WebLLM-local AI",
+    description:
+      "Implementación de chatbot con modelos de lenguaje ejecutados en el cliente vía WebGPU. Investigación sobre privacidad en IA y computación distribuida en el navegador.",
+    github: "/WebLLM-local",
+    tags: [TAG.JAVASCRIPT, TAG.TYPESCRIPT],
+    link: "https://chat.mikeldev.com",
+  },
+];
+
+async function fetchPinnedRepos(username: string): Promise<Project[]> {
+  if (!GITHUB_TOKEN) return [];
+
+  try {
+    const response = await fetch(GITHUB_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `bearer ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `{
+                    user(login: "${username}") {
+                        pinnedItems(first: 6, types: REPOSITORY) {
+                            nodes {
+                                ... on Repository {
+                                    name
+                                    description
+                                    url
+                                    homepageUrl
+                                    languages(first: 3) {
+                                        nodes {
+                                            name
+                                        }
+                                    }
+                                    openGraphImageUrl
+                                }
+                            }
+                        }
+                    }
+                }`,
+      }),
+    });
+
+    if (!response.ok) return [];
+
+    const data = await response.json();
+    if (data.errors) return [];
+
+    return data.data.user.pinnedItems.nodes.map((repo: any) => {
+      const repoTags = repo.languages.nodes
+        .map((lang: any) => {
+          const tagKey = Object.keys(TAG).find(
+            (key) => TAG[key as keyof typeof TAG].name.toLowerCase() === lang.name.toLowerCase()
+          );
+          return tagKey ? TAG[tagKey as keyof typeof TAG] : null;
+        })
+        .filter(Boolean);
+
+      return {
+        title: repo.name,
+        description: repo.description || "",
+        github: repo.url,
+        link: repo.homepageUrl,
+        image: repo.openGraphImageUrl,
+        tags: repoTags,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+let PROJECTS: Project[] = STATIC_PROJECTS;
+
+try {
+  const githubProjects = await fetchPinnedRepos("mikeldev0");
+  if (githubProjects && githubProjects.length > 0) {
+    PROJECTS = githubProjects;
+  }
+} catch {
+  // Silently fallback
+}
+
+const getRepositoryUrl = (github?: string) => {
+  if (!github) return undefined;
+  return github.startsWith("http") ? github : `https://github.com/mikeldev0${github}`;
+};
+---
+
+<div class="flex flex-col gap-y-24">
+  {
+    PROJECTS.slice(0, 6).map(({ title, description, link, github, image, tags }, index) => {
+      const repositoryUrl = getRepositoryUrl(github);
+
+      return (
+        <article
+          class="project-motion group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-y-8 md:gap-x-16 items-start"
+          style={`--project-delay: ${Math.min(index, 4) * 70}ms`}
+        >
+          <div class="project-media aspect-[16/10] w-full overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 ring-1 ring-zinc-200 dark:ring-zinc-800 transition-all duration-500 group-hover:ring-zinc-300 dark:group-hover:ring-zinc-700">
+            {image ? (
+              <img
+                src={image}
+                alt={title}
+                loading="lazy"
+                class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+              />
+            ) : (
+              <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950">
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-300 dark:text-zinc-700">
+                  {title.substring(0, 2)}
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div class="flex flex-col h-full py-1">
+            <div>
+              <h3 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                {title}
+              </h3>
+              <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+                {tags.map((tag) => (
+                  <span class="project-tag text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+              <p class="mt-5 text-[16px] leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty font-normal">
+                {description}
+              </p>
+            </div>
+
+            <div class="mt-8 flex items-center gap-x-8">
+              {link && (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 group/link"
+                >
+                  <DesktopIcon class="size-4" />
+                  <span data-i18n="projectsSection.viewDemo">Ver proyecto</span>
+                </a>
+              )}
+              {repositoryUrl && (
+                <a
+                  href={repositoryUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+                >
+                  <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+                  <span>Source</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    })
+  }
+</div>
+
+{
+  PROJECTS.length > 6 && (
+    <div class="mt-20 flex justify-center border-t border-zinc-100 dark:border-zinc-800 pt-20">
+      <a
+        href="https://github.com/mikeldev0?tab=repositories"
+        class="text-sm font-bold text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white transition-colors underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4"
+      >
+        <span data-i18n="projectsSection.moreProjects">Explorar archivo</span>
+      </a>
+    </div>
+  )
+}
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .project-motion {
+      transition:
+        opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-motion.motion-armed {
+      opacity: 0.92;
+      transform: translateY(14px);
+    }
+
+    .project-motion.motion-in {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: var(--project-delay, 0ms);
+    }
+
+    .project-media {
+      transition:
+        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .group:hover .project-media {
+      transform: translateY(-2px);
+    }
+
+    .project-link :global(svg) {
+      transition:
+        opacity 180ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-link:hover :global(svg),
+    .project-link:focus-visible :global(svg) {
+      transform: translateY(-1px);
+    }
+
+    .group:hover .project-tag {
+      color: rgb(39 39 42);
+    }
+
+    :global(.dark) .group:hover .project-tag {
+      color: rgb(228 228 231);
+    }
+  }
+</style>
+
+<script>
+  const initProjectMotion = () => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const items = document.querySelectorAll<HTMLElement>(".project-motion");
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      items.forEach((item) => {
+        item.classList.remove("motion-armed");
+        item.classList.add("motion-in");
+      });
+      return;
+    }
+
+    items.forEach((item) => item.classList.add("motion-armed"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("motion-in");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.16 }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  };
+
+  document.addEventListener("astro:page-load", initProjectMotion);
+  initProjectMotion();
+</script>

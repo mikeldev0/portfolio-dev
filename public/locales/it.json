@@ -6,69 +6,73 @@
     "contact": "Contatto"
   },
   "badge": {
-    "available": "Disponibile a lavorare"
+    "available": "Disponibile per progetti"
   },
   "hero": {
-    "hello": "Ciao! Sono",
-    "description": "Sviluppatore backend e full-stack con sede a Pamplona, Spagna 🇪🇸. Appassionato di tecnologia, innovazione e design, impegnato a creare esperienze eccezionali e soluzioni creative."
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Specializzato in architettura API robusta, sistemi scalabili e automazione intelligente.",
+    "signalBackend": "Backend Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Engineering"
   },
   "section": {
-    "experience": "Esperienza lavorativa",
-    "projects": "Progetti",
+    "experience": "Esperienza professionale",
+    "projects": "Progetti selezionati",
     "about": "Chi sono"
   },
   "about": {
-    "content": "Sono <strong>Mikel Echeverria</strong>, <strong>sviluppatore full-stack</strong> e <strong>backend</strong> con spiccate capacità di <strong>problem solving, lavoro di squadra e comunicazione efficace</strong>. Ho una profonda passione per l'<strong>intelligenza artificiale</strong> e i <strong>modelli generativi</strong>, ambiti in cui possiedo vaste conoscenze e per i quali ho realizzato progetti personali. L'esperienza in queste tecnologie mi consente di fornire soluzioni innovative che ottimizzano i processi e migliorano l'efficienza. Inoltre, sono costantemente aggiornato sulle ultime tendenze tecnologiche per contribuire in modo positivo a progetti impegnativi come <strong>sviluppatore frontend</strong> e <strong>backend</strong>."
+    "content": "Sono <strong>Mikel Echeverria</strong>, un <strong>Ingegnere Backend & Full Stack</strong>. Unisco il rigore tecnico a una comunicazione efficace per costruire sistemi scalabili end-to-end. Inoltre, esploro continuamente l'<strong>Intelligenza Artificiale</strong> e i <strong>modelli generativi</strong> per sviluppare soluzioni robuste che ottimizzano i processi e offrono un valore reale."
   },
   "experience": {
-    "moreInfo": "Ulteriori informazioni",
+    "moreInfo": "Dettagli",
     "biodatup": {
-      "date": "Ottobre 2025 - Presente",
+      "date": "Ott 2025 - Presente",
       "title": "Software Developer | Biodatup",
-      "description": "Come <strong>Software Developer/Engineer</strong> in Biodatup contribuisco alla costruzione della sua <strong>piattaforma per gli studi clinici</strong>, sviluppando servizi backend con <strong>Django</strong> e interfacce moderne in <strong>React</strong>. Progetto inoltre <strong>modelli di dati relazionali</strong> e flussi SQL che offrono insight affidabili ai team clinici e di prodotto."
+      "description": "Sviluppo di una <strong>piattaforma per studi clinici</strong>. Implementazione di servizi backend con <strong>Django</strong> e interfacce moderne in <strong>React</strong>. Progettazione di <strong>modelli di dati relazionali</strong>."
     },
     "codetec": {
-      "date": "Gennaio 2025 - Settembre 2025",
-      "title": "Sviluppatore Full-Stack | CODETEC Servicios Informáticos SL",
-      "description": "Come <strong>sviluppatore full-stack</strong> in Codetec mi sono occupato dello sviluppo e della manutenzione di <strong>soluzioni aziendali</strong>, specializzandomi in <strong>sistemi di gestione, contabilità, fatturazione e logistica</strong>. Ho utilizzato tecnologie moderne come <strong>Vue.js, Ionic, Angular e Node.js</strong> per creare applicazioni web e mobile efficienti che miglioravano i processi aziendali dei nostri clienti. Il mio lavoro comprendeva sia il frontend sia il backend, implementando <strong>soluzioni personalizzate</strong> con framework moderni e database SQL/NoSQL che si adattavano alle esigenze di ogni azienda."
+      "date": "Gen 2025 - Set 2025",
+      "title": "Sviluppatore Full-Stack | Codetec",
+      "description": "Sviluppo di <strong>soluzioni aziendali</strong> per logistica e gestione. Utilizzo di <strong>Node.js, Angular e Ionic</strong> per ottimizzare i processi di business. Implementazione di architetture full-stack su misura."
     },
     "tesicnor_backend": {
-      "date": "Agosto 2024 - Ottobre 2024",
-      "title": "Sviluppatore Backend | Tesicnor SL, Noáin, Navarra",
-      "description": "Come <strong>sviluppatore backend</strong> ho lavorato alla progettazione e allo sviluppo di <strong>applicazioni web</strong> utilizzando <strong>Spring Boot</strong> per il backend insieme a tecnologie come <strong>JSF, Git, Maven e MySQL</strong>. Ho inoltre acquisito esperienza nello sviluppo full-stack, con enfasi sul backend e sui database relazionali."
+      "date": "Ago 2024 - Ott 2024",
+      "title": "Sviluppatore Backend | Tesicnor",
+      "description": "Progettazione e sviluppo di applicazioni web con <strong>Spring Boot</strong>. Focus su infrastruttura backend, automazione Maven e ottimizzazione <strong>MySQL</strong>."
     },
     "camp": {
       "date": "Estate 2024",
-      "title": "Camp Counselor | Camp Longhorn Inks Lake, Texas",
-      "description": "Ho avuto l'opportunità di <strong>migliorare notevolmente il mio inglese</strong> grazie a un'immersione totale in un ambiente anglofono. Ho guidato e supervisionato gruppi di bambini in diverse attività, promuovendo un ambiente sicuro e positivo. Ho inoltre conseguito la certificazione di <strong>bagnino</strong>, che mi ha permesso di garantire la sicurezza nelle attività acquatiche."
+      "title": "Camp Counselor | Camp Longhorn, Texas",
+      "description": "Guida di gruppi in un ambiente internazionale. Focus sulla leadership di team, comunicazione in inglese e conseguimento del brevetto di <strong>bagnino</strong>."
     },
     "tesicnor_intern": {
-      "date": "Gennaio 2024 - Maggio 2024",
-      "title": "Tirocinante Sviluppatore Backend | Tesicnor SL, Noáin, Navarra",
-      "description": "Come <strong>sviluppatore backend</strong> ho partecipato alla progettazione e allo sviluppo di <strong>applicazioni web</strong> utilizzando <strong>Spring Boot</strong> per il backend e <strong>Angular</strong> per il frontend. Ho acquisito esperienza pratica nello sviluppo full-stack, con particolare attenzione al backend e ai database relazionali come <strong>MySQL</strong>."
+      "date": "Gen 2024 - Mag 2024",
+      "title": "Tirocinante Backend | Tesicnor",
+      "description": "Supporto allo sviluppo backend con <strong>Spring Boot</strong> e integrazione frontend con <strong>Angular</strong>. Esperienza pratica con database relazionali."
     },
     "burlada": {
-      "date": "Marzo 2022 - Giugno 2022",
-      "title": "Tirocinio informatico | Comune di Burlada",
-      "description": "Durante il mio tirocinio presso il <strong>Comune di Burlada</strong> come informatico ho maturato esperienza nella <strong>risoluzione dei problemi</strong> e nel <strong>lavoro di squadra</strong>. Ho contribuito allo sviluppo dei sistemi informatici comunali, collaborando con professionisti e rafforzando la mia passione per l'informatica e la tecnologia."
+      "date": "Mar 2022 - Giu 2022",
+      "title": "Tirocinante Informatico | Comune di Burlada",
+      "description": "Risoluzione dei problemi e manutenzione dei sistemi informatici comunali. Collaborazione con team tecnici."
     }
   },
   "projectsSection": {
-    "demo": "Demo",
-    "viewDemo": "Vedi demo",
-    "viewOnGitHub": "Vedi su GitHub",
-    "moreProjects": "Vedi altri progetti",
-    "githubDescription": "Un repository GitHub chiamato {{repo}}"
+    "demo": "Vedi progetto",
+    "viewDemo": "Vedi progetto",
+    "viewOnGitHub": "Source",
+    "moreProjects": "Esplora archivio",
+    "githubDescription": "Repository GitHub: {{repo}}"
   },
   "footer": {
     "rights": "Tutti i diritti riservati",
-    "source": "Codice sorgente",
+    "source": "Source",
     "about": "Chi sono",
     "contact": "Contatto"
   },
   "languageNames": {
-    "en": "Inglese",
-    "es": "Spagnolo",
+    "en": "English",
+    "es": "Español",
     "fr": "Francese",
     "de": "Tedesco",
     "it": "Italiano"

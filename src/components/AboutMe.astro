@@ -1,25 +1,27 @@
 ---
 import Image from "astro/components/Image.astro";
 import myPhoto from "/public/photo.webp";
-const personalImageAlt = "Mikel Echeverria, Desarrollador Full Stack y Backend";
+const personalImageAlt = "Mikel Echeverria, Backend & Full Stack Engineer";
 ---
 
 <article
-  class="flex flex-col items-center justify-center gap-8 text-gray-800 dark:text-gray-300 md:flex-row"
+  class="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-12 items-start"
 >
-  <div
-    class="text-pretty order-2 md:order-1"
-  >
-    <p data-i18n="about.content">
-      Soy <strong>Mikel Echeverria</strong>, un <strong>Desarrollador Full Stack</strong> y <strong>Backend</strong> con habilidades destacadas en <strong>resolución de problemas, trabajo en equipo y comunicación efectiva</strong>. Tengo una profunda pasión por la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong>, áreas en las que poseo un amplio conocimiento y para las cuales he desarrollado proyectos personales. Mi experiencia en estas tecnologías me permite aportar soluciones innovadoras que optimizan procesos y mejoran la eficiencia. Además, me mantengo en constante aprendizaje para estar al día con las últimas tendencias tecnológicas y así contribuir positivamente en proyectos desafiantes como desarrollador <strong>Frontend</strong> y <strong>Backend</strong>.
-    </p>
+  <div class="text-pretty order-2 md:order-1">
+    <div class="space-y-6 text-zinc-700 dark:text-zinc-300 leading-relaxed text-lg sm:text-xl [&>p>strong]:font-semibold [&>p>strong]:text-zinc-950 dark:[&>p>strong]:text-white">
+        <p data-i18n="about.content">
+          Soy <strong>Mikel Echeverria</strong>, un <strong>Backend & Full Stack Engineer</strong>. Mi enfoque combina rigor técnico con comunicación efectiva para construir sistemas escalables end-to-end. Además, exploro continuamente la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong> para desarrollar soluciones robustas que optimicen procesos y aporten valor real.
+        </p>
+    </div>
   </div>
+
+  <div class="order-1 md:order-2 flex justify-center md:justify-end">
     <Image
       width="200"
       height="200"
       src={myPhoto}
       alt={personalImageAlt}
-      class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20"
-      style="object-position: 50% 50%"
+      class="w-48 h-48 rounded-2xl object-cover shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 transition-transform duration-500 hover:scale-[1.03]"
     />
+  </div>
 </article>

@@ -2,6 +2,7 @@
 import "@fontsource-variable/onest";
 import Background from "../components/Background.astro";
 import Header from "../components/Header.astro";
+import ScrollLinkedAvatar from "../components/ScrollLinkedAvatar";
 import Snowfall from "../components/Snowfall";
 import { env } from "../lib/env";
 
@@ -102,6 +103,7 @@ const { enableHolidayEffects } = env;
                 <Background />
                 {enableHolidayEffects && <Snowfall client:load />}
                 <Header />
+                <ScrollLinkedAvatar client:load />
                 <slot />
                 <script src="/i18n.js" is:inline></script>
         </body>
@@ -119,21 +121,22 @@ const { enableHolidayEffects } = env;
 
 	@media (prefers-color-scheme: dark) {
 		html {
-			background-color: #0a0a0a;
+			background-color: #09090b;
 		}
 	}
 
 	@media (prefers-color-scheme: light) {
 		html {
-			background-color: #e5e5e5;
+			background-color: #ffffff;
 		}
 	}
 
 	body {
-		color: rgba(17, 17, 17, 0.9);
+		color: rgba(9, 9, 11, 0.9);
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		overflow-x: hidden;
 		overscroll-behavior: none;
 		position: relative;
 		z-index: 0;
@@ -142,16 +145,36 @@ const { enableHolidayEffects } = env;
 		content: "";
 		position: fixed;
 		inset: 0;
-		background: #E5E5E5;
+		background: #ffffff;
 		z-index: -3;
 	}
 	.dark body::before {
-		background: #0a0a0a;
+		background: #09090b;
+	}
+
+	#hero-avatar-fallback {
+		transition:
+			opacity 180ms ease,
+			visibility 180ms ease;
+	}
+
+	.scroll-avatar-ready #hero-avatar-fallback {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	.scroll-avatar-ready #header-avatar-fallback {
+		opacity: 0;
+		visibility: hidden;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
 		html {
 			scroll-behavior: auto;
+		}
+
+		#hero-avatar-fallback {
+			transition: none;
 		}
 	}
 

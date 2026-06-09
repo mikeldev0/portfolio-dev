@@ -32,15 +32,6 @@ const EXPERIENCES = [
     link: "https://www.tesicnor.com/",
   },
   {
-    date: "Verano 2024",
-    dateKey: "experience.camp.date",
-    title: "Camp Counselor | Camp Longhorn Inks Lake, Texas",
-    titleKey: "experience.camp.title",
-    description: `Tuve la oportunidad de mejorar significativamente mi nivel de inglés a través de la inmersión total en un entorno de habla inglesa. Guié y supervisé a grupos de niños en diversas actividades, fomentando un ambiente seguro y positivo. Además, obtuve la titulación de socorrista (lifeguard), lo que me permitió garantizar la seguridad en actividades acuáticas.`,
-    descriptionKey: "experience.camp.description",
-    link: "https://www.camplonghorn.com/",
-  },
-  {
     date: "Enero 2024 - Mayo 2024",
     dateKey: "experience.tesicnor_intern.date",
     title: "Desarrollador Backend en Prácticas | Tesicnor SL, Noain, Navarra",
@@ -61,12 +52,10 @@ const EXPERIENCES = [
 ];
 ---
 
-<ol class="relative border-s border-zinc-400 dark:border-zinc-600">
+<div class="flex flex-col">
   {
     EXPERIENCES.map((experience) => (
-      <li class="mb-10 ms-4">
-        <ExperienceItem {...experience} />
-      </li>
+      <ExperienceItem {...experience} />
     ))
   }
-</ol>
+</div>

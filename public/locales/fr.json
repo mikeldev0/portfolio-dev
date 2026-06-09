@@ -2,75 +2,79 @@
   "nav": {
     "experience": "Expérience",
     "projects": "Projets",
-    "about": "À propos de moi",
+    "about": "À propos",
     "contact": "Contact"
   },
   "badge": {
-    "available": "Disponible pour travailler"
+    "available": "Disponible pour projets"
   },
   "hero": {
-    "hello": "Bonjour ! Je suis",
-    "description": "Développeur backend et full-stack basé à Pampelune, Espagne 🇪🇸. Passionné de technologie, d'innovation et de design, engagé à créer des expériences exceptionnelles et des solutions créatives."
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Spécialisé en architecture d'APIs robustes, systèmes évolutifs et automatisation intelligente.",
+    "signalBackend": "Backend Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Engineering"
   },
   "section": {
     "experience": "Expérience professionnelle",
-    "projects": "Projets",
-    "about": "À propos de moi"
+    "projects": "Projets sélectionnés",
+    "about": "À propos"
   },
   "about": {
-    "content": "Je suis <strong>Mikel Echeverria</strong>, <strong>développeur full-stack</strong> et <strong>backend</strong> doté de solides compétences en <strong>résolution de problèmes, travail d'équipe et communication efficace</strong>. Je suis passionné par l'<strong>intelligence artificielle</strong> et les <strong>modèles génératifs</strong>, domaines dans lesquels je possède de vastes connaissances et pour lesquels j'ai réalisé des projets personnels. Mon expérience dans ces technologies me permet de proposer des solutions innovantes qui optimisent les processus et améliorent l'efficacité. Je reste en apprentissage continu pour me tenir informé des dernières tendances technologiques et ainsi contribuer positivement à des projets exigeants en tant que <strong>développeur frontend</strong> et <strong>backend</strong>."
+    "content": "Je suis <strong>Mikel Echeverria</strong>, un <strong>Ingénieur Backend & Full Stack</strong>. J'associe rigueur technique et communication efficace pour construire des systèmes évolutifs de bout en bout. De plus, j'explore continuellement l'<strong>Intelligence Artificielle</strong> et les <strong>modèles génératifs</strong> pour développer des solutions robustes qui optimisent les processus et apportent une réelle valeur."
   },
   "experience": {
-    "moreInfo": "Plus d'informations",
+    "moreInfo": "Détails",
     "biodatup": {
-      "date": "Octobre 2025 - Aujourd'hui",
+      "date": "Oct 2025 - Présent",
       "title": "Software Developer | Biodatup",
-      "description": "En tant que <strong>Software Developer/Engineer</strong> chez Biodatup, je contribue à la construction de sa <strong>plateforme d'essais cliniques</strong> en développant des services backend avec <strong>Django</strong> et des interfaces modernes en <strong>React</strong>. Je conçois également des <strong>modèles de données relationnels</strong> et des flux SQL qui fournissent des informations fiables aux équipes cliniques et produit."
+      "description": "Construction d'une <strong>plateforme d'essais cliniques</strong>. Développement de services backend avec <strong>Django</strong> et interfaces modernes en <strong>React</strong>. Conception de <strong>modèles de données relationnels</strong>."
     },
     "codetec": {
-      "date": "Janvier 2025 - Septembre 2025",
-      "title": "Développeur Full-Stack | CODETEC Servicios Informáticos SL",
-      "description": "En tant que <strong>développeur full-stack</strong> chez Codetec, j'ai participé au développement et à la maintenance de <strong>solutions d'entreprise</strong>, en me spécialisant dans les <strong>systèmes de gestion, de comptabilité, de facturation et de logistique</strong>. J'ai utilisé des technologies modernes telles que <strong>Vue.js, Ionic, Angular et Node.js</strong> pour créer des applications web et mobiles efficaces qui amélioraient les processus de nos clients. Mon travail couvrait à la fois le frontend et le backend, en mettant en œuvre des <strong>solutions personnalisées</strong> avec des frameworks modernes et des bases de données SQL/NoSQL adaptées aux besoins de chaque entreprise."
+      "date": "Jan 2025 - Sep 2025",
+      "title": "Développeur Full-Stack | Codetec",
+      "description": "Développement de <strong>solutions d'entreprise</strong> pour la logistique et la gestion. Utilisation de <strong>Node.js, Angular et Ionic</strong> pour optimiser les processus métier. Mise en œuvre d'architectures full-stack sur mesure."
     },
     "tesicnor_backend": {
-      "date": "Août 2024 - Octobre 2024",
-      "title": "Développeur Backend | Tesicnor SL, Noáin, Navarre",
-      "description": "En tant que <strong>développeur backend</strong>, j'ai travaillé sur la conception et le développement d'<strong>applications web</strong> en utilisant <strong>Spring Boot</strong> pour le backend ainsi que des technologies telles que <strong>JSF, Git, Maven et MySQL</strong>. J'ai également acquis de l'expérience en développement full-stack, avec un accent sur le backend et les bases de données relationnelles."
+      "date": "Aoû 2024 - Oct 2024",
+      "title": "Développeur Backend | Tesicnor",
+      "description": "Conception et développement d'applications web avec <strong>Spring Boot</strong>. Focus sur l'infrastructure backend, l'automatisation avec Maven et l'optimisation <strong>MySQL</strong>."
     },
     "camp": {
       "date": "Été 2024",
-      "title": "Moniteur de camp | Camp Longhorn Inks Lake, Texas",
-      "description": "J'ai eu l'opportunité d'<strong>améliorer considérablement mon anglais</strong> grâce à une immersion totale dans un environnement anglophone. J'ai encadré et supervisé des groupes d'enfants lors de diverses activités, favorisant une atmosphère sûre et positive. J'ai également obtenu la certification de <strong>maître-nageur sauveteur</strong>, ce qui m'a permis de garantir la sécurité lors des activités aquatiques."
+      "title": "Camp Counselor | Camp Longhorn, Texas",
+      "description": "Direction de groupes dans un environnement international. Focus sur le leadership d'équipe, la communication en anglais et l'obtention de la certification de <strong>sauveteur</strong>."
     },
     "tesicnor_intern": {
-      "date": "Janvier 2024 - Mai 2024",
-      "title": "Stagiaire Développeur Backend | Tesicnor SL, Noáin, Navarre",
-      "description": "En tant que <strong>développeur backend</strong>, j'ai participé à la conception et au développement d'<strong>applications web</strong> en utilisant <strong>Spring Boot</strong> pour le backend et <strong>Angular</strong> pour le frontend. J'ai acquis une expérience pratique en développement full-stack, avec un accent sur le backend et les bases de données relationnelles telles que <strong>MySQL</strong>."
+      "date": "Jan 2024 - Mai 2024",
+      "title": "Stagiaire Backend | Tesicnor",
+      "description": "Soutien au développement backend avec <strong>Spring Boot</strong> et intégration frontend avec <strong>Angular</strong>. Expérience pratique des bases de données relationnelles."
     },
     "burlada": {
-      "date": "Mars 2022 - Juin 2022",
+      "date": "Mar 2022 - Juin 2022",
       "title": "Stagiaire Informatique | Mairie de Burlada",
-      "description": "Lors de mon stage à la <strong>mairie de Burlada</strong> en tant qu'informaticien, j'ai acquis de l'expérience en <strong>résolution de problèmes</strong> et en <strong>travail d'équipe</strong>. J'ai contribué au développement de systèmes informatiques municipaux, en collaboration avec des professionnels et en renforçant ma passion pour l'informatique et la technologie."
+      "description": "Résolution de problèmes et maintenance des systèmes informatiques municipaux. Collaboration avec des équipes techniques."
     }
   },
   "projectsSection": {
-    "demo": "Démo",
-    "viewDemo": "Voir la démo",
-    "viewOnGitHub": "Voir sur GitHub",
-    "moreProjects": "Voir plus de projets",
-    "githubDescription": "Un dépôt GitHub nommé {{repo}}"
+    "demo": "Voir projet",
+    "viewDemo": "Voir projet",
+    "viewOnGitHub": "Source",
+    "moreProjects": "Explorer l'archive",
+    "githubDescription": "Dépôt GitHub : {{repo}}"
   },
   "footer": {
     "rights": "Tous droits réservés",
-    "source": "Code source",
-    "about": "À propos de moi",
+    "source": "Source",
+    "about": "À propos",
     "contact": "Contact"
   },
   "languageNames": {
-    "en": "Anglais",
-    "es": "Espagnol",
+    "en": "English",
+    "es": "Español",
     "fr": "Français",
-    "de": "Allemand",
-    "it": "Italien"
+    "de": "Deutsch",
+    "it": "Italiano"
   }
 }

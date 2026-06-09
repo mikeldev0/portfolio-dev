@@ -1,139 +1,156 @@
 ---
-import SunIcon from "../icons/Sun.astro";
-import MoonIcon from "../icons/Moon.astro";
-import SystemIcon from "../icons/System.astro";
-
-const THEMES = ["Light", "Dark", "System"];
+import ThemeToggleIcon from "../icons/ThemeToggleIcon.astro";
 ---
 
-<div class="relative ml-1 mr-1">
-    <button
-        id="theme-toggle-btn"
-        class="appearance-none border-none flex hover:scale-125 transition"
-        aria-haspopup="true"
-        aria-expanded="false"
-    >
-        <span class="sr-only">Elige el tema</span>
-        <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
-        <MoonIcon
-            id="dark"
-            class="theme-toggle-icon absolute size-5 transition-all"
-        />
-        <SystemIcon
-            id="system"
-            class="theme-toggle-icon absolute size-5 transition-all"
-        />
-    </button>
-    <div
-        id="themes-menu"
-        class="absolute hidden scale-80 top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
-    >
-        <ul>
-            {
-                THEMES.map((theme) => (
-                    <li>
-                        <button
-                            type="button"
-                            class="themes-menu-option px-2 py-1.5 w-full text-left hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm"
-                        >
-                            {theme}
-                        </button>
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
-</div>
+<button
+  class="theme-toggle flex items-center justify-center hover:scale-110 transition-transform ml-1 mr-1 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+  id="theme-toggle"
+  title="Toggles light & dark"
+  aria-label="auto"
+  aria-live="polite"
+>
+  <ThemeToggleIcon class="size-5" />
+</button>
 
 <style>
-    #themes-menu.open {
-        display: inline;
-        animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            both;
-    }
+  .theme-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    outline-offset: 5px;
+  }
+  
+  .theme-toggle > :global(svg) {
+    stroke-linecap: round;
+  }
 
-    @keyframes scale-up-center {
-        from {
-            transform: scale(0.8);
-            opacity: 0;
-        }
-
-        to {
-            transform: scale(1);
-            opacity: 1;
-        }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(::view-transition-old(root)),
+    :global(::view-transition-new(root)) {
+      animation: none;
+      mix-blend-mode: normal;
     }
+  }
 </style>
 
 <script>
-    let removeListener: (() => void) | null = null;
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    const themesMenu = document.getElementById("themes-menu");
+  const storageKey = "theme";
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const getThemePreference = (): string => {
-        if (typeof localStorage !== "undefined") {
-            return localStorage.getItem("theme") ?? "system";
-        }
-
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+  type ViewTransitionDocument = Document & {
+    startViewTransition?: (callback: () => void) => {
+      ready: Promise<void>;
     };
+  };
 
-    const updateIcon = (themePreference: string): void => {
-        document
-            .querySelectorAll<HTMLElement>(".theme-toggle-icon")
-            .forEach((element) => {
-                element.style.scale =
-                    element.id === themePreference ? "1" : "0";
-            });
-    };
+  const getColorPreference = () => {
+    const storedValue = localStorage.getItem(storageKey);
+    if (storedValue && storedValue !== "system") {
+      return storedValue;
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
 
-    const updateTheme = (): void => {
-        if (removeListener != null) {
-            removeListener();
-        }
-        matchMedia.addEventListener("change", updateTheme);
-        removeListener = () => {
-            matchMedia.removeEventListener("change", updateTheme);
-        };
+  const theme = {
+    value: getColorPreference(),
+  };
 
-        const themePreference = getThemePreference();
-        const isDark =
-            themePreference === "dark" ||
-            (themePreference === "system" && matchMedia.matches);
-
-        updateIcon(themePreference);
-        document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-    };
-
-    updateTheme();
-
-    const themeToggleBtn = document.getElementById("theme-toggle-btn");
-
-    document.addEventListener("click", () => {
-        themesMenu?.classList.remove("open");
-        themeToggleBtn?.setAttribute("aria-expanded", "false");
-    });
-
-    themeToggleBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isClosed = !themesMenu?.classList.contains("open");
-        themesMenu?.classList[isClosed ? "add" : "remove"]("open");
-        themeToggleBtn.setAttribute("aria-expanded", String(isClosed));
-    });
+  const reflectPreference = () => {
+    if (theme.value === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
 
     document
-        .querySelectorAll<HTMLElement>(".themes-menu-option")
-        .forEach((element) => {
-            element.addEventListener("click", (e) => {
-                if (e.target instanceof HTMLElement) {
-                    localStorage.setItem(
-                        "theme",
-                        e.target.innerText.toLowerCase().trim(),
-                    );
-                    updateTheme();
-                }
-            });
-        });
+      .querySelector("#theme-toggle")
+      ?.setAttribute("aria-label", theme.value);
+  };
+
+  const persistPreference = () => {
+    localStorage.setItem(storageKey, theme.value);
+    reflectPreference();
+  };
+
+  const getRevealRadius = (x: number, y: number) => {
+    return Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+  };
+
+  const togglePreference = () => {
+    theme.value = theme.value === "light" ? "dark" : "light";
+    persistPreference();
+  };
+
+  const onClick = (event: Event) => {
+    const transitionDocument = document as ViewTransitionDocument;
+    const button =
+      event.currentTarget instanceof HTMLElement
+        ? event.currentTarget
+        : document.querySelector("#theme-toggle");
+
+    if (
+      !button ||
+      motionQuery.matches ||
+      !transitionDocument.startViewTransition
+    ) {
+      togglePreference();
+      return;
+    }
+
+    const { left, top, width, height } = button.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const endRadius = getRevealRadius(x, y);
+    const transition = transitionDocument.startViewTransition(togglePreference);
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 800,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          pseudoElement: "::view-transition-new(root)",
+        },
+      );
+    });
+  };
+
+  // Set early to prevent flash
+  reflectPreference();
+
+  const init = () => {
+    reflectPreference();
+    const btn = document.querySelector("#theme-toggle");
+    if (btn) {
+      btn.removeEventListener("click", onClick);
+      btn.addEventListener("click", onClick);
+    }
+  };
+
+  document.addEventListener("astro:page-load", init);
+  window.addEventListener("DOMContentLoaded", init);
+
+  // Sync with system changes
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", ({ matches: isDark }) => {
+      const storedValue = localStorage.getItem(storageKey);
+      if (!storedValue || storedValue === "system") {
+        theme.value = isDark ? "dark" : "light";
+        reflectPreference();
+      }
+    });
 </script>

@@ -1,128 +1,129 @@
 ---
 import AboutMe from "../components/AboutMe.astro";
-import Badge from "../components/Badge.astro";
 import Experiences from "../components/Experiences.astro";
-import HolidayProfileImage from "../components/HolidayProfileImage";
 import Footer from "../components/Footer.astro";
-import ProfileCheck from "../components/ProfileCheck.astro";
-import Proyects from "../components/Proyects.astro";
+import Projects from "../components/Projects.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
 import SectionContainer from "../components/SectionContainer.astro";
-import SocialPill from "../components/SocialPill.astro";
-import TextAnimatedGradient from "../components/TextAnimatedGradient";
-import BriefcaseIcon from "../icons/BriefcaseIcon.astro";
-import Code from "../icons/Code.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import LinkedInIcon from "../icons/LinkedInIcon.astro";
 import MailIcon from "../icons/MailIcon.astro";
-import XIcon from "../icons/XIcon.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
-	title="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
-	description="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web, y soluciones tecnológicas innovadoras."
+  title="Mikel Echeverria - Backend & Full Stack Engineer"
+  description="Portafolio profesional de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables e IA."
 />
-<main class="max-w-[screen-sm] px-4 md:px-8 lg:px-16  text-gray-900  transition-colors duration-300">
-	<SectionContainer class="py-16 sm:py-32 lg:py-44">
-		<div
-			class="flex flex-col items-center sm:items-start sm:flex-row sm:gap-x-4"
-		>
-                        <HolidayProfileImage className="mb-4 sm:mb-0 lg:mb-4" client:load />
-			<div
-				class="flex flex-col lg:flex-row gap-x-4 items-center sm:items-start"
-			>
-                                <h1
-                                        class="text-3xl sm:text-4xl font-bold mb-4 text-center sm:text-left lg:mt-9 text-gray-900 dark:text-gray-100"
-                                >
-                                        <span data-i18n="hero.hello">Hola! soy</span>
-                                        <TextAnimatedGradient fontSize="inherit"
-                                                >Mikel</TextAnimatedGradient
-                                        >
-                                </h1>
-				<a
-					href="https://www.linkedin.com/in/mikel-echeverria"
-					target="_blank"
-					rel="noopener noreferrer"
-                                        class="lg:mt-11"
-                                >
-                                        <Badge>
-											<span data-i18n="badge.available">
-												Disponible para trabajar
-											</span>
-										</Badge>
-                                </a>
-			</div>
-		</div>
+<main
+  class="max-w-3xl mx-auto px-6 text-zinc-900 transition-colors duration-300 dark:text-zinc-100"
+>
+  <SectionContainer class="pt-32 pb-20 sm:pt-48 sm:pb-32 lg:pt-64 lg:pb-40">
+    <div class="flex flex-col items-start gap-y-12">
+      <div class="flex items-center gap-x-8">
+        <div id="hero-avatar-anchor" class="relative size-28 shrink-0 rounded-[28px] sm:size-36">
+          <img
+            id="hero-avatar-fallback"
+            class="size-full rounded-[28px] object-cover object-center shadow-2xl shadow-zinc-900/20 dark:shadow-black/40"
+            src="/photo.webp"
+            alt="Mikel Echeverria, Desarrollador Full Stack y Backend"
+            width="288"
+            height="288"
+            loading="eager"
+          />
+        </div>
+        <div class="space-y-2">
+          <h1
+            class="text-4xl sm:text-6xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"
+          >
+            <span data-i18n="hero.hello">Mikel Echeverria</span>
+          </h1>
+          <div
+            class="flex items-center gap-x-2.5 text-[13px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400/90"
+          >
+            <span class="relative flex h-2 w-2">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+              ></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span data-i18n="badge.available" class="uppercase tracking-widest"
+              >Disponible para trabajar</span
+            >
+          </div>
+        </div>
+      </div>
 
-                <h2
-                        class="text-xl sm:text-2xl text-wrap mt-4 sm:mt-0 text-center sm:text-left"
-                >
-                        <span data-i18n="hero.description" class="text-gray-900 dark:text-gray-100 opacity-80">Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, innovación y el diseño. Comprometido en crear experiencias excepcionales y soluciones creativas.</span>
-                </h2>
+      <div class="max-w-2xl space-y-8">
+        <p
+          class="text-xl sm:text-2xl font-medium leading-relaxed text-zinc-600 dark:text-zinc-400 text-pretty"
+          data-i18n="hero.description"
+        >
+          Backend & Full Stack Engineer. Especializado en arquitectura de APIs robustas, sistemas
+          escalables y automatización inteligente.
+        </p>
+      </div>
 
-		<ul class="flex flex-wrap justify-center sm:justify-start gap-4 mt-8">
-			<li>
-				<SocialPill
-					perfilPill
-					href="https://github.mikeldev.com"
-					title="Perfil de Github de Mikel Echeverria"
-				>
-					<GitHubIcon class="size-5 sm:size-6" />
-				</SocialPill>
-			</li>
-			<li>
-				<SocialPill
-					href="https://www.linkedin.com/in/mikel-echeverria"
-					title="Perfil de LinkedIn de Mikel Echeverria"
-				>
-					<LinkedInIcon class="size-5 sm:size-6" />
-				</SocialPill>
-			</li>
-			<li>
-				<SocialPill
-					href="https://x.com/MikelEcheve"
-					title="Perfil de X de Mikel Echeverria"
-				>
-					<XIcon class="size-5 sm:size-6" />
-				</SocialPill>
-			</li>
-			<li>
-				<SocialPill
-					href="mailto:mikel@mikeldev.com"
-					title="Enviar correo a Mikel Echeverria"
-				>
-					<MailIcon class="size-5 sm:size-6" />
-					<span class="text-gray-800 dark:text-gray-200">mikel@mikeldev.com</span>
-				</SocialPill>
-			</li>
-		</ul>
-	</SectionContainer>
+      <nav class="flex flex-wrap gap-x-8 gap-y-4">
+        <a
+          href="https://github.mikeldev.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+        >
+          <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span>GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/mikel-echeverria"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+        >
+          <LinkedInIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span>LinkedIn</span>
+        </a>
+        <a
+          href="mailto:mikel@mikeldev.com"
+          class="hero-social-link flex items-center gap-x-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100 group"
+        >
+          <MailIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span>Email</span>
+        </a>
+      </nav>
+    </div>
+  </SectionContainer>
 
-	<SectionContainer class="py-16 sm:py-32 text-gray-900 dark:text-gray-100">
-                <h2 id="experiencia" class="text-2xl font-bold mb-6 flex gap-x-2 " data-i18n="section.experience">
-                        <BriefcaseIcon class="size-7" />
-                        Experiencia laboral
-                </h2>
-		<Experiences />
-	</SectionContainer>
+  <SectionContainer id="experiencia" class="py-24 sm:py-40">
+    <h2
+      class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+      data-i18n="nav.experience"
+    >
+      Experiencia
+    </h2>
+    <Experiences />
+  </SectionContainer>
 
-	<SectionContainer class="py-16 sm:py-32 lg:py-44 text-gray-900 dark:text-gray-100">
-                <h2 id="proyectos" class="text-2xl font-bold mb-6 flex gap-x-2" data-i18n="section.projects">
-                        <Code class="size-7" />
-                        Proyectos
-                </h2>
-		<Proyects />
-	</SectionContainer>
+  <SectionContainer id="proyectos" class="py-24 sm:py-40 lg:py-48">
+    <h2
+      class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+      data-i18n="nav.projects"
+    >
+      Proyectos
+    </h2>
+    <Projects />
+  </SectionContainer>
 
-	<SectionContainer class="py-16 sm:py-32 lg:py-44 text-gray-900 dark:text-gray-100">
-                <h2 id="sobre-mi" class="text-2xl font-bold mb-6 flex gap-x-2" data-i18n="section.about">
-                        <ProfileCheck class="size-7" />
-                        Sobre mí
-                </h2>
-		<AboutMe />
-	</SectionContainer>
+  <SectionContainer id="sobre-mi" class="py-24 sm:py-40 lg:py-48">
+    <h2
+      class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+      data-i18n="nav.about"
+    >
+      Sobre mí
+    </h2>
+    <AboutMe />
+  </SectionContainer>
 
-	<ScrollTopButton />
-	<Footer />
+  <ScrollTopButton />
+  <Footer />
 </main>

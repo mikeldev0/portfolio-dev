@@ -9,8 +9,12 @@
     "available": "Disponible para trabajar"
   },
   "hero": {
-    "hello": "¡Hola! Soy",
-    "description": "Desarrollador Backend y Full Stack en Pamplona, España 🇪🇸. Apasionado por la tecnología, la innovación y el diseño. Comprometido con la creación de experiencias excepcionales y soluciones creativas."
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Especializado en arquitectura de APIs robustas, sistemas escalables y automatización inteligente.",
+    "signalBackend": "Backend Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Engineering"
   },
   "section": {
     "experience": "Experiencia laboral",
@@ -18,7 +22,7 @@
     "about": "Sobre mí"
   },
   "about": {
-    "content": "Soy <strong>Mikel Echeverria</strong>, un <strong>Desarrollador Full Stack</strong> y <strong>Backend</strong> con habilidades destacadas en <strong>resolución de problemas, trabajo en equipo y comunicación efectiva</strong>. Tengo una profunda pasión por la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong>, áreas en las que poseo un amplio conocimiento y para las cuales he desarrollado proyectos personales. Mi experiencia en estas tecnologías me permite aportar soluciones innovadoras que optimizan procesos y mejoran la eficiencia. Además, me mantengo en constante aprendizaje para estar al día con las últimas tendencias tecnológicas y así contribuir positivamente en proyectos desafiantes como <strong>desarrollador Frontend</strong> y <strong>Backend</strong>."
+    "content": "Soy <strong>Mikel Echeverria</strong>, un <strong>Backend & Full Stack Engineer</strong>. Mi enfoque combina rigor técnico con comunicación efectiva para construir sistemas escalables end-to-end. Además, exploro continuamente la <strong>Inteligencia Artificial</strong> y los <strong>modelos generativos</strong> para desarrollar soluciones robustas que optimicen procesos y aporten valor real."
   },
   "experience": {
     "moreInfo": "Más información",

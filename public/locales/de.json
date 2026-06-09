@@ -6,71 +6,75 @@
     "contact": "Kontakt"
   },
   "badge": {
-    "available": "Verfügbar für neue Projekte"
+    "available": "Verfügbar für Projekte"
   },
   "hero": {
-    "hello": "Hallo! Ich bin",
-    "description": "Backend- und Full-Stack-Entwickler mit Sitz in Pamplona, Spanien 🇪🇸. Begeistert von Technologie, Innovation und Design und engagiert, außergewöhnliche Erlebnisse und kreative Lösungen zu schaffen."
+    "hello": "Mikel Echeverria",
+    "description": "Backend & Full Stack Engineer. Spezialisiert auf robuste API-Architektur, skalierbare Systeme und intelligente Automatisierung.",
+    "signalBackend": "Backend Architecture",
+    "signalFullStack": "Full Stack Delivery",
+    "signalAi": "AI & Automation",
+    "signalData": "Data Engineering"
   },
   "section": {
     "experience": "Berufserfahrung",
-    "projects": "Projekte",
+    "projects": "Ausgewählte Projekte",
     "about": "Über mich"
   },
   "about": {
-    "content": "Ich bin <strong>Mikel Echeverria</strong>, <strong>Full-Stack-</strong> und <strong>Backend-Entwickler</strong> mit ausgeprägten Fähigkeiten in <strong>Problemlösung, Teamarbeit und effektiver Kommunikation</strong>. Ich habe eine große Leidenschaft für <strong>künstliche Intelligenz</strong> und <strong>generative Modelle</strong>, Bereiche, in denen ich über umfangreiches Wissen verfüge und persönliche Projekte realisiert habe. Meine Erfahrung mit diesen Technologien ermöglicht es mir, innovative Lösungen zu liefern, die Prozesse optimieren und Effizienz verbessern. Außerdem bilde ich mich ständig weiter, um mit den neuesten technologischen Trends Schritt zu halten und so anspruchsvolle Projekte als <strong>Frontend-</strong> und <strong>Backend-Entwickler</strong> positiv zu unterstützen."
+    "content": "Ich bin <strong>Mikel Echeverria</strong>, ein <strong>Backend & Full Stack Engineer</strong>. Ich kombiniere technische Strenge mit effektiver Kommunikation, um skalierbare End-to-End-Systeme zu entwickeln. Darüber hinaus erforsche ich kontinuierlich <strong>Künstliche Intelligenz</strong> und <strong>generative Modelle</strong>, um robuste Lösungen zu entwickeln, die Prozesse optimieren und echten Mehrwert bieten."
   },
   "experience": {
-    "moreInfo": "Mehr Informationen",
+    "moreInfo": "Details",
     "biodatup": {
-      "date": "Oktober 2025 - Heute",
+      "date": "Okt 2025 - Heute",
       "title": "Software Developer | Biodatup",
-      "description": "Als <strong>Software Developer/Engineer</strong> bei Biodatup wirke ich am Aufbau der <strong>Plattform für klinische Studien</strong> mit, entwickle Backend-Services mit <strong>Django</strong> und gestalte moderne <strong>React</strong>-Oberflächen. Außerdem entwerfe ich <strong>relationale Datenmodelle</strong> und SQL-Workflows, die verlässliche Erkenntnisse für die klinischen und Produktteams liefern."
+      "description": "Entwicklung einer <strong>Plattform für klinische Studien</strong>. Implementierung von Backend-Services mit <strong>Django</strong> und modernen <strong>React</strong>-Interfaces. Design von <strong>relationalen Datenmodellen</strong> und SQL-Workflows für klinische Teams."
     },
     "codetec": {
-      "date": "Januar 2025 - September 2025",
-      "title": "Full-Stack-Entwickler | CODETEC Servicios Informáticos SL",
-      "description": "Als <strong>Full-Stack-Entwickler</strong> bei Codetec entwickelte und pflegte ich <strong>Geschäftslösungen</strong> und spezialisierte mich auf <strong>Management-, Buchhaltungs-, Abrechnungs- und Logistiksysteme</strong>. Mit modernen Technologien wie <strong>Vue.js, Ionic, Angular und Node.js</strong> erstellte ich effiziente Web- und Mobilanwendungen, die die Geschäftsprozesse unserer Kunden verbesserten. Meine Arbeit umfasste sowohl die Frontend- als auch die Backend-Entwicklung und die Implementierung <strong>maßgeschneiderter Lösungen</strong> mit modernen Frameworks und SQL/NoSQL-Datenbanken, die auf die spezifischen Anforderungen jedes Unternehmens zugeschnitten waren."
+      "date": "Jan 2025 - Sep 2025",
+      "title": "Full-Stack-Entwickler | Codetec",
+      "description": "Entwicklung von <strong>Unternehmenslösungen</strong> für Logistik und Management. Einsatz von <strong>Node.js, Angular und Ionic</strong> zur Optimierung von Geschäftsprozessen. Implementierung maßgeschneiderter Full-Stack-Architekturen."
     },
     "tesicnor_backend": {
-      "date": "August 2024 - Oktober 2024",
-      "title": "Backend-Entwickler | Tesicnor SL, Noáin, Navarra",
-      "description": "Als <strong>Backend-Entwickler</strong> arbeitete ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> mit <strong>Spring Boot</strong> im Backend sowie Technologien wie <strong>JSF, Git, Maven und MySQL</strong>. Außerdem sammelte ich Erfahrung in der Full-Stack-Entwicklung mit Schwerpunkt auf Backend und relationalen Datenbanken."
+      "date": "Aug 2024 - Okt 2024",
+      "title": "Backend-Entwickler | Tesicnor",
+      "description": "Design und Entwicklung von Webanwendungen mit <strong>Spring Boot</strong>. Fokus auf Backend-Infrastruktur, Maven-Automatisierung und <strong>MySQL</strong>-Datenbankoptimierung."
     },
     "camp": {
       "date": "Sommer 2024",
-      "title": "Camp Counselor | Camp Longhorn Inks Lake, Texas",
-      "description": "Ich hatte die Gelegenheit, mein <strong>Englisch deutlich zu verbessern</strong>, indem ich vollständig in ein englischsprachiges Umfeld eingetaucht war. Ich leitete und betreute Gruppen von Kindern bei verschiedenen Aktivitäten und förderte eine sichere und positive Atmosphäre. Zusätzlich erwarb ich die <strong>Rettungsschwimmer</strong>-Zertifizierung, wodurch ich die Sicherheit bei Wasseraktivitäten gewährleisten konnte."
+      "title": "Camp Counselor | Camp Longhorn, Texas",
+      "description": "Leitung von Gruppen in einem internationalen Umfeld. Fokus auf Teamführung, Kommunikation in Englisch und Erwerb der <strong>Rettungsschwimmer</strong>-Zertifizierung."
     },
     "tesicnor_intern": {
-      "date": "Januar 2024 - Mai 2024",
-      "title": "Backend-Entwickler Praktikant | Tesicnor SL, Noáin, Navarra",
-      "description": "Als <strong>Backend-Entwickler</strong> war ich an der Gestaltung und Entwicklung von <strong>Webanwendungen</strong> beteiligt, wobei ich <strong>Spring Boot</strong> für das Backend und <strong>Angular</strong> für das Frontend verwendete. Ich sammelte praktische Erfahrung in der Full-Stack-Entwicklung mit Schwerpunkt auf Backend und relationalen Datenbanken wie <strong>MySQL</strong>."
+      "date": "Jan 2024 - Mai 2024",
+      "title": "Backend Intern | Tesicnor",
+      "description": "Unterstützung bei der Backend-Entwicklung mit <strong>Spring Boot</strong> und Frontend-Integration mit <strong>Angular</strong>. Praktische Erfahrung in relationalen Datenbanken."
     },
     "burlada": {
-      "date": "März 2022 - Juni 2022",
-      "title": "IT-Praktikant | Rathaus von Burlada",
-      "description": "Während meines Praktikums im <strong>Rathaus von Burlada</strong> sammelte ich Erfahrung in <strong>Problemlösung</strong> und <strong>Teamarbeit</strong>. Ich trug zur Entwicklung kommunaler IT-Systeme bei, arbeitete mit Fachleuten zusammen und vertiefte meine Leidenschaft für Informatik und Technologie."
+      "date": "Mär 2022 - Jun 2022",
+      "title": "IT-Praktikant | Ayuntamiento de Burlada",
+      "description": "Problemlösung und Wartung von kommunalen IT-Systemen. Zusammenarbeit mit technischen Teams zur Prozessverbesserung."
     }
   },
   "projectsSection": {
-    "demo": "Demo",
-    "viewDemo": "Demo ansehen",
-    "viewOnGitHub": "Auf GitHub ansehen",
-    "moreProjects": "Weitere Projekte anzeigen",
-    "githubDescription": "Ein GitHub-Repository namens {{repo}}"
+    "demo": "Projekt ansehen",
+    "viewDemo": "Projekt ansehen",
+    "viewOnGitHub": "Source",
+    "moreProjects": "Archiv erkunden",
+    "githubDescription": "GitHub Repository: {{repo}}"
   },
   "footer": {
     "rights": "Alle Rechte vorbehalten",
-    "source": "Quellcode",
+    "source": "Source",
     "about": "Über mich",
     "contact": "Kontakt"
   },
   "languageNames": {
-    "en": "Englisch",
-    "es": "Spanisch",
-    "fr": "Französisch",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
     "de": "Deutsch",
-    "it": "Italienisch"
+    "it": "Italiano"
   }
 }
