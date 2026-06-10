@@ -1,4 +1,5 @@
 ---
+import Image from "astro/components/Image.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Experiences from "../components/Experiences.astro";
 import Footer from "../components/Footer.astro";
@@ -10,6 +11,7 @@ import LinkedInIcon from "../icons/LinkedInIcon.astro";
 import MailIcon from "../icons/MailIcon.astro";
 import XIcon from "../icons/XIcon.astro";
 import Layout from "../layouts/Layout.astro";
+import myPhoto from "/public/photo.webp";
 ---
 
 <Layout
@@ -25,14 +27,16 @@ import Layout from "../layouts/Layout.astro";
     >
       <div class="flex flex-col items-start gap-y-6 sm:flex-row sm:items-center sm:gap-x-8">
         <div id="hero-avatar-anchor" class="relative size-28 shrink-0 rounded-[28px] sm:size-36">
-          <img
+          <Image
             id="hero-avatar-fallback"
             class="size-full rounded-[28px] object-cover object-center shadow-2xl shadow-zinc-900/20 dark:shadow-black/40"
-            src="/photo.webp"
+            src={myPhoto}
             alt="Mikel Echeverria, Desarrollador Full Stack y Backend"
             width="288"
             height="288"
             loading="eager"
+            fetchpriority="high"
+            densities={[1, 2]}
           />
         </div>
         <div class="min-w-0 space-y-2">
@@ -90,7 +94,7 @@ import Layout from "../layouts/Layout.astro";
           href="https://github.mikeldev.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] dark:text-zinc-300 group"
         >
           <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>GitHub</span>
@@ -99,7 +103,7 @@ import Layout from "../layouts/Layout.astro";
           href="https://www.linkedin.com/in/mikel-echeverria"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] dark:text-zinc-300 group"
         >
           <LinkedInIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>LinkedIn</span>
@@ -108,14 +112,14 @@ import Layout from "../layouts/Layout.astro";
           href="https://x.com/mikelecheve"
           target="_blank"
           rel="noopener noreferrer"
-          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] dark:text-zinc-300 group"
         >
           <XIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>X</span>
         </a>
         <a
           href="mailto:mikel@mikeldev.com"
-          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"
+          class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] dark:text-zinc-300 group"
         >
           <MailIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>Email</span>

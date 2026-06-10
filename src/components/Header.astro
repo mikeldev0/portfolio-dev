@@ -1,7 +1,9 @@
 ---
+import Image from "astro/components/Image.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
+import myPhoto from "/public/photo.webp";
 
 const navItems = [
   {
@@ -43,14 +45,15 @@ const navItems = [
         class="relative size-11 shrink-0 rounded-full sm:size-12"
         aria-label="Home"
       >
-        <img
+        <Image
           id="header-avatar-fallback"
           class="size-full rounded-full object-cover object-center shadow-md shadow-[var(--primary-muted)] transition-opacity duration-200"
-          src="/photo.webp"
+          src={myPhoto}
           alt=""
           width="96"
           height="96"
           loading="eager"
+          densities={[1, 2]}
         />
       </a>
 

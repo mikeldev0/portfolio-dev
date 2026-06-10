@@ -1,0 +1,133 @@
+---
+import Image from "astro/components/Image.astro";
+import myPhoto from "/public/photo.webp";
+---
+
+<div
+  id="scroll-linked-avatar"
+  aria-hidden="true"
+  class="pointer-events-none fixed left-0 top-0 z-[60] opacity-0"
+>
+  <Image
+    src={myPhoto}
+    alt=""
+    width="288"
+    height="288"
+    loading="eager"
+    densities={[1, 2]}
+    class="size-full object-cover object-center shadow-2xl shadow-zinc-900/20 dark:shadow-black/40"
+  />
+</div>
+
+<script>
+  type AvatarBox = {
+    left: number;
+    top: number;
+    size: number;
+  };
+
+  const HERO_ANCHOR_SELECTOR = "#hero-avatar-anchor";
+  const HEADER_ANCHOR_SELECTOR = "#header-avatar-anchor";
+  const HEADER_COMPACT_HEIGHT = 64;
+  const DOCK_SCROLL_THRESHOLD = 36;
+
+  const avatar = document.getElementById("scroll-linked-avatar");
+  const heroAnchor = document.querySelector(HERO_ANCHOR_SELECTOR);
+  const headerAnchor = document.querySelector(HEADER_ANCHOR_SELECTOR);
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (avatar && heroAnchor && headerAnchor && !motionQuery.matches) {
+    let heroBox: AvatarBox | null = null;
+    let headerBox: AvatarBox | null = null;
+    let isDocked = false;
+    let ticking = false;
+
+    const getAnchorPageBox = (element: Element): AvatarBox => {
+      const rect = element.getBoundingClientRect();
+      const size = Math.min(rect.width, rect.height);
+
+      return {
+        left: rect.left + (rect.width - size) / 2,
+        top: rect.top + window.scrollY + (rect.height - size) / 2,
+        size,
+      };
+    };
+
+    const getHeaderBox = (element: Element): AvatarBox => {
+      const rect = element.getBoundingClientRect();
+      const size = Math.min(rect.width, rect.height);
+
+      return {
+        left: rect.left + (rect.width - size) / 2,
+        top: (HEADER_COMPACT_HEIGHT - size) / 2,
+        size,
+      };
+    };
+
+    const applyBox = (box: AvatarBox, docked: boolean) => {
+      avatar.style.transform = `translate3d(${box.left}px, ${box.top}px, 0)`;
+      avatar.style.width = `${box.size}px`;
+      avatar.style.height = `${box.size}px`;
+      avatar.style.borderRadius = docked ? "999px" : "28px";
+      avatar.style.opacity = docked ? "0.96" : "1";
+    };
+
+    const sync = () => {
+      ticking = false;
+      if (!heroBox || !headerBox) return;
+
+      const nextDocked = window.scrollY >= DOCK_SCROLL_THRESHOLD;
+      isDocked = nextDocked;
+
+      if (isDocked) {
+        applyBox(headerBox, true);
+        return;
+      }
+
+      applyBox(
+        {
+          ...heroBox,
+          top: heroBox.top - window.scrollY,
+        },
+        false
+      );
+    };
+
+    const requestSync = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(sync);
+    };
+
+    const measure = () => {
+      heroBox = getAnchorPageBox(heroAnchor);
+      headerBox = getHeaderBox(headerAnchor);
+      requestSync();
+    };
+
+    avatar.style.transition =
+      "transform 520ms cubic-bezier(0.22, 1, 0.36, 1), width 520ms cubic-bezier(0.22, 1, 0.36, 1), height 520ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out";
+    avatar.style.overflow = "hidden";
+    avatar.style.willChange = "transform, width, height, border-radius";
+
+    measure();
+    document.documentElement.classList.add("scroll-avatar-ready");
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(heroAnchor);
+    observer.observe(headerAnchor);
+
+    window.addEventListener("scroll", requestSync, { passive: true });
+    window.addEventListener("resize", measure);
+    window.addEventListener(
+      "pagehide",
+      () => {
+        observer.disconnect();
+        window.removeEventListener("scroll", requestSync);
+        window.removeEventListener("resize", measure);
+        document.documentElement.classList.remove("scroll-avatar-ready");
+      },
+      { once: true }
+    );
+  }
+</script>

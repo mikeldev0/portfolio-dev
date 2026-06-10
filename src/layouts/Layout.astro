@@ -2,9 +2,10 @@
 import "@fontsource-variable/onest";
 import Background from "../components/Background.astro";
 import Header from "../components/Header.astro";
-import ScrollLinkedAvatar from "../components/ScrollLinkedAvatar";
-import Snowfall from "../components/Snowfall";
+import ScrollLinkedAvatar from "../components/ScrollLinkedAvatar.astro";
+import Snowfall from "../components/Snowfall.astro";
 import { env } from "../lib/env";
+import { isWithinHolidaySeason } from "../lib/holiday";
 
 interface Props {
   title: string;
@@ -13,6 +14,7 @@ interface Props {
 
 const { description, title } = Astro.props;
 const { enableHolidayEffects } = env;
+const showHolidayEffects = enableHolidayEffects && isWithinHolidaySeason();
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -20,7 +22,26 @@ const structuredData = {
   alternateName: "mikedev",
   jobTitle: "Desarrollador Full Stack y Backend",
   url: "https://www.mikeldev.com",
-  image: "https://www.mikeldev.com/img/mikel-echeverria.jpg",
+  image: "https://www.mikeldev.com/photo.webp",
+  email: "mailto:mikel@mikeldev.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Pamplona",
+    addressRegion: "Navarra",
+    addressCountry: "ES",
+  },
+  knowsAbout: [
+    "Backend engineering",
+    "Full stack development",
+    "API architecture",
+    "Django",
+    "React",
+    "Astro",
+    "Spring Boot",
+    "SQL",
+    "Artificial intelligence",
+    "Automation",
+  ],
   sameAs: [
     "https://github.com/mikeldev0",
     "https://www.linkedin.com/in/mikel-echeverria",
@@ -28,13 +49,12 @@ const structuredData = {
     "mailto:mikel@mikeldev.com",
   ],
   description:
-    "Desarrollador Full Stack y Backend en Pamplona, España. Especializado en aplicaciones multiplataforma, diseño web y soluciones tecnológicas innovadoras.",
-  alumniOf: "Nombre de Tu Universidad",
+    "Backend & Full Stack Engineer en Pamplona, España. Especializado en arquitectura de APIs, sistemas escalables, automatización e inteligencia artificial aplicada.",
 };
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -45,35 +65,42 @@ const structuredData = {
     <meta name="robots" content="index, follow" />
     <meta
       name="title"
-      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona | mikeldev.com"
+      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona | mikeldev.com"
     />
+    <meta
+      name="keywords"
+      content="Mikel Echeverria, Backend Engineer, Full Stack Engineer, desarrollador backend Pamplona, desarrollador full stack Navarra, API architecture, Django, React, Astro, Spring Boot, SQL, AI automation"
+    />
+    <meta name="author" content="Mikel Echeverria" />
     <link rel="canonical" href="https://www.mikeldev.com" />
+    <link rel="alternate" hreflang="es" href="https://www.mikeldev.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.mikeldev.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.mikeldev.com/" />
 
     <!-- Open Graph Tags -->
     <meta
       property="og:title"
-      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
+      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona"
     />
     <meta
       property="og:description"
-      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend de Pamplona, especializado en aplicaciones multiplataforma, diseño web y soluciones innovadoras."
+      content="Portfolio de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables, automatización e IA aplicada."
     />
-    <meta
-      property="og:image"
-      content="https://raw.githubusercontent.com/mikeldev0/portfolio-dev/main/public/web_screenshot.webp"
-    />
+    <meta property="og:image" content="https://www.mikeldev.com/photo.webp" />
     <meta property="og:url" content="https://www.mikeldev.com" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mikel Echeverria" />
+    <meta property="og:locale" content="es_ES" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Mikel Echeverria - Desarrollador Full Stack & Backend en Pamplona"
+      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona"
     />
     <meta
       name="twitter:description"
-      content="Portafolio de Mikel Echeverria, desarrollador Full Stack y Backend especializado en aplicaciones multiplataforma y diseño web innovador."
+      content="Portfolio de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables, automatización e IA aplicada."
     />
     <meta name="twitter:image" content="https://www.mikeldev.com/photo.webp" />
 
@@ -82,11 +109,23 @@ const structuredData = {
   </head>
   <body>
     <Background />
-    {enableHolidayEffects && <Snowfall client:load />}
+    {showHolidayEffects && <Snowfall />}
     <Header />
-    <ScrollLinkedAvatar client:load />
+    <ScrollLinkedAvatar />
     <slot />
-    <script src="/i18n.js" is:inline></script>
+    <script is:inline>
+      (() => {
+        const supportedLanguages = new Set(["en", "es", "fr", "de", "it"]);
+        const language = localStorage.getItem("lang");
+
+        if (language && supportedLanguages.has(language) && language !== "es") {
+          const script = document.createElement("script");
+          script.src = "/i18n.js";
+          script.defer = true;
+          document.body.append(script);
+        }
+      })();
+    </script>
   </body>
 </html>
 
@@ -153,25 +192,14 @@ const structuredData = {
     text-wrap: pretty;
   }
 
-  #hero-avatar-fallback {
-    transition:
-      opacity 180ms ease,
-      visibility 180ms ease;
-  }
-
+  #hero-avatar-fallback,
   #header-avatar-fallback {
-    opacity: 0;
-    visibility: hidden;
     transition:
       opacity 180ms ease,
       visibility 180ms ease;
   }
 
-  .scroll-avatar-ready #hero-avatar-fallback {
-    opacity: 0;
-    visibility: hidden;
-  }
-
+  .scroll-avatar-ready #hero-avatar-fallback,
   .scroll-avatar-ready #header-avatar-fallback {
     opacity: 0;
     visibility: hidden;
@@ -181,12 +209,9 @@ const structuredData = {
     html {
       scroll-behavior: auto;
     }
-    #hero-avatar-fallback {
-      transition: none;
-    }
+
+    #hero-avatar-fallback,
     #header-avatar-fallback {
-      opacity: 1;
-      visibility: visible;
       transition: none;
     }
   }

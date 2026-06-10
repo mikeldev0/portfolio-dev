@@ -241,6 +241,7 @@ const hasHiddenProjects = PROJECTS.length > visibleProjectCount;
                 >
                   <DesktopIcon class="size-4" />
                   <span data-i18n="projectsSection.viewDemo">Ver proyecto</span>
+                  <span class="sr-only">: {title}</span>
                 </a>
               )}
               {repositoryUrl && (
@@ -252,6 +253,7 @@ const hasHiddenProjects = PROJECTS.length > visibleProjectCount;
                 >
                   <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                   <span data-i18n="projectsSection.viewOnGitHub">Source</span>
+                  <span class="sr-only">: {title}</span>
                 </a>
               )}
             </div>

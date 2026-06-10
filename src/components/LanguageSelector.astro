@@ -77,9 +77,6 @@ const LANGUAGES = [
       const lang = localStorage.getItem("lang") ?? localStorage.getItem("language");
       if (lang) return lang.slice(0, 2).toLowerCase();
     }
-    if (typeof navigator !== "undefined" && navigator.language) {
-      return navigator.language.slice(0, 2).toLowerCase();
-    }
     return "es";
   };
 

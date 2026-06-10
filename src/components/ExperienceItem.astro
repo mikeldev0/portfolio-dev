@@ -75,6 +75,7 @@ const [role, company] = title.includes("|") ? title.split("|").map((s) => s.trim
             class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] hover:text-[var(--primary)] transition-colors group/link"
           >
             <span data-i18n="experience.moreInfo">Detalles</span>
+            <span class="sr-only"> sobre {company || role}</span>
             <ArrowIcon class="size-3.5 transition-transform group-hover/link:translate-x-1" />
           </a>
         </div>

@@ -1,29 +1,22 @@
-import { useEffect, useRef } from "react";
-import { useHolidayEffectsActive } from "../lib/holiday";
+<canvas
+  id="holiday-snowfall"
+  aria-hidden="true"
+  tabindex="-1"
+  class="pointer-events-none fixed inset-0 z-[-1] mix-blend-screen opacity-80"></canvas>
 
-interface Snowflake {
-  x: number;
-  y: number;
-  radius: number;
-  speed: number;
-  drift: number;
-}
+<script>
+  const canvas = document.getElementById("holiday-snowfall") as HTMLCanvasElement | null;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-const SNOWFLAKE_COUNT = 120;
-export default function Snowfall() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const isActive = useHolidayEffectsActive();
-
-  useEffect(() => {
-    if (!isActive) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
+  if (canvas && !prefersReducedMotion.matches) {
     const context = canvas.getContext("2d");
-    if (!context) return;
-
-    const snowflakes: Snowflake[] = [];
+    const snowflakes: Array<{
+      x: number;
+      y: number;
+      radius: number;
+      speed: number;
+      drift: number;
+    }> = [];
     let animationFrame = 0;
 
     const resize = () => {
@@ -33,7 +26,7 @@ export default function Snowfall() {
 
     const createSnowflakes = () => {
       snowflakes.length = 0;
-      for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
+      for (let i = 0; i < 120; i += 1) {
         snowflakes.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
@@ -45,6 +38,8 @@ export default function Snowfall() {
     };
 
     const draw = () => {
+      if (!context) return;
+
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.fillStyle = "rgba(255, 255, 255, 0.85)";
       context.shadowColor = "rgba(255, 255, 255, 0.9)";
@@ -79,23 +74,13 @@ export default function Snowfall() {
     draw();
 
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      if (animationFrame) cancelAnimationFrame(animationFrame);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isActive]);
-
-  if (!isActive) {
-    return null;
+    window.addEventListener(
+      "pagehide",
+      () => {
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        window.removeEventListener("resize", handleResize);
+      },
+      { once: true }
+    );
   }
-
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      tabIndex={-1}
-      className="pointer-events-none fixed inset-0 z-[-1] mix-blend-screen opacity-80"
-    />
-  );
-}
+</script>
