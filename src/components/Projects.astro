@@ -1,4 +1,5 @@
 ---
+import Image from "astro/components/Image.astro";
 import DesktopIcon from "../icons/DesktopIcon.astro";
 import GitHubIcon from "../icons/GitHubIcon.astro";
 import { env } from "../lib/env";
@@ -201,11 +202,17 @@ const hasHiddenProjects = PROJECTS.length > visibleProjectCount;
         >
           <div class="project-media aspect-[16/10] w-full overflow-hidden rounded-xl bg-[var(--surface)] ring-1 ring-[var(--border)] transition-all duration-500 group-hover:ring-[var(--ink)]">
             {image ? (
-              <img
+              <Image
                 src={image}
                 alt={`Vista previa de ${title}`}
+                width="560"
+                height="350"
+                widths={[280, 560]}
+                sizes="(min-width: 768px) 280px, calc(100vw - 48px)"
                 loading="lazy"
-                class="h-full w-full object-cover transition-all duration-700"
+                decoding="async"
+                inferSize
+                class="h-full w-full object-cover"
               />
             ) : (
               <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-[oklch(0.98_0.002_60)] to-[oklch(0.94_0.005_60)] dark:from-[oklch(0.18_0_0)] dark:to-[oklch(0.14_0_0)]">

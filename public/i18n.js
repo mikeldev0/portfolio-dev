@@ -26,7 +26,7 @@ async function loadLang(lang) {
 }
 
 function initLang() {
-  let lang = localStorage.getItem("lang") || "es";
+  let lang = localStorage.getItem("lang") || navigator.language.slice(0, 2) || "es";
   if (!SUPPORTED_LANGS.includes(lang)) lang = "en";
   const selector = document.getElementById("language-selector");
   if (selector) {

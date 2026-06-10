@@ -5,6 +5,7 @@
   class="pointer-events-none fixed inset-0 z-[-1] mix-blend-screen opacity-80"></canvas>
 
 <script>
+  const SNOWFLAKE_COUNT = 120;
   const canvas = document.getElementById("holiday-snowfall") as HTMLCanvasElement | null;
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -26,7 +27,7 @@
 
     const createSnowflakes = () => {
       snowflakes.length = 0;
-      for (let i = 0; i < 120; i += 1) {
+      for (let i = 0; i < SNOWFLAKE_COUNT; i += 1) {
         snowflakes.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,

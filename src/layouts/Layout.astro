@@ -113,19 +113,7 @@ const structuredData = {
     <Header />
     <ScrollLinkedAvatar />
     <slot />
-    <script is:inline>
-      (() => {
-        const supportedLanguages = new Set(["en", "es", "fr", "de", "it"]);
-        const language = localStorage.getItem("lang");
-
-        if (language && supportedLanguages.has(language) && language !== "es") {
-          const script = document.createElement("script");
-          script.src = "/i18n.js";
-          script.defer = true;
-          document.body.append(script);
-        }
-      })();
-    </script>
+    <script src="/i18n.js" defer is:inline></script>
   </body>
 </html>
 
@@ -199,6 +187,11 @@ const structuredData = {
       visibility 180ms ease;
   }
 
+  #header-avatar-fallback {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   .scroll-avatar-ready #hero-avatar-fallback,
   .scroll-avatar-ready #header-avatar-fallback {
     opacity: 0;
@@ -213,6 +206,11 @@ const structuredData = {
     #hero-avatar-fallback,
     #header-avatar-fallback {
       transition: none;
+    }
+
+    #header-avatar-fallback {
+      opacity: 1;
+      visibility: visible;
     }
   }
 
