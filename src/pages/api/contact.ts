@@ -7,111 +7,103 @@ function buildEmailHtml(data: Record<string, string>): string {
   const inquiryLabel = formatInquiryType(data.inquiry_type);
   const timelineLabel = data.timeline ? formatTimeline(data.timeline) : "—";
 
-  const section = (title: string, rows: string) => `
-    <table role="presentation" style="width:100%;margin-bottom:24px">
+  const sectionTitle = (title: string) => `
+    <table role="presentation" style="width:100%">
       <tr>
-        <td style="padding:0 0 12px 0">
-          <table role="presentation" style="width:100%">
-            <tr>
-              <td style="width:4px;background:#B8956E;border-radius:2px"></td>
-              <td style="padding:0 0 0 14px">
-                <h2 style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#6E7076;line-height:1.2">${title}</h2>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td style="background:#FFFFFF;border-radius:10px;padding:4px 0">
-          <table role="presentation" style="width:100%;border-collapse:collapse">
-            ${rows}
-          </table>
+        <td style="padding:0 0 10px 0;border-bottom:1px solid #E6E0D4">
+          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#B8956E;line-height:1.2">${title}</p>
         </td>
       </tr>
     </table>`;
 
-  const field = (label: string, value: string, isLast = false) => `
+  const dataField = (label: string, value: string, isLast = false) => `
     <tr>
-      <td style="padding:12px 16px;${isLast ? "" : "border-bottom:1px solid #E6E0D4;"}vertical-align:top">
+      <td style="padding:10px 0;${isLast ? "" : "border-bottom:1px solid #F4F0E6;"}vertical-align:top">
         <table role="presentation" style="width:100%">
           <tr>
-            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#6E7076;padding:0 0 3px 0;line-height:1.3">${label}</td>
+            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#6E7076;padding:0 0 2px 0;line-height:1.3">${label}</td>
           </tr>
           <tr>
-            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:15px;color:#2C2E33;line-height:1.5;word-break:break-word">${value}</td>
+            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.5;word-break:break-word">${value}</td>
           </tr>
         </table>
       </td>
     </tr>`;
 
-  const contactRows = [
-    field("Nombre", data.sender_name),
-    field("Email", data.sender_email),
-    field("Empresa", data.company || "—"),
-    field("Teléfono", data.phone || "—", true),
+  const nameRow = `
+    <tr>
+      <td style="padding:0 0 16px 0">
+        <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;color:#2C2E33;letter-spacing:-0.02em;line-height:1.2">${data.sender_name}</p>
+      </td>
+    </tr>`;
+
+  const contactFields = [
+    dataField("Email", data.sender_email, false),
+    dataField("Empresa", data.company || "—"),
+    dataField("Teléfono", data.phone || "—", true),
   ].join("");
 
-  const inquiryRows = [
-    field("Tipo de consulta", inquiryLabel),
-    field("Presupuesto", data.budget || "—"),
-    field("Plazo", timelineLabel, true),
+  const inquiryFields = [
+    dataField("Tipo", inquiryLabel, false),
+    dataField("Presupuesto", data.budget || "—", false),
+    dataField("Plazo", timelineLabel, true),
+  ].join("");
+
+  const metaFields = [
+    dataField("Página de origen", data.source_page || "—", false),
+    dataField("Dirección IP", data.ip_address || "—", false),
+    dataField("Enviado el", data.submitted_at || "—", true),
   ].join("");
 
   const messageBlock = `
-    <table role="presentation" style="width:100%;margin-bottom:24px">
+    <table role="presentation" style="width:100%;margin-bottom:20px">
+      <tr><td style="padding:0 0 16px 0">${sectionTitle("Mensaje")}</td></tr>
       <tr>
-        <td style="padding:0 0 12px 0">
-          <table role="presentation" style="width:100%">
-            <tr>
-              <td style="width:4px;background:#B8956E;border-radius:2px"></td>
-              <td style="padding:0 0 0 14px">
-                <h2 style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#6E7076;line-height:1.2">Mensaje</h2>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td style="background:#FFFFFF;border-radius:10px;padding:20px 16px">
-          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:15px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p>
+        <td style="background:#F4F0E6;border-radius:10px;padding:20px 16px">
+          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p>
         </td>
       </tr>
     </table>`;
 
-  const metaRows = [
-    field("Página de origen", data.source_page || "—"),
-    field("Dirección IP", data.ip_address || "—"),
-    field("Enviado el", data.submitted_at || "—", true),
-  ].join("");
+  const metaBlock = `
+    <table role="presentation" style="width:100%;margin-bottom:0">
+      <tr><td style="padding:0 0 12px 0">${sectionTitle("Metadatos")}</td></tr>
+      <tr><td>${metaFields}</td></tr>
+    </table>`;
 
   return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
 <body style="margin:0;padding:0;background:#FEFCF6;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif">
-  <table role="presentation" style="width:100%;max-width:560px;margin:0 auto;padding:40px 24px">
+  <table role="presentation" style="width:100%;background:#B8956E;height:4px"><tr><td style="font-size:0;line-height:0;height:4px;background:#B8956E" height="4"></td></tr></table>
+  <table role="presentation" style="width:100%;max-width:520px;margin:0 auto;padding:36px 24px 24px 24px">
     <tr>
-      <td style="padding:0 0 32px 0">
+      <td style="padding:0 0 36px 0">
         <table role="presentation" style="width:100%">
           <tr>
-            <td style="width:40px;height:40px;background:#333333;border-radius:10px;text-align:center;vertical-align:middle;font-size:18px;line-height:40px;color:#FEFCF6;font-weight:800">M</td>
-            <td style="padding:0 0 0 14px;vertical-align:middle">
-              <p style="margin:0;font-size:13px;font-weight:700;color:#2C2E33;letter-spacing:-0.02em">mikeldev.com</p>
-              <p style="margin:2px 0 0 0;font-size:11px;color:#6E7076;text-transform:uppercase;letter-spacing:0.12em">Nuevo contacto</p>
+            <td style="width:36px;height:36px;background:#2C2E33;border-radius:8px;text-align:center;vertical-align:middle;font-size:16px;line-height:36px;color:#FEFCF6;font-weight:800">M</td>
+            <td style="padding:0 0 0 12px;vertical-align:middle">
+              <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:700;color:#2C2E33;letter-spacing:-0.02em">mikeldev.com</p>
+              <p style="margin:1px 0 0 0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:10px;color:#6E7076;text-transform:uppercase;letter-spacing:0.15em">Nuevo contacto</p>
+            </td>
+            <td style="text-align:right;vertical-align:middle">
+              <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:10px;color:#B8956E;font-weight:600;letter-spacing:0.12em">${new Date().toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" })}</p>
             </td>
           </tr>
         </table>
       </td>
     </tr>
-    <tr><td style="padding:0">${section("Información de contacto", contactRows)}</td></tr>
-    <tr><td style="padding:0">${section("Detalles de la consulta", inquiryRows)}</td></tr>
+    <tr><td style="padding:0 0 20px 0">${nameRow}</td></tr>
+    <tr><td style="padding:0 0 24px 0">
+      <table role="presentation" style="width:100%">
+        <tr><td style="padding:0 0 16px 0;width:50%" valign="top">${sectionTitle("Contacto")}${contactFields}</td></tr>
+        <tr><td style="padding:0;width:50%" valign="top">${sectionTitle("Consulta")}${inquiryFields}</td></tr>
+      </table>
+    </td></tr>
     <tr><td style="padding:0">${messageBlock}</td></tr>
-    <tr><td style="padding:0">${section("Metadatos", metaRows)}</td></tr>
-    <tr>
-      <td style="padding:24px 0 0 0;text-align:center">
-        <p style="margin:0;font-size:11px;color:#B8956E;font-weight:600;letter-spacing:0.12em">mikeldev.com</p>
-      </td>
-    </tr>
+    <tr><td style="padding:0"><hr style="border:none;border-top:1px solid #E6E0D4;margin:0 0 20px 0"></td></tr>
+    <tr><td style="padding:0">${metaBlock}</td></tr>
   </table>
 </body>
 </html>`.trim();
