@@ -212,7 +212,16 @@ const structuredData = {
     }
   }
 
+  @keyframes blur {
+    to {
+      backdrop-filter: blur(20px);
+      background-color: oklch(from var(--bg) l 0 h / 0.5);
+    }
+  }
+
   #main-header {
-    background-color: oklch(from var(--bg) l 0 h / 0.5);
+    animation: blur linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
   }
 </style>
