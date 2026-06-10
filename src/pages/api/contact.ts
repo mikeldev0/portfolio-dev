@@ -44,6 +44,8 @@ function buildEmailHtml(data: Record<string, string>): string {
 </html>`.trim();
 }
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = (await request.json()) as Record<string, unknown>;
