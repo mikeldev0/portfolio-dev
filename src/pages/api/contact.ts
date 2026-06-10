@@ -10,15 +10,15 @@ function buildEmailHtml(data: Record<string, string>): string {
   const sectionTitle = (title: string) => `
     <table role="presentation" style="width:100%">
       <tr>
-        <td style="padding:0 0 10px 0;border-bottom:1px solid #E6E0D4">
-          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#B8956E;line-height:1.2">${title}</p>
+        <td style="padding:0 0 8px 0;border-bottom:1px solid #E6E0D4">
+          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#B8956E;line-height:1.2">${title}</p>
         </td>
       </tr>
     </table>`;
 
   const dataField = (label: string, value: string, isLast = false) => `
     <tr>
-      <td style="padding:10px 0;${isLast ? "" : "border-bottom:1px solid #F4F0E6;"}vertical-align:top">
+      <td style="padding:10px 0;${isLast ? "" : "border-bottom:1px solid #E6E0D4;"}vertical-align:top">
         <table role="presentation" style="width:100%">
           <tr>
             <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#6E7076;padding:0 0 2px 0;line-height:1.3">${label}</td>
@@ -30,16 +30,9 @@ function buildEmailHtml(data: Record<string, string>): string {
       </td>
     </tr>`;
 
-  const nameRow = `
-    <tr>
-      <td style="padding:0 0 16px 0">
-        <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;color:#2C2E33;letter-spacing:-0.02em;line-height:1.2">${data.sender_name}</p>
-      </td>
-    </tr>`;
-
   const contactFields = [
     dataField("Email", data.sender_email, false),
-    dataField("Empresa", data.company || "—"),
+    dataField("Empresa", data.company || "—", false),
     dataField("Teléfono", data.phone || "—", true),
   ].join("");
 
@@ -55,34 +48,19 @@ function buildEmailHtml(data: Record<string, string>): string {
     dataField("Enviado el", data.submitted_at || "—", true),
   ].join("");
 
-  const messageBlock = `
-    <table role="presentation" style="width:100%;margin-bottom:20px">
-      <tr><td style="padding:0 0 16px 0">${sectionTitle("Mensaje")}</td></tr>
-      <tr>
-        <td style="background:#F4F0E6;border-radius:10px;padding:20px 16px">
-          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p>
-        </td>
-      </tr>
-    </table>`;
-
-  const metaBlock = `
-    <table role="presentation" style="width:100%;margin-bottom:0">
-      <tr><td style="padding:0 0 12px 0">${sectionTitle("Metadatos")}</td></tr>
-      <tr><td>${metaFields}</td></tr>
-    </table>`;
-
   return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#FEFCF6;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif">
-  <table role="presentation" style="width:100%;background:#B8956E;height:4px"><tr><td style="font-size:0;line-height:0;height:4px;background:#B8956E" height="4"></td></tr></table>
-  <table role="presentation" style="width:100%;max-width:520px;margin:0 auto;padding:36px 24px 24px 24px">
+<body style="margin:0;padding:0;background:transparent;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif">
+  <table role="presentation" style="width:100%;max-width:520px;margin:0 auto;padding:32px 24px">
     <tr>
-      <td style="padding:0 0 36px 0">
+      <td style="padding:0 0 32px 0">
         <table role="presentation" style="width:100%">
           <tr>
-            <td style="width:36px;height:36px;background:#2C2E33;border-radius:8px;text-align:center;vertical-align:middle;font-size:16px;line-height:36px;color:#FEFCF6;font-weight:800">M</td>
+            <td style="width:36px;vertical-align:middle">
+              <img src="https://www.mikeldev.com/favicon.svg" alt="" width="36" height="36" style="display:block;border-radius:8px;width:36px;height:36px">
+            </td>
             <td style="padding:0 0 0 12px;vertical-align:middle">
               <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:700;color:#2C2E33;letter-spacing:-0.02em">mikeldev.com</p>
               <p style="margin:1px 0 0 0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:10px;color:#6E7076;text-transform:uppercase;letter-spacing:0.15em">Nuevo contacto</p>
@@ -94,16 +72,36 @@ function buildEmailHtml(data: Record<string, string>): string {
         </table>
       </td>
     </tr>
-    <tr><td style="padding:0 0 20px 0">${nameRow}</td></tr>
+    <tr>
+      <td style="padding:0 0 16px 0">
+        <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;color:#2C2E33;letter-spacing:-0.02em;line-height:1.2">${data.sender_name}</p>
+      </td>
+    </tr>
     <tr><td style="padding:0 0 24px 0">
       <table role="presentation" style="width:100%">
-        <tr><td style="padding:0 0 16px 0;width:50%" valign="top">${sectionTitle("Contacto")}${contactFields}</td></tr>
-        <tr><td style="padding:0;width:50%" valign="top">${sectionTitle("Consulta")}${inquiryFields}</td></tr>
+        <tr>
+          <td style="padding:0 16px 0 0;width:50%" valign="top">${sectionTitle("Contacto")}${contactFields}</td>
+          <td style="padding:0 0 0 16px;width:50%" valign="top">${sectionTitle("Consulta")}${inquiryFields}</td>
+        </tr>
       </table>
     </td></tr>
-    <tr><td style="padding:0">${messageBlock}</td></tr>
+    <tr>
+      <td style="padding:0 0 20px 0">
+        <table role="presentation" style="width:100%">
+          <tr><td style="padding:0 0 12px 0">${sectionTitle("Mensaje")}</td></tr>
+          <tr><td style="padding:0"><p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p></td></tr>
+        </table>
+      </td>
+    </tr>
     <tr><td style="padding:0"><hr style="border:none;border-top:1px solid #E6E0D4;margin:0 0 20px 0"></td></tr>
-    <tr><td style="padding:0">${metaBlock}</td></tr>
+    <tr>
+      <td style="padding:0">
+        <table role="presentation" style="width:100%">
+          <tr><td style="padding:0 0 12px 0">${sectionTitle("Metadatos")}</td></tr>
+          <tr><td>${metaFields}</td></tr>
+        </table>
+      </td>
+    </tr>
   </table>
 </body>
 </html>`.trim();
