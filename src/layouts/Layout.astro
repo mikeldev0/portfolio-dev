@@ -182,9 +182,7 @@ const structuredData = {
 
   #hero-avatar-fallback,
   #header-avatar-fallback {
-    transition:
-      opacity 180ms ease,
-      visibility 180ms ease;
+    transition: opacity 180ms ease;
   }
 
   #header-avatar-fallback {
@@ -214,16 +212,7 @@ const structuredData = {
     }
   }
 
-  @keyframes blur {
-    to {
-      backdrop-filter: blur(20px);
-      background-color: oklch(from var(--bg) l 0 h / 0.5);
-    }
-  }
-
   #main-header {
-    animation: blur linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
+    background-color: oklch(from var(--bg) l 0 h / 0.5);
   }
 </style>

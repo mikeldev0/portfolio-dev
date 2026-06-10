@@ -30,6 +30,7 @@ import myPhoto from "/public/photo.webp";
   const HEADER_ANCHOR_SELECTOR = "#header-avatar-anchor";
   const HEADER_COMPACT_HEIGHT = 64;
   const DOCK_SCROLL_THRESHOLD = 36;
+  const AVATAR_BASE_SIZE = 144;
 
   const avatar = document.getElementById("scroll-linked-avatar");
   const heroAnchor = document.querySelector(HERO_ANCHOR_SELECTOR);
@@ -65,9 +66,9 @@ import myPhoto from "/public/photo.webp";
     };
 
     const applyBox = (box: AvatarBox, docked: boolean) => {
-      avatar.style.transform = `translate3d(${box.left}px, ${box.top}px, 0)`;
-      avatar.style.width = `${box.size}px`;
-      avatar.style.height = `${box.size}px`;
+      const scale = box.size / AVATAR_BASE_SIZE;
+
+      avatar.style.transform = `translate3d(${box.left}px, ${box.top}px, 0) scale(${scale})`;
       avatar.style.borderRadius = docked ? "999px" : "28px";
       avatar.style.opacity = docked ? "0.96" : "1";
     };
@@ -105,10 +106,13 @@ import myPhoto from "/public/photo.webp";
       requestSync();
     };
 
+    avatar.style.width = `${AVATAR_BASE_SIZE}px`;
+    avatar.style.height = `${AVATAR_BASE_SIZE}px`;
+    avatar.style.transformOrigin = "top left";
     avatar.style.transition =
-      "transform 520ms cubic-bezier(0.22, 1, 0.36, 1), width 520ms cubic-bezier(0.22, 1, 0.36, 1), height 520ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out";
+      "transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out";
     avatar.style.overflow = "hidden";
-    avatar.style.willChange = "transform, width, height, border-radius";
+    avatar.style.willChange = "transform, opacity";
 
     measure();
     document.documentElement.classList.add("scroll-avatar-ready");
