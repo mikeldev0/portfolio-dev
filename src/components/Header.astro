@@ -80,7 +80,7 @@ const navItems = [
       <button
         id="burger-btn"
         aria-label="Abrir menú"
-        class="md:hidden p-2 -mr-2 text-[var(--ink-muted)] hover:text-[var(--primary)] transition-colors"
+        class="md:hidden p-2 -mr-2 text-[var(--ink)] hover:text-[var(--primary)] transition-colors"
       >
         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="4" y1="7" x2="20" y2="7"></line>
@@ -95,12 +95,12 @@ const navItems = [
 <!-- Mobile nav -->
 <div
   id="mobile-nav"
-  class="fixed inset-0 bg-[var(--bg)]/98 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
+  class="fixed inset-0 bg-[var(--bg)]/98 backdrop-blur-2xl z-[100] flex flex-col items-center justify-center px-6 transition-all duration-500 opacity-0 pointer-events-none translate-y-8"
 >
   <button
     id="close-mobile-nav"
     aria-label="Cerrar menú"
-    class="absolute top-8 right-8 p-2 text-[var(--ink-muted)] hover:text-[var(--primary)]"
+    class="absolute top-8 right-8 p-2 text-[var(--ink)] hover:text-[var(--primary)]"
   >
     <CloseMenuIcon class="size-8" />
   </button>
@@ -109,7 +109,7 @@ const navItems = [
     {
       navItems.map((link) => (
         <a
-          class="mobile-nav-link text-5xl font-bold tracking-tighter text-[var(--ink-muted)] hover:text-[var(--primary)] transition-colors"
+          class="mobile-nav-link max-w-full text-center text-4xl font-bold tracking-tighter text-[var(--ink)] hover:text-[var(--primary)] transition-colors sm:text-5xl"
           aria-label={link.label}
           href={link.url}
           data-i18n={link.key}
