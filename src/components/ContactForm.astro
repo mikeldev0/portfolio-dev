@@ -175,10 +175,15 @@ import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
   .dark .field-input {
     background: oklch(0.13 0 0);
     border-color: oklch(0.25 0 0);
+    color: oklch(0.92 0 0);
   }
 
   .field-input::placeholder {
-    color: var(--ink-muted);
+    color: oklch(0.5 0.01 240);
+  }
+
+  .dark .field-input::placeholder {
+    color: oklch(0.55 0 0);
   }
 
   .field-input:focus-visible {
@@ -225,9 +230,10 @@ import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
 
   .dark select.field-input {
     background-color: oklch(0.13 0 0);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23bbb' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.875rem center;
+    color: oklch(0.92 0 0);
   }
 
   .field-error {

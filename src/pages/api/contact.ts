@@ -4,41 +4,114 @@ import { contactSchema, formatInquiryType, formatTimeline } from "../../lib/sche
 import { env } from "../../lib/env";
 
 function buildEmailHtml(data: Record<string, string>): string {
-  const fields = [
-    { label: "Nombre", value: data.sender_name },
-    { label: "Email", value: data.sender_email },
-    { label: "Empresa", value: data.company || "—" },
-    { label: "Teléfono", value: data.phone || "—" },
-    {
-      label: "Tipo de consulta",
-      value: formatInquiryType(data.inquiry_type),
-    },
-    { label: "Presupuesto", value: data.budget || "—" },
-    {
-      label: "Plazo",
-      value: data.timeline ? formatTimeline(data.timeline) : "—",
-    },
-    { label: "Mensaje", value: data.message },
-    { label: "Página de origen", value: data.source_page || "—" },
-    { label: "IP", value: data.ip_address || "—" },
-    { label: "Enviado el", value: data.submitted_at || "—" },
-  ];
+  const inquiryLabel = formatInquiryType(data.inquiry_type);
+  const timelineLabel = data.timeline ? formatTimeline(data.timeline) : "—";
 
-  const rows = fields
-    .map(
-      (f) =>
-        `<tr><td style="padding:8px 12px;font-weight:600;color:#555;border-bottom:1px solid #eee;white-space:nowrap;vertical-align:top">${f.label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;color:#222">${f.value}</td></tr>`
-    )
-    .join("");
+  const section = (title: string, rows: string) => `
+    <table role="presentation" style="width:100%;margin-bottom:24px">
+      <tr>
+        <td style="padding:0 0 12px 0">
+          <table role="presentation" style="width:100%">
+            <tr>
+              <td style="width:4px;background:#B8956E;border-radius:2px"></td>
+              <td style="padding:0 0 0 14px">
+                <h2 style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#6E7076;line-height:1.2">${title}</h2>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#FFFFFF;border-radius:10px;padding:4px 0">
+          <table role="presentation" style="width:100%;border-collapse:collapse">
+            ${rows}
+          </table>
+        </td>
+      </tr>
+    </table>`;
+
+  const field = (label: string, value: string, isLast = false) => `
+    <tr>
+      <td style="padding:12px 16px;${isLast ? "" : "border-bottom:1px solid #E6E0D4;"}vertical-align:top">
+        <table role="presentation" style="width:100%">
+          <tr>
+            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#6E7076;padding:0 0 3px 0;line-height:1.3">${label}</td>
+          </tr>
+          <tr>
+            <td style="font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:15px;color:#2C2E33;line-height:1.5;word-break:break-word">${value}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>`;
+
+  const contactRows = [
+    field("Nombre", data.sender_name),
+    field("Email", data.sender_email),
+    field("Empresa", data.company || "—"),
+    field("Teléfono", data.phone || "—", true),
+  ].join("");
+
+  const inquiryRows = [
+    field("Tipo de consulta", inquiryLabel),
+    field("Presupuesto", data.budget || "—"),
+    field("Plazo", timelineLabel, true),
+  ].join("");
+
+  const messageBlock = `
+    <table role="presentation" style="width:100%;margin-bottom:24px">
+      <tr>
+        <td style="padding:0 0 12px 0">
+          <table role="presentation" style="width:100%">
+            <tr>
+              <td style="width:4px;background:#B8956E;border-radius:2px"></td>
+              <td style="padding:0 0 0 14px">
+                <h2 style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.2em;color:#6E7076;line-height:1.2">Mensaje</h2>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#FFFFFF;border-radius:10px;padding:20px 16px">
+          <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:15px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p>
+        </td>
+      </tr>
+    </table>`;
+
+  const metaRows = [
+    field("Página de origen", data.source_page || "—"),
+    field("Dirección IP", data.ip_address || "—"),
+    field("Enviado el", data.submitted_at || "—", true),
+  ].join("");
 
   return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-  <table role="presentation" style="width:100%;max-width:600px;margin:0 auto;padding:24px">
-    <tr><td style="padding-bottom:16px"><h1 style="font-size:20px;margin:0;color:#111">Nuevo contacto desde el portfolio</h1></td></tr>
-    <tr><td><table role="presentation" style="width:100%;border-collapse:collapse">${rows}</table></td></tr>
+<body style="margin:0;padding:0;background:#FEFCF6;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif">
+  <table role="presentation" style="width:100%;max-width:560px;margin:0 auto;padding:40px 24px">
+    <tr>
+      <td style="padding:0 0 32px 0">
+        <table role="presentation" style="width:100%">
+          <tr>
+            <td style="width:40px;height:40px;background:#333333;border-radius:10px;text-align:center;vertical-align:middle;font-size:18px;line-height:40px;color:#FEFCF6;font-weight:800">M</td>
+            <td style="padding:0 0 0 14px;vertical-align:middle">
+              <p style="margin:0;font-size:13px;font-weight:700;color:#2C2E33;letter-spacing:-0.02em">mikeldev.com</p>
+              <p style="margin:2px 0 0 0;font-size:11px;color:#6E7076;text-transform:uppercase;letter-spacing:0.12em">Nuevo contacto</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr><td style="padding:0">${section("Información de contacto", contactRows)}</td></tr>
+    <tr><td style="padding:0">${section("Detalles de la consulta", inquiryRows)}</td></tr>
+    <tr><td style="padding:0">${messageBlock}</td></tr>
+    <tr><td style="padding:0">${section("Metadatos", metaRows)}</td></tr>
+    <tr>
+      <td style="padding:24px 0 0 0;text-align:center">
+        <p style="margin:0;font-size:11px;color:#B8956E;font-weight:600;letter-spacing:0.12em">mikeldev.com</p>
+      </td>
+    </tr>
   </table>
 </body>
 </html>`.trim();
@@ -51,6 +124,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = (await request.json()) as Record<string, unknown>;
 
     const rawIp =
+      request.headers.get("x-nf-client-connection-ip") ??
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       request.headers.get("x-real-ip") ??
       "unknown";
