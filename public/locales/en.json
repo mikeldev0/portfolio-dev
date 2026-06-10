@@ -82,5 +82,28 @@
     "fr": "French",
     "de": "German",
     "it": "Italian"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "phone": "Phone",
+    "inquiryType": "Inquiry type",
+    "budget": "Budget",
+    "timeline": "Timeline",
+    "message": "Message",
+    "submit": "Send message",
+    "sending": "Sending...",
+    "success": "Message sent. Thanks, I'll get back to you soon.",
+    "selectDefault": "Select...",
+    "inquiryProject": "New project",
+    "inquiryCollaboration": "Collaboration",
+    "inquiryJob": "Job opportunity",
+    "inquirySupport": "Support",
+    "inquiryOther": "Other",
+    "timelineASAP": "ASAP",
+    "timeline1to3": "1–3 months",
+    "timeline3to6": "3–6 months",
+    "timelineFlexible": "Flexible"
   }
 }

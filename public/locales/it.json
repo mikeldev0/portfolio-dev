@@ -82,5 +82,28 @@
     "fr": "Francese",
     "de": "Tedesco",
     "it": "Italiano"
+  },
+  "form": {
+    "name": "Nome",
+    "email": "Email",
+    "company": "Azienda",
+    "phone": "Telefono",
+    "inquiryType": "Tipo di richiesta",
+    "budget": "Budget",
+    "timeline": "Scadenza",
+    "message": "Messaggio",
+    "submit": "Invia messaggio",
+    "sending": "Invio in corso...",
+    "success": "Messaggio inviato. Grazie, ti risponderò presto.",
+    "selectDefault": "Seleziona...",
+    "inquiryProject": "Nuovo progetto",
+    "inquiryCollaboration": "Collaborazione",
+    "inquiryJob": "Offerta di lavoro",
+    "inquirySupport": "Supporto",
+    "inquiryOther": "Altro",
+    "timelineASAP": "Il prima possibile",
+    "timeline1to3": "1–3 mesi",
+    "timeline3to6": "3–6 mesi",
+    "timelineFlexible": "Flessibile"
   }
 }
