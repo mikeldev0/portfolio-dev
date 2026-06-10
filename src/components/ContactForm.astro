@@ -1,0 +1,469 @@
+---
+import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
+---
+
+<form id="contact-form" class="space-y-6" novalidate>
+  <input type="hidden" name="source_page" id="source_page" />
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div class="field-group">
+      <label for="sender_name" class="field-label" data-i18n="form.name">Nombre</label>
+      <input
+        type="text"
+        id="sender_name"
+        name="sender_name"
+        required
+        maxlength="100"
+        class="field-input"
+        aria-describedby="sender_name-error"
+      />
+      <p id="sender_name-error" class="field-error" role="alert"></p>
+    </div>
+
+    <div class="field-group">
+      <label for="sender_email" class="field-label" data-i18n="form.email">Email</label>
+      <input
+        type="email"
+        id="sender_email"
+        name="sender_email"
+        required
+        class="field-input"
+        aria-describedby="sender_email-error"
+      />
+      <p id="sender_email-error" class="field-error" role="alert"></p>
+    </div>
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div class="field-group">
+      <label for="company" class="field-label" data-i18n="form.company">Empresa</label>
+      <input
+        type="text"
+        id="company"
+        name="company"
+        maxlength="200"
+        class="field-input"
+        aria-describedby="company-error"
+      />
+      <p id="company-error" class="field-error" role="alert"></p>
+    </div>
+
+    <div class="field-group">
+      <label for="phone" class="field-label" data-i18n="form.phone">Teléfono</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        maxlength="30"
+        class="field-input"
+        aria-describedby="phone-error"
+      />
+      <p id="phone-error" class="field-error" role="alert"></p>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="inquiry_type" class="field-label" data-i18n="form.inquiryType"
+      >Tipo de consulta</label
+    >
+    <select
+      id="inquiry_type"
+      name="inquiry_type"
+      required
+      class="field-input"
+      aria-describedby="inquiry_type-error"
+    >
+      {
+        INQUIRY_OPTIONS.map((opt) => (
+          <option value={opt.value} data-i18n={opt.i18nKey}>
+            {opt.label}
+          </option>
+        ))
+      }
+    </select>
+    <p id="inquiry_type-error" class="field-error" role="alert"></p>
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    <div class="field-group">
+      <label for="budget" class="field-label" data-i18n="form.budget">Presupuesto</label>
+      <input
+        type="text"
+        id="budget"
+        name="budget"
+        maxlength="200"
+        class="field-input"
+        placeholder="e.g. 5.000–10.000 €"
+        aria-describedby="budget-error"
+      />
+      <p id="budget-error" class="field-error" role="alert"></p>
+    </div>
+
+    <div class="field-group">
+      <label for="timeline" class="field-label" data-i18n="form.timeline">Plazo</label>
+      <select id="timeline" name="timeline" class="field-input" aria-describedby="timeline-error">
+        {
+          TIMELINE_OPTIONS.map((opt) => (
+            <option value={opt.value} data-i18n={opt.i18nKey}>
+              {opt.label}
+            </option>
+          ))
+        }
+      </select>
+      <p id="timeline-error" class="field-error" role="alert"></p>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="message" class="field-label" data-i18n="form.message">Mensaje</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      minlength="10"
+      maxlength="5000"
+      rows="5"
+      class="field-input field-textarea"
+      aria-describedby="message-error"></textarea>
+    <p id="message-error" class="field-error" role="alert"></p>
+  </div>
+
+  <button type="submit" id="contact-submit" class="btn-primary" data-i18n="form.submit">
+    Enviar mensaje
+  </button>
+
+  <div id="contact-success" class="hidden" role="status">
+    <p
+      class="text-emerald-600 dark:text-emerald-400 font-medium text-center py-6"
+      data-i18n="form.success"
+    >
+      Mensaje enviado. Gracias, te responderé pronto.
+    </p>
+  </div>
+</form>
+
+<style is:global>
+  .field-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.375rem;
+  }
+
+  .field-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .dark .field-input {
+    background: oklch(0.13 0 0);
+    border-color: oklch(0.25 0 0);
+    color: oklch(0.92 0 0);
+  }
+
+  .field-input::placeholder {
+    color: oklch(0.5 0.01 240);
+  }
+
+  .dark .field-input::placeholder {
+    color: oklch(0.55 0 0);
+  }
+
+  .field-input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-color: transparent;
+  }
+
+  .dark .field-input:focus-visible {
+    outline-color: oklch(0.7 0 0);
+  }
+
+  .field-input.field-error-state {
+    border-color: #ef4444;
+  }
+
+  .dark .field-input.field-error-state {
+    border-color: #f87171;
+  }
+
+  .field-input.field-error-state:focus-visible {
+    outline-color: #ef4444;
+  }
+
+  .dark .field-input.field-error-state:focus-visible {
+    outline-color: #f87171;
+  }
+
+  .field-textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 6.5rem;
+    line-height: 1.6;
+  }
+
+  select.field-input {
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .dark select.field-input {
+    background-color: oklch(0.13 0 0);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23bbb' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    color: oklch(0.92 0 0);
+  }
+
+  .field-error {
+    font-size: 0.8125rem;
+    color: #ef4444;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+    line-height: 1.25rem;
+  }
+
+  .dark .field-error {
+    color: #f87171;
+  }
+
+  .field-error:empty {
+    display: none;
+  }
+
+  .btn-primary {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--bg);
+    background: var(--primary);
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition:
+      opacity 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .dark .btn-primary {
+    background: oklch(0.85 0 0);
+    color: oklch(0.1 0 0);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  .dark .btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+    background: oklch(1 0 0);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    opacity: 0.7;
+  }
+
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--bg);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 600ms linear infinite;
+  }
+
+  .dark .btn-spinner {
+    border-color: oklch(0.1 0 0);
+    border-top-color: transparent;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .field-input {
+      transition: none;
+    }
+
+    .btn-primary {
+      transition: none;
+    }
+
+    .btn-spinner {
+      animation: none;
+      opacity: 0.6;
+    }
+  }
+</style>
+
+<script>
+  import { contactSchema } from "../lib/schemas/contact";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement | null;
+  const successMsg = document.getElementById("contact-success") as HTMLElement | null;
+  const sourcePageInput = document.getElementById("source_page") as HTMLInputElement | null;
+
+  function getErrorEl(field: string): HTMLElement | null {
+    return document.getElementById(`${field}-error`);
+  }
+
+  function getInputEl(field: string): HTMLElement | null {
+    return document.getElementById(field);
+  }
+
+  function clearErrors(): void {
+    document.querySelectorAll<HTMLElement>(".field-error").forEach((el) => {
+      el.textContent = "";
+    });
+    document.querySelectorAll<HTMLElement>(".field-input").forEach((el) => {
+      el.classList.remove("field-error-state");
+      el.removeAttribute("aria-invalid");
+    });
+  }
+
+  const t = (window as any).t ?? ((s: string) => s);
+
+  function showError(field: string, message: string): void {
+    const input = getInputEl(field);
+    const error = getErrorEl(field);
+    if (input) {
+      input.classList.add("field-error-state");
+      input.setAttribute("aria-invalid", "true");
+    }
+    if (error) {
+      error.textContent = t(message);
+    }
+  }
+
+  function setLoading(loading: boolean): void {
+    if (!submitBtn) return;
+    submitBtn.disabled = loading;
+    if (loading) {
+      submitBtn.innerHTML =
+        '<span class="btn-spinner"></span><span data-i18n="form.sending">Enviando...</span>';
+    } else {
+      submitBtn.innerHTML = '<span data-i18n="form.submit">Enviar mensaje</span>';
+    }
+  }
+
+  function showSuccess(): void {
+    if (!form || !successMsg) return;
+    form
+      .querySelectorAll<HTMLElement>(".field-group, .btn-primary, #contact-submit")
+      .forEach((el) => {
+        el.style.display = "none";
+      });
+    successMsg.classList.remove("hidden");
+  }
+
+  // Auto-grow textarea
+  function autoGrow(el: HTMLTextAreaElement): void {
+    el.style.height = "0";
+    el.style.height = `${el.scrollHeight}px`;
+  }
+
+  const textarea = document.getElementById("message") as HTMLTextAreaElement | null;
+  textarea?.addEventListener("input", () => autoGrow(textarea));
+  if (textarea) autoGrow(textarea);
+
+  // Set source page from referrer or current URL
+  if (sourcePageInput) {
+    sourcePageInput.value = document.referrer || window.location.href;
+  }
+
+  form?.addEventListener("submit", async (e: SubmitEvent) => {
+    e.preventDefault();
+    clearErrors();
+
+    if (!form) return;
+    const formData = new FormData(form);
+    const raw: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      raw[key] = value.toString();
+    });
+
+    const parsed = contactSchema.safeParse(raw);
+
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        const field = issue.path.join(".");
+        showError(field, issue.message);
+      }
+      const firstError = parsed.error.issues[0];
+      if (firstError) {
+        const firstInput = getInputEl(firstError.path.join("."));
+        firstInput?.focus();
+      }
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+
+      const json = await res.json();
+
+      if (!json.ok) {
+        if (json.errors) {
+          for (const err of json.errors) {
+            showError(err.field as string, err.message as string);
+          }
+        }
+        setLoading(false);
+        return;
+      }
+
+      showSuccess();
+    } catch {
+      showError("form", "form.errors.connection");
+      setLoading(false);
+    }
+  });
+</script>

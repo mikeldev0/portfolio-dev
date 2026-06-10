@@ -82,5 +82,40 @@
     "fr": "Français",
     "de": "Deutsch",
     "it": "Italiano"
+  },
+  "form": {
+    "name": "Nom",
+    "email": "Email",
+    "company": "Entreprise",
+    "phone": "Téléphone",
+    "inquiryType": "Type de demande",
+    "budget": "Budget",
+    "timeline": "Délai",
+    "message": "Message",
+    "submit": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "success": "Message envoyé. Merci, je vous répondrai bientôt.",
+    "selectDefault": "Sélectionnez...",
+    "inquiryProject": "Nouveau projet",
+    "inquiryCollaboration": "Collaboration",
+    "inquiryJob": "Offre d'emploi",
+    "inquirySupport": "Support",
+    "inquiryOther": "Autre",
+    "timelineASAP": "Dès que possible",
+    "timeline1to3": "1–3 mois",
+    "timeline3to6": "3–6 mois",
+    "timelineFlexible": "Flexible"
+  },
+  "form": {
+    "errors": {
+      "nameRequired": "Le nom est obligatoire",
+      "nameTooLong": "Le nom est trop long",
+      "emailRequired": "L'email est obligatoire",
+      "emailInvalid": "Email invalide",
+      "inquiryRequired": "Sélectionnez un type de demande",
+      "messageTooShort": "Le message doit contenir au moins 10 caractères",
+      "messageTooLong": "Le message est trop long",
+      "connection": "Erreur de connexion. Veuillez réessayer."
+    }
   }
 }

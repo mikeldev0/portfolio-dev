@@ -2,6 +2,7 @@
 import Image from "astro/components/Image.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Experiences from "../components/Experiences.astro";
+import ContactForm from "../components/ContactForm.astro";
 import Footer from "../components/Footer.astro";
 import Projects from "../components/Projects.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
@@ -70,7 +71,7 @@ import myPhoto from "/public/photo.webp";
 
         <div class="flex flex-wrap gap-4 pt-2">
           <a
-            href="mailto:mikel@mikeldev.com"
+            href="/#contacto"
             class="inline-flex items-center justify-center px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-[var(--bg)] bg-[var(--primary)] rounded-full transition-all hover:scale-[1.03] active:scale-[0.97] shadow-lg shadow-[var(--primary-muted)]"
             data-i18n="cta.contact"
           >
@@ -146,6 +147,16 @@ import myPhoto from "/public/photo.webp";
       Proyectos
     </h2>
     <Projects />
+  </SectionContainer>
+
+  <SectionContainer id="contacto" class="py-24 sm:py-40 lg:py-48">
+    <h2
+      class="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 mb-12"
+      data-i18n="nav.contact"
+    >
+      Contacto
+    </h2>
+    <ContactForm />
   </SectionContainer>
 
   <SectionContainer id="sobre-mi" class="py-24 sm:py-40 lg:py-48">
