@@ -1,7 +1,9 @@
 ---
+import Image from "astro/components/Image.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 import CloseMenuIcon from "../icons/CloseMenuIcon.astro";
+import myPhoto from "/public/photo.webp";
 
 const navItems = [
   {
@@ -31,10 +33,7 @@ const navItems = [
 ];
 ---
 
-<header
-  class="fixed top-0 z-50 w-full transition-all duration-500 h-20 flex items-center"
-  id="main-header"
->
+<header class="fixed top-0 z-50 w-full h-20 flex items-center" id="main-header">
   <div class="max-w-3xl mx-auto w-full px-6 flex items-center justify-between">
     <nav class="flex items-center gap-x-12">
       <a
@@ -43,14 +42,15 @@ const navItems = [
         class="relative size-11 shrink-0 rounded-full sm:size-12"
         aria-label="Home"
       >
-        <img
+        <Image
           id="header-avatar-fallback"
           class="size-full rounded-full object-cover object-center shadow-md shadow-[var(--primary-muted)] transition-opacity duration-200"
-          src="/photo.webp"
+          src={myPhoto}
           alt=""
           width="96"
           height="96"
           loading="eager"
+          densities={[1, 2]}
         />
       </a>
 
@@ -59,9 +59,9 @@ const navItems = [
           navItems.map((link) => (
             <a
               class="nav-link text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--primary)]"
-              aria-label={link.label}
               href={link.url}
               data-i18n={link.key}
+              data-section-id={link.label}
               data-nav-link
             >
               {link.title}
@@ -110,7 +110,6 @@ const navItems = [
       navItems.map((link) => (
         <a
           class="mobile-nav-link max-w-full text-center text-4xl font-bold tracking-tighter text-[var(--ink)] hover:text-[var(--primary)] transition-colors sm:text-5xl"
-          aria-label={link.label}
           href={link.url}
           data-i18n={link.key}
         >
@@ -207,7 +206,7 @@ const navItems = [
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             navLinks.forEach((link) => {
-              if (link.getAttribute("aria-label") === entry.target.id) {
+              if (link.getAttribute("data-section-id") === entry.target.id) {
                 link.classList.remove("text-zinc-400", "text-zinc-500");
                 link.classList.add("text-zinc-900", "dark:text-zinc-100");
               } else {

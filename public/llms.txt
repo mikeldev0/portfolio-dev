@@ -1,0 +1,19 @@
+# Mikel Echeverria
+
+Mikel Echeverria is a Backend & Full Stack Engineer based in Pamplona, Navarra, Spain.
+
+Core work:
+- Backend engineering and API architecture
+- Full stack web applications
+- Django, React, Astro, Spring Boot and SQL
+- Automation and applied artificial intelligence
+
+[Canonical site](https://www.mikeldev.com/)
+[Contact](mailto:mikel@mikeldev.com)
+[GitHub](https://github.com/mikeldev0)
+[LinkedIn](https://www.linkedin.com/in/mikel-echeverria)
+
+Important sections:
+- [Experience](https://www.mikeldev.com/#experiencia)
+- [Projects](https://www.mikeldev.com/#proyectos)
+- [About](https://www.mikeldev.com/#sobre-mi)

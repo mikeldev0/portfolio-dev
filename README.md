@@ -5,7 +5,6 @@
 # Mikel Echeverria Portfolio
 
 [![Astro](https://img.shields.io/badge/Astro-5.18-ff5d01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
-[![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat-square&logo=react&logoColor=111)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![pnpm](https://img.shields.io/badge/pnpm-required-f69220?style=flat-square&logo=pnpm&logoColor=white)](https://pnpm.io)
 
@@ -23,13 +22,13 @@ The site is built as a personal credibility asset: recruiters, technical leads, 
 
 ## Features
 
-- **Astro static site** with React islands only where interactivity is needed.
+- **Astro static site** with lightweight client scripts only where interactivity is needed.
 - **Responsive portfolio sections** for hero, experience, projects, about, and footer content.
 - **Internationalization** through local JSON dictionaries for English, Spanish, French, German, and Italian.
 - **Theme controls** with light/dark mode support.
-- **Scroll-linked profile avatar** with reduced-motion fallback.
 - **Optional GitHub pinned projects** fetched from the GitHub GraphQL API when credentials are provided.
 - **Seasonal holiday effects** that respect reduced-motion preferences.
+- **Crawler assets** including sitemap, robots.txt, and llms.txt.
 - **Prettier, Astro check, Husky, lint-staged, and Commitlint** for consistent local workflow.
 
 > [!NOTE]
@@ -40,8 +39,8 @@ The site is built as a personal credibility asset: recruiters, technical leads, 
 | Area            | Tools                                                 |
 | --------------- | ----------------------------------------------------- |
 | Framework       | Astro 5                                               |
-| UI              | Astro components, React islands, Tailwind CSS         |
-| Motion          | Framer Motion, CSS transitions                        |
+| UI              | Astro components, Tailwind CSS                        |
+| Motion          | CSS transitions and small inline scripts              |
 | Language        | TypeScript                                            |
 | Package manager | pnpm                                                  |
 | Quality         | Astro check, Prettier, Husky, lint-staged, Commitlint |
@@ -91,7 +90,7 @@ GITHUB_URL=https://api.github.com/graphql
 | `GITHUB_TOKEN`                | No       | Enables fetching pinned GitHub repositories for the projects section.                |
 | `GITHUB_URL`                  | No       | GraphQL endpoint used with `GITHUB_TOKEN`. Usually `https://api.github.com/graphql`. |
 
-Holiday effects are only displayed from December 1 to January 7 and are disabled automatically when the visitor prefers reduced motion.
+Holiday snow is only included in builds generated from December 1 to January 7 and is disabled automatically when the visitor prefers reduced motion.
 
 ## Project Structure
 
@@ -99,13 +98,13 @@ Holiday effects are only displayed from December 1 to January 7 and are disabled
 .
 ├── public/                 Static assets, locale files, favicon, profile image
 ├── src/
-│   ├── components/         Astro and React UI components
+│   ├── components/         Astro UI components
 │   ├── icons/              Local Astro icon components
 │   ├── layouts/            Shared document layout and SEO metadata
 │   ├── lib/                Environment and holiday helpers
 │   └── pages/              Astro routes
 ├── PRODUCT.md              Product and design context for the portfolio
-├── astro.config.mjs        Astro, React, Tailwind, and Vite configuration
+├── astro.config.mjs        Astro, Tailwind, and image configuration
 └── package.json            Scripts, dependencies, and local hooks
 ```
 

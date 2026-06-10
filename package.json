@@ -16,15 +16,10 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/react": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/onest": "^5.0.4",
     "astro": "^5.5.4",
-    "framer-motion": "12.40.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "sharp": "^0.33.4",
-    "svelte": "^4.2.18",
     "tailwindcss": "^3.4.6",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -32,7 +27,6 @@
     "@astrojs/check": "^0.8.3",
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
-    "@types/react": "^18.3.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "prettier": "^3.8.3",
