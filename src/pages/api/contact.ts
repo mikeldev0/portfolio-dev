@@ -3,9 +3,24 @@ import { Resend } from "resend";
 import { contactSchema, formatInquiryType, formatTimeline } from "../../lib/schemas/contact";
 import { env } from "../../lib/env";
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function nl2br(s: string): string {
+  return s.replace(/\n/g, "<br>");
+}
+
 function buildEmailHtml(data: Record<string, string>): string {
-  const inquiryLabel = formatInquiryType(data.inquiry_type);
-  const timelineLabel = data.timeline ? formatTimeline(data.timeline) : "—";
+  const inquiryLabel = escapeHtml(formatInquiryType(data.inquiry_type));
+  const timelineLabel = data.timeline ? escapeHtml(formatTimeline(data.timeline)) : "—";
+
+  const e = (s: string) => escapeHtml(s || "—");
 
   const sectionTitle = (title: string) => `
     <table role="presentation" style="width:100%">
@@ -31,21 +46,21 @@ function buildEmailHtml(data: Record<string, string>): string {
     </tr>`;
 
   const contactFields = [
-    dataField("Email", data.sender_email, false),
-    dataField("Empresa", data.company || "—", false),
-    dataField("Teléfono", data.phone || "—", true),
+    dataField("Email", e(data.sender_email), false),
+    dataField("Empresa", e(data.company), false),
+    dataField("Teléfono", e(data.phone), true),
   ].join("");
 
   const inquiryFields = [
     dataField("Tipo", inquiryLabel, false),
-    dataField("Presupuesto", data.budget || "—", false),
+    dataField("Presupuesto", e(data.budget), false),
     dataField("Plazo", timelineLabel, true),
   ].join("");
 
   const metaFields = [
-    dataField("Página de origen", data.source_page || "—", false),
-    dataField("Dirección IP", data.ip_address || "—", false),
-    dataField("Enviado el", data.submitted_at || "—", true),
+    dataField("Página de origen", e(data.source_page), false),
+    dataField("Dirección IP", e(data.ip_address), false),
+    dataField("Enviado el", e(data.submitted_at), true),
   ].join("");
 
   return `
@@ -74,7 +89,7 @@ function buildEmailHtml(data: Record<string, string>): string {
     </tr>
     <tr>
       <td style="padding:0 0 16px 0">
-        <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;color:#2C2E33;letter-spacing:-0.02em;line-height:1.2">${data.sender_name}</p>
+        <p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:18px;font-weight:800;color:#2C2E33;letter-spacing:-0.02em;line-height:1.2">${e(data.sender_name)}</p>
       </td>
     </tr>
     <tr><td style="padding:0 0 24px 0">
@@ -89,7 +104,7 @@ function buildEmailHtml(data: Record<string, string>): string {
       <td style="padding:0 0 20px 0">
         <table role="presentation" style="width:100%">
           <tr><td style="padding:0 0 12px 0">${sectionTitle("Mensaje")}</td></tr>
-          <tr><td style="padding:0"><p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${data.message}</p></td></tr>
+          <tr><td style="padding:0"><p style="margin:0;font-family:'Onest Variable','Segoe UI',system-ui,sans-serif;font-size:14px;color:#2C2E33;line-height:1.7;white-space:pre-wrap">${nl2br(e(data.message))}</p></td></tr>
         </table>
       </td>
     </tr>

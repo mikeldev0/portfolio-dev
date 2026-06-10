@@ -363,6 +363,8 @@ import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
     });
   }
 
+  const t = (window as any).t ?? ((s: string) => s);
+
   function showError(field: string, message: string): void {
     const input = getInputEl(field);
     const error = getErrorEl(field);
@@ -371,7 +373,7 @@ import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
       input.setAttribute("aria-invalid", "true");
     }
     if (error) {
-      error.textContent = message;
+      error.textContent = t(message);
     }
   }
 
@@ -460,7 +462,7 @@ import { INQUIRY_OPTIONS, TIMELINE_OPTIONS } from "../lib/schemas/contact";
 
       showSuccess();
     } catch {
-      showError("form", "Error de conexión. Inténtalo de nuevo.");
+      showError("form", "form.errors.connection");
       setLoading(false);
     }
   });

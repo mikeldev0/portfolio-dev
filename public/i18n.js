@@ -4,20 +4,30 @@ function getNested(obj, key) {
   return key.split(".").reduce((o, k) => (o || {})[k], obj);
 }
 
+window.__t = {};
+
+window.t = function (key) {
+  if (!key || typeof key !== "string") return key;
+  if (key.startsWith("form.errors.") || key.startsWith("form.")) {
+    return getNested(window.__t, key) || key;
+  }
+  return key;
+};
+
 async function loadLang(lang) {
   if (!SUPPORTED_LANGS.includes(lang)) lang = "en";
   const res = await fetch(`/locales/${lang}.json`);
-  const data = await res.json();
+  window.__t = await res.json();
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.dataset.i18n;
-    const text = getNested(data, key);
+    const text = getNested(window.__t, key);
     if (text) {
       el.innerHTML = text;
     }
   });
   document.querySelectorAll("[data-i18n-href]").forEach((el) => {
     const key = el.dataset.i18nHref;
-    const href = getNested(data, key);
+    const href = getNested(window.__t, key);
     if (href) {
       el.href = href;
     }

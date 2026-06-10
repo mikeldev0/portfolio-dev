@@ -1,4 +1,4 @@
-import { z } from "zod/v3";
+import { z } from "zod";
 
 export const INQUIRY_VALUES = ["project", "collaboration", "job", "support", "other"] as const;
 
@@ -22,22 +22,19 @@ export const TIMELINE_OPTIONS = [
 ] as const;
 
 export const contactSchema = z.object({
-  sender_name: z
-    .string()
-    .min(1, "El nombre es obligatorio")
-    .max(100, "El nombre es demasiado largo"),
-  sender_email: z.string().min(1, "El email es obligatorio").email("Email inválido"),
+  sender_name: z.string().min(1, "form.errors.nameRequired").max(100, "form.errors.nameTooLong"),
+  sender_email: z.string().min(1, "form.errors.emailRequired").email("form.errors.emailInvalid"),
   company: z.string().max(200).optional().default(""),
   phone: z.string().max(30).optional().default(""),
   inquiry_type: z.enum(INQUIRY_VALUES, {
-    message: "Selecciona un tipo de consulta",
+    message: "form.errors.inquiryRequired",
   }),
   budget: z.string().max(200).optional().default(""),
   timeline: z.enum(TIMELINE_VALUES).default(""),
   message: z
     .string()
-    .min(10, "El mensaje debe tener al menos 10 caracteres")
-    .max(5000, "El mensaje es demasiado largo"),
+    .min(10, "form.errors.messageTooShort")
+    .max(5000, "form.errors.messageTooLong"),
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
