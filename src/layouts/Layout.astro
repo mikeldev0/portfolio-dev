@@ -24,7 +24,7 @@ const structuredData = {
   sameAs: [
     "https://github.com/mikeldev0",
     "https://www.linkedin.com/in/mikel-echeverria",
-    "https://x.com/MikelEcheve",
+    "https://x.com/mikelecheve",
     "mailto:mikel@mikeldev.com",
   ],
   description:
@@ -119,13 +119,20 @@ const structuredData = {
     font-family: "Onest Variable", system-ui, sans-serif;
     background-color: var(--bg);
     color: var(--ink);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
     min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    overflow-x: clip;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }

@@ -67,6 +67,7 @@
     "viewDemo": "Ver demo",
     "viewOnGitHub": "Ver en GitHub",
     "moreProjects": "Ver más proyectos",
+    "fewerProjects": "Ver menos proyectos",
     "githubDescription": "Un repositorio de GitHub llamado {{repo}}"
   },
   "footer": {

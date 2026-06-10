@@ -23,7 +23,7 @@ import Layout from "../layouts/Layout.astro";
     <div
       class="flex flex-col items-start gap-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000"
     >
-      <div class="flex items-center gap-x-8">
+      <div class="flex flex-col items-start gap-y-6 sm:flex-row sm:items-center sm:gap-x-8">
         <div id="hero-avatar-anchor" class="relative size-28 shrink-0 rounded-[28px] sm:size-36">
           <img
             id="hero-avatar-fallback"
@@ -35,14 +35,14 @@ import Layout from "../layouts/Layout.astro";
             loading="eager"
           />
         </div>
-        <div class="space-y-2">
+        <div class="min-w-0 space-y-2">
           <h1
-            class="text-5xl sm:text-7xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100"
+            class="max-w-full text-4xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-100 sm:text-7xl"
           >
             <span data-i18n="hero.hello">Mikel Echeverria</span>
           </h1>
           <div
-            class="flex items-center gap-x-2.5 text-[11px] font-bold tracking-widest text-emerald-600 dark:text-emerald-400/90 uppercase"
+            class="flex max-w-full items-center gap-x-2.5 text-[11px] font-bold tracking-widest text-emerald-600 dark:text-emerald-400/90 uppercase"
           >
             <span class="relative flex h-2 w-2">
               <span
@@ -105,7 +105,7 @@ import Layout from "../layouts/Layout.astro";
           <span>LinkedIn</span>
         </a>
         <a
-          href="https://x.mikeldev.com"
+          href="https://x.com/mikelecheve"
           target="_blank"
           rel="noopener noreferrer"
           class="hero-social-link flex items-center gap-x-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--primary)] group"

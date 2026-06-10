@@ -3,5 +3,5 @@ const { VITE_ENABLE_HOLIDAY_EFFECTS, GITHUB_TOKEN, GITHUB_URL } = import.meta.en
 export const env = {
   enableHolidayEffects: VITE_ENABLE_HOLIDAY_EFFECTS !== "false",
   githubToken: GITHUB_TOKEN,
-  githubUrl: GITHUB_URL,
+  githubUrl: GITHUB_URL ?? "https://api.github.com/graphql",
 };

@@ -4,6 +4,9 @@ import GitHubIcon from "../icons/GitHubIcon.astro";
 import { env } from "../lib/env";
 
 const { githubToken: GITHUB_TOKEN, githubUrl: GITHUB_URL } = env;
+const GITHUB_USERNAME = "mikeldev0";
+const MAX_PROJECTS = 6;
+const INITIAL_VISIBLE_PROJECTS = 3;
 
 interface Project {
   title: string;
@@ -16,6 +19,29 @@ interface Project {
 
 interface Tag {
   name: string;
+}
+
+interface GitHubRepository {
+  name: string;
+  nameWithOwner: string;
+  description: string | null;
+  url: string;
+  homepageUrl: string | null;
+  openGraphImageUrl: string | null;
+  languages: {
+    nodes: Tag[];
+  };
+}
+
+interface GitHubPinnedReposResponse {
+  data?: {
+    user?: {
+      pinnedItems?: {
+        nodes?: Array<GitHubRepository | null>;
+      };
+    };
+  };
+  errors?: unknown[];
 }
 
 const TAG = {
@@ -48,6 +74,7 @@ const TAG = {
 
 const STATIC_PROJECTS: Project[] = [
   {
+    github: "https://github.com/mikeldev0/proyectosJS",
     link: "https://proyectosjs.mikeldev.com",
     title: "Vanilla JS Tools & Experiments",
     description:
@@ -55,6 +82,7 @@ const STATIC_PROJECTS: Project[] = [
     tags: [TAG.JAVASCRIPT, TAG.ASTRO],
   },
   {
+    github: "https://github.com/mikeldev0/woofandwork",
     title: "Woof & Work Platform",
     description:
       "Infraestructura digital para agencia de marketing especializada. Enfoque en performance, SEO técnico y conversión mediante arquitectura de componentes modulares.",
@@ -65,70 +93,74 @@ const STATIC_PROJECTS: Project[] = [
     title: "WebLLM-local AI",
     description:
       "Implementación de chatbot con modelos de lenguaje ejecutados en el cliente vía WebGPU. Investigación sobre privacidad en IA y computación distribuida en el navegador.",
-    github: "/WebLLM-local",
+    github: "https://github.com/mikeldev0/WebLLM-local",
     tags: [TAG.JAVASCRIPT, TAG.TYPESCRIPT],
     link: "https://chat.mikeldev.com",
   },
 ];
 
-async function fetchPinnedRepos(username: string): Promise<Project[]> {
+const pinnedReposQuery = `
+  query PortfolioPinnedRepos($login: String!, $first: Int!) {
+    user(login: $login) {
+      pinnedItems(first: $first, types: REPOSITORY) {
+        nodes {
+          ... on Repository {
+            name
+            nameWithOwner
+            description
+            url
+            homepageUrl
+            openGraphImageUrl
+            languages(first: 4, orderBy: { field: SIZE, direction: DESC }) {
+              nodes {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+function normalizeRepository(repo: GitHubRepository): Project {
+  return {
+    title: repo.name,
+    description: repo.description || repo.nameWithOwner,
+    github: repo.url,
+    link: repo.homepageUrl || undefined,
+    image: repo.openGraphImageUrl || undefined,
+    tags: repo.languages.nodes.filter((tag) => Boolean(tag.name)),
+  };
+}
+
+async function fetchPinnedRepos(username: string, first = MAX_PROJECTS): Promise<Project[]> {
   if (!GITHUB_TOKEN) return [];
 
   try {
     const response = await fetch(GITHUB_URL, {
       method: "POST",
       headers: {
-        Authorization: `bearer ${GITHUB_TOKEN}`,
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query: `{
-                    user(login: "${username}") {
-                        pinnedItems(first: 6, types: REPOSITORY) {
-                            nodes {
-                                ... on Repository {
-                                    name
-                                    description
-                                    url
-                                    homepageUrl
-                                    languages(first: 3) {
-                                        nodes {
-                                            name
-                                        }
-                                    }
-                                    openGraphImageUrl
-                                }
-                            }
-                        }
-                    }
-                }`,
+        query: pinnedReposQuery,
+        variables: {
+          login: username,
+          first,
+        },
       }),
     });
 
     if (!response.ok) return [];
 
-    const data = await response.json();
+    const data = (await response.json()) as GitHubPinnedReposResponse;
     if (data.errors) return [];
 
-    return data.data.user.pinnedItems.nodes.map((repo: any) => {
-      const repoTags = repo.languages.nodes
-        .map((lang: any) => {
-          const tagKey = Object.keys(TAG).find(
-            (key) => TAG[key as keyof typeof TAG].name.toLowerCase() === lang.name.toLowerCase()
-          );
-          return tagKey ? TAG[tagKey as keyof typeof TAG] : null;
-        })
-        .filter(Boolean);
-
-      return {
-        title: repo.name,
-        description: repo.description || "",
-        github: repo.url,
-        link: repo.homepageUrl,
-        image: repo.openGraphImageUrl,
-        tags: repoTags,
-      };
-    });
+    return (data.data?.user?.pinnedItems?.nodes ?? [])
+      .filter((repo): repo is GitHubRepository => Boolean(repo))
+      .map(normalizeRepository);
   } catch {
     return [];
   }
@@ -137,7 +169,7 @@ async function fetchPinnedRepos(username: string): Promise<Project[]> {
 let PROJECTS: Project[] = STATIC_PROJECTS;
 
 try {
-  const githubProjects = await fetchPinnedRepos("mikeldev0");
+  const githubProjects = await fetchPinnedRepos(GITHUB_USERNAME);
   if (githubProjects && githubProjects.length > 0) {
     PROJECTS = githubProjects;
   }
@@ -147,25 +179,31 @@ try {
 
 const getRepositoryUrl = (github?: string) => {
   if (!github) return undefined;
-  return github.startsWith("http") ? github : `https://github.com/mikeldev0${github}`;
+  return github.startsWith("http") ? github : `https://github.com/${GITHUB_USERNAME}${github}`;
 };
+
+const visibleProjectCount = Math.min(INITIAL_VISIBLE_PROJECTS, PROJECTS.length);
+const hasHiddenProjects = PROJECTS.length > visibleProjectCount;
 ---
 
-<div class="flex flex-col gap-y-24">
+<div id="projects-list" class="flex flex-col gap-y-24">
   {
-    PROJECTS.slice(0, 6).map(({ title, description, link, github, image, tags }, index) => {
+    PROJECTS.map(({ title, description, link, github, image, tags }, index) => {
       const repositoryUrl = getRepositoryUrl(github);
+      const isInitiallyHidden = index >= visibleProjectCount;
 
       return (
         <article
-          class="project-motion group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-y-8 md:gap-x-16 items-start"
+          class={`project-motion group grid grid-cols-1 md:grid-cols-[280px_1fr] gap-y-8 md:gap-x-16 items-start ${isInitiallyHidden ? "project-extra" : ""}`}
           style={`--project-delay: ${Math.min(index, 4) * 70}ms`}
+          data-project-extra={isInitiallyHidden ? "true" : undefined}
+          hidden={isInitiallyHidden}
         >
           <div class="project-media aspect-[16/10] w-full overflow-hidden rounded-xl bg-[var(--surface)] ring-1 ring-[var(--border)] transition-all duration-500 group-hover:ring-[var(--ink)]">
             {image ? (
               <img
                 src={image}
-                alt={title}
+                alt={`Vista previa de ${title}`}
                 loading="lazy"
                 class="h-full w-full object-cover transition-all duration-700"
               />
@@ -193,7 +231,7 @@ const getRepositoryUrl = (github?: string) => {
               </p>
             </div>
 
-            <div class="mt-8 flex items-center gap-x-10">
+            <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-4">
               {link && (
                 <a
                   href={link}
@@ -213,7 +251,7 @@ const getRepositoryUrl = (github?: string) => {
                   class="project-link inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
                 >
                   <GitHubIcon class="size-4 opacity-70 group-hover:opacity-100 transition-opacity" />
-                  <span>Source</span>
+                  <span data-i18n="projectsSection.viewOnGitHub">Source</span>
                 </a>
               )}
             </div>
@@ -225,19 +263,52 @@ const getRepositoryUrl = (github?: string) => {
 </div>
 
 {
-  PROJECTS.length > 6 && (
-    <div class="mt-20 flex justify-center border-t border-[var(--border)] pt-20">
-      <a
-        href="https://github.com/mikeldev0?tab=repositories"
-        class="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors underline decoration-[var(--border)] hover:decoration-[var(--ink)] underline-offset-8"
+  hasHiddenProjects && (
+    <div
+      id="projects-reveal"
+      class="mt-20 flex justify-center border-t border-[var(--border)] pt-12"
+    >
+      <button
+        id="show-more-projects"
+        type="button"
+        aria-controls="projects-list"
+        aria-expanded="false"
+        class="project-reveal-button inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--border)] px-6 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink)] transition-colors hover:border-[var(--ink)] hover:bg-[var(--surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
       >
-        <span data-i18n="projectsSection.moreProjects">Explorar archivo</span>
-      </a>
+        <span
+          class="project-reveal-label project-reveal-label-more"
+          data-i18n="projectsSection.moreProjects"
+        >
+          Mostrar más proyectos
+        </span>
+        <span
+          class="project-reveal-label project-reveal-label-less"
+          data-i18n="projectsSection.fewerProjects"
+        >
+          Mostrar menos proyectos
+        </span>
+      </button>
     </div>
   )
 }
 
 <style>
+  .project-motion[hidden] {
+    display: none;
+  }
+
+  .project-reveal-label-less {
+    display: none;
+  }
+
+  .project-reveal-button[aria-expanded="true"] .project-reveal-label-more {
+    display: none;
+  }
+
+  .project-reveal-button[aria-expanded="true"] .project-reveal-label-less {
+    display: inline;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     .project-motion {
       transition:
@@ -274,13 +345,124 @@ const getRepositoryUrl = (github?: string) => {
     .group:hover .project-tag {
       color: var(--ink);
     }
+
+    .project-extra.motion-in {
+      animation: reveal-project 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .project-extra.project-exit {
+      animation: hide-project 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes reveal-project {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes hide-project {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-extra.motion-in,
+    .project-extra.project-exit {
+      animation: none;
+    }
   }
 </style>
 
 <script>
+  const initShowMoreProjects = () => {
+    const button = document.getElementById("show-more-projects");
+    const projectsList = document.getElementById("projects-list");
+    const hiddenProjects = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-project-extra='true']")
+    );
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!button || hiddenProjects.length === 0) return;
+    if (button.dataset.projectsRevealReady === "true") return;
+
+    button.dataset.projectsRevealReady = "true";
+
+    const expandProjects = () => {
+      hiddenProjects.forEach((project, index) => {
+        project.hidden = false;
+        project.classList.remove("project-exit");
+        project.style.setProperty("--project-delay", `${Math.min(index, 3) * 70}ms`);
+        requestAnimationFrame(() => {
+          project.classList.add("motion-in");
+        });
+      });
+
+      button.setAttribute("aria-expanded", "true");
+    };
+
+    const collapseProjects = () => {
+      const finishCollapse = () => {
+        hiddenProjects.forEach((project) => {
+          project.hidden = true;
+          project.classList.remove("motion-in", "project-exit");
+        });
+
+        button.setAttribute("aria-expanded", "false");
+        projectsList?.scrollIntoView({
+          block: "start",
+          behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+        });
+      };
+
+      if (prefersReducedMotion.matches) {
+        finishCollapse();
+        return;
+      }
+
+      let remaining = hiddenProjects.length;
+
+      hiddenProjects.forEach((project) => {
+        project.classList.remove("motion-in");
+        project.classList.add("project-exit");
+        project.addEventListener(
+          "animationend",
+          () => {
+            remaining -= 1;
+            if (remaining === 0) finishCollapse();
+          },
+          { once: true }
+        );
+      });
+    };
+
+    button.addEventListener("click", () => {
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+      if (isExpanded) {
+        collapseProjects();
+        return;
+      }
+
+      expandProjects();
+    });
+  };
+
   const initProjectMotion = () => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const items = document.querySelectorAll<HTMLElement>(".project-motion");
+    const items = document.querySelectorAll<HTMLElement>(".project-motion:not([hidden])");
 
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       items.forEach((item) => {
@@ -308,5 +490,7 @@ const getRepositoryUrl = (github?: string) => {
   };
 
   document.addEventListener("astro:page-load", initProjectMotion);
+  document.addEventListener("astro:page-load", initShowMoreProjects);
+  initShowMoreProjects();
   initProjectMotion();
 </script>
