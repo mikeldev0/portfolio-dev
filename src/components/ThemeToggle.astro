@@ -66,6 +66,11 @@ import ThemeToggleIcon from "../icons/ThemeToggleIcon.astro";
     }
 
     document.querySelector("#theme-toggle")?.setAttribute("aria-label", theme.value);
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute("content", theme.value === "dark" ? "#191919" : "#faf8f5");
+    }
   };
 
   const persistPreference = () => {
