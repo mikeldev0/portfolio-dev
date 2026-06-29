@@ -22,7 +22,7 @@ async function loadLang(lang) {
     const key = el.dataset.i18n;
     const text = getNested(window.__t, key);
     if (text) {
-      el.innerHTML = text;
+      el.textContent = text;
     }
   });
   document.querySelectorAll("[data-i18n-href]").forEach((el) => {
