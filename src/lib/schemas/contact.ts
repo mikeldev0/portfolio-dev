@@ -23,7 +23,9 @@ export const TIMELINE_OPTIONS = [
 
 export const contactSchema = z.object({
   sender_name: z.string().min(1, "form.errors.nameRequired").max(100, "form.errors.nameTooLong"),
-  sender_email: z.string().min(1, "form.errors.emailRequired").email("form.errors.emailInvalid"),
+  sender_email: z
+    .email({ message: "form.errors.emailInvalid" })
+    .min(1, "form.errors.emailRequired"),
   company: z.string().max(200).optional().default(""),
   phone: z.string().max(30).optional().default(""),
   inquiry_type: z.enum(INQUIRY_VALUES, {
