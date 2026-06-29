@@ -61,7 +61,7 @@ const [role, company] = title.includes("|") ? title.split("|").map((s) => s.trim
 
     <div
       class="mt-5 text-[16px] leading-relaxed text-[var(--ink)] text-pretty font-normal opacity-90"
-      data-i18n={descriptionKey}
+      data-i18n-html={descriptionKey}
       set:html={description}
     />
 
