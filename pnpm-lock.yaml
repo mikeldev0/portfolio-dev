@@ -63,6 +63,9 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
+      wrangler:
+        specifier: ^4.123.0
+        version: 4.123.0
 
 packages:
 
@@ -280,6 +283,7 @@ packages:
     hasBin: true
     peerDependencies:
       vite: ^6.1.0 || ^7.0.0 || ^8.0.0
+      wrangler: ^4.123.0
 
   '@cloudflare/workerd-darwin-64@1.20260811.1':
     resolution: {integrity: sha512-i5jqz+ywtOefr0AJbiAc8qxBLfSim/B0WJG7aW3B+pWnoVfMJdUQvi+BWcFKZJ0MoCci3KadTx6g31VfuEEqpQ==}
@@ -2955,13 +2959,12 @@ snapshots:
     dependencies:
       '@astrojs/internal-helpers': 0.10.2
       '@astrojs/underscore-redirects': 1.0.4
-      '@cloudflare/vite-plugin': 1.52.1(vite@8.1.0(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))
+      '@cloudflare/vite-plugin': 1.52.1(vite@8.1.0(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))(wrangler@4.123.0)
       astro: 7.2.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(jiti@2.6.1)(yaml@2.9.0)
       piccolore: 0.1.3
       vite: 8.1.0(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0)
       wrangler: 4.123.0
     transitivePeerDependencies:
-      - '@cloudflare/workers-types'
       - '@types/node'
       - '@vitejs/devtools'
       - bufferutil
@@ -3179,7 +3182,7 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260811.1
 
-  '@cloudflare/vite-plugin@1.52.1(vite@8.1.0(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))':
+  '@cloudflare/vite-plugin@1.52.1(vite@8.1.0(esbuild@0.28.1)(jiti@2.6.1)(yaml@2.9.0))(wrangler@4.123.0)':
     dependencies:
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260811.1)
       miniflare: 5.20260811.1-alpha
@@ -3189,7 +3192,6 @@ snapshots:
       wrangler: 4.123.0
       ws: 8.21.0
     transitivePeerDependencies:
-      - '@cloudflare/workers-types'
       - bufferutil
       - utf-8-validate
 
