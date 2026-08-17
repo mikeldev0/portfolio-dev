@@ -1,4 +1,8 @@
 ---
+import CloseIcon from "../icons/CloseIcon.astro";
+import MessageCircleIcon from "../icons/MessageCircleIcon.astro";
+import SendIcon from "../icons/SendIcon.astro";
+import SparklesIcon from "../icons/SparklesIcon.astro";
 ---
 
 <button
@@ -12,19 +16,7 @@
   aria-hidden="true"
   hidden
 >
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.8"
-    class="size-4"
-    aria-hidden="true"
-  >
-    <path d="M12 3l1.2 3.8L17 8l-3.8 1.2L12 13l-1.2-3.8L7 8l3.8-1.2L12 3z"></path>
-    <path d="M19 13l.7 2.3L22 16l-2.3.7L19 19l-.7-2.3L16 16l2.3-.7L19 13z"></path>
-    <path d="M5 14l.8 2.2L8 17l-2.2.8L5 20l-.8-2.2L2 17l2.2-.8L5 14z"></path>
-  </svg>
+  <SparklesIcon class="size-4" />
   <span class="hidden sm:inline" data-i18n="chat.launcher">Pregúntame</span>
 </button>
 
@@ -34,29 +26,29 @@
   aria-labelledby="local-ai-title"
   aria-hidden="true"
 >
-  <header class="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 py-3">
+  <header
+    class="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 py-3"
+  >
     <div class="flex min-w-0 items-center gap-3">
       <div
         class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--primary)] text-[var(--bg)]"
         aria-hidden="true"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8"
-          class="size-4"
-        >
-          <path d="M8 10h8M8 14h5"></path>
-          <path d="M19 4H5a2 2 0 0 0-2 2v14l4-3h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
-        </svg>
+        <MessageCircleIcon class="size-4" />
       </div>
       <div class="min-w-0">
-        <h2 id="local-ai-title" class="truncate text-sm font-bold text-[var(--ink)]" data-i18n="chat.title">
+        <h2
+          id="local-ai-title"
+          class="truncate text-sm font-bold text-[var(--ink)]"
+          data-i18n="chat.title"
+        >
           Asistente local
         </h2>
-        <p id="local-ai-status" class="truncate text-[11px] text-[var(--ink-muted)]" data-i18n="chat.ready">
+        <p
+          id="local-ai-status"
+          class="truncate text-[11px] text-[var(--ink-muted)]"
+          data-i18n="chat.ready"
+        >
           IA local lista
         </p>
       </div>
@@ -68,17 +60,7 @@
       aria-label="Cerrar asistente"
       data-i18n-aria-label="chat.close"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        class="size-4"
-        aria-hidden="true"
-      >
-        <path d="M6 6l12 12M18 6L6 18"></path>
-      </svg>
+      <CloseIcon class="size-4" />
     </button>
   </header>
 
@@ -94,13 +76,16 @@
         class="max-w-[88%] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm leading-relaxed text-[var(--ink)]"
         data-i18n="chat.greeting"
       >
-        Hola, soy el asistente local de Mikel. Puedo responder preguntas sobre esta web desde tu navegador.
+        Hola, soy el asistente local de Mikel. Puedo responder preguntas sobre esta web desde tu
+        navegador.
       </p>
     </div>
   </div>
 
   <form id="local-ai-form" class="border-t border-[var(--border)] bg-[var(--bg)] p-3">
-    <label for="local-ai-input" class="sr-only" data-i18n="chat.inputLabel">Escribe tu pregunta</label>
+    <label for="local-ai-input" class="sr-only" data-i18n="chat.inputLabel"
+      >Escribe tu pregunta</label
+    >
     <div class="relative">
       <textarea
         id="local-ai-input"
@@ -109,8 +94,7 @@
         class="min-h-11 max-h-28 w-full resize-none overflow-y-auto rounded-xl border border-[var(--border)] bg-[var(--surface)] py-3 pl-3 pr-12 text-sm leading-5 text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--ink-muted)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 disabled:cursor-not-allowed disabled:opacity-60"
         placeholder="Pregunta sobre esta web..."
         data-i18n-placeholder="chat.placeholder"
-        aria-describedby="local-ai-disclaimer"
-      ></textarea>
+        aria-describedby="local-ai-disclaimer"></textarea>
       <button
         id="local-ai-send"
         type="submit"
@@ -118,21 +102,14 @@
         aria-label="Enviar pregunta"
         data-i18n-aria-label="chat.send"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          class="size-4"
-          aria-hidden="true"
-        >
-          <path d="M22 2L11 13"></path>
-          <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
-        </svg>
+        <SendIcon class="size-4" />
       </button>
     </div>
-    <p id="local-ai-disclaimer" class="mt-2 px-1 text-[10px] leading-4 text-[var(--ink-muted)]" data-i18n="chat.disclaimer">
+    <p
+      id="local-ai-disclaimer"
+      class="mt-2 px-1 text-[10px] leading-4 text-[var(--ink-muted)]"
+      data-i18n="chat.disclaimer"
+    >
       Las respuestas se generan localmente en Chrome con el contenido visible de esta web.
     </p>
   </form>

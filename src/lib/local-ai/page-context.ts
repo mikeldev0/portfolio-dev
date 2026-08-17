@@ -1,7 +1,10 @@
 const MAX_VISIBLE_CONTEXT_CHARACTERS = 12000;
 
 function normalizeVisibleText(text: string): string {
-  return text.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  return text
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 export function createVisiblePageContext(document: Document): string {
