@@ -8,10 +8,7 @@ window.__t = {};
 
 window.t = function (key) {
   if (!key || typeof key !== "string") return key;
-  if (key.startsWith("form.errors.") || key.startsWith("form.")) {
-    return getNested(window.__t, key) || key;
-  }
-  return key;
+  return getNested(window.__t, key) || key;
 };
 
 async function loadLang(lang) {
@@ -39,7 +36,22 @@ async function loadLang(lang) {
       el.href = href;
     }
   });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.dataset.i18nPlaceholder;
+    const placeholder = getNested(window.__t, key);
+    if (placeholder) {
+      el.setAttribute("placeholder", placeholder);
+    }
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.dataset.i18nAriaLabel;
+    const ariaLabel = getNested(window.__t, key);
+    if (ariaLabel) {
+      el.setAttribute("aria-label", ariaLabel);
+    }
+  });
   document.documentElement.lang = lang;
+  window.dispatchEvent(new CustomEvent("languagechange", { detail: { lang } }));
 }
 
 function initLang() {
