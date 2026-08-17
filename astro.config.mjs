@@ -1,11 +1,12 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-import netlify from "@astrojs/netlify";
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
   site: "https://www.mikeldev.com",
+  output: "server",
   integrations: [tailwind()],
-  adapter: netlify(),
+  adapter: cloudflare({ inspectorPort: false }),
   image: {
     domains: ["opengraph.githubassets.com"],
   },

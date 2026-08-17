@@ -129,7 +129,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = (await request.json()) as Record<string, unknown>;
 
     const rawIp =
-      request.headers.get("x-nf-client-connection-ip") ??
+      request.headers.get("cf-connecting-ip") ??
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       request.headers.get("x-real-ip") ??
       "unknown";

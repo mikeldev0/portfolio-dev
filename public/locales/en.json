@@ -16,6 +16,24 @@
     "signalAi": "AI & Automation",
     "signalData": "Data Engineering"
   },
+  "chat": {
+    "launcher": "Ask me",
+    "launcherLabel": "Ask the local assistant",
+    "title": "Local assistant",
+    "ready": "Local AI ready",
+    "loading": "Preparing local AI...",
+    "errorStatus": "Could not start",
+    "close": "Close assistant",
+    "greeting": "Hi, I'm Mikel's local assistant. I can answer questions about this website from your browser.",
+    "inputLabel": "Write your question",
+    "placeholder": "Ask about this website...",
+    "send": "Send question",
+    "thinking": "Thinking...",
+    "error": "I couldn't answer that. Please try again.",
+    "emptyResponse": "I didn't receive a response. Please try again.",
+    "cancelled": "The response was cancelled.",
+    "disclaimer": "Answers are generated locally in Chrome using the visible content of this website."
+  },
   "section": {
     "experience": "Work experience",
     "projects": "Projects",

@@ -1,0 +1,365 @@
+---
+import CloseIcon from "../icons/CloseIcon.astro";
+import MessageCircleIcon from "../icons/MessageCircleIcon.astro";
+import SendIcon from "../icons/SendIcon.astro";
+import SparklesIcon from "../icons/SparklesIcon.astro";
+---
+
+<button
+  id="local-ai-launcher"
+  type="button"
+  class="fixed bottom-24 right-6 z-50 inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-[var(--primary)] px-4 text-xs font-bold text-[var(--bg)] shadow-xl shadow-black/10 transition-all hover:-translate-y-0.5 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] active:translate-y-0 sm:right-8"
+  aria-label="Preguntar al asistente local"
+  data-i18n-aria-label="chat.launcherLabel"
+  aria-controls="local-ai-panel"
+  aria-expanded="false"
+  aria-hidden="true"
+  hidden
+>
+  <SparklesIcon class="size-4" />
+  <span class="hidden sm:inline" data-i18n="chat.launcher">Pregúntame</span>
+</button>
+
+<section
+  id="local-ai-panel"
+  class="fixed bottom-24 right-4 z-50 hidden h-[min(34rem,calc(100vh-7rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] shadow-2xl shadow-black/20 sm:right-8"
+  aria-labelledby="local-ai-title"
+  aria-hidden="true"
+>
+  <header
+    class="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 py-3"
+  >
+    <div class="flex min-w-0 items-center gap-3">
+      <div
+        class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--primary)] text-[var(--bg)]"
+        aria-hidden="true"
+      >
+        <MessageCircleIcon class="size-4" />
+      </div>
+      <div class="min-w-0">
+        <h2
+          id="local-ai-title"
+          class="truncate text-sm font-bold text-[var(--ink)]"
+          data-i18n="chat.title"
+        >
+          Asistente local
+        </h2>
+        <p
+          id="local-ai-status"
+          class="truncate text-[11px] text-[var(--ink-muted)]"
+          data-i18n="chat.ready"
+        >
+          IA local lista
+        </p>
+      </div>
+    </div>
+    <button
+      id="local-ai-close"
+      type="button"
+      class="ml-3 inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-[var(--ink-muted)] transition-colors hover:bg-[var(--bg)] hover:text-[var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+      aria-label="Cerrar asistente"
+      data-i18n-aria-label="chat.close"
+    >
+      <CloseIcon class="size-4" />
+    </button>
+  </header>
+
+  <div
+    id="local-ai-messages"
+    class="min-h-0 flex-1 space-y-3 overflow-y-auto p-4"
+    role="log"
+    aria-live="polite"
+    aria-relevant="additions text"
+  >
+    <div class="flex justify-start">
+      <p
+        class="max-w-[88%] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm leading-relaxed text-[var(--ink)]"
+        data-i18n="chat.greeting"
+      >
+        Hola, soy el asistente local de Mikel. Puedo responder preguntas sobre esta web desde tu
+        navegador.
+      </p>
+    </div>
+  </div>
+
+  <form id="local-ai-form" class="border-t border-[var(--border)] bg-[var(--bg)] p-3">
+    <label for="local-ai-input" class="sr-only" data-i18n="chat.inputLabel"
+      >Escribe tu pregunta</label
+    >
+    <div class="relative">
+      <textarea
+        id="local-ai-input"
+        rows="1"
+        maxlength="1000"
+        class="min-h-11 max-h-28 w-full resize-none overflow-y-auto rounded-xl border border-[var(--border)] bg-[var(--surface)] py-3 pl-3 pr-12 text-sm leading-5 text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--ink-muted)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 disabled:cursor-not-allowed disabled:opacity-60"
+        placeholder="Pregunta sobre esta web..."
+        data-i18n-placeholder="chat.placeholder"
+        aria-describedby="local-ai-disclaimer"></textarea>
+      <button
+        id="local-ai-send"
+        type="submit"
+        class="absolute bottom-2 right-2 inline-flex size-8 items-center justify-center rounded-lg bg-[var(--primary)] text-[var(--bg)] transition-all hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)] disabled:pointer-events-none disabled:opacity-40"
+        aria-label="Enviar pregunta"
+        data-i18n-aria-label="chat.send"
+      >
+        <SendIcon class="size-4" />
+      </button>
+    </div>
+    <p
+      id="local-ai-disclaimer"
+      class="mt-2 px-1 text-[10px] leading-4 text-[var(--ink-muted)]"
+      data-i18n="chat.disclaimer"
+    >
+      Las respuestas se generan localmente en Chrome con el contenido visible de esta web.
+    </p>
+  </form>
+</section>
+
+<script>
+  import {
+    createLanguageModelSession,
+    getLanguageModelAvailability,
+    streamLanguageModelResponse,
+    type LanguageModelSession,
+  } from "../lib/local-ai/language-model";
+  import { createVisiblePageContext } from "../lib/local-ai/page-context";
+  import { createLocalAssistantPrompt } from "../lib/local-ai/prompt";
+
+  type TranslationFunction = (key: string) => string;
+
+  type TranslationWindow = Window & {
+    t?: TranslationFunction;
+  };
+
+  const launcher = document.getElementById("local-ai-launcher");
+  const panel = document.getElementById("local-ai-panel");
+  const closeButton = document.getElementById("local-ai-close");
+  const messages = document.getElementById("local-ai-messages");
+  const status = document.getElementById("local-ai-status");
+  const form = document.getElementById("local-ai-form") as HTMLFormElement | null;
+  const input = document.getElementById("local-ai-input") as HTMLTextAreaElement | null;
+  const sendButton = document.getElementById("local-ai-send") as HTMLButtonElement | null;
+
+  let session: LanguageModelSession | null = null;
+  let sessionPromise: Promise<LanguageModelSession> | null = null;
+  let currentAbortController: AbortController | null = null;
+  let isSending = false;
+  let statusKey = "chat.ready";
+  let statusFallback = "IA local lista";
+  let initialized = false;
+
+  const fallbackTranslations: Record<string, string> = {
+    "chat.ready": "IA local lista",
+    "chat.loading": "Preparando IA local...",
+    "chat.thinking": "Pensando...",
+    "chat.errorStatus": "No se pudo iniciar",
+    "chat.error": "No he podido responder. Inténtalo de nuevo.",
+    "chat.emptyResponse": "No he recibido una respuesta. Inténtalo de nuevo.",
+    "chat.cancelled": "La respuesta se ha cancelado.",
+  };
+
+  function translate(key: string): string {
+    const translator = (window as TranslationWindow).t;
+    const translated = translator?.(key);
+
+    return translated && translated !== key ? translated : fallbackTranslations[key] || key;
+  }
+
+  function setStatus(key: string): void {
+    statusKey = key;
+    statusFallback = fallbackTranslations[key] || key;
+
+    if (status) {
+      status.textContent = translate(key);
+    }
+  }
+
+  function setLoadingState(loading: boolean): void {
+    input?.toggleAttribute("disabled", loading);
+    sendButton?.toggleAttribute("disabled", loading);
+    if (messages) messages.setAttribute("aria-busy", String(loading));
+  }
+
+  function scrollMessagesToBottom(): void {
+    if (messages) messages.scrollTop = messages.scrollHeight;
+  }
+
+  function appendMessage(role: "user" | "assistant", text: string): HTMLParagraphElement | null {
+    if (!messages) return null;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = role === "user" ? "flex justify-end" : "flex justify-start";
+
+    const bubble = document.createElement("p");
+    bubble.className =
+      role === "user"
+        ? "max-w-[88%] whitespace-pre-wrap break-words rounded-2xl rounded-br-md bg-[var(--primary)] px-3 py-2 text-sm leading-relaxed text-[var(--bg)]"
+        : "max-w-[88%] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm leading-relaxed text-[var(--ink)]";
+    bubble.textContent = text;
+    wrapper.appendChild(bubble);
+    messages.appendChild(wrapper);
+    scrollMessagesToBottom();
+
+    return bubble;
+  }
+
+  function setLauncherVisibility(visible: boolean): void {
+    launcher?.classList.toggle("hidden", !visible);
+    launcher?.toggleAttribute("hidden", !visible);
+    launcher?.setAttribute("aria-hidden", String(!visible));
+  }
+
+  function setPanelVisibility(visible: boolean): void {
+    panel?.classList.toggle("hidden", !visible);
+    panel?.classList.toggle("flex", visible);
+    panel?.setAttribute("aria-hidden", String(!visible));
+    launcher?.setAttribute("aria-expanded", String(visible));
+
+    if (visible) {
+      launcher?.classList.add("hidden");
+      window.setTimeout(() => input?.focus(), 0);
+      void ensureSession();
+    } else if (launcher?.getAttribute("aria-hidden") === "false") {
+      launcher.classList.remove("hidden");
+    }
+  }
+
+  async function ensureSession(): Promise<LanguageModelSession | null> {
+    if (session) return session;
+    if (sessionPromise) return sessionPromise;
+
+    setStatus("chat.loading");
+
+    const pageContext = createVisiblePageContext(document);
+    const systemPrompt = createLocalAssistantPrompt(
+      pageContext,
+      document.documentElement.lang || "es"
+    );
+
+    sessionPromise = createLanguageModelSession(systemPrompt, (loaded, total) => {
+      if (total > 0 && status) {
+        status.textContent = `${translate("chat.loading")} ${Math.round((loaded / total) * 100)}%`;
+      }
+    });
+
+    try {
+      session = await sessionPromise;
+      setStatus("chat.ready");
+      return session;
+    } catch (error) {
+      console.error("Unable to create the local Chrome AI session", error);
+      setStatus("chat.errorStatus");
+      return null;
+    } finally {
+      sessionPromise = null;
+    }
+  }
+
+  async function sendMessage(): Promise<void> {
+    const question = input?.value.trim() || "";
+
+    if (!input || !question || isSending) return;
+
+    isSending = true;
+    input.value = "";
+    input.style.height = "auto";
+    setLoadingState(true);
+
+    appendMessage("user", question);
+    const answerBubble = appendMessage("assistant", translate("chat.thinking"));
+    const abortController = new AbortController();
+    currentAbortController = abortController;
+
+    try {
+      const currentSession = await ensureSession();
+
+      if (!currentSession || !answerBubble) {
+        throw new Error("The local Chrome AI session is not available.");
+      }
+
+      const response = await streamLanguageModelResponse(
+        currentSession,
+        question,
+        (partialResponse) => {
+          answerBubble.textContent = partialResponse;
+          scrollMessagesToBottom();
+        },
+        abortController.signal
+      );
+
+      answerBubble.textContent = response || translate("chat.emptyResponse");
+      setStatus("chat.ready");
+    } catch (error) {
+      const errorName = error instanceof DOMException ? error.name : "";
+      answerBubble?.replaceChildren(
+        document.createTextNode(
+          errorName === "AbortError" ? translate("chat.cancelled") : translate("chat.error")
+        )
+      );
+
+      if (errorName !== "AbortError") {
+        console.error("Unable to answer with the local Chrome AI session", error);
+        setStatus("chat.errorStatus");
+      }
+    } finally {
+      currentAbortController = null;
+      isSending = false;
+      setLoadingState(false);
+      scrollMessagesToBottom();
+    }
+  }
+
+  function resizeInput(): void {
+    if (!input) return;
+
+    input.style.height = "auto";
+    input.style.height = `${Math.min(input.scrollHeight, 112)}px`;
+  }
+
+  async function initLocalAiChat(): Promise<void> {
+    if (initialized || !launcher || !panel || !form || !input) return;
+    initialized = true;
+
+    const availability = await getLanguageModelAvailability();
+
+    if (availability !== "available") return;
+
+    setLauncherVisibility(true);
+    launcher.addEventListener("click", () => setPanelVisibility(true));
+    closeButton?.addEventListener("click", () => setPanelVisibility(false));
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void sendMessage();
+    });
+    input.addEventListener("input", resizeInput);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  }
+
+  window.addEventListener("languagechange", () => {
+    if (status) {
+      status.textContent = translate(statusKey) || statusFallback;
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    currentAbortController?.abort();
+    session?.destroy();
+  });
+
+  document.addEventListener("astro:page-load", () => void initLocalAiChat(), { once: true });
+  void initLocalAiChat();
+</script>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    #local-ai-launcher,
+    #local-ai-panel {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

@@ -16,6 +16,24 @@
     "signalAi": "AI & Automation",
     "signalData": "Data Engineering"
   },
+  "chat": {
+    "launcher": "Me demander",
+    "launcherLabel": "Interroger l'assistant local",
+    "title": "Assistant local",
+    "ready": "IA locale prête",
+    "loading": "Préparation de l'IA locale...",
+    "errorStatus": "Impossible de démarrer",
+    "close": "Fermer l'assistant",
+    "greeting": "Bonjour, je suis l'assistant local de Mikel. Je peux répondre à vos questions sur ce site depuis votre navigateur.",
+    "inputLabel": "Écrivez votre question",
+    "placeholder": "Posez une question sur ce site...",
+    "send": "Envoyer la question",
+    "thinking": "Réflexion...",
+    "error": "Je n'ai pas pu répondre. Veuillez réessayer.",
+    "emptyResponse": "Je n'ai reçu aucune réponse. Veuillez réessayer.",
+    "cancelled": "La réponse a été annulée.",
+    "disclaimer": "Les réponses sont générées localement dans Chrome avec le contenu visible de ce site."
+  },
   "section": {
     "experience": "Expérience professionnelle",
     "projects": "Projets sélectionnés",
