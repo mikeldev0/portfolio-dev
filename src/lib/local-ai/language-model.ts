@@ -55,11 +55,25 @@ export const LANGUAGE_MODEL_OPTIONS: LanguageModelCoreOptions = {
   expectedOutputs: [{ type: "text" }],
 };
 
+export function isChromeBuiltInAiBrowser(): boolean {
+  if (typeof navigator === "undefined") return false;
+
+  const userAgent = navigator.userAgent;
+  const isChromiumBrowser = /(?:Chrome|Chromium)\//.test(userAgent);
+  const isUnsupportedChromiumBrowser = /(?:CriOS|Edg|EdgA|EdgiOS|OPR|SamsungBrowser)\//.test(
+    userAgent
+  );
+
+  return isChromiumBrowser && !isUnsupportedChromiumBrowser;
+}
+
 function getLanguageModel(): LanguageModelApi | undefined {
   return (globalThis as BuiltInAiWindow).LanguageModel;
 }
 
 export async function getLanguageModelAvailability(): Promise<LanguageModelAvailability> {
+  if (!isChromeBuiltInAiBrowser()) return "unavailable";
+
   const languageModel = getLanguageModel();
 
   if (!languageModel) return "unavailable";
@@ -75,6 +89,10 @@ export async function createLanguageModelSession(
   systemPrompt: string,
   onDownloadProgress?: (loaded: number, total: number) => void
 ): Promise<LanguageModelSession> {
+  if (!isChromeBuiltInAiBrowser()) {
+    throw new Error("Chrome Built-in AI is not available.");
+  }
+
   const languageModel = getLanguageModel();
 
   if (!languageModel) {
@@ -110,7 +128,7 @@ export async function streamLanguageModelResponse(
 
       if (done) break;
 
-      response += value;
+      response = value;
       onUpdate(response);
     }
   } finally {
