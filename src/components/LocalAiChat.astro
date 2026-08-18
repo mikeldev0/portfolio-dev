@@ -25,6 +25,7 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
   class="fixed bottom-24 right-4 z-50 hidden h-[min(34rem,calc(100vh-7rem))] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--bg)] shadow-2xl shadow-black/20 sm:right-8"
   aria-labelledby="local-ai-title"
   aria-hidden="true"
+  hidden
 >
   <header
     class="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface)] px-4 py-3"
@@ -144,9 +145,9 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
   let sessionPromise: Promise<LanguageModelSession> | null = null;
   let currentAbortController: AbortController | null = null;
   let isSending = false;
-  let statusKey = "chat.ready";
-  let statusFallback = "IA local lista";
   let initialized = false;
+  let isReady = false;
+  let sessionVersion = 0;
 
   const fallbackTranslations: Record<string, string> = {
     "chat.ready": "IA local lista",
@@ -166,9 +167,6 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
   }
 
   function setStatus(key: string): void {
-    statusKey = key;
-    statusFallback = fallbackTranslations[key] || key;
-
     if (status) {
       status.textContent = translate(key);
     }
@@ -212,16 +210,23 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
   function setPanelVisibility(visible: boolean): void {
     panel?.classList.toggle("hidden", !visible);
     panel?.classList.toggle("flex", visible);
+    panel?.toggleAttribute("hidden", !visible);
     panel?.setAttribute("aria-hidden", String(!visible));
     launcher?.setAttribute("aria-expanded", String(visible));
+    setLauncherVisibility(!visible && isReady);
 
     if (visible) {
-      launcher?.classList.add("hidden");
       window.setTimeout(() => input?.focus(), 0);
       void ensureSession();
-    } else if (launcher?.getAttribute("aria-hidden") === "false") {
-      launcher.classList.remove("hidden");
     }
+  }
+
+  function resetSession(): void {
+    sessionVersion += 1;
+    currentAbortController?.abort();
+    session?.destroy();
+    session = null;
+    sessionPromise = null;
   }
 
   async function ensureSession(): Promise<LanguageModelSession | null> {
@@ -229,6 +234,7 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
     if (sessionPromise) return sessionPromise;
 
     setStatus("chat.loading");
+    const version = sessionVersion;
 
     const pageContext = createVisiblePageContext(document);
     const systemPrompt = createLocalAssistantPrompt(
@@ -236,22 +242,34 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
       document.documentElement.lang || "es"
     );
 
-    sessionPromise = createLanguageModelSession(systemPrompt, (loaded, total) => {
+    const pendingSession = createLanguageModelSession(systemPrompt, (loaded, total) => {
       if (total > 0 && status) {
         status.textContent = `${translate("chat.loading")} ${Math.round((loaded / total) * 100)}%`;
       }
     });
+    sessionPromise = pendingSession;
 
     try {
-      session = await sessionPromise;
+      const createdSession = await pendingSession;
+
+      if (version !== sessionVersion) {
+        createdSession.destroy();
+        return null;
+      }
+
+      session = createdSession;
       setStatus("chat.ready");
       return session;
     } catch (error) {
-      console.error("Unable to create the local Chrome AI session", error);
-      setStatus("chat.errorStatus");
+      if (version === sessionVersion) {
+        console.error("Unable to create the local Chrome AI session", error);
+        setStatus("chat.errorStatus");
+      }
       return null;
     } finally {
-      sessionPromise = null;
+      if (version === sessionVersion) {
+        sessionPromise = null;
+      }
     }
   }
 
@@ -316,16 +334,13 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
     input.style.height = `${Math.min(input.scrollHeight, 112)}px`;
   }
 
-  async function initLocalAiChat(): Promise<void> {
-    if (initialized || !launcher || !panel || !form || !input) return;
+  function bindInteractions(): void {
+    if (initialized || !launcher || !form || !input) return;
     initialized = true;
 
-    const availability = await getLanguageModelAvailability();
-
-    if (availability !== "available") return;
-
-    setLauncherVisibility(true);
-    launcher.addEventListener("click", () => setPanelVisibility(true));
+    launcher.addEventListener("click", () => {
+      if (isReady) setPanelVisibility(true);
+    });
     closeButton?.addEventListener("click", () => setPanelVisibility(false));
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -340,15 +355,31 @@ import SparklesIcon from "../icons/SparklesIcon.astro";
     });
   }
 
-  window.addEventListener("languagechange", () => {
-    if (status) {
-      status.textContent = translate(statusKey) || statusFallback;
+  async function initLocalAiChat(): Promise<void> {
+    if (!launcher || !panel || !form || !input) return;
+
+    bindInteractions();
+
+    const availability = await getLanguageModelAvailability();
+
+    if (availability !== "available") {
+      isReady = false;
+      setLauncherVisibility(false);
+      return;
     }
+
+    isReady = true;
+    setLauncherVisibility(true);
+  }
+
+  window.addEventListener("languagechange", () => {
+    resetSession();
+    setStatus("chat.ready");
   });
 
-  window.addEventListener("pagehide", () => {
-    currentAbortController?.abort();
-    session?.destroy();
+  window.addEventListener("pagehide", (event) => {
+    if (event.persisted) return;
+    resetSession();
   });
 
   document.addEventListener("astro:page-load", () => void initLocalAiChat(), { once: true });
