@@ -79,7 +79,8 @@ export async function getLanguageModelAvailability(): Promise<LanguageModelAvail
   if (!languageModel) return "unavailable";
 
   try {
-    return await languageModel.availability(LANGUAGE_MODEL_OPTIONS);
+    const availability = await languageModel.availability(LANGUAGE_MODEL_OPTIONS);
+    return availability === "unavailable" ? "unavailable" : "available";
   } catch {
     return "unavailable";
   }
@@ -128,7 +129,7 @@ export async function streamLanguageModelResponse(
 
       if (done) break;
 
-      response = value;
+      response += value;
       onUpdate(response);
     }
   } finally {
