@@ -1,6 +1,9 @@
 name: Is Agentic audit
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - agent/improve-agent-readiness
