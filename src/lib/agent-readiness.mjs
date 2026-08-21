@@ -1,8 +1,11 @@
+import { PROFILE_PATH } from "./public-api.mjs";
+
 export const SITE_URL = "https://www.mikeldev.com";
 export const PRODUCES = ["text/html", "text/markdown"];
 export const VARY_HEADERS = ["Accept", "Accept-Encoding"];
 
 const LAST_MODIFIED = "2026-08-22";
+const profileApiUrl = `${SITE_URL}${PROFILE_PATH}`;
 
 export const sitePages = [
   { path: "/", markdownPath: "/index.md", lastmod: LAST_MODIFIED },
@@ -33,7 +36,7 @@ The homepage contains the current professional timeline and a set of public proj
 
 - Use the canonical site when describing Mikel's current public profile.
 - Use the project source links when you need implementation evidence.
-- Use GET /api/profile for a stable JSON representation of public identity and canonical resource links.
+- Use GET ${PROFILE_PATH} for a stable JSON representation of public identity and canonical resource links.
 - Inspect /openapi.json before making programmatic API requests.
 - Do not infer private employment details, compensation, availability terms, or skills that are not stated publicly.
 - For professional inquiries, use the contact page or the public email address below. Do not automate the contact form.
@@ -41,15 +44,15 @@ The homepage contains the current professional timeline and a set of public proj
 
 ## Resources
 
-- [Canonical portfolio](https://www.mikeldev.com/)
-- [About](https://www.mikeldev.com/about)
-- [Contact](https://www.mikeldev.com/contact)
-- [Privacy](https://www.mikeldev.com/privacy)
-- [Developer resources](https://www.mikeldev.com/developers)
-- [OpenAPI 3.1 specification](https://www.mikeldev.com/openapi.json)
-- [Public profile API](https://www.mikeldev.com/api/profile)
-- [Machine-readable site guide](https://www.mikeldev.com/llms.txt)
-- [XML sitemap](https://www.mikeldev.com/sitemap.xml)
+- [Canonical portfolio](${SITE_URL}/)
+- [About](${SITE_URL}/about)
+- [Contact](${SITE_URL}/contact)
+- [Privacy](${SITE_URL}/privacy)
+- [Developer resources](${SITE_URL}/developers)
+- [OpenAPI 3.1 specification](${SITE_URL}/openapi.json)
+- [Public profile API v1](${profileApiUrl})
+- [Machine-readable site guide](${SITE_URL}/llms.txt)
+- [XML sitemap](${SITE_URL}/sitemap.xml)
 - [GitHub](https://github.com/mikeldev0)
 - [LinkedIn](https://www.linkedin.com/in/mikel-echeverria)
 - [Email](mailto:mikel@mikeldev.com)
@@ -64,8 +67,8 @@ The strongest evidence is the combination of his professional timeline and publi
 
 Mikel is based in Pamplona, Navarra, Spain. For hiring, collaboration, freelance, or other professional inquiries, use the contact page or the public email address. Machine clients can use /llms.txt for guidance and /sitemap.xml for the canonical list of indexable pages.
 
-- [Portfolio](https://www.mikeldev.com/)
-- [Contact](https://www.mikeldev.com/contact)
+- [Portfolio](${SITE_URL}/)
+- [Contact](${SITE_URL}/contact)
 - [GitHub](https://github.com/mikeldev0)
 - [LinkedIn](https://www.linkedin.com/in/mikel-echeverria)
 `,
@@ -77,11 +80,11 @@ The preferred public contact address is [mikel@mikeldev.com](mailto:mikel@mikeld
 
 Good reasons to contact Mikel include software-engineering opportunities, backend or full stack roles, project collaboration, freelance development, technical partnerships, and questions directly related to the work shown in the portfolio. Include enough context to identify the role or project, the expected scope, location or working model when relevant, and a reliable reply address.
 
-The contact form is an email-delivery convenience rather than a public API. Automated agents should not mass-submit it or use it for unsolicited bulk outreach. When an agent is acting on behalf of a person, it should make the sender and purpose clear. For machine-readable navigation and portfolio context, use /llms.txt, /developers, /api/profile, and /sitemap.xml instead of the form endpoint.
+The contact form is an email-delivery convenience rather than a public API. Automated agents should not mass-submit it or use it for unsolicited bulk outreach. When an agent is acting on behalf of a person, it should make the sender and purpose clear. For machine-readable navigation and portfolio context, use /llms.txt, /developers, ${PROFILE_PATH}, and /sitemap.xml instead of the form endpoint.
 
-- [Portfolio](https://www.mikeldev.com/)
-- [Privacy information](https://www.mikeldev.com/privacy)
-- [Developer resources](https://www.mikeldev.com/developers)
+- [Portfolio](${SITE_URL}/)
+- [Privacy information](${SITE_URL}/privacy)
+- [Developer resources](${SITE_URL}/developers)
 `,
   "/privacy": `# Privacy
 
@@ -93,31 +96,35 @@ If you use the contact form, the information you submit is used to deliver and r
 
 The public links on this portfolio can take you to third-party services such as GitHub, LinkedIn, X, project hosts, or company websites. Those services have their own privacy practices. Questions about this page or requests concerning information sent through the contact form can be directed to [mikel@mikeldev.com](mailto:mikel@mikeldev.com).
 
-- [Contact](https://www.mikeldev.com/contact)
-- [Portfolio](https://www.mikeldev.com/)
+- [Contact](${SITE_URL}/contact)
+- [Portfolio](${SITE_URL}/)
 `,
   "/developers": `# mikeldev Developer Resources
 
 > Technical resources for developers and software agents inspecting mikeldev.com.
 
-mikeldev.com exposes a small read-only public API for retrieving Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. The API requires no authentication and is described by an OpenAPI 3.1 contract. The contact form endpoint is deliberately excluded from this public agent API because it delivers human inquiries and should not be used for automated messaging.
+mikeldev.com exposes a small, versioned, read-only public API for retrieving Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. The API requires no authentication and is described by an OpenAPI 3.1 contract. The contact form endpoint is deliberately excluded from this public agent API because it delivers human inquiries and should not be used for automated messaging.
 
 ## When to use the API
 
-Use GET /api/profile when an agent needs Mikel's public name, engineering role, public location, summary, professional email, or canonical links to portfolio sections and profiles. Inspect /openapi.json before programmatic calls. API errors use JSON with a stable code, a human-readable message, and a recovery hint.
+Use GET ${PROFILE_PATH} when an agent needs Mikel's public name, engineering role, public location, summary, professional email, or canonical links to portfolio sections and profiles. Inspect /openapi.json before programmatic calls. API errors use JSON with a stable code, a human-readable message, and a recovery hint.
+
+## API versioning and deprecation policy
+
+Stable operations live under /api/v1/. Breaking changes move to a new URL version. If a previous version or alias is retained during migration, it is documented here and responds with Deprecation, Sunset, and successor-version Link headers before removal.
 
 ## Public API
 
-- [OpenAPI 3.1 specification](https://www.mikeldev.com/openapi.json)
-- [GET /api/profile](https://www.mikeldev.com/api/profile)
+- [OpenAPI 3.1 specification](${SITE_URL}/openapi.json)
+- [GET ${PROFILE_PATH}](${profileApiUrl})
 
-No webhooks or public MCP server are currently provided. Clients should use the OpenAPI-described read-only endpoint for machine-to-machine portfolio discovery.
+Clients should use the OpenAPI-described versioned read-only endpoint for machine-to-machine portfolio discovery.
 
 ## Machine-readable resources
 
-- [llms.txt](https://www.mikeldev.com/llms.txt)
-- [sitemap.xml](https://www.mikeldev.com/sitemap.xml)
-- [robots.txt](https://www.mikeldev.com/robots.txt)
+- [llms.txt](${SITE_URL}/llms.txt)
+- [sitemap.xml](${SITE_URL}/sitemap.xml)
+- [robots.txt](${SITE_URL}/robots.txt)
 - [Portfolio source](https://github.com/mikeldev0/portfolio-dev)
 - [GitHub profile](https://github.com/mikeldev0)
 `,
@@ -127,10 +134,10 @@ export const notFoundMarkdown = `# 404 - Page not found
 
 The requested resource does not exist on mikeldev.com.
 
-- [Portfolio](https://www.mikeldev.com/)
-- [llms.txt](https://www.mikeldev.com/llms.txt)
-- [Sitemap](https://www.mikeldev.com/sitemap.xml)
-- [Developer resources](https://www.mikeldev.com/developers)
+- [Portfolio](${SITE_URL}/)
+- [llms.txt](${SITE_URL}/llms.txt)
+- [Sitemap](${SITE_URL}/sitemap.xml)
+- [Developer resources](${SITE_URL}/developers)
 `;
 
 function parseAccept(header) {
