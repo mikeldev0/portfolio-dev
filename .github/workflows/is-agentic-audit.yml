@@ -14,54 +14,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Is Agentic audit
-        run: npx -y is-agentic 0c7ea06d-portfolio-dev.mikel-e-g-2004.workers.dev
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.11.1
 
-      - name: Inspect report JSON
-        shell: bash
-        run: |
-          npx -y is-agentic 0c7ea06d-portfolio-dev.mikel-e-g-2004.workers.dev --json > /tmp/report.json
-          node <<'NODE'
-          const fs = require('node:fs');
-          const report = JSON.parse(fs.readFileSync('/tmp/report.json', 'utf8'));
-          console.log('TOP LEVEL KEYS:', Object.keys(report));
-          console.log('SCORE SUMMARY:', JSON.stringify({
-            score: report.score,
-            grade: report.grade,
-            summary: report.summary,
-            buckets: report.buckets,
-            bonus: report.bonus,
-          }, null, 2));
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
 
-          const interesting = [];
-          const visit = (value, path = []) => {
-            if (Array.isArray(value)) {
-              value.forEach((item, index) => visit(item, [...path, index]));
-              return;
-            }
-            if (!value || typeof value !== 'object') return;
-            if ('status' in value) {
-              const status = String(value.status).toLowerCase();
-              if (!['passed', 'pass', 'not_applicable', 'not-applicable', 'n/a'].includes(status)) {
-                interesting.push({
-                  path: path.join('.'),
-                  id: value.id ?? value.checkId ?? value.check_id,
-                  name: value.name ?? value.title ?? value.label,
-                  status: value.status,
-                  score: value.score ?? value.points ?? value.credit,
-                  evidence: value.evidence,
-                  recommendation: value.recommendation,
-                });
-              }
-            }
-            for (const [key, child] of Object.entries(value)) visit(child, [...path, key]);
-          };
-          visit(report);
-          console.log('NON-PASS CHECKS:', JSON.stringify(interesting, null, 2));
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-          for (const key of Object.keys(report)) {
-            if (/bonus|emerg|signal|check/i.test(key)) {
-              console.log(`SECTION ${key}:`, JSON.stringify(report[key], null, 2).slice(0, 20000));
-            }
-          }
-          NODE
+      - name: Build
+        run: pnpm build
+
+      - name: Validate Wrangler bundle
+        run: pnpm exec wrangler deploy --dry-run
