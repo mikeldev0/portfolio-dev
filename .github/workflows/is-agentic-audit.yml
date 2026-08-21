@@ -14,10 +14,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify deployed agent readiness
-        env:
-          BASE_URL: https://91708270-portfolio-dev.mikel-e-g-2004.workers.dev
-        run: node scripts/verify-agent-readiness.mjs
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.11.1
 
-      - name: Run Is Agentic audit
-        run: npx -y is-agentic 91708270-portfolio-dev.mikel-e-g-2004.workers.dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build and test
+        run: pnpm build
+
+      - name: Validate Wrangler bundle
+        run: pnpm exec wrangler deploy --dry-run
