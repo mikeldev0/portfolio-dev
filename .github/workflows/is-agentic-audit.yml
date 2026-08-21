@@ -1,0 +1,17 @@
+name: Is Agentic audit
+
+on:
+  push:
+    branches:
+      - agent/improve-agent-readiness
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Run Is Agentic against Cloudflare branch preview
+        env:
+          TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+        run: npx -y is-agentic "$TARGET_DOMAIN"
