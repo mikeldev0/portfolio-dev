@@ -56,6 +56,7 @@ const openApiResponse = await request("/openapi.json", { headers: { Accept: "app
 const openApi = await openApiResponse.json();
 check(openApiResponse.status === 200, "OpenAPI status", `HTTP ${openApiResponse.status}`);
 check(openApi.openapi === "3.1.0", "OpenAPI version");
+check(openApi.servers?.[0]?.url === "/", "OpenAPI resolves operations against current host");
 check(Boolean(openApi.paths?.[profilePath]?.get?.operationId), "OpenAPI versioned profile operationId");
 check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI operation exposes inline typed response schema");
 
@@ -67,7 +68,7 @@ check(profile?.ok === true && profile?.data?.name === "Mikel Echeverria", "publi
 
 const legacyResponse = await fetch(`${baseUrl}/api/profile`, { redirect: "manual" });
 check(legacyResponse.status === 308, "legacy API route redirects permanently", `HTTP ${legacyResponse.status}`);
-check(legacyResponse.headers.get("deprecation") === "true", "legacy API route signals deprecation");
+check(/^@\d+$/.test(legacyResponse.headers.get("deprecation") || ""), "legacy API route signals RFC deprecation date");
 check(Boolean(legacyResponse.headers.get("sunset")), "legacy API route signals sunset date");
 
 const missingApiResponse = await request("/api/v1/agent-readiness-probe-not-found", { headers: { Accept: "application/json" } });

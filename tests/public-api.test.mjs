@@ -25,6 +25,7 @@ test("public profile exposes only canonical public portfolio data", () => {
 
 test("OpenAPI contract is versioned, typed, described and function-calling friendly", () => {
   assert.equal(openApiDocument.openapi, "3.1.0");
+  assert.equal(openApiDocument.servers[0].url, "/");
   assert.match(openApiDocument.info.title, /mikeldev/i);
   assert.match(openApiDocument.info.description, /\/api\/v1\//);
   assert.match(openApiDocument.info.description, /Deprecation/);
@@ -75,7 +76,7 @@ test("API and developer discovery are wired into public routes", async () => {
 
   assert.match(profileRoute, /export const GET/);
   assert.match(profileRoute, /method_not_allowed/);
-  assert.match(legacyRoute, /Deprecation/);
+  assert.match(legacyRoute, /Deprecation: "@\d+"/);
   assert.match(legacyRoute, /Sunset/);
   assert.match(openApiRoute, /openApiDocument/);
   assert.match(middleware, /apiNotFound/);

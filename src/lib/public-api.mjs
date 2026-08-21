@@ -138,7 +138,7 @@ export const openApiDocument = {
     description:
       "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
   },
-  servers: [{ url: "https://www.mikeldev.com", description: "Canonical production site" }],
+  servers: [{ url: "/", description: "Current host" }],
   externalDocs: {
     description: "mikeldev developer resources and API lifecycle policy",
     url: "https://www.mikeldev.com/developers",

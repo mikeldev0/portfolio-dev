@@ -21,7 +21,7 @@ const redirect: APIRoute = ({ request }) =>
       method: request.method,
       headers: {
         Location: PROFILE_PATH,
-        Deprecation: "true",
+        Deprecation: "@1787356800",
         Sunset: sunset,
         Link: successorLink,
       },
