@@ -20,6 +20,20 @@ jobs:
         with:
           ref: agent/improve-agent-readiness
 
+      - name: Wait for Cloudflare branch preview
+        env:
+          TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+        shell: bash
+        run: |
+          for attempt in {1..60}; do
+            if curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/profile" > /dev/null; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Cloudflare preview did not expose /api/profile in time" >&2
+          exit 1
+
       - name: Run Is Agentic against Cloudflare branch preview
         id: audit
         env:

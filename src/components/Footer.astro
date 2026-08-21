@@ -20,7 +20,7 @@ const currentYear = new Date().getFullYear();
 
       <nav aria-label="Footer Navigation">
         <ul
-          class="flex items-center gap-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)]"
+          class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)]"
         >
           <li>
             <a
@@ -39,6 +39,11 @@ const currentYear = new Date().getFullYear();
               itemprop="about"
             >
               <span data-i18n="footer.about">Sobre mí</span>
+            </a>
+          </li>
+          <li>
+            <a href="/developers" class="hover:text-[var(--primary)] transition-colors">
+              Developers
             </a>
           </li>
         </ul>

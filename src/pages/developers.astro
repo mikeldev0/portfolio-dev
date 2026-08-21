@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="mikeldev Developer Resources"
-  description="Developer and machine-readable resources for mikeldev.com, including source code, llms.txt, sitemap and API availability."
+  description="Developer and machine-readable resources for mikeldev.com, including the public profile API, OpenAPI 3.1 specification, llms.txt and sitemap."
   canonicalPath="/developers"
   markdownPath="/developers.md"
 >
@@ -16,26 +16,27 @@ import Layout from "../layouts/Layout.astro";
       </a>
       <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">mikeldev Developer Resources</h1>
       <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
-        mikeldev.com es un portfolio de ingeniería personal, no una plataforma pública para
-        desarrolladores. Actualmente no ofrece una API pública, un contrato OpenAPI, webhooks públicos
-        ni un servidor MCP.
+        mikeldev.com publica una API pequeña y de solo lectura para que agentes y herramientas puedan
+        recuperar la identidad pública del portfolio y sus enlaces canónicos sin depender de scraping
+        HTML. El contrato está descrito con OpenAPI 3.1 y no requiere autenticación.
       </p>
       <p>
-        El endpoint del formulario de contacto es un detalle de implementación para entregar consultas
-        humanas y no debe tratarse como una API de propósito general ni como una superficie para
-        mensajería automatizada. El código fuente del portfolio sí es público y permite revisar la
-        aplicación Astro, el renderizado del servidor, el adaptador de Cloudflare, la implementación
-        del formulario, la internacionalización en cliente y la función de IA local del navegador.
+        El endpoint público es <code>GET /api/profile</code>. Devuelve nombre, rol profesional,
+        ubicación pública, resumen, email profesional y enlaces a experiencia, proyectos, contacto,
+        código fuente y perfiles públicos. Los errores del namespace <code>/api/</code> se devuelven en
+        JSON con un código estable, un mensaje y una pista de resolución para que un agente pueda
+        recuperarse de una ruta incorrecta.
       </p>
       <p>
-        Para inspección automatizada, empieza por <a class="underline" href="/llms.txt">llms.txt</a>
-        para las instrucciones de uso, <a class="underline" href="/sitemap.xml">sitemap.xml</a> para
-        las rutas indexables y la representación Markdown de cada URL canónica mediante
-        <code>Accept: text/markdown</code>. Si en el futuro se publica una API, un esquema OpenAPI,
-        webhooks o un servidor MCP, esta página y llms.txt serán los puntos canónicos donde se
-        anunciarán.
+        El formulario de contacto queda deliberadamente fuera de OpenAPI: es una vía para consultas
+        humanas, no una superficie de mensajería automatizada. No hay webhooks ni un servidor MCP
+        público. Para interoperabilidad automática utiliza el contrato OpenAPI, la representación
+        Markdown de las páginas canónicas, <a class="underline" href="/llms.txt">llms.txt</a> y el
+        <a class="underline" href="/sitemap.xml">sitemap</a>.
       </p>
       <ul class="space-y-3">
+        <li><a class="underline" href="/openapi.json">OpenAPI 3.1 specification</a></li>
+        <li><a class="underline" href="/api/profile">GET /api/profile</a></li>
         <li><a class="underline" href="/llms.txt">llms.txt</a></li>
         <li><a class="underline" href="/sitemap.xml">sitemap.xml</a></li>
         <li><a class="underline" href="/robots.txt">robots.txt</a></li>

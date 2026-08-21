@@ -8,12 +8,30 @@ import {
   notFoundMarkdown,
   preferredType,
 } from "./lib/agent-readiness.mjs";
+import { apiErrorResponse, OPENAPI_MEDIA_TYPE } from "./lib/public-api.mjs";
+
+const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
+
+function apiNotFound(pathname: string, method: string) {
+  return apiErrorResponse({
+    status: 404,
+    code: "not_found",
+    message: `No public API resource exists at ${pathname}.`,
+    hint: "Use GET /api/profile or inspect /openapi.json for the supported API contract.",
+    method,
+    headers: { Link: serviceDescription },
+  });
+}
 
 function withNegotiationHeaders(response: Response, markdownPath: string | null) {
   const headers = new Headers(response.headers);
   appendVary(headers);
 
-  const links = [`</llms.txt>; rel="describedby"; type="text/plain"`];
+  const links = [
+    `</llms.txt>; rel="describedby"; type="text/plain"`,
+    serviceDescription,
+    `</developers>; rel="help"; type="text/html"`,
+  ];
   if (markdownPath) {
     links.unshift(`<${markdownPath}>; rel="alternate"; type="text/markdown"`);
   }
@@ -32,7 +50,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const method = context.request.method.toUpperCase();
   const isRepresentationRequest = method === "GET" || method === "HEAD";
 
-  if (!isRepresentationRequest) return next();
+  if (!isRepresentationRequest) {
+    const response = await next();
+    if (response.status === 404 && context.url.pathname.startsWith("/api/")) {
+      return apiNotFound(context.url.pathname, method);
+    }
+    return response;
+  }
 
   const markdown = markdownForPath(context.url.pathname);
   const markdownPath = markdownPathFor(context.url.pathname);
@@ -46,7 +70,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       const response = markdownResponse(markdown, { method });
       response.headers.set(
         "Link",
-        `<${context.url.pathname}>; rel="canonical", </llms.txt>; rel="describedby"; type="text/plain"`
+        `<${context.url.pathname}>; rel="canonical", </llms.txt>; rel="describedby"; type="text/plain", ${serviceDescription}, </developers>; rel="help"; type="text/html"`
       );
       return response;
     }
@@ -56,6 +80,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const response = await next();
   if (response.status !== 404) return response;
+
+  if (context.url.pathname.startsWith("/api/")) {
+    return apiNotFound(context.url.pathname, method);
+  }
 
   const chosen = preferredType(accept);
   if (chosen === "text/markdown") {

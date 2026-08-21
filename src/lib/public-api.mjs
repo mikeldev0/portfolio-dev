@@ -1,0 +1,180 @@
+export const OPENAPI_MEDIA_TYPE = "application/vnd.oai.openapi+json;version=3.1";
+
+export const publicProfile = {
+  name: "Mikel Echeverria",
+  alternateName: "mikeldev",
+  role: "Backend & Full Stack Engineer",
+  location: {
+    city: "Pamplona",
+    region: "Navarra",
+    country: "ES",
+  },
+  summary:
+    "Backend and full stack engineer focused on API architecture, scalable web systems, automation, and applied artificial intelligence.",
+  url: "https://www.mikeldev.com/",
+  email: "mikel@mikeldev.com",
+  resources: {
+    experience: "https://www.mikeldev.com/#experiencia",
+    projects: "https://www.mikeldev.com/#proyectos",
+    about: "https://www.mikeldev.com/about",
+    contact: "https://www.mikeldev.com/contact",
+    developers: "https://www.mikeldev.com/developers",
+    openapi: "https://www.mikeldev.com/openapi.json",
+    github: "https://github.com/mikeldev0",
+    linkedin: "https://www.linkedin.com/in/mikel-echeverria",
+    x: "https://x.com/mikelecheve",
+  },
+};
+
+export function jsonResponse(payload, { status = 200, method = "GET", headers } = {}) {
+  const responseHeaders = new Headers(headers);
+  responseHeaders.set("Content-Type", "application/json; charset=utf-8");
+  responseHeaders.set("Access-Control-Allow-Origin", "*");
+  responseHeaders.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+  responseHeaders.set("Access-Control-Allow-Headers", "Accept, Content-Type");
+  responseHeaders.set("X-Content-Type-Options", "nosniff");
+  responseHeaders.set(
+    "Cache-Control",
+    status >= 400 ? "no-store" : "public, max-age=300, s-maxage=300"
+  );
+
+  return new Response(method === "HEAD" ? null : JSON.stringify(payload), {
+    status,
+    headers: responseHeaders,
+  });
+}
+
+export function apiErrorResponse({
+  status = 404,
+  code = "not_found",
+  message = "The requested API resource does not exist.",
+  hint = "Inspect /openapi.json for the supported public API surface.",
+  method = "GET",
+  headers,
+} = {}) {
+  return jsonResponse(
+    {
+      ok: false,
+      error: { code, message, hint },
+    },
+    { status, method, headers }
+  );
+}
+
+export const openApiDocument = {
+  openapi: "3.1.0",
+  info: {
+    title: "mikeldev Portfolio API",
+    version: "1.0.0",
+    description:
+      "Small read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML.",
+  },
+  servers: [{ url: "https://www.mikeldev.com", description: "Canonical production site" }],
+  externalDocs: {
+    description: "mikeldev developer resources",
+    url: "https://www.mikeldev.com/developers",
+  },
+  security: [],
+  paths: {
+    "/api/profile": {
+      get: {
+        operationId: "getPortfolioProfile",
+        summary: "Get the public portfolio profile",
+        description:
+          "Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this operation for read-only identity or portfolio discovery tasks.",
+        tags: ["Portfolio"],
+        security: [],
+        responses: {
+          "200": {
+            description: "Public portfolio profile returned successfully.",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ProfileResponse" },
+              },
+            },
+          },
+          "405": {
+            description: "The endpoint only supports read-only methods.",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      ProfileResponse: {
+        type: "object",
+        additionalProperties: false,
+        required: ["ok", "data"],
+        properties: {
+          ok: { type: "boolean", const: true, description: "Whether the request succeeded." },
+          data: { $ref: "#/components/schemas/PortfolioProfile" },
+        },
+      },
+      PortfolioProfile: {
+        type: "object",
+        additionalProperties: false,
+        required: ["name", "alternateName", "role", "location", "summary", "url", "email", "resources"],
+        properties: {
+          name: { type: "string", description: "Public professional name." },
+          alternateName: { type: "string", description: "Public portfolio brand name." },
+          role: { type: "string", description: "Current public engineering role." },
+          location: { $ref: "#/components/schemas/Location" },
+          summary: { type: "string", description: "Short public professional summary." },
+          url: { type: "string", format: "uri", description: "Canonical portfolio URL." },
+          email: { type: "string", format: "email", description: "Public professional contact email." },
+          resources: { $ref: "#/components/schemas/ResourceLinks" },
+        },
+      },
+      Location: {
+        type: "object",
+        additionalProperties: false,
+        required: ["city", "region", "country"],
+        properties: {
+          city: { type: "string", description: "Public city." },
+          region: { type: "string", description: "Public region." },
+          country: { type: "string", description: "ISO 3166-1 alpha-2 country code." },
+        },
+      },
+      ResourceLinks: {
+        type: "object",
+        additionalProperties: false,
+        required: ["experience", "projects", "about", "contact", "developers", "openapi", "github", "linkedin", "x"],
+        properties: {
+          experience: { type: "string", format: "uri", description: "Canonical experience section." },
+          projects: { type: "string", format: "uri", description: "Canonical projects section." },
+          about: { type: "string", format: "uri", description: "About page." },
+          contact: { type: "string", format: "uri", description: "Professional contact page." },
+          developers: { type: "string", format: "uri", description: "Developer resources page." },
+          openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
+          github: { type: "string", format: "uri", description: "Public GitHub profile." },
+          linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
+          x: { type: "string", format: "uri", description: "Public X profile." },
+        },
+      },
+      ErrorResponse: {
+        type: "object",
+        additionalProperties: false,
+        required: ["ok", "error"],
+        properties: {
+          ok: { type: "boolean", const: false, description: "Whether the request succeeded." },
+          error: {
+            type: "object",
+            additionalProperties: false,
+            required: ["code", "message", "hint"],
+            properties: {
+              code: { type: "string", description: "Stable machine-readable error code." },
+              message: { type: "string", description: "Human-readable error description." },
+              hint: { type: "string", description: "Actionable recovery guidance for agents." },
+            },
+          },
+        },
+      },
+    },
+  },
+};
