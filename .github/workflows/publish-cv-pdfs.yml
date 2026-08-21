@@ -19,13 +19,20 @@ jobs:
           ref: update-swiss-cv-pdfs
           fetch-depth: 0
 
-      - name: Decode and verify CV PDFs
+      - name: Decode, extract and verify exact CV PDFs
         shell: bash
         run: |
           set -euo pipefail
-          for lang in es en de fr it rm; do
-            cat ".cv-upload/${lang}/"*.part | base64 --decode > "public/cv-${lang}.pdf"
-          done
+          mkdir -p /tmp/cv-transfer
+          cat .cv-upload/archive/*.part | base64 --decode > /tmp/cvs.tar.xz
+          tar -xJf /tmp/cvs.tar.xz -C /tmp/cv-transfer
+
+          cp '/tmp/cv-transfer/cv-es(1).pdf' public/cv-es.pdf
+          cp '/tmp/cv-transfer/cv-en(1).pdf' public/cv-en.pdf
+          cp '/tmp/cv-transfer/cv-de(1).pdf' public/cv-de.pdf
+          cp '/tmp/cv-transfer/cv-fr(1).pdf' public/cv-fr.pdf
+          cp '/tmp/cv-transfer/cv-it(1).pdf' public/cv-it.pdf
+          cp '/tmp/cv-transfer/cv-rm(1).pdf' public/cv-rm.pdf
 
           echo 'c1709be62f5cd3f48d9ffab7aa6738ca10b6590010000dd801a9c58559fe6a49  public/cv-es.pdf' | sha256sum -c -
           echo 'af8919acae4eb521ce7459d9b3f1e55d34dc73f5e25ac794f98365caed1a93e2  public/cv-en.pdf' | sha256sum -c -
