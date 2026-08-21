@@ -12,15 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Verify final commit preview
+      - uses: actions/checkout@v4
+
+      - name: Verify public agent endpoints
         env:
-          TARGET_DOMAIN: ac3a0235-portfolio-dev.mikel-e-g-2004.workers.dev
-        shell: bash
-        run: |
-          curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/v1/profile" > /dev/null
-          curl --fail --silent --show-error "https://${TARGET_DOMAIN}/openapi.json" | grep -q '"/api/v1/profile"'
+          BASE_URL: https://bb67e628-portfolio-dev.mikel-e-g-2004.workers.dev
+        run: node scripts/verify-agent-readiness.mjs
 
       - name: Run fresh Is Agentic audit
-        env:
-          TARGET_DOMAIN: ac3a0235-portfolio-dev.mikel-e-g-2004.workers.dev
-        run: npx -y is-agentic "$TARGET_DOMAIN"
+        run: npx -y is-agentic bb67e628-portfolio-dev.mikel-e-g-2004.workers.dev
