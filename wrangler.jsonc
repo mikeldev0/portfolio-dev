@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio-dev",
+  "compatibility_date": "2026-08-21",
   "ratelimits": [
     {
       "name": "PROFILE_RATE_LIMITER",
