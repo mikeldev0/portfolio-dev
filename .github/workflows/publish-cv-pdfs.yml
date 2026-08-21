@@ -1,0 +1,48 @@
+name: Publish CV PDFs
+
+on:
+  push:
+    branches:
+      - update-swiss-cv-pdfs
+    paths:
+      - .cv-upload/READY
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: update-swiss-cv-pdfs
+          fetch-depth: 0
+
+      - name: Decode and verify CV PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for lang in es en de fr it rm; do
+            cat ".cv-upload/${lang}/"*.part | base64 --decode > "public/cv-${lang}.pdf"
+          done
+
+          echo 'c1709be62f5cd3f48d9ffab7aa6738ca10b6590010000dd801a9c58559fe6a49  public/cv-es.pdf' | sha256sum -c -
+          echo 'af8919acae4eb521ce7459d9b3f1e55d34dc73f5e25ac794f98365caed1a93e2  public/cv-en.pdf' | sha256sum -c -
+          echo '19b3a4db7e24876b63fcb0bdde8156eea305a45f02e45da3ecdb7eddc7f988e0  public/cv-de.pdf' | sha256sum -c -
+          echo '6a8f042e9848b9668981b5cceddcd6e3ea951f36cdbcce3fd13d4dc7c1a4de86  public/cv-fr.pdf' | sha256sum -c -
+          echo 'a0ca02444dc02ef290bb1e9df786b9dbab59d7ee597c4ea95cc734d244e5d614  public/cv-it.pdf' | sha256sum -c -
+          echo 'f8a1d00e14b5b409eb7d4672f117900c0609fee635cc88931c13665b354174ce  public/cv-rm.pdf' | sha256sum -c -
+
+      - name: Commit exact PDFs and remove transfer files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .cv-upload
+          rm -f .github/workflows/publish-cv-pdfs.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- public/cv-es.pdf public/cv-en.pdf public/cv-de.pdf public/cv-fr.pdf public/cv-it.pdf public/cv-rm.pdf
+          git add -u -- .cv-upload .github/workflows/publish-cv-pdfs.yml
+          git commit -m 'Update Swiss CV PDFs'
+          git push origin HEAD:update-swiss-cv-pdfs
