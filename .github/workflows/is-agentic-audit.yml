@@ -1,20 +1,48 @@
 name: Is Agentic audit
 
 on:
-  pull_request:
-    branches:
-      - main
   push:
     branches:
       - agent/improve-agent-readiness
+    paths-ignore:
+      - audit-results/**
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/improve-agent-readiness
+
       - name: Run Is Agentic against Cloudflare branch preview
+        id: audit
         env:
           TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
-        run: npx -y is-agentic "$TARGET_DOMAIN"
+        shell: bash
+        run: |
+          mkdir -p audit-results
+          set +e
+          npx -y is-agentic "$TARGET_DOMAIN" > audit-results/is-agentic.txt 2>&1
+          status=$?
+          set -e
+          printf '\nExit code: %s\n' "$status" >> audit-results/is-agentic.txt
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: Persist audit output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit-results/is-agentic.txt
+          git commit -m "test(agent): record is-agentic audit" || exit 0
+          git push origin HEAD:agent/improve-agent-readiness
+
+      - name: Enforce audit exit code
+        if: steps.audit.outputs.status != '0'
+        run: exit "${{ steps.audit.outputs.status }}"
