@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="mikeldev Developer Resources"
-  description="Developer and machine-readable resources for mikeldev.com, including the versioned public profile API, OpenAPI 3.1 specification, llms.txt and sitemap."
+  description="Developer and machine-readable resources for mikeldev.com, including the versioned public profile API, OpenAPI 3.1 specification, API catalogs, agent guidance, llms.txt and sitemap."
   canonicalPath="/developers"
   markdownPath="/developers.md"
 >
@@ -35,6 +35,11 @@ import Layout from "../layouts/Layout.astro";
         agentes y clientes puedan autorregular los reintentos.
       </p>
       <p>
+        El descubrimiento automático está disponible mediante <code>/.well-known/api-catalog</code>
+        conforme a RFC 9727 y <code>/.well-known/ai-catalog.json</code> mediante AI Catalog/ARD 1.0.
+        Para instrucciones de uso orientadas a agentes, consulta <code>/agents.md</code>.
+      </p>
+      <p>
         Las versiones estables viven bajo <code>/api/v1/</code>. Un cambio incompatible se publicará
         bajo una nueva versión de URL. Si una versión antigua debe mantenerse durante una migración,
         se documentará aquí y responderá con cabeceras <code>Deprecation</code>, <code>Sunset</code> y
@@ -48,11 +53,19 @@ import Layout from "../layouts/Layout.astro";
         <a class="underline" href="/sitemap.xml">sitemap</a>.
       </p>
       <ul class="space-y-3">
+        <li><a class="underline" href="/agents.md">Agent guidance</a></li>
         <li><a class="underline" href="/openapi.json">OpenAPI 3.1 specification</a></li>
         <li><a class="underline" href="/api/v1/profile">GET /api/v1/profile</a></li>
+        <li><a class="underline" href="/.well-known/api-catalog">RFC 9727 API catalog</a></li>
+        <li><a class="underline" href="/.well-known/ai-catalog.json">AI Catalog / ARD</a></li>
         <li><a class="underline" href="/llms.txt">llms.txt</a></li>
         <li><a class="underline" href="/sitemap.xml">sitemap.xml</a></li>
         <li><a class="underline" href="/robots.txt">robots.txt</a></li>
+        <li>
+          <a class="underline" href="https://github.com/mikeldev0/portfolio-dev/blob/main/AGENTS.md">
+            Repository AGENTS.md
+          </a>
+        </li>
         <li>
           <a class="underline" href="https://github.com/mikeldev0/portfolio-dev">Portfolio source</a>
         </li>

@@ -1,6 +1,8 @@
 const baseUrl = (process.env.BASE_URL || "https://www.mikeldev.com").replace(/\/$/, "");
 const crawlerUserAgents = ["ChatGPT-User", "ClaudeBot", "Google-Extended", "ora-agent", "DeepSeekBot"];
 const profilePath = "/api/v1/profile";
+const apiCatalogPath = "/.well-known/api-catalog";
+const aiCatalogPath = "/.well-known/ai-catalog.json";
 
 let failures = 0;
 
@@ -32,6 +34,7 @@ check((htmlResponse.headers.get("vary") || "").toLowerCase().includes("accept"),
 check(/<h1[\s>]/i.test(html), "raw HTML contains H1");
 check(rawText.length >= 500, "raw HTML contains at least 500 text characters", `${rawText.length} chars`);
 check((htmlResponse.headers.get("link") || "").includes("service-desc"), "HTML advertises OpenAPI service description");
+check((htmlResponse.headers.get("link") || "").includes("api-catalog"), "HTML advertises RFC 9727 API catalog");
 
 const markdownResponse = await request("/", { headers: { Accept: "text/markdown" } });
 const markdown = await markdownResponse.text();
@@ -55,11 +58,33 @@ check(/llms\.txt/.test(missingBody) && /sitemap\.xml/.test(missingBody), "Markdo
 const openApiResponse = await request("/openapi.json", { headers: { Accept: "application/json" } });
 const openApi = await openApiResponse.json();
 check(openApiResponse.status === 200, "OpenAPI status", `HTTP ${openApiResponse.status}`);
+check(openApiResponse.headers.get("content-type")?.includes("application/vnd.oai.openapi+json"), "OpenAPI media type");
 check(openApi.openapi === "3.1.0", "OpenAPI version");
 check(openApi.servers?.[0]?.url === new URL(baseUrl).origin, "OpenAPI resolves operations against current host");
 check(Boolean(openApi.paths?.[profilePath]?.get?.operationId), "OpenAPI versioned profile operationId");
 check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ProfileResponse", "OpenAPI operation references typed response schema");
 check(openApi.paths?.[profilePath]?.get?.responses?.["429"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ErrorResponse", "OpenAPI documents typed rate-limit error");
+
+const apiCatalogResponse = await request(apiCatalogPath, { headers: { Accept: "application/linkset+json" } });
+const apiCatalog = await apiCatalogResponse.json();
+check(apiCatalogResponse.status === 200, "RFC 9727 API catalog status", `HTTP ${apiCatalogResponse.status}`);
+check(apiCatalogResponse.headers.get("content-type")?.includes("application/linkset+json"), "RFC 9727 API catalog media type");
+check(apiCatalogResponse.headers.get("content-type")?.includes("rfc9727"), "RFC 9727 API catalog profile");
+check(apiCatalog?.linkset?.[0]?.item?.some((item) => item.href === `${new URL(baseUrl).origin}${profilePath}`), "RFC 9727 API catalog exposes profile endpoint");
+
+const aiCatalogResponse = await request(aiCatalogPath, { headers: { Accept: "application/ai-catalog+json" } });
+const aiCatalog = await aiCatalogResponse.json();
+check(aiCatalogResponse.status === 200, "AI Catalog status", `HTTP ${aiCatalogResponse.status}`);
+check(aiCatalogResponse.headers.get("content-type")?.includes("application/ai-catalog+json"), "AI Catalog media type");
+check(aiCatalog?.specVersion === "1.0", "AI Catalog spec version");
+check(aiCatalog?.entries?.every((entry) => /^urn:air:mikeldev\.com:/.test(entry.identifier)), "AI Catalog domain-anchored entry identifiers");
+check(aiCatalog?.entries?.every((entry) => entry.url.startsWith(`${new URL(baseUrl).origin}/`)), "AI Catalog resolves artifacts against current host");
+
+const agentGuideResponse = await request("/agents.md", { headers: { Accept: "text/markdown" } });
+const agentGuide = await agentGuideResponse.text();
+check(agentGuideResponse.status === 200, "agent discovery file status", `HTTP ${agentGuideResponse.status}`);
+check(agentGuideResponse.headers.get("content-type")?.includes("text/markdown"), "agent discovery file media type");
+check(agentGuide.includes("GET /api/v1/profile") && agentGuide.includes("/.well-known/api-catalog"), "agent discovery file guidance");
 
 const profileResponse = await request(profilePath, { headers: { Accept: "application/json" } });
 const profile = await profileResponse.json();
@@ -67,6 +92,7 @@ check(profileResponse.status === 200, "public profile API status", `HTTP ${profi
 check(profileResponse.headers.get("content-type")?.includes("application/json"), "public profile API content type");
 check(Boolean(profileResponse.headers.get("ratelimit-policy")), "public profile API advertises RateLimit-Policy");
 check(profileResponse.headers.get("x-ratelimit-limit") === "120", "public profile API advertises compatibility quota");
+check((profileResponse.headers.get("link") || "").includes("api-catalog"), "public profile API advertises API catalog");
 check(profile?.ok === true && profile?.data?.name === "Mikel Echeverria", "public profile API payload");
 
 const legacyResponse = await fetch(`${baseUrl}/api/profile`, { redirect: "manual" });
@@ -80,7 +106,7 @@ check(missingApiResponse.status === 404, "missing API route returns 404", `HTTP 
 check(missingApiResponse.headers.get("content-type")?.includes("application/json"), "missing API route content type");
 check(missingApi?.ok === false && missingApi?.error?.code === "not_found" && Boolean(missingApi?.error?.hint), "missing API route structured error");
 
-for (const path of ["/llms.txt", "/robots.txt", "/sitemap.xml", "/about", "/contact", "/privacy", "/developers", "/index.md", "/about.md", "/contact.md", "/privacy.md", "/developers.md", "/openapi.json", profilePath]) {
+for (const path of ["/llms.txt", "/robots.txt", "/sitemap.xml", "/about", "/contact", "/privacy", "/developers", "/agents.md", "/index.md", "/about.md", "/contact.md", "/privacy.md", "/developers.md", "/openapi.json", apiCatalogPath, aiCatalogPath, profilePath]) {
   const response = await request(path);
   check(response.status === 200, `public endpoint ${path}`, `HTTP ${response.status}`);
 }

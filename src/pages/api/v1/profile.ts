@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
+import { API_CATALOG_PATH } from "../../../lib/agent-discovery.mjs";
 import {
   profileRateLimitHeaders,
   profileRateLimitKey,
@@ -14,6 +15,8 @@ import {
 export const prerender = false;
 
 const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
+const apiCatalogLink = `<${API_CATALOG_PATH}>; rel="api-catalog"; type="application/linkset+json"`;
+const discoveryLinks = `${serviceDescription}, ${apiCatalogLink}`;
 
 export const GET: APIRoute = async ({ request }) => {
   const { success } = await env.PROFILE_RATE_LIMITER.limit({ key: profileRateLimitKey(request) });
@@ -26,7 +29,7 @@ export const GET: APIRoute = async ({ request }) => {
       message: "The public profile API rate limit has been exceeded.",
       hint: `Retry after ${rateLimitHeaders["Retry-After"]} seconds.`,
       method: request.method,
-      headers: { Link: serviceDescription, ...rateLimitHeaders },
+      headers: { Link: discoveryLinks, ...rateLimitHeaders },
     });
   }
 
@@ -34,7 +37,7 @@ export const GET: APIRoute = async ({ request }) => {
     { ok: true, data: publicProfile },
     {
       method: request.method,
-      headers: { Link: serviceDescription, ...rateLimitHeaders },
+      headers: { Link: discoveryLinks, ...rateLimitHeaders },
     }
   );
 };
@@ -50,6 +53,7 @@ export const OPTIONS: APIRoute = () =>
       "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
       "Access-Control-Allow-Headers": "Accept, Content-Type",
       "Cache-Control": "public, max-age=86400",
+      Link: discoveryLinks,
     },
   });
 
@@ -62,7 +66,7 @@ function methodNotAllowed(method: string) {
     method,
     headers: {
       Allow: "GET, HEAD, OPTIONS",
-      Link: serviceDescription,
+      Link: discoveryLinks,
     },
   });
 }
