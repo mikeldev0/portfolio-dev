@@ -1,0 +1,50 @@
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="About Mikel Echeverria | mikeldev"
+  description="Professional background, engineering focus and public portfolio evidence for Mikel Echeverria, Backend & Full Stack Engineer."
+  canonicalPath="/about"
+  markdownPath="/about.md"
+>
+  <main class="max-w-3xl mx-auto px-6 pt-32 text-zinc-900 dark:text-zinc-100 sm:pt-48">
+    <article class="space-y-8 pb-20 sm:pb-32">
+      <a href="/" class="text-sm font-semibold text-[var(--ink-muted)] hover:text-[var(--primary)]">
+        ← Volver al portfolio
+      </a>
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">Sobre Mikel Echeverria</h1>
+      <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
+        Soy Backend & Full Stack Engineer y este portfolio está pensado para mostrar evidencia
+        práctica de mi trabajo: experiencia profesional, proyectos implementados, código fuente y
+        formas directas de contacto.
+      </p>
+      <p>
+        Mi trabajo se centra en construir y mantener software web, desde servicios backend y APIs
+        hasta aplicaciones frontend modernas. En el portfolio aparecen tecnologías como Django,
+        React, PostgreSQL, SQL, Spring Boot, Astro y JavaScript, además de proyectos relacionados con
+        automatización e inteligencia artificial aplicada. La intención es que tanto una persona de
+        selección como un responsable técnico pueda entender rápidamente qué he hecho y dónde puede
+        comprobarlo.
+      </p>
+      <p>
+        La mejor referencia es la combinación del historial profesional y los proyectos públicos. Si
+        necesitas validar una tecnología o una responsabilidad concreta, utiliza esas secciones y los
+        enlaces al código cuando estén disponibles, en lugar de asumir experiencia que no esté
+        publicada. El repositorio de este propio portfolio también es público y documenta decisiones
+        de implementación, despliegue y mantenimiento.
+      </p>
+      <p>
+        Estoy basado en Pamplona, Navarra. Para oportunidades laborales, colaboraciones, proyectos o
+        consultas profesionales puedes utilizar la página de contacto o escribir a
+        <a class="font-semibold underline underline-offset-4" href="mailto:mikel@mikeldev.com">
+          mikel@mikeldev.com</a
+        >. Los clientes automáticos pueden consultar <a class="underline" href="/llms.txt">llms.txt</a>
+        y <a class="underline" href="/sitemap.xml">sitemap.xml</a> para navegar por los recursos
+        públicos del sitio.
+      </p>
+    </article>
+    <Footer />
+  </main>
+</Layout>

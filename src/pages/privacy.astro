@@ -1,0 +1,49 @@
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Privacy | mikeldev"
+  description="Privacy information for mikeldev.com, including normal site requests and contact-form data handling."
+  canonicalPath="/privacy"
+  markdownPath="/privacy.md"
+>
+  <main class="max-w-3xl mx-auto px-6 pt-32 text-zinc-900 dark:text-zinc-100 sm:pt-48">
+    <article class="space-y-8 pb-20 sm:pb-32">
+      <a href="/" class="text-sm font-semibold text-[var(--ink-muted)] hover:text-[var(--primary)]">
+        ← Volver al portfolio
+      </a>
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">Privacidad</h1>
+      <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
+        mikeldev.com es un portfolio profesional personal. El código del sitio no incorpora de forma
+        intencionada cookies publicitarias ni analítica de comportamiento.
+      </p>
+      <p>
+        La infraestructura web normal puede procesar información técnica de una petición, como la
+        dirección IP, user agent, fecha y hora, URL solicitada y señales de seguridad, con el objetivo
+        de entregar y proteger el sitio. El portfolio está desplegado sobre infraestructura de
+        Cloudflare, por lo que Cloudflare puede procesar metadatos de las solicitudes conforme a sus
+        propios términos y políticas aplicables.
+      </p>
+      <p>
+        Si utilizas el formulario de contacto, los datos que envíes se usan para entregar el mensaje y
+        poder responder. Según los campos que decidas completar, pueden incluir nombre, email, empresa,
+        teléfono, categoría de la consulta, presupuesto o plazo del proyecto y el contenido del
+        mensaje. El formulario utiliza Resend como proveedor de entrega de correo. Envía únicamente la
+        información necesaria para la consulta profesional y nunca incluyas contraseñas, claves
+        privadas, datos de pago u otros secretos.
+      </p>
+      <p>
+        Los enlaces públicos del portfolio pueden llevar a servicios de terceros como GitHub,
+        LinkedIn, X, hosts de proyectos o webs de empresas, cada uno con sus propias prácticas de
+        privacidad. Para preguntas sobre esta página o sobre información enviada mediante el
+        formulario puedes escribir a
+        <a class="font-semibold underline underline-offset-4" href="mailto:mikel@mikeldev.com">
+          mikel@mikeldev.com</a
+        >.
+      </p>
+    </article>
+    <Footer />
+  </main>
+</Layout>

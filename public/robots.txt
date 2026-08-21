@@ -1,3 +1,30 @@
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: ora-agent
+Allow: /
+
 User-agent: *
 Allow: /
 

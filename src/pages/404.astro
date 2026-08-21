@@ -1,0 +1,30 @@
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+Astro.response.status = 404;
+---
+
+<Layout
+  title="Page not found | mikeldev"
+  description="The requested page does not exist on mikeldev.com."
+  canonicalPath={null}
+  markdownPath={null}
+  robots="noindex, follow"
+>
+  <main class="max-w-3xl mx-auto px-6 pt-32 text-zinc-900 dark:text-zinc-100 sm:pt-48">
+    <section class="space-y-8 pb-20 sm:pb-32">
+      <p class="text-sm font-bold uppercase tracking-[0.2em] text-[var(--ink-muted)]">404</p>
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">Página no encontrada</h1>
+      <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
+        La ruta solicitada no existe. Puedes volver al portfolio o consultar los recursos de navegación
+        para agentes y buscadores.
+      </p>
+      <div class="flex flex-wrap gap-5 text-sm font-semibold">
+        <a class="underline underline-offset-4" href="/">Portfolio</a>
+        <a class="underline underline-offset-4" href="/llms.txt">llms.txt</a>
+        <a class="underline underline-offset-4" href="/sitemap.xml">Sitemap</a>
+      </div>
+    </section>
+    <Footer />
+  </main>
+</Layout>

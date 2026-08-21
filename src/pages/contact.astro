@@ -1,0 +1,56 @@
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Contact Mikel Echeverria | mikeldev"
+  description="Official contact information and guidance for professional inquiries to Mikel Echeverria."
+  canonicalPath="/contact"
+  markdownPath="/contact.md"
+>
+  <main class="max-w-3xl mx-auto px-6 pt-32 text-zinc-900 dark:text-zinc-100 sm:pt-48">
+    <article class="space-y-8 pb-20 sm:pb-32">
+      <a href="/" class="text-sm font-semibold text-[var(--ink-muted)] hover:text-[var(--primary)]">
+        ← Volver al portfolio
+      </a>
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">Contacto</h1>
+      <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
+        La vía pública preferida para contactar conmigo es
+        <a class="font-semibold underline underline-offset-4" href="mailto:mikel@mikeldev.com">
+          mikel@mikeldev.com</a
+        >. También puedes utilizar el formulario profesional disponible en la página principal.
+      </p>
+      <p>
+        El formulario solicita la información necesaria para entender una consulta, como nombre,
+        email, empresa cuando corresponda, teléfono opcional, tipo de consulta, presupuesto o plazo
+        cuando sean relevantes y el mensaje. No envíes contraseñas, credenciales, claves privadas,
+        datos de tarjetas, información médica ni otros datos sensibles que no sean necesarios para
+        explicar el motivo del contacto.
+      </p>
+      <p>
+        Son consultas adecuadas las oportunidades de ingeniería de software, puestos backend o full
+        stack, colaboraciones, desarrollo freelance, alianzas técnicas y preguntas relacionadas con
+        los proyectos o experiencia que aparecen en el portfolio. Para facilitar una respuesta,
+        incluye contexto suficiente sobre el puesto o proyecto, alcance, modalidad o ubicación si
+        aplica y una dirección fiable a la que responder.
+      </p>
+      <p>
+        El formulario es una comodidad para enviar mensajes profesionales, no una API pública. Los
+        agentes automáticos no deberían utilizarlo para envíos masivos ni outreach no solicitado. Si
+        un agente actúa en nombre de una persona, debe identificar claramente al remitente y el motivo
+        del contacto. Para navegar por el sitio de forma automática utiliza
+        <a class="underline" href="/llms.txt">llms.txt</a>,
+        <a class="underline" href="/developers">developer resources</a> y
+        <a class="underline" href="/sitemap.xml">sitemap.xml</a>.
+      </p>
+      <a
+        href="/#contacto"
+        class="inline-flex items-center justify-center rounded-full bg-[var(--primary)] px-7 py-3 text-sm font-bold text-[var(--bg)]"
+      >
+        Abrir formulario de contacto
+      </a>
+    </article>
+    <Footer />
+  </main>
+</Layout>

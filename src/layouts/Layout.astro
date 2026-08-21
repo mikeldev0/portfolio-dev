@@ -10,46 +10,82 @@ import { isWithinHolidaySeason } from "../lib/holiday";
 interface Props {
   title: string;
   description: string;
+  canonicalPath?: string | null;
+  markdownPath?: string | null;
+  robots?: string;
 }
 
-const { description, title } = Astro.props;
+const {
+  description,
+  title,
+  canonicalPath = "/",
+  markdownPath = "/index.md",
+  robots = "index, follow",
+} = Astro.props;
 const { enableHolidayEffects } = env;
 const showHolidayEffects = enableHolidayEffects && isWithinHolidaySeason();
+const siteUrl = "https://www.mikeldev.com";
+const canonicalUrl = canonicalPath ? new URL(canonicalPath, siteUrl).toString() : null;
+const markdownUrl = markdownPath ? new URL(markdownPath, siteUrl).toString() : null;
+const personId = `${siteUrl}/#person`;
+const websiteId = `${siteUrl}/#website`;
+const postalAddress = {
+  "@type": "PostalAddress",
+  addressLocality: "Pamplona",
+  addressRegion: "Navarra",
+  addressCountry: "ES",
+};
+const socialProfiles = [
+  "https://github.com/mikeldev0",
+  "https://www.linkedin.com/in/mikel-echeverria",
+  "https://x.com/mikelecheve",
+];
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Mikel Echeverria",
-  alternateName: "mikedev",
-  jobTitle: "Desarrollador Full Stack y Backend",
-  url: "https://www.mikeldev.com",
-  image: "https://www.mikeldev.com/photo.webp",
-  email: "mailto:mikel@mikeldev.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Pamplona",
-    addressRegion: "Navarra",
-    addressCountry: "ES",
-  },
-  knowsAbout: [
-    "Backend engineering",
-    "Full stack development",
-    "API architecture",
-    "Django",
-    "React",
-    "Astro",
-    "Spring Boot",
-    "SQL",
-    "Artificial intelligence",
-    "Automation",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Mikel Echeverria",
+      alternateName: ["mikeldev", "mikeldev0"],
+      jobTitle: "Backend & Full Stack Engineer",
+      url: `${siteUrl}/`,
+      image: `${siteUrl}/photo.webp`,
+      email: "mikel@mikeldev.com",
+      address: postalAddress,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "professional inquiries",
+        email: "mikel@mikeldev.com",
+        availableLanguage: ["Spanish", "English"],
+      },
+      knowsAbout: [
+        "Backend engineering",
+        "Full stack development",
+        "API architecture",
+        "Django",
+        "React",
+        "Astro",
+        "Spring Boot",
+        "SQL",
+        "Artificial intelligence",
+        "Automation",
+      ],
+      sameAs: socialProfiles,
+      description:
+        "Backend & Full Stack Engineer en Pamplona, España. Especializado en arquitectura de APIs, sistemas escalables, automatización e inteligencia artificial aplicada.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: "mikeldev",
+      alternateName: "Mikel Echeverria Portfolio",
+      url: `${siteUrl}/`,
+      about: { "@id": personId },
+      publisher: { "@id": personId },
+      inLanguage: ["es", "en", "fr", "de", "it"],
+    },
   ],
-  sameAs: [
-    "https://github.com/mikeldev0",
-    "https://www.linkedin.com/in/mikel-echeverria",
-    "https://x.com/mikelecheve",
-    "mailto:mikel@mikeldev.com",
-  ],
-  description:
-    "Backend & Full Stack Engineer en Pamplona, España. Especializado en arquitectura de APIs, sistemas escalables, automatización e inteligencia artificial aplicada.",
 };
 ---
 
@@ -62,20 +98,30 @@ const structuredData = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="robots" content="index, follow" />
-    <meta
-      name="title"
-      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona | mikeldev.com"
-    />
+    <meta name="robots" content={robots} />
+    <meta name="title" content={title} />
     <meta
       name="keywords"
-      content="Mikel Echeverria, Backend Engineer, Full Stack Engineer, desarrollador backend Pamplona, desarrollador full stack Navarra, API architecture, Django, React, Astro, Spring Boot, SQL, AI automation"
+      content="Mikel Echeverria, mikeldev, Backend Engineer, Full Stack Engineer, desarrollador backend Pamplona, desarrollador full stack Navarra, API architecture, Django, React, Astro, Spring Boot, SQL, AI automation"
     />
     <meta name="author" content="Mikel Echeverria" />
-    <link rel="canonical" href="https://www.mikeldev.com" />
-    <link rel="alternate" hreflang="es" href="https://www.mikeldev.com/" />
-    <link rel="alternate" hreflang="en" href="https://www.mikeldev.com/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.mikeldev.com/" />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {markdownUrl && <link rel="alternate" type="text/markdown" href={markdownUrl} />}
+    <link rel="describedby" href="/llms.txt" />
+    <link
+      rel="service-desc"
+      href="/openapi.json"
+      type="application/vnd.oai.openapi+json;version=3.1"
+    />
+    {
+      canonicalPath === "/" && (
+        <>
+          <link rel="alternate" hreflang="es" href={`${siteUrl}/`} />
+          <link rel="alternate" hreflang="en" href={`${siteUrl}/`} />
+          <link rel="alternate" hreflang="x-default" href={`${siteUrl}/`} />
+        </>
+      )
+    }
     <meta name="theme-color" content="#faf8f5" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -92,31 +138,19 @@ const structuredData = {
     </script>
 
     <!-- Open Graph Tags -->
-    <meta
-      property="og:title"
-      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona"
-    />
-    <meta
-      property="og:description"
-      content="Portfolio de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables, automatización e IA aplicada."
-    />
-    <meta property="og:image" content="https://www.mikeldev.com/photo.webp" />
-    <meta property="og:url" content="https://www.mikeldev.com" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}/photo.webp`} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Mikel Echeverria" />
+    <meta property="og:site_name" content="mikeldev" />
     <meta property="og:locale" content="es_ES" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Mikel Echeverria - Backend & Full Stack Engineer en Pamplona"
-    />
-    <meta
-      name="twitter:description"
-      content="Portfolio de Mikel Echeverria, Backend & Full Stack Engineer especializado en arquitectura de APIs, sistemas escalables, automatización e IA aplicada."
-    />
-    <meta name="twitter:image" content="https://www.mikeldev.com/photo.webp" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/photo.webp`} />
 
     <title>{title}</title>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

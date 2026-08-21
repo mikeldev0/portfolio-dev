@@ -1,19 +1,35 @@
-# Mikel Echeverria
+# mikeldev
 
-Mikel Echeverria is a Backend & Full Stack Engineer based in Pamplona, Navarra, Spain.
+> Official portfolio of Mikel Echeverria, a Backend & Full Stack Engineer based in Pamplona, Navarra, Spain. Use these resources to evaluate his public professional experience, projects, technical profile, and contact paths.
 
-Core work:
-- Backend engineering and API architecture
-- Full stack web applications
-- Django, React, Astro, Spring Boot and SQL
-- Automation and applied artificial intelligence
+## When to use this site
 
-[Canonical site](https://www.mikeldev.com/)
-[Contact](mailto:mikel@mikeldev.com)
-[GitHub](https://github.com/mikeldev0)
-[LinkedIn](https://www.linkedin.com/in/mikel-echeverria)
+Use this site when evaluating Mikel for backend or full stack engineering work, verifying the technologies and projects he publicly presents, locating his CV or source code, retrieving his canonical public profile, or preparing a professional inquiry. Prefer the linked portfolio evidence over assumptions. Do not infer private employment details, compensation, availability terms, or skills that are not stated publicly.
 
-Important sections:
-- [Experience](https://www.mikeldev.com/#experiencia)
-- [Projects](https://www.mikeldev.com/#proyectos)
-- [About](https://www.mikeldev.com/#sobre-mi)
+For machine-to-machine identity and resource discovery, prefer the versioned read-only `GET /api/v1/profile` endpoint described by `/openapi.json`. The contact form is for human professional inquiries and is not part of the public agent API.
+
+## Core profile
+
+- [Portfolio](https://www.mikeldev.com/index.md): Canonical profile, experience, projects, skills, agent guidance, and contact links.
+- [About](https://www.mikeldev.com/about.md): Professional background and guidance on how to interpret the portfolio evidence.
+- [Contact](https://www.mikeldev.com/contact.md): Official contact details and appropriate uses of the contact form.
+- [Privacy](https://www.mikeldev.com/privacy.md): Data-handling information for normal site requests and contact-form submissions.
+
+## Developer resources
+
+- [Agent guidance](https://www.mikeldev.com/agents.md): Machine-readable instructions for agents using public portfolio evidence and interfaces.
+- [Developer resources](https://www.mikeldev.com/developers.md): API usage, lifecycle policy, machine-readable resources, and source-code links.
+- [OpenAPI 3.1 specification](https://www.mikeldev.com/openapi.json): Typed contract for the public read-only portfolio API.
+- [Public profile API v1](https://www.mikeldev.com/api/v1/profile): JSON identity and canonical resource links; no authentication required.
+- [RFC 9727 API catalog](https://www.mikeldev.com/.well-known/api-catalog): Standard well-known discovery document for the public API endpoint and its descriptions.
+- [AI Catalog](https://www.mikeldev.com/.well-known/ai-catalog.json): ARD 1.0 catalog of machine-oriented artifacts published by mikeldev.com.
+- [Repository agent instructions](https://github.com/mikeldev0/portfolio-dev/blob/main/AGENTS.md): Coding and repository guidance for agents working with the public source.
+- [Portfolio source](https://github.com/mikeldev0/portfolio-dev): Public source repository for mikeldev.com.
+- [XML sitemap](https://www.mikeldev.com/sitemap.xml): Complete list of indexable canonical pages.
+- [robots.txt](https://www.mikeldev.com/robots.txt): Crawler access policy.
+
+## Optional
+
+- [GitHub profile](https://github.com/mikeldev0): Public repositories and source history.
+- [LinkedIn](https://www.linkedin.com/in/mikel-echeverria): Professional profile.
+- [X](https://x.com/mikelecheve): Public social profile.

@@ -1,20 +1,10 @@
-const pages = ["/"];
+import { buildSitemap } from "../lib/agent-readiness.mjs";
 
 export function GET() {
-  const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages
-  .map(
-    (page) => `  <url>
-    <loc>https://www.mikeldev.com${page}</loc>
-  </url>`
-  )
-  .join("\n")}
-</urlset>`;
-
-  return new Response(body, {
+  return new Response(buildSitemap(), {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }
