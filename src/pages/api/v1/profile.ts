@@ -15,16 +15,8 @@ export const prerender = false;
 
 const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
 
-type RateLimitBinding = {
-  limit(options: { key: string }): Promise<{ success: boolean }>;
-};
-
-function profileRateLimiter() {
-  return (env as unknown as { PROFILE_RATE_LIMITER: RateLimitBinding }).PROFILE_RATE_LIMITER;
-}
-
 export const GET: APIRoute = async ({ request }) => {
-  const { success } = await profileRateLimiter().limit({ key: profileRateLimitKey(request) });
+  const { success } = await env.PROFILE_RATE_LIMITER.limit({ key: profileRateLimitKey(request) });
   const rateLimitHeaders = profileRateLimitHeaders({ limited: !success });
 
   if (!success) {
