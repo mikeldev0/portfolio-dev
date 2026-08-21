@@ -1,0 +1,94 @@
+▲ / Is Agentic  agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+
+  ███████████████████████████░░░░░░░░░    74 / 100
+                                          Ready with a few material gaps
+                                          8 failed · 3 partial
+
+SCORE BREAKDOWN
+  Essential         60 / 80    6 / 8 passed
+  Recommended     10.7 / 20    8 / 17 passed
+  Bonus                  +3    12 positive signals
+
+FAILURES (8)
+
+1. FAIL · ESSENTIAL  OpenAPI spec published
+   Evidence  No OpenAPI/Swagger specification found
+   Fix       Publish an OpenAPI (Swagger) specification at /openapi.json or
+             /api/openapi.yaml. This is how agents understand your API surface
+             automatically.
+
+2. FAIL · ESSENTIAL  JSON error responses
+   Evidence  API does not return JSON error responses (or no API detected)
+   Fix       Return structured JSON error responses with error codes, messages, and
+             resolution hints. Agents can't parse HTML error pages.
+
+3. FAIL · RECOMMENDED  Developer resource discoverability
+   Evidence  Agent searched for "workers" developer resources but found nothing relevant
+   Fix       Make your developer resources (API docs, OpenAPI spec, auth docs, webhooks,
+             MCP server) discoverable by name. Publish them at predictable URLs, list
+             them in llms.txt, and include your product name in page titles and headings
+             so search engines surface them for name-based queries.
+
+4. FAIL · RECOMMENDED  Brand name discoverability
+   Evidence  "mikeldev" search returned 9 results but domain did not appear - brand may
+             be too generic or not indexed
+   Fix       Make sure a clean search for your brand name returns your own domain in the
+             top results. If it does not, your brand may be too generic, conflict with a
+             more established term, or not yet indexed. Strengthen brand-name search by
+             claiming consistent NAP across listings, earning press mentions that link
+             to the canonical domain, and avoiding redirect chains that mask the apex
+             domain in search results.
+
+5. FAIL · RECOMMENDED  CLI tool available
+   Evidence  No CLI tool found
+   Fix       Publish an official CLI tool on npm, PyPI, or Homebrew. A CLI lets agents
+             and developers script interactions with your product without building API
+             integrations from scratch.
+
+6. FAIL · RECOMMENDED  Agent instruction / when-to-use
+   Evidence  No agent instruction file with when-to-use guidance found
+   Fix       Tell agents when to reach for you: add a 'when to use this' section to your
+             llms.txt (or a dedicated agent-instructions file) that names your best-fit
+             use cases and how an agent should call you. Be specific about the jobs you
+             are right for - generic marketing copy does not read as guidance.
+
+7. FAIL · RECOMMENDED  API schema complexity analysis
+   Evidence  No API schema detected
+   Fix       Make your API spec self-describing: a unique operationId and a description
+             on every operation, typed parameters, and response schemas. For GraphQL, a
+             fully typed schema with a documented cost or rate limit reads best.
+
+8. FAIL · RECOMMENDED  Function calling compatibility
+   Evidence  No API spec found - function calling requires discoverable endpoints
+   Fix       Ensure API endpoints have unique operation IDs, typed schemas, and
+             descriptions compatible with LLM function-calling formats.
+
+PARTIAL (3)
+
+9. PARTIAL · RECOMMENDED  MCP server / manifest
+   Evidence  MCP mentioned at
+             https://agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev/developers.md
+             but no standard manifest endpoint found
+   Fix       Build an MCP (Model Context Protocol) server exposing your API as tools.
+             Use Streamable HTTP transport for full score. This lets Claude, ChatGPT,
+             and other AI agents call your product natively.
+
+10. PARTIAL · RECOMMENDED  Public API/docs linked from homepage
+   Evidence  Documentation found at /developers but not linked from homepage
+   Fix       Publish API documentation at a discoverable URL (/docs, /api, /developers).
+             Include authentication, endpoints, and example requests.
+
+11. PARTIAL · RECOMMENDED  Public API with reachable endpoints
+   Evidence  API described in documentation at
+             https://agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev/developers.md
+             but no machine-verifiable API surface confirmed. Best-of-protocols score:
+             3/7.
+   Fix       Expose a public REST or GraphQL API. AI agents need programmatic access -
+             not just a web UI - to integrate with your product.
+
+REPORT
+  URL      https://is-agentic.com/scan/agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+  Scanned  2026-08-21T22:07:50.971Z
+  Checks   25 eligible
+
+Exit code: 0
