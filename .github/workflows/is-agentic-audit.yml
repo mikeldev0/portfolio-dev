@@ -26,12 +26,13 @@ jobs:
         shell: bash
         run: |
           for attempt in {1..60}; do
-            if curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/profile" > /dev/null; then
+            if curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/profile" > /dev/null \
+              && curl --fail --silent --show-error "https://${TARGET_DOMAIN}/openapi.json" | grep -q '"openapi":"3.1.0"'; then
               exit 0
             fi
             sleep 5
           done
-          echo "Cloudflare preview did not expose /api/profile in time" >&2
+          echo "Cloudflare preview did not expose the public API and OpenAPI 3.1 contract in time" >&2
           exit 1
 
       - name: Run Is Agentic against Cloudflare branch preview
