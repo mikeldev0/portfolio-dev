@@ -119,7 +119,7 @@ test("custom 404 keeps a real 404 status and points crawlers to recovery resourc
   assert.match(source, /href="\/sitemap\.xml"/);
 });
 
-test("layout exposes canonical metadata, Markdown discovery and complete identity schema", async () => {
+test("layout exposes canonical metadata, Markdown discovery and complete personal identity schema", async () => {
   const layout = await readFile(path.join(root, "src/layouts/Layout.astro"), "utf8");
   assert.match(layout, /<html lang="es"/);
   assert.match(layout, /rel="canonical"/);
@@ -127,9 +127,9 @@ test("layout exposes canonical metadata, Markdown discovery and complete identit
   assert.match(layout, /rel="describedby" href="\/llms\.txt"/);
   assert.match(layout, /property="og:image"/);
   assert.match(layout, /property="og:type"/);
-  assert.match(layout, /"@type": "Organization"/);
+  assert.match(layout, /"@type": "Person"/);
   assert.match(layout, /contactPoint/);
   assert.match(layout, /"@type": "PostalAddress"/);
-  assert.match(layout, /"@type": "Person"/);
   assert.match(layout, /"@type": "WebSite"/);
+  assert.doesNotMatch(layout, /"@type": "Organization"/);
 });

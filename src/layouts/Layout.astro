@@ -28,7 +28,6 @@ const siteUrl = "https://www.mikeldev.com";
 const canonicalUrl = canonicalPath ? new URL(canonicalPath, siteUrl).toString() : null;
 const markdownUrl = markdownPath ? new URL(markdownPath, siteUrl).toString() : null;
 const personId = `${siteUrl}/#person`;
-const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const postalAddress = {
   "@type": "PostalAddress",
@@ -54,6 +53,12 @@ const structuredData = {
       image: `${siteUrl}/photo.webp`,
       email: "mikel@mikeldev.com",
       address: postalAddress,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "professional inquiries",
+        email: "mikel@mikeldev.com",
+        availableLanguage: ["Spanish", "English"],
+      },
       knowsAbout: [
         "Backend engineering",
         "Full stack development",
@@ -71,30 +76,13 @@ const structuredData = {
         "Backend & Full Stack Engineer en Pamplona, España. Especializado en arquitectura de APIs, sistemas escalables, automatización e inteligencia artificial aplicada.",
     },
     {
-      "@type": "Organization",
-      "@id": organizationId,
-      name: "mikeldev",
-      url: `${siteUrl}/`,
-      founder: { "@id": personId },
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "professional inquiries",
-        email: "mikel@mikeldev.com",
-        availableLanguage: ["Spanish", "English"],
-      },
-      address: postalAddress,
-      sameAs: socialProfiles,
-      description:
-        "Personal engineering portfolio and professional contact presence for Mikel Echeverria.",
-    },
-    {
       "@type": "WebSite",
       "@id": websiteId,
       name: "mikeldev",
       alternateName: "Mikel Echeverria Portfolio",
       url: `${siteUrl}/`,
       about: { "@id": personId },
-      publisher: { "@id": organizationId },
+      publisher: { "@id": personId },
       inLanguage: ["es", "en", "fr", "de", "it"],
     },
   ],
