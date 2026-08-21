@@ -163,7 +163,7 @@ export const openApiDocument = {
           "405": {
             description: "The endpoint only supports read-only methods.",
             content: {
-              "application/json": { schema: errorResponseSchema },
+              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
             },
           },
         },

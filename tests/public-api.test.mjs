@@ -47,6 +47,10 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
   assert.equal(profileGet.operationId, "getPortfolioProfileV1");
   assert.equal(profileGet.responses["200"].content["application/json"].schema.type, "object");
   assert.equal(profileGet.responses["200"].content["application/json"].schema.properties.data.type, "object");
+  assert.equal(
+    profileGet.responses["405"].content["application/json"].schema.$ref,
+    "#/components/schemas/ErrorResponse"
+  );
 });
 
 test("JSON API responses and errors are machine-readable and actionable", async () => {
