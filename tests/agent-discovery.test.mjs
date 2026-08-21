@@ -62,7 +62,9 @@ test("entry points link agents to standard discovery resources", async () => {
     readFile(path.join(root, "src/pages/api/v1/profile.ts"), "utf8"),
   ]);
 
-  for (const source of [middleware, llms, developers]) {
+  assert.match(middleware, /API_CATALOG_PATH/);
+  assert.match(middleware, /AGENT_GUIDE_PATH/);
+  for (const source of [llms, developers]) {
     assert.match(source, /\.well-known\/api-catalog/);
     assert.match(source, /agents\.md/);
   }
@@ -70,6 +72,6 @@ test("entry points link agents to standard discovery resources", async () => {
   assert.match(llms, /AGENTS\.md/);
   assert.match(developers, /AGENTS\.md/);
   assert.match(openApiRoute, /OPENAPI_MEDIA_TYPE/);
-  assert.match(openApiRoute, /api-catalog/);
-  assert.match(profileRoute, /api-catalog/);
+  assert.match(openApiRoute, /API_CATALOG_PATH/);
+  assert.match(profileRoute, /API_CATALOG_PATH/);
 });
