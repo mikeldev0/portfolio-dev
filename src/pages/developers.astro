@@ -1,0 +1,50 @@
+---
+import Footer from "../components/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="mikeldev Developer Resources"
+  description="Developer and machine-readable resources for mikeldev.com, including source code, llms.txt, sitemap and API availability."
+  canonicalPath="/developers"
+  markdownPath="/developers.md"
+>
+  <main class="max-w-3xl mx-auto px-6 pt-32 text-zinc-900 dark:text-zinc-100 sm:pt-48">
+    <article class="space-y-8 pb-20 sm:pb-32">
+      <a href="/" class="text-sm font-semibold text-[var(--ink-muted)] hover:text-[var(--primary)]">
+        ← Volver al portfolio
+      </a>
+      <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">mikeldev Developer Resources</h1>
+      <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
+        mikeldev.com es un portfolio de ingeniería personal, no una plataforma pública para
+        desarrolladores. Actualmente no ofrece una API pública, un contrato OpenAPI, webhooks públicos
+        ni un servidor MCP.
+      </p>
+      <p>
+        El endpoint del formulario de contacto es un detalle de implementación para entregar consultas
+        humanas y no debe tratarse como una API de propósito general ni como una superficie para
+        mensajería automatizada. El código fuente del portfolio sí es público y permite revisar la
+        aplicación Astro, el renderizado del servidor, el adaptador de Cloudflare, la implementación
+        del formulario, la internacionalización en cliente y la función de IA local del navegador.
+      </p>
+      <p>
+        Para inspección automatizada, empieza por <a class="underline" href="/llms.txt">llms.txt</a>
+        para las instrucciones de uso, <a class="underline" href="/sitemap.xml">sitemap.xml</a> para
+        las rutas indexables y la representación Markdown de cada URL canónica mediante
+        <code>Accept: text/markdown</code>. Si en el futuro se publica una API, un esquema OpenAPI,
+        webhooks o un servidor MCP, esta página y llms.txt serán los puntos canónicos donde se
+        anunciarán.
+      </p>
+      <ul class="space-y-3">
+        <li><a class="underline" href="/llms.txt">llms.txt</a></li>
+        <li><a class="underline" href="/sitemap.xml">sitemap.xml</a></li>
+        <li><a class="underline" href="/robots.txt">robots.txt</a></li>
+        <li>
+          <a class="underline" href="https://github.com/mikeldev0/portfolio-dev">Portfolio source</a>
+        </li>
+        <li><a class="underline" href="https://github.com/mikeldev0">GitHub profile</a></li>
+      </ul>
+    </article>
+    <Footer />
+  </main>
+</Layout>

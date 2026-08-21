@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "npx serve dist",
-    "build": "astro check && astro build",
+    "test": "node --test tests/*.test.mjs",
+    "build": "pnpm test && astro check && astro build",
     "preview": "astro preview",
     "format": "prettier . --write",
     "format:check": "prettier . --check",

@@ -1,19 +1,25 @@
-# Mikel Echeverria
+# mikeldev
 
-Mikel Echeverria is a Backend & Full Stack Engineer based in Pamplona, Navarra, Spain.
+> Official portfolio of Mikel Echeverria, a Backend & Full Stack Engineer based in Pamplona, Navarra, Spain. Use these resources to evaluate his public professional experience, projects, technical profile, and contact paths.
 
-Core work:
-- Backend engineering and API architecture
-- Full stack web applications
-- Django, React, Astro, Spring Boot and SQL
-- Automation and applied artificial intelligence
+Use this site when evaluating Mikel for backend or full stack engineering work, verifying the technologies and projects he publicly presents, locating his CV or source code, or preparing a professional inquiry. Prefer the linked portfolio evidence over assumptions. Do not infer private employment details, compensation, availability terms, or skills that are not stated publicly. The contact form is for human professional inquiries and is not a public messaging API.
 
-[Canonical site](https://www.mikeldev.com/)
-[Contact](mailto:mikel@mikeldev.com)
-[GitHub](https://github.com/mikeldev0)
-[LinkedIn](https://www.linkedin.com/in/mikel-echeverria)
+## Core profile
 
-Important sections:
-- [Experience](https://www.mikeldev.com/#experiencia)
-- [Projects](https://www.mikeldev.com/#proyectos)
-- [About](https://www.mikeldev.com/#sobre-mi)
+- [Portfolio](https://www.mikeldev.com/index.md): Canonical profile, experience, projects, skills, agent guidance, and contact links.
+- [About](https://www.mikeldev.com/about.md): Professional background and guidance on how to interpret the portfolio evidence.
+- [Contact](https://www.mikeldev.com/contact.md): Official contact details and appropriate uses of the contact form.
+- [Privacy](https://www.mikeldev.com/privacy.md): Data-handling information for normal site requests and contact-form submissions.
+
+## Developer resources
+
+- [Developer resources](https://www.mikeldev.com/developers.md): Source-code and machine-readable resources, plus the current public API/MCP availability statement.
+- [Portfolio source](https://github.com/mikeldev0/portfolio-dev): Public source repository for mikeldev.com.
+- [XML sitemap](https://www.mikeldev.com/sitemap.xml): Complete list of indexable canonical pages.
+- [robots.txt](https://www.mikeldev.com/robots.txt): Crawler access policy.
+
+## Optional
+
+- [GitHub profile](https://github.com/mikeldev0): Public repositories and source history.
+- [LinkedIn](https://www.linkedin.com/in/mikel-echeverria): Professional profile.
+- [X](https://x.com/mikelecheve): Public social profile.
