@@ -27,6 +27,9 @@ jobs:
           echo "Cloudflare preview did not expose the public API and OpenAPI 3.1 contract in time" >&2
           exit 1
 
+      - name: Show Is Agentic CLI options
+        run: npx -y is-agentic --help
+
       - name: Run Is Agentic against Cloudflare branch preview
         env:
           TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
