@@ -69,7 +69,7 @@ export const openApiDocument = {
     description:
       "Small read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML.",
   },
-  servers: [{ url: "https://www.mikeldev.com", description: "Canonical production site" }],
+  servers: [{ url: "/", description: "Current host" }],
   externalDocs: {
     description: "mikeldev developer resources",
     url: "https://www.mikeldev.com/developers",
