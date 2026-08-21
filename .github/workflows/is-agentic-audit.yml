@@ -12,25 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Wait for Cloudflare branch preview
+      - name: Verify commit preview has the new API
         env:
-          TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+          TARGET_DOMAIN: 4b649d7d-portfolio-dev.mikel-e-g-2004.workers.dev
         shell: bash
         run: |
-          for attempt in {1..60}; do
-            if curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/profile" > /dev/null \
-              && curl --fail --silent --show-error "https://${TARGET_DOMAIN}/openapi.json" | grep -q '"openapi":"3.1.0"'; then
-              exit 0
-            fi
-            sleep 5
-          done
-          echo "Cloudflare preview did not expose the public API and OpenAPI 3.1 contract in time" >&2
-          exit 1
+          curl --fail --silent --show-error "https://${TARGET_DOMAIN}/api/profile" > /dev/null
+          curl --fail --silent --show-error "https://${TARGET_DOMAIN}/openapi.json" | grep -q '"openapi":"3.1.0"'
 
-      - name: Show Is Agentic CLI options
-        run: npx -y is-agentic --help
-
-      - name: Run Is Agentic against Cloudflare branch preview
+      - name: Run fresh Is Agentic audit against unique commit preview
         env:
-          TARGET_DOMAIN: agent-improve-agent-readiness-portfolio-dev.mikel-e-g-2004.workers.dev
+          TARGET_DOMAIN: 4b649d7d-portfolio-dev.mikel-e-g-2004.workers.dev
         run: npx -y is-agentic "$TARGET_DOMAIN"
