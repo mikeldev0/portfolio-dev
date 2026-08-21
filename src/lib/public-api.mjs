@@ -157,7 +157,7 @@ export const openApiDocument = {
           "200": {
             description: "Public portfolio profile returned successfully.",
             content: {
-              "application/json": { schema: profileResponseSchema },
+              "application/json": { schema: { $ref: "#/components/schemas/ProfileResponse" } },
             },
           },
           "405": {
@@ -177,3 +177,15 @@ export const openApiDocument = {
     },
   },
 };
+
+export function openApiDocumentForOrigin(origin) {
+  const currentOrigin = new URL(origin).origin;
+  return {
+    ...openApiDocument,
+    servers: [{ url: currentOrigin, description: "Current host" }],
+    externalDocs: {
+      ...openApiDocument.externalDocs,
+      url: `${currentOrigin}/developers`,
+    },
+  };
+}

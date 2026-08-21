@@ -9,6 +9,7 @@ import {
   apiErrorResponse,
   jsonResponse,
   openApiDocument,
+  openApiDocumentForOrigin,
   publicProfile,
 } from "../src/lib/public-api.mjs";
 
@@ -45,12 +46,23 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
 
   const profileGet = openApiDocument.paths[PROFILE_PATH].get;
   assert.equal(profileGet.operationId, "getPortfolioProfileV1");
-  assert.equal(profileGet.responses["200"].content["application/json"].schema.type, "object");
-  assert.equal(profileGet.responses["200"].content["application/json"].schema.properties.data.type, "object");
+  assert.equal(
+    profileGet.responses["200"].content["application/json"].schema.$ref,
+    "#/components/schemas/ProfileResponse"
+  );
+  assert.equal(openApiDocument.components.schemas.ProfileResponse.type, "object");
+  assert.equal(openApiDocument.components.schemas.ProfileResponse.properties.data.type, "object");
   assert.equal(
     profileGet.responses["405"].content["application/json"].schema.$ref,
     "#/components/schemas/ErrorResponse"
   );
+});
+
+test("OpenAPI runtime document resolves endpoints against the current host", () => {
+  const preview = openApiDocumentForOrigin("https://preview.example/openapi.json");
+  assert.equal(preview.servers[0].url, "https://preview.example");
+  assert.equal(preview.externalDocs.url, "https://preview.example/developers");
+  assert.equal(preview.paths[PROFILE_PATH].get.operationId, "getPortfolioProfileV1");
 });
 
 test("JSON API responses and errors are machine-readable and actionable", async () => {
@@ -82,7 +94,8 @@ test("API and developer discovery are wired into public routes", async () => {
   assert.match(profileRoute, /method_not_allowed/);
   assert.match(legacyRoute, /Deprecation: "@\d+"/);
   assert.match(legacyRoute, /Sunset/);
-  assert.match(openApiRoute, /openApiDocument/);
+  assert.match(openApiRoute, /openApiDocumentForOrigin/);
+  assert.match(openApiRoute, /new URL\(request\.url\)\.origin/);
   assert.match(middleware, /apiNotFound/);
   assert.match(middleware, /service-desc/);
   assert.match(layout, /rel="service-desc"/);
