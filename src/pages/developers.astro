@@ -29,6 +29,12 @@ import Layout from "../layouts/Layout.astro";
         recuperarse de una ruta incorrecta.
       </p>
       <p>
+        La API limita <strong>120 solicitudes por cliente cada 60 segundos</strong> en el edge de
+        Cloudflare. Las respuestas anuncian la cuota con <code>RateLimit-Policy</code>; cuando se agota,
+        el endpoint devuelve <code>429</code> con <code>RateLimit</code> y <code>Retry-After</code> para que
+        agentes y clientes puedan autorregular los reintentos.
+      </p>
+      <p>
         Las versiones estables viven bajo <code>/api/v1/</code>. Un cambio incompatible se publicará
         bajo una nueva versión de URL. Si una versión antigua debe mantenerse durante una migración,
         se documentará aquí y responderá con cabeceras <code>Deprecation</code>, <code>Sunset</code> y

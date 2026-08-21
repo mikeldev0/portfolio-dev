@@ -1,4 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio-dev",
+  "ratelimits": [
+    {
+      "name": "PROFILE_RATE_LIMITER",
+      "namespace_id": "26082201",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    }
+  ]
 }

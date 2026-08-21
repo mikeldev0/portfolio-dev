@@ -56,14 +56,17 @@ const openApiResponse = await request("/openapi.json", { headers: { Accept: "app
 const openApi = await openApiResponse.json();
 check(openApiResponse.status === 200, "OpenAPI status", `HTTP ${openApiResponse.status}`);
 check(openApi.openapi === "3.1.0", "OpenAPI version");
-check(openApi.servers?.[0]?.url === "/", "OpenAPI resolves operations against current host");
+check(openApi.servers?.[0]?.url === new URL(baseUrl).origin, "OpenAPI resolves operations against current host");
 check(Boolean(openApi.paths?.[profilePath]?.get?.operationId), "OpenAPI versioned profile operationId");
-check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI operation exposes inline typed response schema");
+check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ProfileResponse", "OpenAPI operation references typed response schema");
+check(openApi.paths?.[profilePath]?.get?.responses?.["429"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ErrorResponse", "OpenAPI documents typed rate-limit error");
 
 const profileResponse = await request(profilePath, { headers: { Accept: "application/json" } });
 const profile = await profileResponse.json();
 check(profileResponse.status === 200, "public profile API status", `HTTP ${profileResponse.status}`);
 check(profileResponse.headers.get("content-type")?.includes("application/json"), "public profile API content type");
+check(Boolean(profileResponse.headers.get("ratelimit-policy")), "public profile API advertises RateLimit-Policy");
+check(profileResponse.headers.get("x-ratelimit-limit") === "120", "public profile API advertises compatibility quota");
 check(profile?.ok === true && profile?.data?.name === "Mikel Echeverria", "public profile API payload");
 
 const legacyResponse = await fetch(`${baseUrl}/api/profile`, { redirect: "manual" });

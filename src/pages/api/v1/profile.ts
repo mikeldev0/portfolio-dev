@@ -1,4 +1,9 @@
 import type { APIRoute } from "astro";
+import { env } from "cloudflare:workers";
+import {
+  profileRateLimitHeaders,
+  profileRateLimitKey,
+} from "../../../lib/api-rate-limit.mjs";
 import {
   apiErrorResponse,
   jsonResponse,
@@ -10,11 +15,37 @@ export const prerender = false;
 
 const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
 
-export const GET: APIRoute = ({ request }) =>
-  jsonResponse(
+type RateLimitBinding = {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+};
+
+function profileRateLimiter() {
+  return (env as unknown as { PROFILE_RATE_LIMITER: RateLimitBinding }).PROFILE_RATE_LIMITER;
+}
+
+export const GET: APIRoute = async ({ request }) => {
+  const { success } = await profileRateLimiter().limit({ key: profileRateLimitKey(request) });
+  const rateLimitHeaders = profileRateLimitHeaders({ limited: !success });
+
+  if (!success) {
+    return apiErrorResponse({
+      status: 429,
+      code: "rate_limit_exceeded",
+      message: "The public profile API rate limit has been exceeded.",
+      hint: `Retry after ${rateLimitHeaders["Retry-After"]} seconds.`,
+      method: request.method,
+      headers: { Link: serviceDescription, ...rateLimitHeaders },
+    });
+  }
+
+  return jsonResponse(
     { ok: true, data: publicProfile },
-    { method: request.method, headers: { Link: serviceDescription } }
+    {
+      method: request.method,
+      headers: { Link: serviceDescription, ...rateLimitHeaders },
+    }
   );
+};
 
 export const HEAD = GET;
 
@@ -26,21 +57,25 @@ export const OPTIONS: APIRoute = () =>
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
       "Access-Control-Allow-Headers": "Accept, Content-Type",
-      "Cache-Control": "public, max-age=300, s-maxage=300",
+      "Cache-Control": "public, max-age=86400",
     },
   });
 
-const methodNotAllowed: APIRoute = ({ request }) =>
-  apiErrorResponse({
+function methodNotAllowed(method: string) {
+  return apiErrorResponse({
     status: 405,
     code: "method_not_allowed",
-    message: "The v1 public portfolio profile endpoint is read-only.",
-    hint: "Use GET /api/v1/profile. Inspect /openapi.json for the supported API contract.",
-    method: request.method,
-    headers: { Allow: "GET, HEAD, OPTIONS", Link: serviceDescription },
+    message: `${method} is not supported by this read-only endpoint.`,
+    hint: "Use GET /api/v1/profile or inspect /openapi.json for the supported contract.",
+    method,
+    headers: {
+      Allow: "GET, HEAD, OPTIONS",
+      Link: serviceDescription,
+    },
   });
+}
 
-export const POST = methodNotAllowed;
-export const PUT = methodNotAllowed;
-export const PATCH = methodNotAllowed;
-export const DELETE = methodNotAllowed;
+export const POST: APIRoute = ({ request }) => methodNotAllowed(request.method);
+export const PUT: APIRoute = ({ request }) => methodNotAllowed(request.method);
+export const PATCH: APIRoute = ({ request }) => methodNotAllowed(request.method);
+export const DELETE: APIRoute = ({ request }) => methodNotAllowed(request.method);

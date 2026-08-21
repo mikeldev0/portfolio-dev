@@ -1,3 +1,9 @@
+import {
+  PROFILE_RATE_LIMIT,
+  PROFILE_RATE_LIMIT_POLICY,
+  PROFILE_RATE_LIMIT_WINDOW,
+} from "./api-rate-limit.mjs";
+
 export const OPENAPI_MEDIA_TYPE = "application/vnd.oai.openapi+json;version=3.1";
 export const API_VERSION = "v1";
 export const PROFILE_PATH = `/api/${API_VERSION}/profile`;
@@ -130,6 +136,11 @@ const errorResponseSchema = {
   },
 };
 
+const rateLimitPolicyHeader = {
+  description: `Public profile quota: ${PROFILE_RATE_LIMIT} requests per client in each ${PROFILE_RATE_LIMIT_WINDOW}-second window.`,
+  schema: { type: "string", example: PROFILE_RATE_LIMIT_POLICY },
+};
+
 export const openApiDocument = {
   openapi: "3.1.0",
   info: {
@@ -150,18 +161,42 @@ export const openApiDocument = {
         operationId: "getPortfolioProfileV1",
         summary: "Get the v1 public portfolio profile",
         description:
-          "Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks.",
+          `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
         tags: ["Portfolio"],
         security: [],
         responses: {
           "200": {
             description: "Public portfolio profile returned successfully.",
+            headers: {
+              "RateLimit-Policy": rateLimitPolicyHeader,
+              "X-RateLimit-Limit": {
+                description: "Compatibility header containing the request quota.",
+                schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+              },
+            },
             content: {
               "application/json": { schema: { $ref: "#/components/schemas/ProfileResponse" } },
             },
           },
           "405": {
             description: "The endpoint only supports read-only methods.",
+            content: {
+              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
+            },
+          },
+          "429": {
+            description: "The per-client request quota has been exhausted.",
+            headers: {
+              "RateLimit-Policy": rateLimitPolicyHeader,
+              RateLimit: {
+                description: "Current IETF service-limit field. On a 429 the available quota is zero.",
+                schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
+              },
+              "Retry-After": {
+                description: "Seconds a client should wait before retrying.",
+                schema: { type: "integer", example: PROFILE_RATE_LIMIT_WINDOW },
+              },
+            },
             content: {
               "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
             },
