@@ -1,4 +1,6 @@
 export const OPENAPI_MEDIA_TYPE = "application/vnd.oai.openapi+json;version=3.1";
+export const API_VERSION = "v1";
+export const PROFILE_PATH = `/api/${API_VERSION}/profile`;
 
 export const publicProfile = {
   name: "Mikel Echeverria",
@@ -61,44 +63,107 @@ export function apiErrorResponse({
   );
 }
 
+const profileResponseSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["ok", "data"],
+  properties: {
+    ok: { type: "boolean", const: true, description: "Whether the request succeeded." },
+    data: {
+      type: "object",
+      additionalProperties: false,
+      required: ["name", "alternateName", "role", "location", "summary", "url", "email", "resources"],
+      properties: {
+        name: { type: "string", description: "Public professional name." },
+        alternateName: { type: "string", description: "Public portfolio brand name." },
+        role: { type: "string", description: "Current public engineering role." },
+        location: {
+          type: "object",
+          additionalProperties: false,
+          required: ["city", "region", "country"],
+          properties: {
+            city: { type: "string", description: "Public city." },
+            region: { type: "string", description: "Public region." },
+            country: { type: "string", description: "ISO 3166-1 alpha-2 country code." },
+          },
+        },
+        summary: { type: "string", description: "Short public professional summary." },
+        url: { type: "string", format: "uri", description: "Canonical portfolio URL." },
+        email: { type: "string", format: "email", description: "Public professional contact email." },
+        resources: {
+          type: "object",
+          additionalProperties: false,
+          required: ["experience", "projects", "about", "contact", "developers", "openapi", "github", "linkedin", "x"],
+          properties: {
+            experience: { type: "string", format: "uri", description: "Canonical experience section." },
+            projects: { type: "string", format: "uri", description: "Canonical projects section." },
+            about: { type: "string", format: "uri", description: "About page." },
+            contact: { type: "string", format: "uri", description: "Professional contact page." },
+            developers: { type: "string", format: "uri", description: "Developer resources page." },
+            openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
+            github: { type: "string", format: "uri", description: "Public GitHub profile." },
+            linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
+            x: { type: "string", format: "uri", description: "Public X profile." },
+          },
+        },
+      },
+    },
+  },
+};
+
+const errorResponseSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["ok", "error"],
+  properties: {
+    ok: { type: "boolean", const: false, description: "Whether the request succeeded." },
+    error: {
+      type: "object",
+      additionalProperties: false,
+      required: ["code", "message", "hint"],
+      properties: {
+        code: { type: "string", description: "Stable machine-readable error code." },
+        message: { type: "string", description: "Human-readable error description." },
+        hint: { type: "string", description: "Actionable recovery guidance for agents." },
+      },
+    },
+  },
+};
+
 export const openApiDocument = {
   openapi: "3.1.0",
   info: {
     title: "mikeldev Portfolio API",
     version: "1.0.0",
     description:
-      "Small read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML.",
+      "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
   },
-  servers: [{ url: "/", description: "Current host" }],
+  servers: [{ url: "https://www.mikeldev.com", description: "Canonical production site" }],
   externalDocs: {
-    description: "mikeldev developer resources",
+    description: "mikeldev developer resources and API lifecycle policy",
     url: "https://www.mikeldev.com/developers",
   },
   security: [],
   paths: {
-    "/api/profile": {
+    [PROFILE_PATH]: {
       get: {
-        operationId: "getPortfolioProfile",
-        summary: "Get the public portfolio profile",
+        operationId: "getPortfolioProfileV1",
+        summary: "Get the v1 public portfolio profile",
         description:
-          "Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this operation for read-only identity or portfolio discovery tasks.",
+          "Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks.",
         tags: ["Portfolio"],
         security: [],
         responses: {
           "200": {
             description: "Public portfolio profile returned successfully.",
             content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ProfileResponse" },
-              },
+              "application/json": { schema: profileResponseSchema },
             },
           },
           "405": {
             description: "The endpoint only supports read-only methods.",
             content: {
-              "application/json": {
-                schema: { $ref: "#/components/schemas/ErrorResponse" },
-              },
+              "application/json": { schema: errorResponseSchema },
             },
           },
         },
@@ -107,74 +172,8 @@ export const openApiDocument = {
   },
   components: {
     schemas: {
-      ProfileResponse: {
-        type: "object",
-        additionalProperties: false,
-        required: ["ok", "data"],
-        properties: {
-          ok: { type: "boolean", const: true, description: "Whether the request succeeded." },
-          data: { $ref: "#/components/schemas/PortfolioProfile" },
-        },
-      },
-      PortfolioProfile: {
-        type: "object",
-        additionalProperties: false,
-        required: ["name", "alternateName", "role", "location", "summary", "url", "email", "resources"],
-        properties: {
-          name: { type: "string", description: "Public professional name." },
-          alternateName: { type: "string", description: "Public portfolio brand name." },
-          role: { type: "string", description: "Current public engineering role." },
-          location: { $ref: "#/components/schemas/Location" },
-          summary: { type: "string", description: "Short public professional summary." },
-          url: { type: "string", format: "uri", description: "Canonical portfolio URL." },
-          email: { type: "string", format: "email", description: "Public professional contact email." },
-          resources: { $ref: "#/components/schemas/ResourceLinks" },
-        },
-      },
-      Location: {
-        type: "object",
-        additionalProperties: false,
-        required: ["city", "region", "country"],
-        properties: {
-          city: { type: "string", description: "Public city." },
-          region: { type: "string", description: "Public region." },
-          country: { type: "string", description: "ISO 3166-1 alpha-2 country code." },
-        },
-      },
-      ResourceLinks: {
-        type: "object",
-        additionalProperties: false,
-        required: ["experience", "projects", "about", "contact", "developers", "openapi", "github", "linkedin", "x"],
-        properties: {
-          experience: { type: "string", format: "uri", description: "Canonical experience section." },
-          projects: { type: "string", format: "uri", description: "Canonical projects section." },
-          about: { type: "string", format: "uri", description: "About page." },
-          contact: { type: "string", format: "uri", description: "Professional contact page." },
-          developers: { type: "string", format: "uri", description: "Developer resources page." },
-          openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
-          github: { type: "string", format: "uri", description: "Public GitHub profile." },
-          linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
-          x: { type: "string", format: "uri", description: "Public X profile." },
-        },
-      },
-      ErrorResponse: {
-        type: "object",
-        additionalProperties: false,
-        required: ["ok", "error"],
-        properties: {
-          ok: { type: "boolean", const: false, description: "Whether the request succeeded." },
-          error: {
-            type: "object",
-            additionalProperties: false,
-            required: ["code", "message", "hint"],
-            properties: {
-              code: { type: "string", description: "Stable machine-readable error code." },
-              message: { type: "string", description: "Human-readable error description." },
-              hint: { type: "string", description: "Actionable recovery guidance for agents." },
-            },
-          },
-        },
-      },
+      ProfileResponse: profileResponseSchema,
+      ErrorResponse: errorResponseSchema,
     },
   },
 };

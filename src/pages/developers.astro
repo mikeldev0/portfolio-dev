@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout
   title="mikeldev Developer Resources"
-  description="Developer and machine-readable resources for mikeldev.com, including the public profile API, OpenAPI 3.1 specification, llms.txt and sitemap."
+  description="Developer and machine-readable resources for mikeldev.com, including the versioned public profile API, OpenAPI 3.1 specification, llms.txt and sitemap."
   canonicalPath="/developers"
   markdownPath="/developers.md"
 >
@@ -16,27 +16,34 @@ import Layout from "../layouts/Layout.astro";
       </a>
       <h1 class="text-4xl font-bold tracking-tighter sm:text-6xl">mikeldev Developer Resources</h1>
       <p class="text-xl leading-relaxed text-[var(--ink-muted)]">
-        mikeldev.com publica una API pequeña y de solo lectura para que agentes y herramientas puedan
-        recuperar la identidad pública del portfolio y sus enlaces canónicos sin depender de scraping
-        HTML. El contrato está descrito con OpenAPI 3.1 y no requiere autenticación.
+        mikeldev.com publica una API pequeña, versionada y de solo lectura para que agentes y
+        herramientas recuperen la identidad pública del portfolio y sus enlaces canónicos sin
+        depender de scraping HTML. El contrato está descrito con OpenAPI 3.1 y no requiere
+        autenticación.
       </p>
       <p>
-        El endpoint público es <code>GET /api/profile</code>. Devuelve nombre, rol profesional,
+        El endpoint estable es <code>GET /api/v1/profile</code>. Devuelve nombre, rol profesional,
         ubicación pública, resumen, email profesional y enlaces a experiencia, proyectos, contacto,
         código fuente y perfiles públicos. Los errores del namespace <code>/api/</code> se devuelven en
         JSON con un código estable, un mensaje y una pista de resolución para que un agente pueda
         recuperarse de una ruta incorrecta.
       </p>
       <p>
+        Las versiones estables viven bajo <code>/api/v1/</code>. Un cambio incompatible se publicará
+        bajo una nueva versión de URL. Si una versión antigua debe mantenerse durante una migración,
+        se documentará aquí y responderá con cabeceras <code>Deprecation</code>, <code>Sunset</code> y
+        un enlace <code>successor-version</code> antes de retirarse.
+      </p>
+      <p>
         El formulario de contacto queda deliberadamente fuera de OpenAPI: es una vía para consultas
-        humanas, no una superficie de mensajería automatizada. No hay webhooks ni un servidor MCP
-        público. Para interoperabilidad automática utiliza el contrato OpenAPI, la representación
-        Markdown de las páginas canónicas, <a class="underline" href="/llms.txt">llms.txt</a> y el
+        humanas, no una superficie de mensajería automatizada. Para interoperabilidad automática usa
+        el contrato OpenAPI, la representación Markdown de las páginas canónicas,
+        <a class="underline" href="/llms.txt">llms.txt</a> y el
         <a class="underline" href="/sitemap.xml">sitemap</a>.
       </p>
       <ul class="space-y-3">
         <li><a class="underline" href="/openapi.json">OpenAPI 3.1 specification</a></li>
-        <li><a class="underline" href="/api/profile">GET /api/profile</a></li>
+        <li><a class="underline" href="/api/v1/profile">GET /api/v1/profile</a></li>
         <li><a class="underline" href="/llms.txt">llms.txt</a></li>
         <li><a class="underline" href="/sitemap.xml">sitemap.xml</a></li>
         <li><a class="underline" href="/robots.txt">robots.txt</a></li>

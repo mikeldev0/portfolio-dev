@@ -1,46 +1,32 @@
 import type { APIRoute } from "astro";
-import {
-  apiErrorResponse,
-  jsonResponse,
-  OPENAPI_MEDIA_TYPE,
-  publicProfile,
-} from "../../lib/public-api.mjs";
+import { jsonResponse, PROFILE_PATH } from "../../lib/public-api.mjs";
 
 export const prerender = false;
 
-const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
+const sunset = "Tue, 01 Dec 2026 00:00:00 GMT";
+const successorLink = `<${PROFILE_PATH}>; rel="successor-version"`;
 
-export const GET: APIRoute = ({ request }) =>
+const redirect: APIRoute = ({ request }) =>
   jsonResponse(
-    { ok: true, data: publicProfile },
-    { method: request.method, headers: { Link: serviceDescription } }
+    {
+      ok: false,
+      error: {
+        code: "deprecated_endpoint",
+        message: "The unversioned portfolio profile endpoint has moved to the stable v1 API.",
+        hint: `Use GET ${PROFILE_PATH}.`,
+      },
+    },
+    {
+      status: 308,
+      method: request.method,
+      headers: {
+        Location: PROFILE_PATH,
+        Deprecation: "true",
+        Sunset: sunset,
+        Link: successorLink,
+      },
+    }
   );
 
-export const HEAD = GET;
-
-export const OPTIONS: APIRoute = () =>
-  new Response(null, {
-    status: 204,
-    headers: {
-      Allow: "GET, HEAD, OPTIONS",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
-      "Access-Control-Allow-Headers": "Accept, Content-Type",
-      "Cache-Control": "public, max-age=300, s-maxage=300",
-    },
-  });
-
-const methodNotAllowed: APIRoute = ({ request }) =>
-  apiErrorResponse({
-    status: 405,
-    code: "method_not_allowed",
-    message: "The public portfolio profile endpoint is read-only.",
-    hint: "Use GET /api/profile. Inspect /openapi.json for the supported API contract.",
-    method: request.method,
-    headers: { Allow: "GET, HEAD, OPTIONS", Link: serviceDescription },
-  });
-
-export const POST = methodNotAllowed;
-export const PUT = methodNotAllowed;
-export const PATCH = methodNotAllowed;
-export const DELETE = methodNotAllowed;
+export const GET = redirect;
+export const HEAD = redirect;

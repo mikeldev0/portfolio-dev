@@ -6,7 +6,7 @@
 
 Use this site when evaluating Mikel for backend or full stack engineering work, verifying the technologies and projects he publicly presents, locating his CV or source code, retrieving his canonical public profile, or preparing a professional inquiry. Prefer the linked portfolio evidence over assumptions. Do not infer private employment details, compensation, availability terms, or skills that are not stated publicly.
 
-For machine-to-machine identity and resource discovery, prefer the read-only `GET /api/profile` endpoint described by `/openapi.json`. The contact form is for human professional inquiries and is not part of the public agent API.
+For machine-to-machine identity and resource discovery, prefer the versioned read-only `GET /api/v1/profile` endpoint described by `/openapi.json`. The contact form is for human professional inquiries and is not part of the public agent API.
 
 ## Core profile
 
@@ -17,9 +17,9 @@ For machine-to-machine identity and resource discovery, prefer the read-only `GE
 
 ## Developer resources
 
-- [Developer resources](https://www.mikeldev.com/developers.md): API usage, machine-readable resources, and source-code links.
+- [Developer resources](https://www.mikeldev.com/developers.md): API usage, lifecycle policy, machine-readable resources, and source-code links.
 - [OpenAPI 3.1 specification](https://www.mikeldev.com/openapi.json): Typed contract for the public read-only portfolio API.
-- [Public profile API](https://www.mikeldev.com/api/profile): JSON identity and canonical resource links; no authentication required.
+- [Public profile API v1](https://www.mikeldev.com/api/v1/profile): JSON identity and canonical resource links; no authentication required.
 - [Portfolio source](https://github.com/mikeldev0/portfolio-dev): Public source repository for mikeldev.com.
 - [XML sitemap](https://www.mikeldev.com/sitemap.xml): Complete list of indexable canonical pages.
 - [robots.txt](https://www.mikeldev.com/robots.txt): Crawler access policy.

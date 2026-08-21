@@ -8,7 +8,7 @@ import {
   notFoundMarkdown,
   preferredType,
 } from "./lib/agent-readiness.mjs";
-import { apiErrorResponse, OPENAPI_MEDIA_TYPE } from "./lib/public-api.mjs";
+import { apiErrorResponse, OPENAPI_MEDIA_TYPE, PROFILE_PATH } from "./lib/public-api.mjs";
 
 const serviceDescription = `</openapi.json>; rel="service-desc"; type="${OPENAPI_MEDIA_TYPE}"`;
 
@@ -17,7 +17,7 @@ function apiNotFound(pathname: string, method: string) {
     status: 404,
     code: "not_found",
     message: `No public API resource exists at ${pathname}.`,
-    hint: "Use GET /api/profile or inspect /openapi.json for the supported API contract.",
+    hint: `Use GET ${PROFILE_PATH} or inspect /openapi.json for the supported API contract.`,
     method,
     headers: { Link: serviceDescription },
   });
