@@ -71,6 +71,37 @@ export function apiErrorResponse({
   );
 }
 
+const resourceLinksSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "experience",
+    "projects",
+    "about",
+    "contact",
+    "developers",
+    "openapi",
+    "github",
+    "linkedin",
+    "x",
+  ],
+  properties: {
+    experience: {
+      type: "string",
+      format: "uri",
+      description: "Canonical experience section.",
+    },
+    projects: { type: "string", format: "uri", description: "Canonical projects section." },
+    about: { type: "string", format: "uri", description: "About page." },
+    contact: { type: "string", format: "uri", description: "Professional contact page." },
+    developers: { type: "string", format: "uri", description: "Developer resources page." },
+    openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
+    github: { type: "string", format: "uri", description: "Public GitHub profile." },
+    linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
+    x: { type: "string", format: "uri", description: "Public X profile." },
+  },
+};
+
 const profileResponseSchema = {
   type: "object",
   additionalProperties: false,
@@ -111,36 +142,7 @@ const profileResponseSchema = {
           format: "email",
           description: "Public professional contact email.",
         },
-        resources: {
-          type: "object",
-          additionalProperties: false,
-          required: [
-            "experience",
-            "projects",
-            "about",
-            "contact",
-            "developers",
-            "openapi",
-            "github",
-            "linkedin",
-            "x",
-          ],
-          properties: {
-            experience: {
-              type: "string",
-              format: "uri",
-              description: "Canonical experience section.",
-            },
-            projects: { type: "string", format: "uri", description: "Canonical projects section." },
-            about: { type: "string", format: "uri", description: "About page." },
-            contact: { type: "string", format: "uri", description: "Professional contact page." },
-            developers: { type: "string", format: "uri", description: "Developer resources page." },
-            openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
-            github: { type: "string", format: "uri", description: "Public GitHub profile." },
-            linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
-            x: { type: "string", format: "uri", description: "Public X profile." },
-          },
-        },
+        resources: resourceLinksSchema,
       },
     },
   },
@@ -165,23 +167,119 @@ const errorResponseSchema = {
   },
 };
 
+const resourcesResponseSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["ok", "data"],
+  properties: {
+    ok: { type: "boolean", const: true, description: "Whether the request succeeded." },
+    data: {
+      type: "object",
+      additionalProperties: false,
+      required: ["resources"],
+      properties: {
+        resources: resourceLinksSchema,
+      },
+    },
+  },
+};
+
+function successRateLimitHeaders() {
+  return {
+    "RateLimit-Policy": rateLimitPolicyHeader,
+    RateLimit: {
+      description: "Current IETF rate-limit field with the advertised quota and reset window.",
+      schema: {
+        type: "string",
+        example: `"profile";r=${PROFILE_RATE_LIMIT};t=${PROFILE_RATE_LIMIT_WINDOW}`,
+      },
+    },
+    "X-RateLimit-Limit": {
+      description: "Compatibility header containing the request quota.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+    },
+    "X-RateLimit-Remaining": {
+      description: "Compatibility header containing the currently advertised quota.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+    },
+  };
+}
+
 const rateLimitPolicyHeader = {
   description: `Public profile quota: ${PROFILE_RATE_LIMIT} requests per client in each ${PROFILE_RATE_LIMIT_WINDOW}-second window.`,
   schema: { type: "string", example: PROFILE_RATE_LIMIT_POLICY },
 };
 
-function errorExamples(code, message, hint) {
+function jsonErrorContent(code, message, hint) {
   return {
-    error: {
-      value: { ok: false, error: { code, message, hint } },
+    schema: errorResponseSchema,
+    examples: {
+      error: {
+        value: { ok: false, error: { code, message, hint } },
+      },
     },
   };
 }
 
-function jsonErrorContent(code, message, hint) {
+function rateLimitExceededHeaders() {
   return {
-    schema: errorResponseSchema,
-    examples: errorExamples(code, message, hint),
+    "RateLimit-Policy": rateLimitPolicyHeader,
+    RateLimit: {
+      description: "Current IETF service-limit field. On a 429 the available quota is zero.",
+      schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
+    },
+    "Retry-After": {
+      description: "Seconds a client should wait before retrying.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT_WINDOW },
+    },
+  };
+}
+
+function readOnlyResponses({ retryPath, quotaMessage }) {
+  return {
+    405: {
+      description: "The endpoint only supports read-only methods.",
+      content: {
+        "application/json": jsonErrorContent(
+          "method_not_allowed",
+          "POST is not supported by this read-only endpoint.",
+          `Use GET ${retryPath} or inspect /openapi.json for the supported contract.`
+        ),
+      },
+    },
+    429: {
+      description: "The per-client request quota has been exhausted.",
+      headers: rateLimitExceededHeaders(),
+      content: {
+        "application/json": jsonErrorContent(
+          "rate_limit_exceeded",
+          quotaMessage,
+          `Retry after ${PROFILE_RATE_LIMIT_WINDOW} seconds.`
+        ),
+      },
+    },
+    default: {
+      description: "Unexpected error. The payload follows the shared typed error schema.",
+      content: {
+        "application/json": jsonErrorContent(
+          "internal_error",
+          "An unexpected error occurred while serving the request.",
+          "Retry with exponential backoff and inspect /openapi.json for the supported contract."
+        ),
+      },
+    },
+  };
+}
+
+function aiFunction(operationId, description) {
+  return {
+    name: operationId,
+    description,
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      properties: {},
+    },
   };
 }
 
@@ -207,84 +305,48 @@ export const openApiDocument = {
         description: `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
         tags: ["Portfolio"],
         security: [],
-        "x-ai-function": {
-          name: "getPortfolioProfileV1",
-          description:
-            "Retrieve Mikel Echeverria's canonical public portfolio identity and resource links.",
-          parameters: {
-            type: "object",
-            additionalProperties: false,
-            properties: {},
-          },
-        },
+        "x-ai-function": aiFunction(
+          "getPortfolioProfileV1",
+          "Retrieve Mikel Echeverria's canonical public portfolio identity and resource links."
+        ),
         responses: {
           200: {
             description: "Public portfolio profile returned successfully.",
-            headers: {
-              "RateLimit-Policy": rateLimitPolicyHeader,
-              RateLimit: {
-                description:
-                  "Current IETF rate-limit field with the advertised quota and reset window.",
-                schema: {
-                  type: "string",
-                  example: `"profile";r=${PROFILE_RATE_LIMIT};t=${PROFILE_RATE_LIMIT_WINDOW}`,
-                },
-              },
-              "X-RateLimit-Limit": {
-                description: "Compatibility header containing the request quota.",
-                schema: { type: "integer", example: PROFILE_RATE_LIMIT },
-              },
-              "X-RateLimit-Remaining": {
-                description: "Compatibility header containing the currently advertised quota.",
-                schema: { type: "integer", example: PROFILE_RATE_LIMIT },
-              },
-            },
+            headers: successRateLimitHeaders(),
             content: {
               "application/json": { schema: profileResponseSchema },
             },
           },
-          405: {
-            description: "The endpoint only supports read-only methods.",
+          ...readOnlyResponses({
+            retryPath: PROFILE_PATH,
+            quotaMessage: "The public portfolio API rate limit has been exceeded.",
+          }),
+        },
+      },
+    },
+    [RESOURCES_PATH]: {
+      get: {
+        operationId: "getPortfolioResourcesV1",
+        summary: "Get the v1 canonical portfolio resource links",
+        description: `Returns the canonical public resource links (portfolio sections, documentation, source code, and professional profiles) without the full profile payload. Use this versioned read-only operation for link discovery and canonicalization tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
+        tags: ["Portfolio"],
+        security: [],
+        "x-ai-function": aiFunction(
+          "getPortfolioResourcesV1",
+          "Retrieve Mikel Echeverria's canonical public portfolio and social resource links."
+        ),
+        responses: {
+          200: {
+            description: "Canonical portfolio resource links returned successfully.",
+            headers: successRateLimitHeaders(),
             content: {
-              "application/json": jsonErrorContent(
-                "method_not_allowed",
-                "POST is not supported by this read-only endpoint.",
-                "Use GET /api/v1/profile or inspect /openapi.json for the supported contract."
-              ),
+              "application/json": { schema: resourcesResponseSchema },
             },
           },
-          429: {
-            description: "The per-client request quota has been exhausted.",
-            headers: {
-              "RateLimit-Policy": rateLimitPolicyHeader,
-              RateLimit: {
-                description:
-                  "Current IETF service-limit field. On a 429 the available quota is zero.",
-                schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
-              },
-              "Retry-After": {
-                description: "Seconds a client should wait before retrying.",
-                schema: { type: "integer", example: PROFILE_RATE_LIMIT_WINDOW },
-              },
-            },
-            content: {
-              "application/json": jsonErrorContent(
-                "rate_limit_exceeded",
-                "The public portfolio API rate limit has been exceeded.",
-                `Retry after ${PROFILE_RATE_LIMIT_WINDOW} seconds.`
-              ),
-            },
-          },
-          default: {
-            description: "Unexpected error. The payload follows the shared typed error schema.",
-            content: {
-              "application/json": jsonErrorContent(
-                "internal_error",
-                "An unexpected error occurred while serving the request.",
-                "Retry with exponential backoff and inspect /openapi.json for the supported contract."
-              ),
-            },
-          },
+          ...readOnlyResponses({
+            retryPath: RESOURCES_PATH,
+            quotaMessage: "The public resources API rate limit has been exceeded.",
+          }),
         },
       },
     },

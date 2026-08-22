@@ -10,10 +10,12 @@ import {
   profileRateLimitHeaders,
   profileRateLimitKey,
 } from "../src/lib/api-rate-limit.mjs";
+import { createReadOnlyEndpoint } from "../src/lib/api-endpoint.mjs";
 import {
   API_VERSION,
   LEGACY_PROFILE_PATH,
   PROFILE_PATH,
+  RESOURCES_PATH,
   apiErrorResponse,
   jsonResponse,
   openApiDocument,
@@ -88,6 +90,23 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
   assert.match(legacyGet.responses["308"].headers.Location.schema.example, /\/api\/v1\/profile/);
 
   assert.match(openApiDocument.info.description, /Cloudflare Workers/);
+
+  const resourcesGet = openApiDocument.paths[RESOURCES_PATH].get;
+  assert.equal(resourcesGet.operationId, "getPortfolioResourcesV1");
+  assert.equal(resourcesGet["x-ai-function"].name, "getPortfolioResourcesV1");
+  assert.equal(resourcesGet.responses["200"].content["application/json"].schema.type, "object");
+  assert.equal(
+    resourcesGet.responses["200"].content["application/json"].schema.properties.data.properties
+      .resources.required.length,
+    9
+  );
+  assert.equal(resourcesGet.responses["405"].content["application/json"].schema.type, "object");
+  assert.equal(
+    resourcesGet.responses.default.content["application/json"].schema.type,
+    "object",
+    "default response must reuse the typed error schema"
+  );
+  assert.deepEqual(Object.keys(openApiDocument.paths[RESOURCES_PATH]), ["get"]);
   assert.equal(
     profileGet.responses["200"].headers["RateLimit-Policy"].schema.example,
     PROFILE_RATE_LIMIT_POLICY
@@ -111,6 +130,13 @@ test("profile rate-limit metadata matches the enforced Cloudflare quota", () => 
     ),
     "profile:203.0.113.7"
   );
+  assert.equal(
+    profileRateLimitKey(
+      new Request("https://example.com", { headers: { "CF-Connecting-IP": "203.0.113.7" } }),
+      "resources"
+    ),
+    "resources:203.0.113.7"
+  );
 
   const normal = profileRateLimitHeaders();
   assert.equal(normal["RateLimit-Policy"], PROFILE_RATE_LIMIT_POLICY);
@@ -122,6 +148,38 @@ test("profile rate-limit metadata matches the enforced Cloudflare quota", () => 
   assert.equal(limited.RateLimit, '"profile";r=0;t=60');
   assert.equal(limited["Retry-After"], "60");
   assert.equal(limited["X-RateLimit-Remaining"], "0");
+});
+
+test("read-only endpoints share one rate-limited, discovery-linked handler", async () => {
+  const endpoint = createReadOnlyEndpoint({
+    path: "/api/v1/test",
+    scope: "test",
+    data: { hello: "world" },
+    limit: async () => ({ success: true }),
+  });
+
+  const ok = await endpoint.get({ request: new Request("https://example.com/api/v1/test") });
+  assert.equal(ok.status, 200);
+  assert.deepEqual(await ok.json(), { ok: true, data: { hello: "world" } });
+  assert.match(ok.headers.get("link") || "", /api-catalog/);
+  assert.match(ok.headers.get("link") || "", /service-desc/);
+
+  const throttled = createReadOnlyEndpoint({
+    path: "/api/v1/test",
+    scope: "test",
+    data: {},
+    limit: async () => ({ success: false }),
+  });
+  const refused429 = await throttled.get({ request: new Request("https://example.com/api/v1/test") });
+  assert.equal(refused429.status, 429);
+  assert.equal((await refused429.json()).error.code, "rate_limit_exceeded");
+  assert.equal(throttled.head, throttled.get);
+
+  const refused405 = endpoint.post({
+    request: new Request("https://example.com/api/v1/test", { method: "POST" }),
+  });
+  assert.equal(refused405.status, 405);
+  assert.equal(refused405.headers.get("allow"), "GET, HEAD, OPTIONS");
 });
 
 test("JSON API responses and errors are machine-readable and actionable", async () => {
@@ -148,6 +206,7 @@ test("JSON API responses and errors are machine-readable and actionable", async 
 test("API and developer discovery are wired into public routes", async () => {
   const [
     profileRoute,
+    resourcesRoute,
     legacyRoute,
     openApiRoute,
     middleware,
@@ -156,8 +215,11 @@ test("API and developer discovery are wired into public routes", async () => {
     developers,
     llms,
     wrangler,
+    agentDiscovery,
+    endpointLib,
   ] = await Promise.all([
     readFile(path.join(root, "src/pages/api/v1/profile.ts"), "utf8"),
+    readFile(path.join(root, "src/pages/api/v1/resources.ts"), "utf8"),
     readFile(path.join(root, "src/pages/api/profile.ts"), "utf8"),
     readFile(path.join(root, "src/pages/openapi.json.ts"), "utf8"),
     readFile(path.join(root, "src/middleware.ts"), "utf8"),
@@ -166,12 +228,18 @@ test("API and developer discovery are wired into public routes", async () => {
     readFile(path.join(root, "src/pages/developers.astro"), "utf8"),
     readFile(path.join(root, "public/llms.txt"), "utf8"),
     readFile(path.join(root, "wrangler.jsonc"), "utf8"),
+    readFile(path.join(root, "src/lib/agent-discovery.mjs"), "utf8"),
+    readFile(path.join(root, "src/lib/api-endpoint.mjs"), "utf8"),
   ]);
 
-  assert.match(profileRoute, /export const GET/);
-  assert.match(profileRoute, /PROFILE_RATE_LIMITER/);
-  assert.match(profileRoute, /rate_limit_exceeded/);
-  assert.match(profileRoute, /method_not_allowed/);
+  for (const route of [profileRoute, resourcesRoute]) {
+    assert.match(route, /export const GET/);
+    assert.match(route, /PROFILE_RATE_LIMITER/);
+  }
+  assert.match(agentDiscovery, /RESOURCES_PATH/);
+  assert.match(endpointLib, /rate_limit_exceeded/);
+  assert.match(endpointLib, /method_not_allowed/);
+  assert.match(endpointLib, /profileRateLimitKey\(request, scope\)/);
   assert.match(legacyRoute, /Deprecation: "@\d+"/);
   assert.match(legacyRoute, /Sunset/);
   assert.match(openApiRoute, /openApiDocumentForOrigin/);
@@ -181,6 +249,8 @@ test("API and developer discovery are wired into public routes", async () => {
   assert.match(layout, /rel="service-desc"/);
   assert.match(footer, /href="\/developers"/);
   assert.match(developers, /GET \/api\/v1\/profile/);
+  assert.match(developers, /GET \/api\/v1\/resources/);
+  assert.match(developers, /Cloudflare Workers/);
   assert.match(developers, /RateLimit-Policy/);
   assert.match(developers, /Retry-After/);
   assert.match(developers, /Deprecation/);
@@ -189,6 +259,8 @@ test("API and developer discovery are wired into public routes", async () => {
   assert.match(llms, /## When to use this site/);
   assert.match(llms, /\/openapi\.json/);
   assert.match(llms, /\/api\/v1\/profile/);
+  assert.match(llms, /\/api\/v1\/resources/);
+  assert.match(llms, /Cloudflare Workers/);
   assert.doesNotMatch(llms, /MCP/i);
   assert.match(wrangler, /PROFILE_RATE_LIMITER/);
   assert.match(wrangler, /"limit": 120/);

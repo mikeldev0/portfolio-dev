@@ -1,4 +1,4 @@
-import { PROFILE_PATH } from "./public-api.mjs";
+import { PROFILE_PATH, RESOURCES_PATH } from "./public-api.mjs";
 
 export const SITE_URL = "https://www.mikeldev.com";
 export const PRODUCES = ["text/html", "text/markdown"];
@@ -107,7 +107,11 @@ mikeldev.com exposes a small, versioned, read-only public API for retrieving Mik
 
 ## When to use the mikeldev Public API
 
-Use GET ${PROFILE_PATH} when an agent needs Mikel's public name, engineering role, public location, summary, professional email, or canonical links to portfolio sections and profiles. Inspect /openapi.json before programmatic calls. API errors use JSON with a stable code, a human-readable message, and a recovery hint.
+Use GET ${PROFILE_PATH} when an agent needs Mikel's public name, engineering role, public location, summary, professional email, or canonical links to portfolio sections and profiles. Use GET ${RESOURCES_PATH} when only the canonical resource links are needed. Inspect /openapi.json before programmatic calls. API errors use JSON with a stable code, a human-readable message, and a recovery hint.
+
+## Cloudflare Workers deployment
+
+The public API runs at the edge on Cloudflare Workers through the official Astro adapter. Request limiting uses the native Ratelimit binding (PROFILE_RATE_LIMITER, 120 requests per client per 60-second window) declared in wrangler.jsonc in the public source repository, so the RateLimit-Policy and RateLimit response headers reflect the quota actually enforced by Workers.
 
 ## Authentication and rate limits
 
@@ -121,6 +125,7 @@ Stable operations live under /api/v1/. Breaking changes move to a new URL versio
 
 - [mikeldev OpenAPI 3.1 specification](${SITE_URL}/openapi.json)
 - [mikeldev Public API: GET ${PROFILE_PATH}](${profileApiUrl})
+- [mikeldev Public API: GET ${RESOURCES_PATH}](${SITE_URL}${RESOURCES_PATH})
 - [mikeldev Developer resources](${SITE_URL}/developers)
 
 Clients should use the OpenAPI-described versioned read-only endpoint for machine-to-machine portfolio discovery, including Cloudflare Workers integrations.

@@ -1,4 +1,4 @@
-import { OPENAPI_MEDIA_TYPE, PROFILE_PATH } from "./public-api.mjs";
+import { OPENAPI_MEDIA_TYPE, PROFILE_PATH, RESOURCES_PATH } from "./public-api.mjs";
 
 export const AGENT_GUIDE_PATH = "/agents.md";
 export const AI_CATALOG_PATH = "/.well-known/ai-catalog.json";
@@ -51,7 +51,7 @@ export function apiCatalogForOrigin(value) {
     linkset: [
       {
         anchor: `${origin}${API_CATALOG_PATH}`,
-        item: [{ href: `${origin}${PROFILE_PATH}` }],
+        item: [{ href: `${origin}${PROFILE_PATH}` }, { href: `${origin}${RESOURCES_PATH}` }],
       },
       {
         anchor: `${origin}${PROFILE_PATH}`,
@@ -68,6 +68,15 @@ export function apiCatalogForOrigin(value) {
           },
         ],
       },
+      {
+        anchor: `${origin}${RESOURCES_PATH}`,
+        "service-desc": [
+          {
+            href: `${origin}/openapi.json`,
+            type: OPENAPI_MEDIA_TYPE,
+          },
+        ],
+      },
     ],
   };
 }
@@ -80,6 +89,7 @@ export const agentGuideMarkdown = `# mikeldev Agent Guidance
 
 - Read /llms.txt for the site map and evidence-selection guidance.
 - Use GET /api/v1/profile for the canonical public professional identity and resource links. No authentication is required.
+- Use GET /api/v1/resources for only the canonical portfolio and social resource links. No authentication is required.
 - Inspect /openapi.json before programmatic API calls.
 - Discover the public API through /.well-known/api-catalog (RFC 9727).
 - Discover machine-oriented artifacts through /.well-known/ai-catalog.json.

@@ -2,9 +2,9 @@ export const PROFILE_RATE_LIMIT = 120;
 export const PROFILE_RATE_LIMIT_WINDOW = 60;
 export const PROFILE_RATE_LIMIT_POLICY = `"profile";q=${PROFILE_RATE_LIMIT};w=${PROFILE_RATE_LIMIT_WINDOW}`;
 
-export function profileRateLimitKey(request) {
+export function profileRateLimitKey(request, scope = "profile") {
   const clientIp = request.headers.get("CF-Connecting-IP")?.trim();
-  return `profile:${clientIp || "anonymous"}`;
+  return `${scope}:${clientIp || "anonymous"}`;
 }
 
 export function profileRateLimitHeaders({ limited = false } = {}) {

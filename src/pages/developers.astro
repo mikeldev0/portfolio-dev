@@ -27,9 +27,20 @@ import Layout from "../layouts/Layout.astro";
       <p>
         El endpoint estable es <code>GET /api/v1/profile</code>. Devuelve nombre, rol profesional,
         ubicación pública, resumen, email profesional y enlaces a experiencia, proyectos, contacto,
-        código fuente y perfiles públicos. Los errores del namespace <code>/api/</code> se devuelven en
-        JSON con un código estable, una descripción y una pista de resolución para que un agente pueda
+        código fuente y perfiles públicos. Para descubrimiento de enlaces sin el perfil completo,
+        usa <code>GET /api/v1/resources</code>. Los errores del namespace <code>/api/</code> se devuelven
+        en JSON con un código estable, una descripción y una pista de resolución para que un agente pueda
         recuperarse de una ruta incorrecta.
+      </p>
+      <h2 class="pt-4 text-2xl font-bold tracking-tight">mikeldev on Cloudflare Workers</h2>
+      <p>
+        La API se sirve en el edge sobre Cloudflare Workers mediante el adaptador oficial de Astro.
+        El límite de peticiones se aplica con el binding nativo de Ratelimit (<code
+          >PROFILE_RATE_LIMITER</code
+        >, 120 solicitudes por cliente cada 60 segundos), declarado en <code>wrangler.jsonc</code> del
+        repositorio público. Las cabeceras
+        <code>RateLimit-Policy</code> y <code>RateLimit</code> reflejan la cuota real aplicada por Workers
+        en cada respuesta.
       </p>
       <h2 class="pt-4 text-2xl font-bold tracking-tight">Authentication and rate limits</h2>
       <p>
@@ -65,6 +76,11 @@ import Layout from "../layouts/Layout.astro";
         </li>
         <li>
           <a class="underline" href="/api/v1/profile">mikeldev Public API: GET /api/v1/profile</a>
+        </li>
+        <li>
+          <a class="underline" href="/api/v1/resources"
+            >mikeldev Public API: GET /api/v1/resources</a
+          >
         </li>
         <li><a class="underline" href="/.well-known/api-catalog">RFC 9727 API catalog</a></li>
         <li><a class="underline" href="/.well-known/ai-catalog.json">AI Catalog / ARD</a></li>
