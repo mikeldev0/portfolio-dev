@@ -53,21 +53,21 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
 
   const profileGet = openApiDocument.paths[PROFILE_PATH].get;
   assert.equal(profileGet.operationId, "getPortfolioProfileV1");
+  assert.equal(profileGet.responses["200"].content["application/json"].schema.type, "object");
   assert.equal(
-    profileGet.responses["200"].content["application/json"].schema.$ref,
-    "#/components/schemas/ProfileResponse"
+    profileGet.responses["200"].content["application/json"].schema.properties.data.type,
+    "object"
   );
+  assert.equal(profileGet.responses["405"].content["application/json"].schema.type, "object");
+  assert.equal(profileGet.responses["429"].content["application/json"].schema.type, "object");
+  assert.equal(profileGet["x-ai-function"].parameters.type, "object");
+  assert.deepEqual(profileGet["x-ai-function"].parameters.properties, {});
   assert.equal(openApiDocument.components.schemas.ProfileResponse.type, "object");
   assert.equal(openApiDocument.components.schemas.ProfileResponse.properties.data.type, "object");
   assert.equal(
-    profileGet.responses["405"].content["application/json"].schema.$ref,
-    "#/components/schemas/ErrorResponse"
+    profileGet.responses["200"].headers["RateLimit-Policy"].schema.example,
+    PROFILE_RATE_LIMIT_POLICY
   );
-  assert.equal(
-    profileGet.responses["429"].content["application/json"].schema.$ref,
-    "#/components/schemas/ErrorResponse"
-  );
-  assert.equal(profileGet.responses["200"].headers["RateLimit-Policy"].schema.example, PROFILE_RATE_LIMIT_POLICY);
 });
 
 test("OpenAPI runtime document resolves endpoints against the current host", () => {
@@ -82,14 +82,17 @@ test("profile rate-limit metadata matches the enforced Cloudflare quota", () => 
   assert.equal(PROFILE_RATE_LIMIT_WINDOW, 60);
   assert.equal(PROFILE_RATE_LIMIT_POLICY, '"profile";q=120;w=60');
   assert.equal(
-    profileRateLimitKey(new Request("https://example.com", { headers: { "CF-Connecting-IP": "203.0.113.7" } })),
+    profileRateLimitKey(
+      new Request("https://example.com", { headers: { "CF-Connecting-IP": "203.0.113.7" } })
+    ),
     "profile:203.0.113.7"
   );
 
   const normal = profileRateLimitHeaders();
   assert.equal(normal["RateLimit-Policy"], PROFILE_RATE_LIMIT_POLICY);
+  assert.equal(normal.RateLimit, '"profile";r=120;t=60');
   assert.equal(normal["X-RateLimit-Limit"], "120");
-  assert.equal(normal.RateLimit, undefined);
+  assert.equal(normal["X-RateLimit-Remaining"], "120");
 
   const limited = profileRateLimitHeaders({ limited: true });
   assert.equal(limited.RateLimit, '"profile";r=0;t=60');
@@ -104,14 +107,32 @@ test("JSON API responses and errors are machine-readable and actionable", async 
   assert.equal(success.headers.get("Access-Control-Allow-Origin"), "*");
   assert.deepEqual(await success.json(), { ok: true });
 
-  const error = apiErrorResponse({ status: 404, code: "not_found", message: "Missing", hint: "Read /openapi.json" });
+  const error = apiErrorResponse({
+    status: 404,
+    code: "not_found",
+    message: "Missing",
+    hint: "Read /openapi.json",
+  });
   assert.equal(error.status, 404);
   assert.equal(error.headers.get("Cache-Control"), "no-store");
-  assert.deepEqual(await error.json(), { ok: false, error: { code: "not_found", message: "Missing", hint: "Read /openapi.json" } });
+  assert.deepEqual(await error.json(), {
+    ok: false,
+    error: { code: "not_found", message: "Missing", hint: "Read /openapi.json" },
+  });
 });
 
 test("API and developer discovery are wired into public routes", async () => {
-  const [profileRoute, legacyRoute, openApiRoute, middleware, layout, footer, developers, llms, wrangler] = await Promise.all([
+  const [
+    profileRoute,
+    legacyRoute,
+    openApiRoute,
+    middleware,
+    layout,
+    footer,
+    developers,
+    llms,
+    wrangler,
+  ] = await Promise.all([
     readFile(path.join(root, "src/pages/api/v1/profile.ts"), "utf8"),
     readFile(path.join(root, "src/pages/api/profile.ts"), "utf8"),
     readFile(path.join(root, "src/pages/openapi.json.ts"), "utf8"),

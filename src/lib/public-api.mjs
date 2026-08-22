@@ -78,7 +78,16 @@ const profileResponseSchema = {
     data: {
       type: "object",
       additionalProperties: false,
-      required: ["name", "alternateName", "role", "location", "summary", "url", "email", "resources"],
+      required: [
+        "name",
+        "alternateName",
+        "role",
+        "location",
+        "summary",
+        "url",
+        "email",
+        "resources",
+      ],
       properties: {
         name: { type: "string", description: "Public professional name." },
         alternateName: { type: "string", description: "Public portfolio brand name." },
@@ -95,13 +104,31 @@ const profileResponseSchema = {
         },
         summary: { type: "string", description: "Short public professional summary." },
         url: { type: "string", format: "uri", description: "Canonical portfolio URL." },
-        email: { type: "string", format: "email", description: "Public professional contact email." },
+        email: {
+          type: "string",
+          format: "email",
+          description: "Public professional contact email.",
+        },
         resources: {
           type: "object",
           additionalProperties: false,
-          required: ["experience", "projects", "about", "contact", "developers", "openapi", "github", "linkedin", "x"],
+          required: [
+            "experience",
+            "projects",
+            "about",
+            "contact",
+            "developers",
+            "openapi",
+            "github",
+            "linkedin",
+            "x",
+          ],
           properties: {
-            experience: { type: "string", format: "uri", description: "Canonical experience section." },
+            experience: {
+              type: "string",
+              format: "uri",
+              description: "Canonical experience section.",
+            },
             projects: { type: "string", format: "uri", description: "Canonical projects section." },
             about: { type: "string", format: "uri", description: "About page." },
             contact: { type: "string", format: "uri", description: "Professional contact page." },
@@ -160,36 +187,58 @@ export const openApiDocument = {
       get: {
         operationId: "getPortfolioProfileV1",
         summary: "Get the v1 public portfolio profile",
-        description:
-          `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
+        description: `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
         tags: ["Portfolio"],
         security: [],
+        "x-ai-function": {
+          name: "getPortfolioProfileV1",
+          description:
+            "Retrieve Mikel Echeverria's canonical public portfolio identity and resource links.",
+          parameters: {
+            type: "object",
+            additionalProperties: false,
+            properties: {},
+          },
+        },
         responses: {
-          "200": {
+          200: {
             description: "Public portfolio profile returned successfully.",
             headers: {
               "RateLimit-Policy": rateLimitPolicyHeader,
+              RateLimit: {
+                description:
+                  "Current IETF rate-limit field with the advertised quota and reset window.",
+                schema: {
+                  type: "string",
+                  example: `"profile";r=${PROFILE_RATE_LIMIT};t=${PROFILE_RATE_LIMIT_WINDOW}`,
+                },
+              },
               "X-RateLimit-Limit": {
                 description: "Compatibility header containing the request quota.",
                 schema: { type: "integer", example: PROFILE_RATE_LIMIT },
               },
+              "X-RateLimit-Remaining": {
+                description: "Compatibility header containing the currently advertised quota.",
+                schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+              },
             },
             content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ProfileResponse" } },
+              "application/json": { schema: profileResponseSchema },
             },
           },
-          "405": {
+          405: {
             description: "The endpoint only supports read-only methods.",
             content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
+              "application/json": { schema: errorResponseSchema },
             },
           },
-          "429": {
+          429: {
             description: "The per-client request quota has been exhausted.",
             headers: {
               "RateLimit-Policy": rateLimitPolicyHeader,
               RateLimit: {
-                description: "Current IETF service-limit field. On a 429 the available quota is zero.",
+                description:
+                  "Current IETF service-limit field. On a 429 the available quota is zero.",
                 schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
               },
               "Retry-After": {
@@ -198,7 +247,7 @@ export const openApiDocument = {
               },
             },
             content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
+              "application/json": { schema: errorResponseSchema },
             },
           },
         },

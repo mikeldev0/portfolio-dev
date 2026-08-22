@@ -8,15 +8,16 @@ export function profileRateLimitKey(request) {
 }
 
 export function profileRateLimitHeaders({ limited = false } = {}) {
+  const remaining = limited ? 0 : PROFILE_RATE_LIMIT;
   const headers = {
     "RateLimit-Policy": PROFILE_RATE_LIMIT_POLICY,
+    RateLimit: `"profile";r=${remaining};t=${PROFILE_RATE_LIMIT_WINDOW}`,
     "X-RateLimit-Limit": String(PROFILE_RATE_LIMIT),
+    "X-RateLimit-Remaining": String(remaining),
   };
 
   if (limited) {
-    headers.RateLimit = `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}`;
     headers["Retry-After"] = String(PROFILE_RATE_LIMIT_WINDOW);
-    headers["X-RateLimit-Remaining"] = "0";
   }
 
   return headers;
