@@ -99,26 +99,31 @@ The public links on this portfolio can take you to third-party services such as 
 - [Contact](${SITE_URL}/contact)
 - [Portfolio](${SITE_URL}/)
 `,
-  "/developers": `# mikeldev Developer Resources
+  "/developers": `# mikeldev Public API & Developer Resources
 
-> Technical resources for developers and software agents inspecting mikeldev.com.
+> Technical resources for developers, Cloudflare Workers, and software agents inspecting mikeldev.com.
 
 mikeldev.com exposes a small, versioned, read-only public API for retrieving Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. The API requires no authentication and is described by an OpenAPI 3.1 contract. The contact form endpoint is deliberately excluded from this public agent API because it delivers human inquiries and should not be used for automated messaging.
 
-## When to use the API
+## When to use the mikeldev Public API
 
 Use GET ${PROFILE_PATH} when an agent needs Mikel's public name, engineering role, public location, summary, professional email, or canonical links to portfolio sections and profiles. Inspect /openapi.json before programmatic calls. API errors use JSON with a stable code, a human-readable message, and a recovery hint.
+
+## Authentication and rate limits
+
+The public API requires no API key, OAuth token, or other authentication. It is limited to 120 requests per client in each 60-second window. Read the RateLimit-Policy and RateLimit headers; when the quota is exhausted, wait for the Retry-After seconds returned with HTTP 429.
 
 ## API versioning and deprecation policy
 
 Stable operations live under /api/v1/. Breaking changes move to a new URL version. If a previous version or alias is retained during migration, it is documented here and responds with Deprecation, Sunset, and successor-version Link headers before removal.
 
-## Public API
+## Public API contract
 
-- [OpenAPI 3.1 specification](${SITE_URL}/openapi.json)
-- [GET ${PROFILE_PATH}](${profileApiUrl})
+- [mikeldev OpenAPI 3.1 specification](${SITE_URL}/openapi.json)
+- [mikeldev Public API: GET ${PROFILE_PATH}](${profileApiUrl})
+- [mikeldev Developer resources](${SITE_URL}/developers)
 
-Clients should use the OpenAPI-described versioned read-only endpoint for machine-to-machine portfolio discovery.
+Clients should use the OpenAPI-described versioned read-only endpoint for machine-to-machine portfolio discovery, including Cloudflare Workers integrations.
 
 ## Machine-readable resources
 
@@ -273,7 +278,8 @@ function escapeXml(value) {
 export function buildSitemap(pages = sitePages) {
   const urls = pages
     .map(
-      ({ path, lastmod }) => `  <url>\n    <loc>${escapeXml(`${SITE_URL}${path}`)}</loc>\n    <lastmod>${escapeXml(lastmod)}</lastmod>\n  </url>`
+      ({ path, lastmod }) =>
+        `  <url>\n    <loc>${escapeXml(`${SITE_URL}${path}`)}</loc>\n    <lastmod>${escapeXml(lastmod)}</lastmod>\n  </url>`
     )
     .join("\n");
 
