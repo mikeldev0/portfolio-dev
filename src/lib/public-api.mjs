@@ -7,6 +7,8 @@ import {
 export const OPENAPI_MEDIA_TYPE = "application/vnd.oai.openapi+json;version=3.1";
 export const API_VERSION = "v1";
 export const PROFILE_PATH = `/api/${API_VERSION}/profile`;
+export const RESOURCES_PATH = `/api/${API_VERSION}/resources`;
+export const LEGACY_PROFILE_PATH = "/api/profile";
 
 export const publicProfile = {
   name: "Mikel Echeverria",
@@ -168,13 +170,28 @@ const rateLimitPolicyHeader = {
   schema: { type: "string", example: PROFILE_RATE_LIMIT_POLICY },
 };
 
+function errorExamples(code, message, hint) {
+  return {
+    error: {
+      value: { ok: false, error: { code, message, hint } },
+    },
+  };
+}
+
+function jsonErrorContent(code, message, hint) {
+  return {
+    schema: errorResponseSchema,
+    examples: errorExamples(code, message, hint),
+  };
+}
+
 export const openApiDocument = {
   openapi: "3.1.0",
   info: {
     title: "mikeldev Portfolio API",
     version: "1.0.0",
     description:
-      "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
+      "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML, served at the edge on Cloudflare Workers. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
   },
   servers: [{ url: "/", description: "Current host" }],
   externalDocs: {
@@ -229,7 +246,11 @@ export const openApiDocument = {
           405: {
             description: "The endpoint only supports read-only methods.",
             content: {
-              "application/json": { schema: errorResponseSchema },
+              "application/json": jsonErrorContent(
+                "method_not_allowed",
+                "POST is not supported by this read-only endpoint.",
+                "Use GET /api/v1/profile or inspect /openapi.json for the supported contract."
+              ),
             },
           },
           429: {
@@ -247,7 +268,55 @@ export const openApiDocument = {
               },
             },
             content: {
-              "application/json": { schema: errorResponseSchema },
+              "application/json": jsonErrorContent(
+                "rate_limit_exceeded",
+                "The public portfolio API rate limit has been exceeded.",
+                `Retry after ${PROFILE_RATE_LIMIT_WINDOW} seconds.`
+              ),
+            },
+          },
+          default: {
+            description: "Unexpected error. The payload follows the shared typed error schema.",
+            content: {
+              "application/json": jsonErrorContent(
+                "internal_error",
+                "An unexpected error occurred while serving the request.",
+                "Retry with exponential backoff and inspect /openapi.json for the supported contract."
+              ),
+            },
+          },
+        },
+      },
+    },
+    [LEGACY_PROFILE_PATH]: {
+      get: {
+        operationId: "getPortfolioProfileLegacy",
+        summary: "Deprecated unversioned profile alias",
+        description:
+          "Permanent redirect kept for backward compatibility with early integrations. Responses carry RFC 8594 Deprecation and Sunset headers plus a successor-version Link to the stable v1 operation, and clients must follow Location to /api/v1/profile.",
+        tags: ["Portfolio"],
+        deprecated: true,
+        security: [],
+        responses: {
+          308: {
+            description: "Permanent redirect to the stable v1 profile endpoint.",
+            headers: {
+              Location: {
+                description: "Successor endpoint that replaces this alias.",
+                schema: { type: "string", example: PROFILE_PATH },
+              },
+              Deprecation: {
+                description: "RFC 8594 deprecation timestamp in seconds since the Unix epoch.",
+                schema: { type: "string", example: "@1787356800" },
+              },
+              Sunset: {
+                description: "RFC 8594 date when this alias will stop responding.",
+                schema: { type: "string", example: "Tue, 01 Dec 2026 00:00:00 GMT" },
+              },
+              Link: {
+                description: "successor-version link pointing at the stable v1 profile endpoint.",
+                schema: { type: "string", example: '</api/v1/profile>; rel="successor-version"' },
+              },
             },
           },
         },

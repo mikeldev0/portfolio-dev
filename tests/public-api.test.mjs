@@ -12,6 +12,7 @@ import {
 } from "../src/lib/api-rate-limit.mjs";
 import {
   API_VERSION,
+  LEGACY_PROFILE_PATH,
   PROFILE_PATH,
   apiErrorResponse,
   jsonResponse,
@@ -60,10 +61,33 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
   );
   assert.equal(profileGet.responses["405"].content["application/json"].schema.type, "object");
   assert.equal(profileGet.responses["429"].content["application/json"].schema.type, "object");
+  assert.equal(
+    profileGet.responses["429"].content["application/json"].examples.error.value.error.code,
+    "rate_limit_exceeded"
+  );
+  assert.equal(
+    profileGet.responses.default.content["application/json"].schema.type,
+    "object",
+    "default response must reuse the typed error schema"
+  );
+  assert.equal(
+    profileGet.responses.default.content["application/json"].examples.error.value.error.code,
+    "internal_error"
+  );
   assert.equal(profileGet["x-ai-function"].parameters.type, "object");
   assert.deepEqual(profileGet["x-ai-function"].parameters.properties, {});
   assert.equal(openApiDocument.components.schemas.ProfileResponse.type, "object");
   assert.equal(openApiDocument.components.schemas.ProfileResponse.properties.data.type, "object");
+
+  const legacyGet = openApiDocument.paths[LEGACY_PROFILE_PATH].get;
+  assert.equal(legacyGet.operationId, "getPortfolioProfileLegacy");
+  assert.equal(legacyGet.deprecated, true);
+  assert.equal(legacyGet.responses["308"].headers.Deprecation.schema.example, "@1787356800");
+  assert.match(legacyGet.responses["308"].headers.Sunset.schema.example, /GMT$/);
+  assert.match(legacyGet.responses["308"].headers.Link.schema.example, /successor-version/);
+  assert.match(legacyGet.responses["308"].headers.Location.schema.example, /\/api\/v1\/profile/);
+
+  assert.match(openApiDocument.info.description, /Cloudflare Workers/);
   assert.equal(
     profileGet.responses["200"].headers["RateLimit-Policy"].schema.example,
     PROFILE_RATE_LIMIT_POLICY

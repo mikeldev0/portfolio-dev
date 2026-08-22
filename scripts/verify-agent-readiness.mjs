@@ -64,6 +64,8 @@ check(openApi.servers?.[0]?.url === new URL(baseUrl).origin, "OpenAPI resolves o
 check(Boolean(openApi.paths?.[profilePath]?.get?.operationId), "OpenAPI versioned profile operationId");
 check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI operation declares typed response schema");
 check(openApi.paths?.[profilePath]?.get?.responses?.["429"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI documents typed rate-limit error");
+check(openApi.paths?.[profilePath]?.get?.responses?.default?.content?.["application/json"]?.schema?.type === "object", "OpenAPI documents typed default error response");
+check(openApi.paths?.["/api/profile"]?.get?.deprecated === true && Boolean(openApi.paths?.["/api/profile"]?.get?.responses?.["308"]), "OpenAPI documents legacy alias deprecation");
 check(openApi.paths?.[profilePath]?.get?.["x-ai-function"]?.parameters?.type === "object", "OpenAPI operation exposes function-calling descriptor");
 
 const apiCatalogResponse = await request(apiCatalogPath, { headers: { Accept: "application/linkset+json" } });
