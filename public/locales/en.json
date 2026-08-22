@@ -78,7 +78,7 @@
   "cta": {
     "contact": "Contact me",
     "viewCv": "View CV",
-    "cvPath": "/cv-en.pdf"
+    "cvPath": "/cvs/cv-en.pdf"
   },
   "projectsSection": {
     "demo": "Demo",

@@ -137,14 +137,13 @@ pnpm build
 > [!IMPORTANT]
 > Use `pnpm` for package management and scripts in this repository. Mixing package managers can create lockfile and dependency resolution drift.
 
-
 ## CV downloads
 
 Updated Swiss-market CVs, available as one-page A4 PDFs:
 
-- [English CV](./public/cv-en.pdf)
-- [Spanish CV](./public/cv-es.pdf)
-- [Swiss Standard German CV](./public/cv-de.pdf)
-- [Swiss French CV](./public/cv-fr.pdf)
-- [Swiss Italian CV](./public/cv-it.pdf)
-- [Rumantsch Grischun CV](./public/cv-rm.pdf)
+- [English CV](./public/cvs/cv-en.pdf)
+- [Spanish CV](./public/cvs/cv-es.pdf)
+- [Swiss Standard German CV](./public/cvs/cv-de.pdf)
+- [Swiss French CV](./public/cvs/cv-fr.pdf)
+- [Swiss Italian CV](./public/cvs/cv-it.pdf)
+- [Rumantsch Grischun CV](./public/cvs/cv-rm.pdf)
