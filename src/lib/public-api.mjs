@@ -212,7 +212,7 @@ const rateLimitPolicyHeader = {
 
 function jsonErrorContent(code, message, hint) {
   return {
-    schema: errorResponseSchema,
+    schema: { ...errorResponseSchema, $ref: "#/components/schemas/ErrorResponse" },
     examples: {
       error: {
         value: { ok: false, error: { code, message, hint } },
@@ -314,7 +314,9 @@ export const openApiDocument = {
             description: "Public portfolio profile returned successfully.",
             headers: successRateLimitHeaders(),
             content: {
-              "application/json": { schema: profileResponseSchema },
+              "application/json": {
+                schema: { ...profileResponseSchema, $ref: "#/components/schemas/ProfileResponse" },
+              },
             },
           },
           ...readOnlyResponses({
@@ -340,7 +342,9 @@ export const openApiDocument = {
             description: "Canonical portfolio resource links returned successfully.",
             headers: successRateLimitHeaders(),
             content: {
-              "application/json": { schema: resourcesResponseSchema },
+              "application/json": {
+                schema: { ...resourcesResponseSchema, $ref: "#/components/schemas/ResourcesResponse" },
+              },
             },
           },
           ...readOnlyResponses({
@@ -388,6 +392,7 @@ export const openApiDocument = {
   components: {
     schemas: {
       ProfileResponse: profileResponseSchema,
+      ResourcesResponse: resourcesResponseSchema,
       ErrorResponse: errorResponseSchema,
     },
   },

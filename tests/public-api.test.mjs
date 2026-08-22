@@ -61,7 +61,15 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
     profileGet.responses["200"].content["application/json"].schema.properties.data.type,
     "object"
   );
+  assert.equal(
+    profileGet.responses["200"].content["application/json"].schema.$ref,
+    "#/components/schemas/ProfileResponse"
+  );
   assert.equal(profileGet.responses["405"].content["application/json"].schema.type, "object");
+  assert.equal(
+    profileGet.responses["405"].content["application/json"].schema.$ref,
+    "#/components/schemas/ErrorResponse"
+  );
   assert.equal(profileGet.responses["429"].content["application/json"].schema.type, "object");
   assert.equal(
     profileGet.responses["429"].content["application/json"].examples.error.value.error.code,
@@ -80,6 +88,7 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
   assert.deepEqual(profileGet["x-ai-function"].parameters.properties, {});
   assert.equal(openApiDocument.components.schemas.ProfileResponse.type, "object");
   assert.equal(openApiDocument.components.schemas.ProfileResponse.properties.data.type, "object");
+  assert.equal(openApiDocument.components.schemas.ResourcesResponse.type, "object");
 
   const legacyGet = openApiDocument.paths[LEGACY_PROFILE_PATH].get;
   assert.equal(legacyGet.operationId, "getPortfolioProfileLegacy");
@@ -95,6 +104,10 @@ test("OpenAPI contract is versioned, typed, described and function-calling frien
   assert.equal(resourcesGet.operationId, "getPortfolioResourcesV1");
   assert.equal(resourcesGet["x-ai-function"].name, "getPortfolioResourcesV1");
   assert.equal(resourcesGet.responses["200"].content["application/json"].schema.type, "object");
+  assert.equal(
+    resourcesGet.responses["200"].content["application/json"].schema.$ref,
+    "#/components/schemas/ResourcesResponse"
+  );
   assert.equal(
     resourcesGet.responses["200"].content["application/json"].schema.properties.data.properties
       .resources.required.length,
