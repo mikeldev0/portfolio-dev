@@ -1,0 +1,30 @@
+{
+  "name": "mikeldev",
+  "version": "1.0.0",
+  "description": "Official CLI for mikeldev.com — retrieve the canonical public portfolio profile and OpenAPI contract of Mikel Echeverria.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "mikeldev": "index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "lib.mjs",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mikeldev",
+    "portfolio",
+    "cli",
+    "api",
+    "openapi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeldev0/portfolio-dev.git",
+    "directory": "cli"
+  }
+}

@@ -17,12 +17,15 @@ For machine-to-machine identity and resource discovery, prefer the versioned rea
 
 ## Developer resources
 
-- [Agent guidance](https://www.mikeldev.com/agents.md): Machine-readable instructions for agents using public portfolio evidence and interfaces.
-- [Developer resources](https://www.mikeldev.com/developers.md): API usage, lifecycle policy, machine-readable resources, and source-code links.
-- [OpenAPI 3.1 specification](https://www.mikeldev.com/openapi.json): Typed contract for the public read-only portfolio API.
-- [Public profile API v1](https://www.mikeldev.com/api/v1/profile): JSON identity and canonical resource links; no authentication required.
+- [mikeldev Developer resources](https://www.mikeldev.com/developers): Human-readable API docs, authentication policy, rate limits, lifecycle policy, and source-code links.
+- [mikeldev Developer resources (Markdown)](https://www.mikeldev.com/developers.md): Machine-readable API usage and integration guidance.
+- [mikeldev Agent guidance](https://www.mikeldev.com/agents.md): Machine-readable instructions for agents using public portfolio evidence and interfaces.
+- [mikeldev OpenAPI 3.1 API specification](https://www.mikeldev.com/openapi.json): Typed contract for the mikeldev public read-only portfolio API served on Cloudflare Workers.
+- [mikeldev Public profile API v1](https://www.mikeldev.com/api/v1/profile): JSON identity and canonical resource links; no authentication required.
+- [mikeldev Public resources API v1](https://www.mikeldev.com/api/v1/resources): JSON canonical portfolio and social resource links without the full profile; no authentication required.
 - [RFC 9727 API catalog](https://www.mikeldev.com/.well-known/api-catalog): Standard well-known discovery document for the public API endpoint and its descriptions.
 - [AI Catalog](https://www.mikeldev.com/.well-known/ai-catalog.json): ARD 1.0 catalog of machine-oriented artifacts published by mikeldev.com.
+- [Authentication](https://www.mikeldev.com/developers#authentication-and-rate-limits): Public API authentication and rate-limit policy; no API key is required.
 - [Repository agent instructions](https://github.com/mikeldev0/portfolio-dev/blob/main/AGENTS.md): Coding and repository guidance for agents working with the public source.
 - [Portfolio source](https://github.com/mikeldev0/portfolio-dev): Public source repository for mikeldev.com.
 - [XML sitemap](https://www.mikeldev.com/sitemap.xml): Complete list of indexable canonical pages.

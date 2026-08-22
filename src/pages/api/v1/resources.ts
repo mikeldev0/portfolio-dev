@@ -1,14 +1,14 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
 import { createReadOnlyEndpoint } from "../../../lib/api-endpoint.mjs";
-import { PROFILE_PATH, publicProfile } from "../../../lib/public-api.mjs";
+import { RESOURCES_PATH, publicProfile } from "../../../lib/public-api.mjs";
 
 export const prerender = false;
 
 const endpoint = createReadOnlyEndpoint({
-  path: PROFILE_PATH,
-  scope: "profile",
-  data: publicProfile,
+  path: RESOURCES_PATH,
+  scope: "resources",
+  data: { resources: publicProfile.resources },
   limit: (key: string) => env.PROFILE_RATE_LIMITER.limit({ key }),
 });
 

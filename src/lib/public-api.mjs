@@ -7,6 +7,8 @@ import {
 export const OPENAPI_MEDIA_TYPE = "application/vnd.oai.openapi+json;version=3.1";
 export const API_VERSION = "v1";
 export const PROFILE_PATH = `/api/${API_VERSION}/profile`;
+export const RESOURCES_PATH = `/api/${API_VERSION}/resources`;
+export const LEGACY_PROFILE_PATH = "/api/profile";
 
 export const publicProfile = {
   name: "Mikel Echeverria",
@@ -69,6 +71,37 @@ export function apiErrorResponse({
   );
 }
 
+const resourceLinksSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: [
+    "experience",
+    "projects",
+    "about",
+    "contact",
+    "developers",
+    "openapi",
+    "github",
+    "linkedin",
+    "x",
+  ],
+  properties: {
+    experience: {
+      type: "string",
+      format: "uri",
+      description: "Canonical experience section.",
+    },
+    projects: { type: "string", format: "uri", description: "Canonical projects section." },
+    about: { type: "string", format: "uri", description: "About page." },
+    contact: { type: "string", format: "uri", description: "Professional contact page." },
+    developers: { type: "string", format: "uri", description: "Developer resources page." },
+    openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
+    github: { type: "string", format: "uri", description: "Public GitHub profile." },
+    linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
+    x: { type: "string", format: "uri", description: "Public X profile." },
+  },
+};
+
 const profileResponseSchema = {
   type: "object",
   additionalProperties: false,
@@ -78,7 +111,16 @@ const profileResponseSchema = {
     data: {
       type: "object",
       additionalProperties: false,
-      required: ["name", "alternateName", "role", "location", "summary", "url", "email", "resources"],
+      required: [
+        "name",
+        "alternateName",
+        "role",
+        "location",
+        "summary",
+        "url",
+        "email",
+        "resources",
+      ],
       properties: {
         name: { type: "string", description: "Public professional name." },
         alternateName: { type: "string", description: "Public portfolio brand name." },
@@ -95,23 +137,12 @@ const profileResponseSchema = {
         },
         summary: { type: "string", description: "Short public professional summary." },
         url: { type: "string", format: "uri", description: "Canonical portfolio URL." },
-        email: { type: "string", format: "email", description: "Public professional contact email." },
-        resources: {
-          type: "object",
-          additionalProperties: false,
-          required: ["experience", "projects", "about", "contact", "developers", "openapi", "github", "linkedin", "x"],
-          properties: {
-            experience: { type: "string", format: "uri", description: "Canonical experience section." },
-            projects: { type: "string", format: "uri", description: "Canonical projects section." },
-            about: { type: "string", format: "uri", description: "About page." },
-            contact: { type: "string", format: "uri", description: "Professional contact page." },
-            developers: { type: "string", format: "uri", description: "Developer resources page." },
-            openapi: { type: "string", format: "uri", description: "OpenAPI 3.1 specification." },
-            github: { type: "string", format: "uri", description: "Public GitHub profile." },
-            linkedin: { type: "string", format: "uri", description: "Public LinkedIn profile." },
-            x: { type: "string", format: "uri", description: "Public X profile." },
-          },
+        email: {
+          type: "string",
+          format: "email",
+          description: "Public professional contact email.",
         },
+        resources: resourceLinksSchema,
       },
     },
   },
@@ -136,10 +167,121 @@ const errorResponseSchema = {
   },
 };
 
+const resourcesResponseSchema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["ok", "data"],
+  properties: {
+    ok: { type: "boolean", const: true, description: "Whether the request succeeded." },
+    data: {
+      type: "object",
+      additionalProperties: false,
+      required: ["resources"],
+      properties: {
+        resources: resourceLinksSchema,
+      },
+    },
+  },
+};
+
+function successRateLimitHeaders() {
+  return {
+    "RateLimit-Policy": rateLimitPolicyHeader,
+    RateLimit: {
+      description: "Current IETF rate-limit field with the advertised quota and reset window.",
+      schema: {
+        type: "string",
+        example: `"profile";r=${PROFILE_RATE_LIMIT};t=${PROFILE_RATE_LIMIT_WINDOW}`,
+      },
+    },
+    "X-RateLimit-Limit": {
+      description: "Compatibility header containing the request quota.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+    },
+    "X-RateLimit-Remaining": {
+      description: "Compatibility header containing the currently advertised quota.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT },
+    },
+  };
+}
+
 const rateLimitPolicyHeader = {
   description: `Public profile quota: ${PROFILE_RATE_LIMIT} requests per client in each ${PROFILE_RATE_LIMIT_WINDOW}-second window.`,
   schema: { type: "string", example: PROFILE_RATE_LIMIT_POLICY },
 };
+
+function jsonErrorContent(code, message, hint) {
+  return {
+    schema: { ...errorResponseSchema, $ref: "#/components/schemas/ErrorResponse" },
+    examples: {
+      error: {
+        value: { ok: false, error: { code, message, hint } },
+      },
+    },
+  };
+}
+
+function rateLimitExceededHeaders() {
+  return {
+    "RateLimit-Policy": rateLimitPolicyHeader,
+    RateLimit: {
+      description: "Current IETF service-limit field. On a 429 the available quota is zero.",
+      schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
+    },
+    "Retry-After": {
+      description: "Seconds a client should wait before retrying.",
+      schema: { type: "integer", example: PROFILE_RATE_LIMIT_WINDOW },
+    },
+  };
+}
+
+function readOnlyResponses({ retryPath, quotaMessage }) {
+  return {
+    405: {
+      description: "The endpoint only supports read-only methods.",
+      content: {
+        "application/json": jsonErrorContent(
+          "method_not_allowed",
+          "POST is not supported by this read-only endpoint.",
+          `Use GET ${retryPath} or inspect /openapi.json for the supported contract.`
+        ),
+      },
+    },
+    429: {
+      description: "The per-client request quota has been exhausted.",
+      headers: rateLimitExceededHeaders(),
+      content: {
+        "application/json": jsonErrorContent(
+          "rate_limit_exceeded",
+          quotaMessage,
+          `Retry after ${PROFILE_RATE_LIMIT_WINDOW} seconds.`
+        ),
+      },
+    },
+    default: {
+      description: "Unexpected error. The payload follows the shared typed error schema.",
+      content: {
+        "application/json": jsonErrorContent(
+          "internal_error",
+          "An unexpected error occurred while serving the request.",
+          "Retry with exponential backoff and inspect /openapi.json for the supported contract."
+        ),
+      },
+    },
+  };
+}
+
+function aiFunction(operationId, description) {
+  return {
+    name: operationId,
+    description,
+    parameters: {
+      type: "object",
+      additionalProperties: false,
+      properties: {},
+    },
+  };
+}
 
 export const openApiDocument = {
   openapi: "3.1.0",
@@ -147,7 +289,7 @@ export const openApiDocument = {
     title: "mikeldev Portfolio API",
     version: "1.0.0",
     description:
-      "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
+      "Versioned read-only API for software agents and developer tools that need Mikel Echeverria's canonical public portfolio identity and resource links without scraping HTML, served at the edge on Cloudflare Workers. Stable operations use /api/v1/. Breaking changes will ship under a new URL version. Deprecated versions will be announced in developer documentation and, when retained during migration, with Deprecation, Sunset, and successor-version Link response headers.",
   },
   servers: [{ url: "/", description: "Current host" }],
   externalDocs: {
@@ -160,45 +302,87 @@ export const openApiDocument = {
       get: {
         operationId: "getPortfolioProfileV1",
         summary: "Get the v1 public portfolio profile",
-        description:
-          `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
+        description: `Returns Mikel Echeverria's public professional identity, location, role, summary, contact email, and canonical portfolio resource links. Use this versioned read-only operation for identity or portfolio discovery tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
         tags: ["Portfolio"],
         security: [],
+        "x-ai-function": aiFunction(
+          "getPortfolioProfileV1",
+          "Retrieve Mikel Echeverria's canonical public portfolio identity and resource links."
+        ),
         responses: {
-          "200": {
+          200: {
             description: "Public portfolio profile returned successfully.",
-            headers: {
-              "RateLimit-Policy": rateLimitPolicyHeader,
-              "X-RateLimit-Limit": {
-                description: "Compatibility header containing the request quota.",
-                schema: { type: "integer", example: PROFILE_RATE_LIMIT },
-              },
-            },
+            headers: successRateLimitHeaders(),
             content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ProfileResponse" } },
+              "application/json": {
+                schema: { ...profileResponseSchema, $ref: "#/components/schemas/ProfileResponse" },
+              },
             },
           },
-          "405": {
-            description: "The endpoint only supports read-only methods.",
+          ...readOnlyResponses({
+            retryPath: PROFILE_PATH,
+            quotaMessage: "The public portfolio API rate limit has been exceeded.",
+          }),
+        },
+      },
+    },
+    [RESOURCES_PATH]: {
+      get: {
+        operationId: "getPortfolioResourcesV1",
+        summary: "Get the v1 canonical portfolio resource links",
+        description: `Returns the canonical public resource links (portfolio sections, documentation, source code, and professional profiles) without the full profile payload. Use this versioned read-only operation for link discovery and canonicalization tasks. Requests are limited to ${PROFILE_RATE_LIMIT} per client per ${PROFILE_RATE_LIMIT_WINDOW} seconds.`,
+        tags: ["Portfolio"],
+        security: [],
+        "x-ai-function": aiFunction(
+          "getPortfolioResourcesV1",
+          "Retrieve Mikel Echeverria's canonical public portfolio and social resource links."
+        ),
+        responses: {
+          200: {
+            description: "Canonical portfolio resource links returned successfully.",
+            headers: successRateLimitHeaders(),
             content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
+              "application/json": {
+                schema: { ...resourcesResponseSchema, $ref: "#/components/schemas/ResourcesResponse" },
+              },
             },
           },
-          "429": {
-            description: "The per-client request quota has been exhausted.",
+          ...readOnlyResponses({
+            retryPath: RESOURCES_PATH,
+            quotaMessage: "The public resources API rate limit has been exceeded.",
+          }),
+        },
+      },
+    },
+    [LEGACY_PROFILE_PATH]: {
+      get: {
+        operationId: "getPortfolioProfileLegacy",
+        summary: "Deprecated unversioned profile alias",
+        description:
+          "Permanent redirect kept for backward compatibility with early integrations. Responses carry RFC 8594 Deprecation and Sunset headers plus a successor-version Link to the stable v1 operation, and clients must follow Location to /api/v1/profile.",
+        tags: ["Portfolio"],
+        deprecated: true,
+        security: [],
+        responses: {
+          308: {
+            description: "Permanent redirect to the stable v1 profile endpoint.",
             headers: {
-              "RateLimit-Policy": rateLimitPolicyHeader,
-              RateLimit: {
-                description: "Current IETF service-limit field. On a 429 the available quota is zero.",
-                schema: { type: "string", example: `"profile";r=0;t=${PROFILE_RATE_LIMIT_WINDOW}` },
+              Location: {
+                description: "Successor endpoint that replaces this alias.",
+                schema: { type: "string", example: PROFILE_PATH },
               },
-              "Retry-After": {
-                description: "Seconds a client should wait before retrying.",
-                schema: { type: "integer", example: PROFILE_RATE_LIMIT_WINDOW },
+              Deprecation: {
+                description: "RFC 8594 deprecation timestamp in seconds since the Unix epoch.",
+                schema: { type: "string", example: "@1787356800" },
               },
-            },
-            content: {
-              "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } },
+              Sunset: {
+                description: "RFC 8594 date when this alias will stop responding.",
+                schema: { type: "string", example: "Tue, 01 Dec 2026 00:00:00 GMT" },
+              },
+              Link: {
+                description: "successor-version link pointing at the stable v1 profile endpoint.",
+                schema: { type: "string", example: '</api/v1/profile>; rel="successor-version"' },
+              },
             },
           },
         },
@@ -208,6 +392,7 @@ export const openApiDocument = {
   components: {
     schemas: {
       ProfileResponse: profileResponseSchema,
+      ResourcesResponse: resourcesResponseSchema,
       ErrorResponse: errorResponseSchema,
     },
   },

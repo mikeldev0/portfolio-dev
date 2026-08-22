@@ -14,7 +14,7 @@ import {
   aiCatalogForOrigin,
   apiCatalogForOrigin,
 } from "../src/lib/agent-discovery.mjs";
-import { OPENAPI_MEDIA_TYPE, PROFILE_PATH } from "../src/lib/public-api.mjs";
+import { OPENAPI_MEDIA_TYPE, PROFILE_PATH, RESOURCES_PATH } from "../src/lib/public-api.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -38,9 +38,18 @@ test("RFC 9727 API catalog bookmarks the live endpoint and its descriptions", ()
   assert.match(API_CATALOG_MEDIA_TYPE, /rfc9727/);
   assert.equal(catalog.linkset[0].anchor, `https://preview.example${API_CATALOG_PATH}`);
   assert.equal(catalog.linkset[0].item[0].href, `https://preview.example${PROFILE_PATH}`);
-  assert.equal(catalog.linkset[1].anchor, `https://preview.example${PROFILE_PATH}`);
-  assert.equal(catalog.linkset[1]["service-desc"][0].href, "https://preview.example/openapi.json");
-  assert.equal(catalog.linkset[1]["service-desc"][0].type, OPENAPI_MEDIA_TYPE);
+  assert.equal(catalog.linkset[0].item[1].href, `https://preview.example${RESOURCES_PATH}`);
+  assert.deepEqual(
+    catalog.linkset.map((entry) => entry.anchor).slice(1),
+    [
+      `https://preview.example${PROFILE_PATH}`,
+      `https://preview.example${RESOURCES_PATH}`,
+    ]
+  );
+  for (const endpoint of catalog.linkset.slice(1)) {
+    assert.equal(endpoint["service-desc"][0].href, "https://preview.example/openapi.json");
+    assert.equal(endpoint["service-desc"][0].type, OPENAPI_MEDIA_TYPE);
+  }
 });
 
 test("agent guidance exposes only real portfolio capabilities and source instructions", () => {
@@ -54,12 +63,12 @@ test("agent guidance exposes only real portfolio capabilities and source instruc
 });
 
 test("entry points link agents to standard discovery resources", async () => {
-  const [middleware, llms, developers, openApiRoute, profileRoute] = await Promise.all([
+  const [middleware, llms, developers, openApiRoute, endpointLib] = await Promise.all([
     readFile(path.join(root, "src/middleware.ts"), "utf8"),
     readFile(path.join(root, "public/llms.txt"), "utf8"),
     readFile(path.join(root, "src/pages/developers.astro"), "utf8"),
     readFile(path.join(root, "src/pages/openapi.json.ts"), "utf8"),
-    readFile(path.join(root, "src/pages/api/v1/profile.ts"), "utf8"),
+    readFile(path.join(root, "src/lib/api-endpoint.mjs"), "utf8"),
   ]);
 
   assert.match(middleware, /API_CATALOG_PATH/);
@@ -73,5 +82,5 @@ test("entry points link agents to standard discovery resources", async () => {
   assert.match(developers, /AGENTS\.md/);
   assert.match(openApiRoute, /OPENAPI_MEDIA_TYPE/);
   assert.match(openApiRoute, /API_CATALOG_PATH/);
-  assert.match(profileRoute, /API_CATALOG_PATH/);
+  assert.match(endpointLib, /API_CATALOG_PATH/);
 });

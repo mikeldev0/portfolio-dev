@@ -1,6 +1,7 @@
 const baseUrl = (process.env.BASE_URL || "https://www.mikeldev.com").replace(/\/$/, "");
 const crawlerUserAgents = ["ChatGPT-User", "ClaudeBot", "Google-Extended", "ora-agent", "DeepSeekBot"];
 const profilePath = "/api/v1/profile";
+const resourcesPath = "/api/v1/resources";
 const apiCatalogPath = "/.well-known/api-catalog";
 const aiCatalogPath = "/.well-known/ai-catalog.json";
 
@@ -62,8 +63,13 @@ check(openApiResponse.headers.get("content-type")?.includes("application/vnd.oai
 check(openApi.openapi === "3.1.0", "OpenAPI version");
 check(openApi.servers?.[0]?.url === new URL(baseUrl).origin, "OpenAPI resolves operations against current host");
 check(Boolean(openApi.paths?.[profilePath]?.get?.operationId), "OpenAPI versioned profile operationId");
-check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ProfileResponse", "OpenAPI operation references typed response schema");
-check(openApi.paths?.[profilePath]?.get?.responses?.["429"]?.content?.["application/json"]?.schema?.$ref === "#/components/schemas/ErrorResponse", "OpenAPI documents typed rate-limit error");
+check(openApi.paths?.[profilePath]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI operation declares typed response schema");
+check(openApi.paths?.[profilePath]?.get?.responses?.["429"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI documents typed rate-limit error");
+check(openApi.paths?.[profilePath]?.get?.responses?.default?.content?.["application/json"]?.schema?.type === "object", "OpenAPI documents typed default error response");
+check(openApi.paths?.["/api/profile"]?.get?.deprecated === true && Boolean(openApi.paths?.["/api/profile"]?.get?.responses?.["308"]), "OpenAPI documents legacy alias deprecation");
+check(openApi.paths?.["/api/v1/resources"]?.get?.operationId === "getPortfolioResourcesV1", "OpenAPI documents versioned resources operationId");
+check(openApi.paths?.["/api/v1/resources"]?.get?.responses?.["200"]?.content?.["application/json"]?.schema?.type === "object", "OpenAPI declares typed resources response schema");
+check(openApi.paths?.[profilePath]?.get?.["x-ai-function"]?.parameters?.type === "object", "OpenAPI operation exposes function-calling descriptor");
 
 const apiCatalogResponse = await request(apiCatalogPath, { headers: { Accept: "application/linkset+json" } });
 const apiCatalog = await apiCatalogResponse.json();
@@ -91,9 +97,18 @@ const profile = await profileResponse.json();
 check(profileResponse.status === 200, "public profile API status", `HTTP ${profileResponse.status}`);
 check(profileResponse.headers.get("content-type")?.includes("application/json"), "public profile API content type");
 check(Boolean(profileResponse.headers.get("ratelimit-policy")), "public profile API advertises RateLimit-Policy");
+check(/^"profile";r=\d+;t=60$/.test(profileResponse.headers.get("ratelimit") || ""), "public profile API advertises RFC RateLimit header");
 check(profileResponse.headers.get("x-ratelimit-limit") === "120", "public profile API advertises compatibility quota");
 check((profileResponse.headers.get("link") || "").includes("api-catalog"), "public profile API advertises API catalog");
 check(profile?.ok === true && profile?.data?.name === "Mikel Echeverria", "public profile API payload");
+
+const resourcesResponse = await request("/api/v1/resources", { headers: { Accept: "application/json" } });
+const resources = await resourcesResponse.json();
+check(resourcesResponse.status === 200, "public resources API status", `HTTP ${resourcesResponse.status}`);
+check(resourcesResponse.headers.get("content-type")?.includes("application/json"), "public resources API content type");
+check(/^"profile";r=\d+;t=60$/.test(resourcesResponse.headers.get("ratelimit") || ""), "public resources API advertises RFC RateLimit header");
+check((resourcesResponse.headers.get("link") || "").includes("api-catalog"), "public resources API advertises API catalog");
+check(resources?.ok === true && resources?.data?.resources?.github === "https://github.com/mikeldev0", "public resources API payload");
 
 const legacyResponse = await fetch(`${baseUrl}/api/profile`, { redirect: "manual" });
 check(legacyResponse.status === 308, "legacy API route redirects permanently", `HTTP ${legacyResponse.status}`);
@@ -106,7 +121,7 @@ check(missingApiResponse.status === 404, "missing API route returns 404", `HTTP 
 check(missingApiResponse.headers.get("content-type")?.includes("application/json"), "missing API route content type");
 check(missingApi?.ok === false && missingApi?.error?.code === "not_found" && Boolean(missingApi?.error?.hint), "missing API route structured error");
 
-for (const path of ["/llms.txt", "/robots.txt", "/sitemap.xml", "/about", "/contact", "/privacy", "/developers", "/agents.md", "/index.md", "/about.md", "/contact.md", "/privacy.md", "/developers.md", "/openapi.json", apiCatalogPath, aiCatalogPath, profilePath]) {
+for (const path of ["/llms.txt", "/robots.txt", "/sitemap.xml", "/about", "/contact", "/privacy", "/developers", "/agents.md", "/index.md", "/about.md", "/contact.md", "/privacy.md", "/developers.md", "/openapi.json", apiCatalogPath, aiCatalogPath, profilePath, resourcesPath]) {
   const response = await request(path);
   check(response.status === 200, `public endpoint ${path}`, `HTTP ${response.status}`);
 }
